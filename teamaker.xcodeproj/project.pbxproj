@@ -14,6 +14,10 @@
 		050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3751B799D0F00A35EFD /* Images.xcassets */; };
 		050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3771B799D0F00A35EFD /* LaunchScreen.xib */; };
 		050BC3851B799D0F00A35EFD /* teamakerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3841B799D0F00A35EFD /* teamakerTests.m */; };
+		050BC3901B79A4C000A35EFD /* PunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC38F1B79A4C000A35EFD /* PunchViewController.m */; };
+		050BC3921B79ACFA00A35EFD /* PunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3911B79ACFA00A35EFD /* PunchViewController.xib */; };
+		050BC3961B79AD8B00A35EFD /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3941B79AD8B00A35EFD /* CaptureViewController.m */; };
+		050BC3991B79C9E300A35EFD /* CaptureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3981B79C9E300A35EFD /* CaptureViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +44,12 @@
 		050BC37E1B799D0F00A35EFD /* teamakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = teamakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		050BC3831B799D0F00A35EFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		050BC3841B799D0F00A35EFD /* teamakerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = teamakerTests.m; sourceTree = "<group>"; };
+		050BC38E1B79A4C000A35EFD /* PunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchViewController.h; sourceTree = "<group>"; };
+		050BC38F1B79A4C000A35EFD /* PunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchViewController.m; sourceTree = "<group>"; };
+		050BC3911B79ACFA00A35EFD /* PunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PunchViewController.xib; sourceTree = "<group>"; };
+		050BC3931B79AD8B00A35EFD /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureViewController.h; sourceTree = "<group>"; };
+		050BC3941B79AD8B00A35EFD /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
+		050BC3981B79C9E300A35EFD /* CaptureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CaptureViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,11 +91,15 @@
 		050BC3671B799D0E00A35EFD /* teamaker */ = {
 			isa = PBXGroup;
 			children = (
-				050BC36C1B799D0E00A35EFD /* AppDelegate.h */,
-				050BC36D1B799D0E00A35EFD /* AppDelegate.m */,
 				050BC36F1B799D0E00A35EFD /* ViewController.h */,
 				050BC3701B799D0E00A35EFD /* ViewController.m */,
+				050BC3931B79AD8B00A35EFD /* CaptureViewController.h */,
+				050BC3941B79AD8B00A35EFD /* CaptureViewController.m */,
+				050BC3981B79C9E300A35EFD /* CaptureViewController.xib */,
 				050BC3721B799D0F00A35EFD /* Main.storyboard */,
+				050BC38E1B79A4C000A35EFD /* PunchViewController.h */,
+				050BC38F1B79A4C000A35EFD /* PunchViewController.m */,
+				050BC3911B79ACFA00A35EFD /* PunchViewController.xib */,
 				050BC3751B799D0F00A35EFD /* Images.xcassets */,
 				050BC3771B799D0F00A35EFD /* LaunchScreen.xib */,
 				050BC3681B799D0E00A35EFD /* Supporting Files */,
@@ -96,6 +110,8 @@
 		050BC3681B799D0E00A35EFD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				050BC36C1B799D0E00A35EFD /* AppDelegate.h */,
+				050BC36D1B799D0E00A35EFD /* AppDelegate.m */,
 				050BC3691B799D0E00A35EFD /* Info.plist */,
 				050BC36A1B799D0E00A35EFD /* main.m */,
 			);
@@ -199,7 +215,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050BC3991B79C9E300A35EFD /* CaptureViewController.xib in Resources */,
 				050BC3741B799D0F00A35EFD /* Main.storyboard in Resources */,
+				050BC3921B79ACFA00A35EFD /* PunchViewController.xib in Resources */,
 				050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */,
 				050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */,
 			);
@@ -220,7 +238,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				050BC3711B799D0E00A35EFD /* ViewController.m in Sources */,
+				050BC3901B79A4C000A35EFD /* PunchViewController.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
+				050BC3961B79AD8B00A35EFD /* CaptureViewController.m in Sources */,
 				050BC36B1B799D0E00A35EFD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = teamaker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -358,6 +379,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = teamaker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

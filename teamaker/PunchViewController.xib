@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PunchViewController">
+            <connections>
+                <outlet property="tableView" destination="abA-ae-CcD" id="btU-Hd-uPc"/>
+                <outlet property="view" destination="Bvw-Pw-R13" id="gvx-7A-gty"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Bvw-Pw-R13">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="abA-ae-CcD">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-El-hhF">
+                    <rect key="frame" x="145" y="498" width="30" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                    <state key="normal" title="+">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="Dfb-El-hhF" secondAttribute="centerX" id="AF3-Ah-xti"/>
+                <constraint firstAttribute="bottom" secondItem="Dfb-El-hhF" secondAttribute="bottom" constant="40" id="QQp-X4-xd1"/>
+                <constraint firstItem="abA-ae-CcD" firstAttribute="top" secondItem="Bvw-Pw-R13" secondAttribute="top" id="V8v-Ap-PfB"/>
+                <constraint firstAttribute="trailing" secondItem="abA-ae-CcD" secondAttribute="trailing" id="jVa-8g-Fh4"/>
+                <constraint firstItem="abA-ae-CcD" firstAttribute="leading" secondItem="Bvw-Pw-R13" secondAttribute="leading" id="qGy-KI-XTM"/>
+                <constraint firstAttribute="bottom" secondItem="abA-ae-CcD" secondAttribute="bottom" id="tKJ-jY-P3K"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="461" y="221"/>
+        </view>
+    </objects>
+</document>

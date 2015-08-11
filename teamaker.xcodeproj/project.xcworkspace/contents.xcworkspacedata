@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../CaptureViewController.xib">
+   </FileRef>
+   <FileRef
       location = "self:teamaker.xcodeproj">
    </FileRef>
 </Workspace>
