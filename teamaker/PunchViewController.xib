@@ -29,6 +29,7 @@
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="Dfb-El-hhF" secondAttribute="centerX" id="AF3-Ah-xti"/>
                 <constraint firstAttribute="bottom" secondItem="Dfb-El-hhF" secondAttribute="bottom" constant="40" id="QQp-X4-xd1"/>

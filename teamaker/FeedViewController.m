@@ -1,38 +1,30 @@
 //
-//  PunchViewController.m
+//  FeedViewController.m
 //  teamaker
 //
 //  Created by hustlzp on 15/8/11.
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 
-#import "PunchViewController.h"
+#import "FeedViewController.h"
 
-@interface PunchViewController () <UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface FeedViewController ()
 
 @end
 
-@implementation PunchViewController
+@implementation FeedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundView = nil;
-    self.tableView.backgroundColor = [UIColor purpleColor];
-    self.tableView.delegate = self;
-//    self.tableView.scrollEnabled = NO;
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if(scrollView.contentOffset.y < -50) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
-    }
+- (IBAction)pageDown:(UIButton *)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PageDown" object:self];
 }
 
 /*

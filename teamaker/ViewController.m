@@ -7,12 +7,13 @@
 //
 
 #import "ViewController.h"
-#import "PunchViewController.h"
-#import "CaptureViewController.h"
+#import "FeedViewController.h"
+#import "ComposeViewController.h"
 
-@interface ViewController ()
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@interface ViewController () <UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
+@property (nonatomic) NSUInteger currentPage;
 @end
 
 #define PAGE_COUNT 2
@@ -29,6 +30,34 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.scrollsToTop = NO;
+    self.scrollView.delegate = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDown:) name:@"PageDown" object:nil];
+}
+
+-(void)pageUp:(NSNotification *)notification
+{
+    if(self.scrollView.contentOffset.y != 0){
+        CGRect bounds = self.scrollView.bounds;
+        bounds.origin.x = 0;
+        bounds.origin.y = 0;
+        [self.scrollView scrollRectToVisible:bounds animated:YES];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
+    }
+}
+
+-(void)pageDown:(NSNotification *)notification
+{
+    CGRect bounds = self.scrollView.bounds;
+    bounds.origin.x = 0;
+    bounds.origin.y = bounds.size.height;
+    [self.scrollView scrollRectToVisible:bounds animated:YES];
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
 }
 
 - (NSMutableArray *)viewControllers
@@ -45,12 +74,12 @@
     
     CGRect frame = [[UIScreen mainScreen] bounds];
     
-    self.scrollView.contentSize = CGSizeMake(frame.size.width * PAGE_COUNT, frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height * PAGE_COUNT);
     
     for(int i = 0; i < self.viewControllers.count; i++) {
         UIViewController *controller = self.viewControllers[i];
-        frame.origin.x = CGRectGetWidth(frame) * i;
-        frame.origin.y = 0;
+        frame.origin.x = 0;
+        frame.origin.y = CGRectGetHeight(frame) * i;
         controller.view.frame = frame;
     }
 }
@@ -66,10 +95,10 @@
     
     switch (page) {
         case 0:
-            controller = [[PunchViewController alloc] init];
+            controller = [[FeedViewController alloc] init];
             break;
         case 1:
-            controller = [[CaptureViewController alloc] init];
+            controller = [[ComposeViewController alloc] init];
             break;
     }
     
@@ -77,6 +106,11 @@
     [self.viewControllers insertObject:controller atIndex:page];
     [self.scrollView addSubview:controller.view];
     [controller didMoveToParentViewController:self];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"haha");
 }
 
 @end
