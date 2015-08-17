@@ -49,19 +49,21 @@
     return _viewControllers;
 }
 
+#define STATUS_BAR_HEIGHT 20
+
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
     
     CGRect frame = [[UIScreen mainScreen] bounds];
+    NSInteger width = frame.size.width;
+    NSInteger height = frame.size.height - STATUS_BAR_HEIGHT;
     
-    self.scrollView.contentSize = CGSizeMake(frame.size.width * PAGE_COUNT, frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(width * PAGE_COUNT, height);
     
     for(int i = 0; i < self.viewControllers.count; i++) {
         UIViewController *controller = self.viewControllers[i];
-        frame.origin.x = CGRectGetWidth(frame) * i;
-        frame.origin.y = 0;
-        controller.view.frame = frame;
+        controller.view.frame = CGRectMake(width * i, 0, width, height);
     }
 }
 
