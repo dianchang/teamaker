@@ -8,7 +8,7 @@
 
 #import "PunchViewController.h"
 
-@interface PunchViewController () <UITableViewDelegate>
+@interface PunchViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -17,10 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundView = nil;
-    self.tableView.backgroundColor = [UIColor purpleColor];
     self.tableView.delegate = self;
-//    self.tableView.scrollEnabled = NO;
+    self.tableView.dataSource = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,11 +26,41 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView.contentOffset.y < -50) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
     }
+}
+
+#define MAINLABEL_TAG 1
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"PunchCell";
+    
+    UILabel *mainLabel;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        
+        mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 15)];
+        mainLabel.tag = MAINLABEL_TAG;
+        mainLabel.font = [UIFont systemFontOfSize:14.0];
+        mainLabel.textColor = [UIColor blackColor];
+        [cell.contentView addSubview:mainLabel];
+    } else {
+        mainLabel = (UILabel *)[cell.contentView viewWithTag:MAINLABEL_TAG];
+    }
+    
+    mainLabel.text = @"上班";
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
 }
 
 /*

@@ -72,7 +72,7 @@
 {
     [super viewDidLayoutSubviews];
     
-    CGRect frame = [[UIScreen mainScreen] bounds];
+    CGRect frame = self.scrollView.bounds;
     
     self.scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height * PAGE_COUNT);
     
@@ -110,7 +110,6 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"haha");
 }
 
 @end
