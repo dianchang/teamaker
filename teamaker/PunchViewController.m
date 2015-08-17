@@ -7,6 +7,8 @@
 //
 
 #import "PunchViewController.h"
+#import "Masonry.h"
+#import "UIColor+Helper.h"
 
 @interface PunchViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -41,26 +43,45 @@
     
     UILabel *mainLabel;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         
-        mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 15)];
+        mainLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         mainLabel.tag = MAINLABEL_TAG;
-        mainLabel.font = [UIFont systemFontOfSize:14.0];
+        mainLabel.font = [UIFont systemFontOfSize:20.0];
         mainLabel.textColor = [UIColor blackColor];
         [cell.contentView addSubview:mainLabel];
     } else {
         mainLabel = (UILabel *)[cell.contentView viewWithTag:MAINLABEL_TAG];
     }
     
-    mainLabel.text = @"上班";
+    if (indexPath.row % 2 == 0) {
+        cell.backgroundColor = [UIColor colorWithRGBA:0xDDDDDDFF];
+    } else {
+        cell.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+    }
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [mainLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(cell.contentView);
+        make.centerY.equalTo(cell.contentView);
+    }];
+
+    mainLabel.text = @"上班";
+
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0;
 }
 
 /*

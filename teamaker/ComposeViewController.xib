@@ -21,13 +21,13 @@
                     <rect key="frame" x="-1" y="0.0" width="321" height="568"/>
                 </scrollView>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Rpu-kb-DVo">
-                    <rect key="frame" x="140" y="0.0" width="39" height="37"/>
+                    <rect key="frame" x="140" y="-5" width="39" height="37"/>
                 </pageControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="TJ9-yy-1Bj" secondAttribute="trailing" id="0P2-Me-LZ5"/>
-                <constraint firstItem="Rpu-kb-DVo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3P1-ya-FMi"/>
+                <constraint firstItem="Rpu-kb-DVo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-5" id="3P1-ya-FMi"/>
                 <constraint firstItem="TJ9-yy-1Bj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7J9-gw-zDd"/>
                 <constraint firstAttribute="bottom" secondItem="TJ9-yy-1Bj" secondAttribute="bottom" id="DSf-Gn-Whm"/>
                 <constraint firstAttribute="centerX" secondItem="Rpu-kb-DVo" secondAttribute="centerX" id="S69-i1-I7F"/>

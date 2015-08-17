@@ -22,6 +22,7 @@
 		050BC3A31B79F6B300A35EFD /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3A11B79F6B300A35EFD /* FeedViewController.xib */; };
 		050BC3A71B79F71F00A35EFD /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3A51B79F71F00A35EFD /* ComposeViewController.m */; };
 		050BC3A81B79F71F00A35EFD /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */; };
+		053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2541B819E1600BBAF12 /* UIColor+Helper.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,8 @@
 		050BC3A41B79F71F00A35EFD /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		050BC3A51B79F71F00A35EFD /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
+		053EA2531B819E1600BBAF12 /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
+		053EA2541B819E1600BBAF12 /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.debug.xcconfig"; sourceTree = "<group>"; };
 		6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.release.xcconfig"; sourceTree = "<group>"; };
 		D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-teamaker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,21 +111,9 @@
 		050BC3671B799D0E00A35EFD /* teamaker */ = {
 			isa = PBXGroup;
 			children = (
-				050BC36F1B799D0E00A35EFD /* ViewController.h */,
-				050BC3701B799D0E00A35EFD /* ViewController.m */,
-				050BC39F1B79F6B300A35EFD /* FeedViewController.h */,
-				050BC3A01B79F6B300A35EFD /* FeedViewController.m */,
-				050BC3A11B79F6B300A35EFD /* FeedViewController.xib */,
-				050BC3A41B79F71F00A35EFD /* ComposeViewController.h */,
-				050BC3A51B79F71F00A35EFD /* ComposeViewController.m */,
-				050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */,
-				050BC3931B79AD8B00A35EFD /* CaptureViewController.h */,
-				050BC3941B79AD8B00A35EFD /* CaptureViewController.m */,
-				050BC3981B79C9E300A35EFD /* CaptureViewController.xib */,
-				050BC3721B799D0F00A35EFD /* Main.storyboard */,
-				050BC38E1B79A4C000A35EFD /* PunchViewController.h */,
-				050BC38F1B79A4C000A35EFD /* PunchViewController.m */,
-				050BC3911B79ACFA00A35EFD /* PunchViewController.xib */,
+				053EA2561B81AB6A00BBAF12 /* Controllers */,
+				053EA2531B819E1600BBAF12 /* UIColor+Helper.h */,
+				053EA2541B819E1600BBAF12 /* UIColor+Helper.m */,
 				050BC3751B799D0F00A35EFD /* Images.xcassets */,
 				050BC3771B799D0F00A35EFD /* LaunchScreen.xib */,
 				050BC3681B799D0E00A35EFD /* Supporting Files */,
@@ -156,6 +147,28 @@
 				050BC3831B799D0F00A35EFD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		053EA2561B81AB6A00BBAF12 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				050BC36F1B799D0E00A35EFD /* ViewController.h */,
+				050BC3701B799D0E00A35EFD /* ViewController.m */,
+				050BC39F1B79F6B300A35EFD /* FeedViewController.h */,
+				050BC3A01B79F6B300A35EFD /* FeedViewController.m */,
+				050BC3A11B79F6B300A35EFD /* FeedViewController.xib */,
+				050BC3A41B79F71F00A35EFD /* ComposeViewController.h */,
+				050BC3A51B79F71F00A35EFD /* ComposeViewController.m */,
+				050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */,
+				050BC3931B79AD8B00A35EFD /* CaptureViewController.h */,
+				050BC3941B79AD8B00A35EFD /* CaptureViewController.m */,
+				050BC3981B79C9E300A35EFD /* CaptureViewController.xib */,
+				050BC3721B799D0F00A35EFD /* Main.storyboard */,
+				050BC38E1B79A4C000A35EFD /* PunchViewController.h */,
+				050BC38F1B79A4C000A35EFD /* PunchViewController.m */,
+				050BC3911B79ACFA00A35EFD /* PunchViewController.xib */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		0916D379E1D2DF4E7F5A8CE4 /* Frameworks */ = {
@@ -317,6 +330,7 @@
 				050BC3711B799D0E00A35EFD /* ViewController.m in Sources */,
 				050BC3901B79A4C000A35EFD /* PunchViewController.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
+				053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */,
 				050BC3961B79AD8B00A35EFD /* CaptureViewController.m in Sources */,
 				050BC3A71B79F71F00A35EFD /* ComposeViewController.m in Sources */,
 				050BC3A21B79F6B300A35EFD /* FeedViewController.m in Sources */,
