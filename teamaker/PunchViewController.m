@@ -10,10 +10,15 @@
 #import "Masonry.h"
 #import "UIColor+Helper.h"
 #import "TMPunch.h"
+#import "TMTeam.h"
 
-@interface PunchViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface PunchViewController () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *addPunch;
+@property (weak, nonatomic) UIView *backdropView;
+@property (weak, nonatomic) UIView *buttonsView;
 @property (strong, nonatomic) NSArray *punchs;
+@property (strong, nonatomic) NSArray *teams;
 @end
 
 @implementation PunchViewController
@@ -33,6 +38,14 @@
     return _punchs;
 }
 
+- (NSArray *)teams
+{
+    if (!_teams) {
+        _teams = [TMTeam getAll];
+    }
+    return _teams;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -45,8 +58,11 @@
     }
 }
 
+#pragma mark - table view delegate & data source
+
 #define MAINLABEL_TAG 1
 
+// 单元格
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"PunchCell";
@@ -85,24 +101,81 @@
     return cell;
 }
 
+// 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.punchs count];
 }
 
+// 高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60.0;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+// 点击触发事件
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backdropView = backdropView;
+    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+    
+    // 按钮组
+    UIView *buttonsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, 60 * (self.teams.count + 1) + 1 * self.teams.count)];
+    buttonsView.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+    self.buttonsView = buttonsView;
+    [self.backdropView addSubview:buttonsView];
+    
+    // 取消按钮
+    UIButton *cancelButton = [[UIButton alloc] init];
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    cancelButton.backgroundColor = [UIColor whiteColor];
+    [cancelButton setTitleColor:[UIColor colorWithRGBA:0x999999FF] forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(hideTeams:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonsView addSubview:cancelButton];
+    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(buttonsView);
+        make.bottom.equalTo(buttonsView.mas_bottom).with.offset(0.0);
+        make.height.equalTo(@60);
+    }];
+    
+    // 团队选择按钮
+    for (int i = 0; i < self.teams.count; i++) {
+        TMTeam *team = self.teams[i];
+        UIButton *teamButton = [[UIButton alloc] init];
+        [teamButton setTitle:team.name forState:UIControlStateNormal];
+        teamButton.backgroundColor = [UIColor whiteColor];
+        [teamButton setTitleColor:[UIColor colorWithRGBA:0x000000FF] forState:UIControlStateNormal];
+        [teamButton addTarget:self action:@selector(hideTeams:) forControlEvents:UIControlEventTouchUpInside];
+        [buttonsView addSubview:teamButton];
+        [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(buttonsView);
+            make.bottom.equalTo(buttonsView.mas_bottom).with.offset(-(60.0 + 1) * (i + 1));
+            make.height.equalTo(@60);
+        }];
+    }
+    
+    [self.view insertSubview:backdropView aboveSubview:self.addPunch];
+    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    CGRect newFrame = buttonsView.frame;
+    newFrame.origin.y = newFrame.origin.y - newFrame.size.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        buttonsView.frame = newFrame;
+        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+    }];
 }
-*/
+
+- (void)hideTeams:(UIButton *)sender
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.buttonsView.frame = CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, 60 * (self.teams.count + 1) + 1 * self.teams.count);
+        self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+    } completion:^(BOOL finished) {
+        [self.backdropView removeFromSuperview];
+    }];
+}
 
 @end

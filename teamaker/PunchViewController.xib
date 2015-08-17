@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PunchViewController">
             <connections>
+                <outlet property="addPunch" destination="Dfb-El-hhF" id="La4-TN-8I4"/>
                 <outlet property="tableView" destination="abA-ae-CcD" id="btU-Hd-uPc"/>
                 <outlet property="view" destination="Bvw-Pw-R13" id="gvx-7A-gty"/>
             </connections>
@@ -20,8 +21,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-El-hhF">
-                    <rect key="frame" x="145" y="498" width="30" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-El-hhF">
+                    <rect key="frame" x="145" y="468" width="30" height="60"/>
                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                     <state key="normal" title="+">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
