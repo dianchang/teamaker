@@ -9,10 +9,11 @@
 #import "PunchViewController.h"
 #import "Masonry.h"
 #import "UIColor+Helper.h"
+#import "TMPunch.h"
 
 @interface PunchViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong, nonatomic) NSArray *punchs;
 @end
 
 @implementation PunchViewController
@@ -21,6 +22,15 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+}
+
+- (NSArray *)punchs
+{
+    if (!_punchs) {
+        _punchs = [TMPunch getAll];
+    }
+    
+    return _punchs;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,14 +79,15 @@
         make.centerY.equalTo(cell.contentView);
     }];
 
-    mainLabel.text = @"上班";
+    TMPunch *punch = [self.punchs objectAtIndex:indexPath.row];
+    mainLabel.text = punch.content;
 
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return [self.punchs count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
