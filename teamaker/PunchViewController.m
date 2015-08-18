@@ -61,6 +61,7 @@
 #pragma mark - table view delegate & data source
 
 #define MAINLABEL_TAG 1
+static float const buttonHeight = 60.0;
 
 // 单元格
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,7 +122,7 @@
     backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     
     // 按钮组
-    UIView *buttonsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, 60 * (self.teams.count + 1) + 1 * self.teams.count)];
+    UIView *buttonsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count)];
     buttonsView.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
     self.buttonsView = buttonsView;
     [self.backdropView addSubview:buttonsView];
@@ -136,7 +137,7 @@
     [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(buttonsView);
         make.bottom.equalTo(buttonsView.mas_bottom).with.offset(0.0);
-        make.height.equalTo(@60);
+        make.height.equalTo([NSNumber numberWithInt:buttonHeight]);
     }];
     
     // 团队选择按钮
@@ -150,8 +151,8 @@
         [buttonsView addSubview:teamButton];
         [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.and.right.equalTo(buttonsView);
-            make.bottom.equalTo(buttonsView.mas_bottom).with.offset(-(60.0 + 1) * (i + 1));
-            make.height.equalTo(@60);
+            make.bottom.equalTo(buttonsView.mas_bottom).with.offset(-(buttonHeight + 1) * (i + 1));
+            make.height.equalTo([NSNumber numberWithInt:buttonHeight]);
         }];
     }
     
@@ -168,10 +169,11 @@
     }];
 }
 
+// 隐藏团队按钮
 - (void)hideTeams:(UIButton *)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.buttonsView.frame = CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, 60 * (self.teams.count + 1) + 1 * self.teams.count);
+        self.buttonsView.frame = CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count);
         self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
         [self.backdropView removeFromSuperview];
