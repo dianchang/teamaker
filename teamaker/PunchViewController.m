@@ -132,7 +132,7 @@ static float const buttonHeight = 60.0;
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     cancelButton.backgroundColor = [UIColor whiteColor];
     [cancelButton setTitleColor:[UIColor colorWithRGBA:0x999999FF] forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(hideTeams:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     [buttonsView addSubview:cancelButton];
     [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(buttonsView);
@@ -147,7 +147,7 @@ static float const buttonHeight = 60.0;
         [teamButton setTitle:team.name forState:UIControlStateNormal];
         teamButton.backgroundColor = [UIColor whiteColor];
         [teamButton setTitleColor:[UIColor colorWithRGBA:0x000000FF] forState:UIControlStateNormal];
-        [teamButton addTarget:self action:@selector(hideTeams:) forControlEvents:UIControlEventTouchUpInside];
+        [teamButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
         [buttonsView addSubview:teamButton];
         [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.and.right.equalTo(buttonsView);
@@ -169,8 +169,18 @@ static float const buttonHeight = 60.0;
     }];
 }
 
+- (void)cancel:(UIButton *)sender
+{
+    [self hideButtons];
+}
+
+- (void)resetLayout
+{
+    [self hideButtons];
+}
+
 // 隐藏团队按钮
-- (void)hideTeams:(UIButton *)sender
+- (void)hideButtons
 {
     [UIView animateWithDuration:0.3 animations:^{
         self.buttonsView.frame = CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count);

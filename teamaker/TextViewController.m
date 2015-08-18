@@ -10,7 +10,7 @@
 #import "Masonry.h"
 
 @interface TextViewController ()
-
+@property  (nonatomic, weak) UITextView *textView;
 @end
 
 @implementation TextViewController
@@ -25,6 +25,7 @@
         // 文字编辑
         UITextView *textView = [[UITextView alloc] init];
         [self.view addSubview:textView];
+        self.textView = textView;
         [textView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.and.bottom.equalTo(self.view);
             make.top.equalTo(self.view).with.offset(20);
@@ -37,6 +38,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+// 重置页面
+- (void)resetLayout
+{
+    [self.textView resignFirstResponder];
+}
+
+// 打开键盘
+- (void)openKeyboard
+{
+    [self.textView becomeFirstResponder];
 }
 
 @end
