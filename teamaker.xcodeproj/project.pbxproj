@@ -26,6 +26,8 @@
 		053EA25C1B81AD8700BBAF12 /* TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA25B1B81AD8700BBAF12 /* TMPunch.m */; };
 		053EA25F1B81B09000BBAF12 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA25E1B81B09000BBAF12 /* TMTeam.m */; };
 		053EA2621B81B45800BBAF12 /* TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2611B81B45800BBAF12 /* TMFeed.m */; };
+		05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F40E1B82CFE80074C996 /* TextViewController.m */; };
+		05F4F4121B82D00E0074C996 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F4111B82D00E0074C996 /* LocationViewController.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +75,10 @@
 		053EA25E1B81B09000BBAF12 /* TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeam.m; path = models/TMTeam.m; sourceTree = "<group>"; };
 		053EA2601B81B45800BBAF12 /* TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMFeed.h; path = models/TMFeed.h; sourceTree = "<group>"; };
 		053EA2611B81B45800BBAF12 /* TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMFeed.m; path = models/TMFeed.m; sourceTree = "<group>"; };
+		05F4F40D1B82CFE80074C996 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		05F4F40E1B82CFE80074C996 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		05F4F4101B82D00E0074C996 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		05F4F4111B82D00E0074C996 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.debug.xcconfig"; sourceTree = "<group>"; };
 		6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.release.xcconfig"; sourceTree = "<group>"; };
 		D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-teamaker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +170,8 @@
 			children = (
 				050BC36F1B799D0E00A35EFD /* ViewController.h */,
 				050BC3701B799D0E00A35EFD /* ViewController.m */,
+				05F4F4101B82D00E0074C996 /* LocationViewController.h */,
+				05F4F4111B82D00E0074C996 /* LocationViewController.m */,
 				050BC39F1B79F6B300A35EFD /* FeedViewController.h */,
 				050BC3A01B79F6B300A35EFD /* FeedViewController.m */,
 				050BC3A11B79F6B300A35EFD /* FeedViewController.xib */,
@@ -177,6 +185,8 @@
 				050BC38E1B79A4C000A35EFD /* PunchViewController.h */,
 				050BC38F1B79A4C000A35EFD /* PunchViewController.m */,
 				050BC3911B79ACFA00A35EFD /* PunchViewController.xib */,
+				05F4F40D1B82CFE80074C996 /* TextViewController.h */,
+				05F4F40E1B82CFE80074C996 /* TextViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -353,9 +363,11 @@
 				050BC3711B799D0E00A35EFD /* ViewController.m in Sources */,
 				050BC3901B79A4C000A35EFD /* PunchViewController.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
+				05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */,
 				053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */,
 				053EA25C1B81AD8700BBAF12 /* TMPunch.m in Sources */,
 				053EA25F1B81B09000BBAF12 /* TMTeam.m in Sources */,
+				05F4F4121B82D00E0074C996 /* LocationViewController.m in Sources */,
 				050BC3961B79AD8B00A35EFD /* CaptureViewController.m in Sources */,
 				050BC3A71B79F71F00A35EFD /* ComposeViewController.m in Sources */,
 				050BC3A21B79F6B300A35EFD /* FeedViewController.m in Sources */,

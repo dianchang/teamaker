@@ -1,0 +1,42 @@
+//
+//  LocationViewController.m
+//  teamaker
+//
+//  Created by hustlzp on 15/8/18.
+//  Copyright (c) 2015年 hustlzp. All rights reserved.
+//
+
+#import "LocationViewController.h"
+#import "Masonry.h"
+
+@interface LocationViewController ()
+
+@end
+
+@implementation LocationViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        self.view = [[UIView alloc] init];
+        self.view.backgroundColor = [UIColor greenColor];
+        UILabel *titleLabel = [[UILabel alloc] init];
+        titleLabel.text = @"Location";
+        [self.view addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view);
+            make.top.equalTo(self.view).with.offset(20);
+        }];
+    }
+    
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+@end

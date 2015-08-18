@@ -9,6 +9,8 @@
 #import "ComposeViewController.h"
 #import "PunchViewController.h"
 #import "CaptureViewController.h"
+#import "TextViewController.h"
+#import "LocationViewController.h"
 
 @interface ComposeViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -16,15 +18,16 @@
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 @end
 
-#define PAGE_COUNT 2
+#define PAGE_COUNT 4
 
 @implementation ComposeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadViewWithPage:0];
-    [self loadViewWithPage:1];
+    for (int i; i < PAGE_COUNT; i++) {
+        [self loadViewWithPage:i];
+    }
     
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -33,12 +36,8 @@
     self.scrollView.delegate = self;
     
     self.pageControl.numberOfPages = PAGE_COUNT;
-    self.pageControl.currentPage = 0;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.pageControl.currentPage = 2;
+    self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
 }
 
 - (NSMutableArray *)viewControllers
@@ -51,6 +50,13 @@
 
 #define STATUS_BAR_HEIGHT 20
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.bounds.size.width * 2, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height) animated:NO];
+}
+
+// 初始化各页大小
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
@@ -61,21 +67,28 @@
     
     self.scrollView.contentSize = CGSizeMake(width * PAGE_COUNT, height);
     
-    for(int i = 0; i < self.viewControllers.count; i++) {
+    for (int i = 0; i < self.viewControllers.count; i++) {
         UIViewController *controller = self.viewControllers[i];
         controller.view.frame = CGRectMake(width * i, 0, width, height);
     }
 }
 
+// 加载每一页的controller
 - (void)loadViewWithPage:(NSUInteger)page
 {
     UIViewController *controller;
     
     switch (page) {
         case 0:
-            controller = [[PunchViewController alloc] init];
+            controller = [[LocationViewController alloc] init];
             break;
         case 1:
+            controller = [[TextViewController alloc] init];
+            break;
+        case 2:
+            controller = [[PunchViewController alloc] init];
+            break;
+        case 3:
             controller = [[CaptureViewController alloc] init];
             break;
     }
@@ -86,6 +99,7 @@
     [controller didMoveToParentViewController:self];
 }
 
+// 翻页结束后，联动pageControl
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);

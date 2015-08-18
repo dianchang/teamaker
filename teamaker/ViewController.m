@@ -36,6 +36,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDown:) name:@"PageDown" object:nil];
 }
 
+// 向上翻页
 -(void)pageUp:(NSNotification *)notification
 {
     if(self.scrollView.contentOffset.y != 0){
@@ -47,6 +48,7 @@
     }
 }
 
+// 向下翻页
 -(void)pageDown:(NSNotification *)notification
 {
     CGRect bounds = self.scrollView.bounds;
@@ -70,6 +72,7 @@
 
 #define STATUS_BAR_HEIGHT 20
 
+// 对每一页的view进行布局
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
@@ -86,11 +89,7 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+// 加载每一页的Controller
 - (void)loadViewWithPage:(NSUInteger)page
 {
     UIViewController *controller;
