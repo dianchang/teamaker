@@ -22,7 +22,7 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] init];
-    
+
     UITableView *tableView = [[UITableView alloc] init];
     self.tableView = tableView;
     [self.view addSubview:tableView];

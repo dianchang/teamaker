@@ -106,8 +106,6 @@
     CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
     NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
 
-
-    
     self.pageControl.currentPage = page;
     self.hasSendedResetLayoutMessage = NO;
 }

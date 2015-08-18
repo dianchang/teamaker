@@ -31,6 +31,7 @@
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.scrollsToTop = NO;
     self.scrollView.delegate = self;
+    self.scrollView.scrollEnabled = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDown:) name:@"PageDown" object:nil];
@@ -46,6 +47,7 @@
         [self.scrollView scrollRectToVisible:bounds animated:YES];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
     }
+    self.scrollView.scrollEnabled = NO;
 }
 
 // 向下翻页
@@ -55,6 +57,7 @@
     bounds.origin.x = 0;
     bounds.origin.y = bounds.size.height;
     [self.scrollView scrollRectToVisible:bounds animated:YES];
+    self.scrollView.scrollEnabled = YES;
 }
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
@@ -107,10 +110,6 @@
     [self.viewControllers insertObject:controller atIndex:page];
     [self.scrollView addSubview:controller.view];
     [controller didMoveToParentViewController:self];
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
 }
 
 @end
