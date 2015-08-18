@@ -18,7 +18,6 @@
 		050BC3921B79ACFA00A35EFD /* PunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3911B79ACFA00A35EFD /* PunchViewController.xib */; };
 		050BC3961B79AD8B00A35EFD /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3941B79AD8B00A35EFD /* CaptureViewController.m */; };
 		050BC3A21B79F6B300A35EFD /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3A01B79F6B300A35EFD /* FeedViewController.m */; };
-		050BC3A31B79F6B300A35EFD /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3A11B79F6B300A35EFD /* FeedViewController.xib */; };
 		050BC3A71B79F71F00A35EFD /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3A51B79F71F00A35EFD /* ComposeViewController.m */; };
 		050BC3A81B79F71F00A35EFD /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */; };
 		053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2541B819E1600BBAF12 /* UIColor+Helper.m */; };
@@ -61,7 +60,6 @@
 		050BC3941B79AD8B00A35EFD /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
 		050BC39F1B79F6B300A35EFD /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		050BC3A01B79F6B300A35EFD /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
-		050BC3A11B79F6B300A35EFD /* FeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedViewController.xib; sourceTree = "<group>"; };
 		050BC3A41B79F71F00A35EFD /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		050BC3A51B79F71F00A35EFD /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 				05F4F4111B82D00E0074C996 /* LocationViewController.m */,
 				050BC39F1B79F6B300A35EFD /* FeedViewController.h */,
 				050BC3A01B79F6B300A35EFD /* FeedViewController.m */,
-				050BC3A11B79F6B300A35EFD /* FeedViewController.xib */,
 				050BC3A41B79F71F00A35EFD /* ComposeViewController.h */,
 				050BC3A51B79F71F00A35EFD /* ComposeViewController.m */,
 				050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */,
@@ -304,7 +301,6 @@
 				050BC3921B79ACFA00A35EFD /* PunchViewController.xib in Resources */,
 				050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */,
 				050BC3A81B79F71F00A35EFD /* ComposeViewController.xib in Resources */,
-				050BC3A31B79F6B300A35EFD /* FeedViewController.xib in Resources */,
 				050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

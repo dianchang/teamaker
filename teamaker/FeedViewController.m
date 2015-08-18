@@ -7,34 +7,47 @@
 //
 
 #import "FeedViewController.h"
+#import "Masonry.h"
 
 @interface FeedViewController ()
-
+@property (weak, nonatomic) UITableView *tableView;
 @end
 
 @implementation FeedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)loadView
+{
+    self.view = [[UIView alloc] init];
+    
+    UITableView *tableView = [[UITableView alloc] init];
+    self.tableView = tableView;
+    [self.view addSubview:tableView];
+
+    UIButton *pageDown = [[UIButton alloc] init];
+    [pageDown setTitle:@"⌵" forState:UIControlStateNormal];
+    [pageDown setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    pageDown.backgroundColor = [UIColor grayColor];
+    [pageDown addTarget:self action:@selector(pageDown:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:pageDown];
+    
+    // 约束
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.and.top.equalTo(self.view);
+        make.bottom.equalTo(pageDown.mas_top);
+    }];
+
+    [pageDown mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.and.bottom.equalTo(self.view);
+        make.height.equalTo(@50);
+    }];
 }
+
 - (IBAction)pageDown:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PageDown" object:self];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -155,7 +155,7 @@ static float const buttonHeight = 60.0;
             make.height.equalTo([NSNumber numberWithInt:buttonHeight]);
         }];
     }
-    
+
     [self.view insertSubview:backdropView aboveSubview:self.addPunch];
     [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);

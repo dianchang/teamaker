@@ -44,7 +44,7 @@ static int const sendButtonHeight = 50;
     
     [sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(sendButtonHeight);
+        make.bottom.equalTo(self.view).offset(0);
         make.height.equalTo([NSNumber numberWithInt:sendButtonHeight]);
     }];
 }
@@ -81,11 +81,14 @@ static int const sendButtonHeight = 50;
 {
     [self.view layoutIfNeeded];
     
+    NSDictionary *info = [notification userInfo];
+    NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
     [self.sendButton mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(sendButtonHeight);
+        make.bottom.equalTo(self.view).offset(0);
     }];
     
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
     }];
 }

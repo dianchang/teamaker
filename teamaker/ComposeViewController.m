@@ -105,27 +105,8 @@
 {
     CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
     NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    
-//    if (self.pageControl.currentPage != page) {
-//        id controller = self.viewControllers[self.pageControl.currentPage];
-//        if ([controller respondsToSelector:@selector(resetLayout)]) {
-//            [controller performSelector:@selector(resetLayout) withObject:nil];
-//        }
-//    }
-//    
-//    if (page == 1) {
-//        id controller = self.viewControllers[page];
-//        if ([controller respondsToSelector:@selector(openKeyboard)]) {
-//            [controller performSelector:@selector(openKeyboard) withObject:nil];
-//        }
-//    }
 
-    if (page == 1) {
-        id controller = self.viewControllers[page];
-        if ([controller respondsToSelector:@selector(openKeyboard)]) {
-            [controller performSelector:@selector(openKeyboard) withObject:nil];
-        }
-    }
+
     
     self.pageControl.currentPage = page;
     self.hasSendedResetLayoutMessage = NO;
@@ -141,6 +122,13 @@
         if ([controller respondsToSelector:@selector(resetLayout)]) {
             [controller performSelector:@selector(resetLayout) withObject:nil];
             self.hasSendedResetLayoutMessage = YES;
+        }
+    }
+    
+    if (page == 1) {
+        id controller = self.viewControllers[page];
+        if ([controller respondsToSelector:@selector(openKeyboard)]) {
+            [controller performSelector:@selector(openKeyboard) withObject:nil];
         }
     }
 }
