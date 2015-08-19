@@ -60,6 +60,17 @@
     self.scrollView.scrollEnabled = YES;
 }
 
+// 若翻页到第一页，则禁止滚动
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    CGFloat pageHeight = CGRectGetHeight(self.scrollView.frame);
+    NSUInteger page = floor((self.scrollView.contentOffset.y - pageHeight / 2) / pageHeight) + 1;
+    
+    if (page == 0) {
+        self.scrollView.scrollEnabled = NO;
+    }
+}
+
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];

@@ -10,8 +10,9 @@
 #import "Masonry.h"
 #import "TMTeam.h"
 #import "UIColor+Helper.h"
+#import "ComposeViewControllerProtocol.h"
 
-@interface CaptureViewController ()
+@interface CaptureViewController () <ComposeViewControllerProtocol>
 
 @property (nonatomic, weak) UIView *imageView;
 @property (nonatomic, weak) UIView *buttonsView;

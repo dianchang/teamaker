@@ -11,8 +11,9 @@
 #import "UIColor+Helper.h"
 #import "TMPunch.h"
 #import "TMTeam.h"
+#import "ComposeViewControllerProtocol.h"
 
-@interface PunchViewController () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
+@interface PunchViewController () <UITableViewDelegate, UITableViewDataSource, ComposeViewControllerProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *addPunch;
 @property (weak, nonatomic) UIView *backdropView;

@@ -63,6 +63,7 @@
 		050BC3A41B79F71F00A35EFD /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		050BC3A51B79F71F00A35EFD /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
+		053082471B8433CC008C6C16 /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
 		053EA2531B819E1600BBAF12 /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
 		053EA2541B819E1600BBAF12 /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		053EA25A1B81AD8700BBAF12 /* TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPunch.h; path = models/TMPunch.h; sourceTree = "<group>"; };
@@ -181,6 +182,7 @@
 				050BC3911B79ACFA00A35EFD /* PunchViewController.xib */,
 				05F4F40D1B82CFE80074C996 /* TextViewController.h */,
 				05F4F40E1B82CFE80074C996 /* TextViewController.m */,
+				053082471B8433CC008C6C16 /* ComposeViewControllerProtocol.h */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

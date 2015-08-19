@@ -8,8 +8,9 @@
 
 #import "TextViewController.h"
 #import "Masonry.h"
+#import "ComposeViewControllerProtocol.h"
 
-@interface TextViewController ()
+@interface TextViewController () <ComposeViewControllerProtocol>
 @property (nonatomic, weak) UITextView *textView;
 @property (nonatomic, weak) UIButton *sendButton;
 @end
@@ -99,8 +100,8 @@ static int const sendButtonHeight = 50;
     [self.textView resignFirstResponder];
 }
 
-// 打开键盘
-- (void)openKeyboard
+// 准备页面
+- (void)prepareLayout
 {
     [self.textView becomeFirstResponder];
 }
