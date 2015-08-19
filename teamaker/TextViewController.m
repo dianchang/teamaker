@@ -9,10 +9,12 @@
 #import "TextViewController.h"
 #import "Masonry.h"
 #import "ComposeViewControllerProtocol.h"
+#import "TeamButtons.h"
 
 @interface TextViewController () <ComposeViewControllerProtocol>
 @property (nonatomic, weak) UITextView *textView;
 @property (nonatomic, weak) UIButton *sendButton;
+@property (weak, nonatomic) TeamButtons *teamButtons;
 @end
 
 @implementation TextViewController
@@ -35,14 +37,15 @@ static int const sendButtonHeight = 50;
     [sendButton setTitle:@"发送" forState:UIControlStateNormal];
     sendButton.backgroundColor = [UIColor brownColor];
     sendButton.titleLabel.textColor = [UIColor whiteColor];
+    [sendButton addTarget:self action:@selector(publishText:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sendButton];
     
+    // 约束
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view).with.offset(10);
         make.bottom.equalTo(sendButton.mas_top);
         make.top.equalTo(self.view).with.offset(20);
     }];
-    
     [sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(0);
@@ -57,7 +60,7 @@ static int const sendButtonHeight = 50;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-// 键盘
+// 键盘显示
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     [self.view layoutIfNeeded];
@@ -78,6 +81,7 @@ static int const sendButtonHeight = 50;
     }];
 }
 
+// 键盘隐藏
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     [self.view layoutIfNeeded];
@@ -104,6 +108,52 @@ static int const sendButtonHeight = 50;
 - (void)prepareLayout
 {
     [self.textView becomeFirstResponder];
+}
+
+- (IBAction)publishText:(UIButton *)sender
+{
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
+    self.teamButtons = teamButtons;
+    [self.view addSubview:teamButtons];
+    
+    [self.view layoutIfNeeded];
+    
+    
+    [self.textView resignFirstResponder];
+    
+    CGRect frame = teamButtons.frame;
+    frame.origin.y = frame.origin.y - frame.size.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        teamButtons.frame = frame;
+    }];
+}
+
+// 取消发送
+- (IBAction)cancelAction:(UIButton *)sender
+{
+    [self hideTeamButtons];
+}
+
+// 发布文字到某团队
+-(IBAction)publishToTeam:(UIButton *)sender
+{
+    [self hideTeamButtons];
+    NSLog(@"%ld", (long)sender.tag);
+}
+
+// 隐藏按钮
+- (void)hideTeamButtons
+{
+    [self.textView becomeFirstResponder];
+    
+    CGRect frame = self.teamButtons.frame;
+    frame.origin.y = self.view.bounds.size.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.teamButtons.frame = frame;
+    } completion:^(BOOL finished) {
+        
+        [self.teamButtons removeFromSuperview];
+    }];
 }
 
 - (void)dealloc

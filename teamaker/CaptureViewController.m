@@ -11,11 +11,12 @@
 #import "TMTeam.h"
 #import "UIColor+Helper.h"
 #import "ComposeViewControllerProtocol.h"
+#import "TeamButtons.h"
 
 @interface CaptureViewController () <ComposeViewControllerProtocol>
 
 @property (nonatomic, weak) UIView *imageView;
-@property (nonatomic, weak) UIView *buttonsView;
+@property (nonatomic, weak) TeamButtons *teamButtons;
 @property (nonatomic, weak) UIButton *captureButton;
 
 @property (nonatomic, strong) NSArray *teams;
@@ -70,40 +71,9 @@ static int const buttonHeight = 60;
 {
     sender.hidden = YES;
     
-    // 按钮组
-    UIView *buttonsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, [self getButtonsHeight])];
-    buttonsView.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
-    self.buttonsView = buttonsView;
-    [self.view addSubview:buttonsView];
-    
-    // 取消按钮
-    UIButton *cancelButton = [[UIButton alloc] init];
-    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-    cancelButton.backgroundColor = [UIColor whiteColor];
-    [cancelButton setTitleColor:[UIColor colorWithRGBA:0x999999FF] forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonsView addSubview:cancelButton];
-    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(buttonsView);
-        make.bottom.equalTo(buttonsView.mas_bottom).with.offset(0.0);
-        make.height.equalTo([NSNumber numberWithInt:buttonHeight]);
-    }];
-    
-    // 团队选择按钮
-    for (int i = 0; i < self.teams.count; i++) {
-        TMTeam *team = self.teams[i];
-        UIButton *teamButton = [[UIButton alloc] init];
-        [teamButton setTitle:team.name forState:UIControlStateNormal];
-        teamButton.backgroundColor = [UIColor whiteColor];
-        [teamButton setTitleColor:[UIColor colorWithRGBA:0x000000FF] forState:UIControlStateNormal];
-        [teamButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-        [buttonsView addSubview:teamButton];
-        [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(buttonsView);
-            make.bottom.equalTo(buttonsView.mas_bottom).with.offset(-(buttonHeight + 1) * (i + 1));
-            make.height.equalTo([NSNumber numberWithInt:buttonHeight]);
-        }];
-    }
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishAction:)];
+    self.teamButtons = teamButtons;
+    [self.view addSubview:teamButtons];
     
     [self.view layoutIfNeeded];
     
@@ -116,16 +86,22 @@ static int const buttonHeight = 60;
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(verticalOffset, horizonalOffset, verticalOffset + [self getButtonsHeight], horizonalOffset));
     }];
     
-    CGRect newFrame = buttonsView.frame;
-    newFrame.origin.y = newFrame.origin.y - newFrame.size.height;
+    CGRect frame = self.teamButtons.frame;
+    frame.origin.y = frame.origin.y - frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
-        buttonsView.frame = newFrame;
+        self.teamButtons.frame = frame;
         [self.view layoutIfNeeded];
     }];
 }
 
-- (IBAction)cancel:(UIButton *)sender
+- (IBAction)cancelAction:(UIButton *)sender
 {
+    [self hideButtons];
+}
+
+- (IBAction)publishAction:(UIButton *)sender
+{
+    NSLog(@"%ld", (long)sender.tag);
     [self hideButtons];
 }
 
@@ -144,10 +120,10 @@ static int const buttonHeight = 60;
     }];
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.buttonsView.frame = CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, [self getButtonsHeight]);
+        self.teamButtons.frame = CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, [self getButtonsHeight]);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [self.buttonsView removeFromSuperview];
+        [self.teamButtons removeFromSuperview];
     }];
 }
 

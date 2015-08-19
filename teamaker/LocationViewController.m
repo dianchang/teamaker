@@ -12,11 +12,14 @@
 #import "Masonry.h"
 #import "UIColor+Helper.h"
 #import "ComposeViewControllerProtocol.h"
+#import "TeamButtons.h"
 
 @interface LocationViewController () <ComposeViewControllerProtocol, MKMapViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) MKMapView *map;
-@property (strong, nonatomic) CLLocationManager *locationManager;
+
 @property (weak, nonatomic) UILabel *locationLabel;
+@property (weak, nonatomic) TeamButtons *buttonsView;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 @end
 
 @implementation LocationViewController
@@ -54,6 +57,7 @@
     publishButton.backgroundColor = [UIColor colorWithRGBA:0x1E90FFFF];
     [publishButton setTitle:@"发布" forState:UIControlStateNormal];
     [self.view addSubview:publishButton];
+    [publishButton addTarget:self action:@selector(publishLocation:) forControlEvents:UIControlEventTouchUpInside];
     [publishButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.bottom.equalTo(self.view).with.offset(-20);
@@ -99,6 +103,36 @@
             }
         }
     }];
+}
+
+- (IBAction)publishLocation:(UIButton *)sender
+{
+    TeamButtons *buttonsView = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelPublish:) publishAction:@selector(publishToTeam:)];
+    self.buttonsView = buttonsView;
+    [self.view addSubview:buttonsView];
+    
+    CGRect frame = buttonsView.frame;
+    frame.origin.y = frame.origin.y - frame.size.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        buttonsView.frame = frame;
+    }];
+}
+
+- (IBAction)cancelPublish:(UIButton *)sender
+{
+    CGRect frame = self.buttonsView.frame;
+    frame.origin.y = self.view.bounds.size.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.buttonsView.frame = frame;
+    } completion:^(BOOL finished) {
+        [self.buttonsView removeFromSuperview];
+    }];
+}
+
+- (IBAction)publishToTeam:(UIButton *)sender
+{
+    NSInteger teamId = sender.tag;
+    NSLog(@"%ld", (long)teamId);
 }
 
 - (void)resetLayout
