@@ -115,6 +115,10 @@ static float const buttonHeight = 60.0;
     UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
     self.backdropView = backdropView;
     backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                             initWithTarget:self action:@selector(cancel:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    [backdropView addGestureRecognizer:tapRecognizer];
     
     // 按钮组
     UIView *buttonsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count)];
