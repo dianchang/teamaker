@@ -65,13 +65,12 @@
 static int const buttonHeight = 60;
 
 // 拍摄按钮
-- (void)capture:(UIButton *)sender
+- (IBAction)capture:(UIButton *)sender
 {
-    NSUInteger buttonsViewHeight = buttonHeight * (self.teams.count + 1) + 1 * self.teams.count;
     sender.hidden = YES;
     
     // 按钮组
-    UIView *buttonsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, buttonsViewHeight)];
+    UIView *buttonsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, [self getButtonsHeight])];
     buttonsView.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
     self.buttonsView = buttonsView;
     [self.view addSubview:buttonsView];
@@ -108,8 +107,12 @@ static int const buttonHeight = 60;
     [self.view layoutIfNeeded];
     
     // 照片缩小
+    CGFloat verticalOffset = 25.0;
+    CGFloat imageWidth = self.imageView.bounds.size.width;
+    CGFloat imageHeight = self.imageView.bounds.size.height;
+    CGFloat horizonalOffset = imageWidth / 2 - imageWidth * (imageHeight - [self getButtonsHeight] - 2 * verticalOffset) / 2 / imageHeight;
     [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(20, 80, 20 + buttonsViewHeight, 80));
+        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(verticalOffset, horizonalOffset, verticalOffset + [self getButtonsHeight], horizonalOffset));
     }];
     
     CGRect newFrame = buttonsView.frame;
@@ -120,7 +123,7 @@ static int const buttonHeight = 60;
     }];
 }
 
-- (void)cancel:(UIButton *)sender
+- (IBAction)cancel:(UIButton *)sender
 {
     [self hideButtons];
 }
@@ -140,11 +143,17 @@ static int const buttonHeight = 60;
     }];
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.buttonsView.frame = CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count);
+        self.buttonsView.frame = CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, [self getButtonsHeight]);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.buttonsView removeFromSuperview];
     }];
+}
+
+// 获取按钮组高度
+- (NSInteger)getButtonsHeight
+{
+    return buttonHeight * (self.teams.count + 1) + 1 * self.teams.count;
 }
 
 @end
