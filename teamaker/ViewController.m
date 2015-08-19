@@ -80,9 +80,9 @@
 {
     [super viewDidLayoutSubviews];
     
-    CGRect frame = [[UIScreen mainScreen] bounds];
+    CGRect frame = self.scrollView.bounds;
     NSInteger width = frame.size.width;
-    NSInteger height = frame.size.height - STATUS_BAR_HEIGHT;
+    NSInteger height = frame.size.height;
     
     self.scrollView.contentSize = CGSizeMake(width, height * self.viewControllers.count);
     

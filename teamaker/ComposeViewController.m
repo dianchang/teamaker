@@ -62,13 +62,13 @@
 {
     [super viewDidLayoutSubviews];
     
-    CGRect frame = [[UIScreen mainScreen] bounds];
+    CGRect frame = [self.scrollView bounds];
     NSInteger width = frame.size.width;
-    NSInteger height = frame.size.height - STATUS_BAR_HEIGHT;
+    NSInteger height = frame.size.height;
     
     self.scrollView.contentSize = CGSizeMake(width * PAGE_COUNT, height);
     
-    for (int i = 0; i < self.viewControllers.count; i++) {
+    for (int i = 0; i < PAGE_COUNT; i++) {
         UIViewController *controller = self.viewControllers[i];
         controller.view.frame = CGRectMake(width * i, 0, width, height);
     }
