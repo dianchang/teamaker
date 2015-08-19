@@ -64,6 +64,7 @@
 		050BC3A51B79F71F00A35EFD /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		053082471B8433CC008C6C16 /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
+		053082481B844D8A008C6C16 /* ScrollDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollDirection.h; sourceTree = "<group>"; };
 		053EA2531B819E1600BBAF12 /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
 		053EA2541B819E1600BBAF12 /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		053EA25A1B81AD8700BBAF12 /* TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPunch.h; path = models/TMPunch.h; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 				050BC3751B799D0F00A35EFD /* Images.xcassets */,
 				050BC3771B799D0F00A35EFD /* LaunchScreen.xib */,
 				050BC3681B799D0E00A35EFD /* Supporting Files */,
+				053082481B844D8A008C6C16 /* ScrollDirection.h */,
 			);
 			path = teamaker;
 			sourceTree = "<group>";

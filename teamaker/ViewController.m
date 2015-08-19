@@ -9,11 +9,14 @@
 #import "ViewController.h"
 #import "FeedViewController.h"
 #import "ComposeViewController.h"
+#import "ScrollDirection.h"
 
 @interface ViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 @property (nonatomic) NSUInteger currentPage;
+@property (nonatomic) BOOL hasSendedResetMessage;
+@property (nonatomic) CGFloat lastContentOffset;
 @end
 
 #define PAGE_COUNT 2
@@ -47,7 +50,7 @@
         [self.scrollView scrollRectToVisible:bounds animated:YES];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
     }
-    self.scrollView.scrollEnabled = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"resetSubviewsLayout" object:self];
 }
 
 // 向下翻页
@@ -57,23 +60,56 @@
     bounds.origin.x = 0;
     bounds.origin.y = bounds.size.height;
     [self.scrollView scrollRectToVisible:bounds animated:YES];
-    self.scrollView.scrollEnabled = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"prepareSubviewsLayout" object:self];
 }
 
-// 若翻页到第一页，则禁止滚动
+// 翻页中
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat pageHeight = CGRectGetHeight(self.scrollView.frame);
+    NSUInteger page = floor((self.scrollView.contentOffset.y - pageHeight / 2) / pageHeight) + 1;
+    
+    ScrollDirection scrollDirection;
+    if (self.lastContentOffset > scrollView.contentOffset.y)
+        scrollDirection = ScrollDirectionUp;
+    else if (self.lastContentOffset < scrollView.contentOffset.y)
+        scrollDirection = ScrollDirectionDown;
+    self.lastContentOffset = scrollView.contentOffset.y;
+    
+    // 往上滑动、并且滑动超过一半时，触发reset效果
+    if (scrollDirection == ScrollDirectionUp && page == 0 && !self.hasSendedResetMessage) {
+        self.hasSendedResetMessage = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"resetSubviewsLayout" object:self];
+    }
+}
+
+// 手动翻页结束
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self didEndScrolling];
+}
+
+// 程序翻页结束
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [self didEndScrolling];
+}
+
+// 翻页结束
+- (void)didEndScrolling
 {
     CGFloat pageHeight = CGRectGetHeight(self.scrollView.frame);
     NSUInteger page = floor((self.scrollView.contentOffset.y - pageHeight / 2) / pageHeight) + 1;
     
     if (page == 0) {
+        self.hasSendedResetMessage = YES;
         self.scrollView.scrollEnabled = NO;
+    } else {
+        self.hasSendedResetMessage = NO;
+        self.scrollView.scrollEnabled = YES;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
     }
-}
-
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
 }
 
 - (NSMutableArray *)viewControllers

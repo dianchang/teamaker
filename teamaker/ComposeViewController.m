@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    for (int i; i < PAGE_COUNT; i++) {
+    for (int i = 0; i < PAGE_COUNT; i++) {
         [self loadViewWithPage:i];
     }
     
@@ -40,6 +40,9 @@
     self.pageControl.numberOfPages = PAGE_COUNT;
     self.pageControl.currentPage = 2;
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSubviewsLayout) name:@"resetSubviewsLayout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareSubviewsLayout) name:@"prepareSubviewsLayout" object:nil];
 }
 
 - (NSMutableArray *)viewControllers
@@ -128,6 +131,28 @@
     if ([currentController respondsToSelector:@selector(prepareLayout)]) {
         [currentController performSelector:@selector(prepareLayout) withObject:nil];
     }
+}
+
+- (void)resetSubviewsLayout
+{
+    UIViewController *controller = self.viewControllers[self.pageControl.currentPage];
+    if ([controller respondsToSelector:@selector(resetLayout)]) {
+        [controller performSelector:@selector(resetLayout) withObject:nil];
+    }
+}
+
+- (void)prepareSubviewsLayout
+{
+    UIViewController *controller = self.viewControllers[self.pageControl.currentPage];
+    if ([controller respondsToSelector:@selector(prepareLayout)]) {
+        [controller performSelector:@selector(prepareLayout) withObject:nil];
+    }
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"resetLayout" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"prepareLayout" object:nil];
 }
 
 @end

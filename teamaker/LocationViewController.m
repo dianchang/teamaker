@@ -8,8 +8,9 @@
 
 #import "LocationViewController.h"
 #import "Masonry.h"
+#import "ComposeViewControllerProtocol.h"
 
-@interface LocationViewController ()
+@interface LocationViewController () <ComposeViewControllerProtocol>
 
 @end
 
@@ -26,6 +27,10 @@
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.view).with.offset(20);
     }];
+}
+
+- (void)resetLayout
+{
 }
 
 @end
