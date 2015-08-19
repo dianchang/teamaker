@@ -20,6 +20,7 @@
 		050BC3A21B79F6B300A35EFD /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3A01B79F6B300A35EFD /* FeedViewController.m */; };
 		050BC3A71B79F71F00A35EFD /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3A51B79F71F00A35EFD /* ComposeViewController.m */; };
 		050BC3A81B79F71F00A35EFD /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */; };
+		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
 		053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2541B819E1600BBAF12 /* UIColor+Helper.m */; };
 		053EA25C1B81AD8700BBAF12 /* TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA25B1B81AD8700BBAF12 /* TMPunch.m */; };
 		053EA25F1B81B09000BBAF12 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA25E1B81B09000BBAF12 /* TMTeam.m */; };
@@ -65,6 +66,7 @@
 		050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		053082471B8433CC008C6C16 /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
 		053082481B844D8A008C6C16 /* ScrollDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollDirection.h; sourceTree = "<group>"; };
+		0530824B1B8482A8008C6C16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		053EA2531B819E1600BBAF12 /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
 		053EA2541B819E1600BBAF12 /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		053EA25A1B81AD8700BBAF12 /* TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPunch.h; path = models/TMPunch.h; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */,
 				714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,6 +208,7 @@
 		0916D379E1D2DF4E7F5A8CE4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0530824B1B8482A8008C6C16 /* MapKit.framework */,
 				D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */,
 			);
 			name = Frameworks;
@@ -270,6 +274,11 @@
 				TargetAttributes = {
 					050BC3641B799D0E00A35EFD = {
 						CreatedOnToolsVersion = 6.4;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					050BC37D1B799D0F00A35EFD = {
 						CreatedOnToolsVersion = 6.4;
