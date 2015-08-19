@@ -26,8 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self loadViewWithPage:0];
-    [self loadViewWithPage:1];
+    for (int i = 0; i < PAGE_COUNT; i++) {
+        [self loadViewWithPage:i];
+    }
     
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -107,7 +108,6 @@
     } else {
         self.hasSendedResetMessage = NO;
         self.scrollView.scrollEnabled = YES;
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
     }
 }
