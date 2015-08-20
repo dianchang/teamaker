@@ -122,14 +122,14 @@ static float const buttonHeight = 60.0;
     tapRecognizer.numberOfTapsRequired = 1;
     [backdropView addGestureRecognizer:tapRecognizer];
     
-    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
-    [self.backdropView addSubview:teamButtons];
-    self.teamButtons = teamButtons;
-    
     [self.view insertSubview:backdropView aboveSubview:self.addPunch];
     [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
+    [self.backdropView addSubview:teamButtons];
+    self.teamButtons = teamButtons;
     
     CGRect frame = teamButtons.frame;
     frame.origin.y = frame.origin.y - frame.size.height;

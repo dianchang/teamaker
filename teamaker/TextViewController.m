@@ -10,11 +10,13 @@
 #import "Masonry.h"
 #import "ComposeViewControllerProtocol.h"
 #import "TeamButtons.h"
+#import "UIColor+Helper.h"
 
 @interface TextViewController () <ComposeViewControllerProtocol>
-@property (nonatomic, weak) UITextView *textView;
-@property (nonatomic, weak) UIButton *sendButton;
+@property (weak, nonatomic) UITextView *textView;
+@property (weak, nonatomic) UIButton *sendButton;
 @property (weak, nonatomic) TeamButtons *teamButtons;
+@property (weak, nonatomic) UIView *backdropView;
 @end
 
 @implementation TextViewController
@@ -102,6 +104,7 @@ static int const sendButtonHeight = 50;
 - (void)resetLayout
 {
     [self.textView resignFirstResponder];
+    [self hideTeamButtons];
 }
 
 // 准备页面
@@ -112,18 +115,31 @@ static int const sendButtonHeight = 50;
 
 - (IBAction)publishText:(UIButton *)sender
 {
+    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backdropView = backdropView;
+    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                             initWithTarget:self action:@selector(cancelAction:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    [backdropView addGestureRecognizer:tapRecognizer];
+    
+    [self.view addSubview:backdropView];
+    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
     TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
     self.teamButtons = teamButtons;
-    [self.view addSubview:teamButtons];
+    [self.backdropView addSubview:teamButtons];
     
     [self.view layoutIfNeeded];
-    
     
     [self.textView resignFirstResponder];
     
     CGRect frame = teamButtons.frame;
     frame.origin.y = frame.origin.y - frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
+        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
         teamButtons.frame = frame;
     }];
 }
@@ -132,27 +148,27 @@ static int const sendButtonHeight = 50;
 - (IBAction)cancelAction:(UIButton *)sender
 {
     [self hideTeamButtons];
+    [self.textView becomeFirstResponder];
 }
 
 // 发布文字到某团队
 -(IBAction)publishToTeam:(UIButton *)sender
 {
     [self hideTeamButtons];
+    [self.textView becomeFirstResponder];
     NSLog(@"%ld", (long)sender.tag);
 }
 
 // 隐藏按钮
 - (void)hideTeamButtons
-{
-    [self.textView becomeFirstResponder];
-    
+{    
     CGRect frame = self.teamButtons.frame;
     frame.origin.y = self.view.bounds.size.height;
     [UIView animateWithDuration:0.3 animations:^{
         self.teamButtons.frame = frame;
+        self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
-        
-        [self.teamButtons removeFromSuperview];
+        [self.backdropView removeFromSuperview];
     }];
 }
 
