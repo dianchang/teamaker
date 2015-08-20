@@ -12,12 +12,13 @@
 #import "TMPunch.h"
 #import "TMTeam.h"
 #import "ComposeViewControllerProtocol.h"
+#import "TeamButtons.h"
 
 @interface PunchViewController () <UITableViewDelegate, UITableViewDataSource, ComposeViewControllerProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *addPunch;
 @property (weak, nonatomic) UIView *backdropView;
-@property (weak, nonatomic) UIView *buttonsView;
+@property (weak, nonatomic) TeamButtons *teamButtons;
 @property (strong, nonatomic) NSArray *punchs;
 @property (strong, nonatomic) NSArray *teams;
 @end
@@ -117,61 +118,36 @@ static float const buttonHeight = 60.0;
     self.backdropView = backdropView;
     backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                             initWithTarget:self action:@selector(cancel:)];
+                                             initWithTarget:self action:@selector(cancelAction:)];
     tapRecognizer.numberOfTapsRequired = 1;
     [backdropView addGestureRecognizer:tapRecognizer];
     
-    // 按钮组
-    UIView *buttonsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count)];
-    buttonsView.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
-    self.buttonsView = buttonsView;
-    [self.backdropView addSubview:buttonsView];
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
+    [self.backdropView addSubview:teamButtons];
+    self.teamButtons = teamButtons;
     
-    // 取消按钮
-    UIButton *cancelButton = [[UIButton alloc] init];
-    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-    cancelButton.backgroundColor = [UIColor whiteColor];
-    [cancelButton setTitleColor:[UIColor colorWithRGBA:0x999999FF] forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonsView addSubview:cancelButton];
-    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(buttonsView);
-        make.bottom.equalTo(buttonsView.mas_bottom).with.offset(0.0);
-        make.height.equalTo([NSNumber numberWithInt:buttonHeight]);
-    }];
-    
-    // 团队选择按钮
-    for (int i = 0; i < self.teams.count; i++) {
-        TMTeam *team = self.teams[i];
-        UIButton *teamButton = [[UIButton alloc] init];
-        [teamButton setTitle:team.name forState:UIControlStateNormal];
-        teamButton.backgroundColor = [UIColor whiteColor];
-        [teamButton setTitleColor:[UIColor colorWithRGBA:0x000000FF] forState:UIControlStateNormal];
-        [teamButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-        [buttonsView addSubview:teamButton];
-        [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(buttonsView);
-            make.bottom.equalTo(buttonsView.mas_bottom).with.offset(-(buttonHeight + 1) * (i + 1));
-            make.height.equalTo([NSNumber numberWithInt:buttonHeight]);
-        }];
-    }
-
     [self.view insertSubview:backdropView aboveSubview:self.addPunch];
     [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
-    CGRect newFrame = buttonsView.frame;
-    newFrame.origin.y = newFrame.origin.y - newFrame.size.height;
+    CGRect frame = teamButtons.frame;
+    frame.origin.y = frame.origin.y - frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
-        buttonsView.frame = newFrame;
+        teamButtons.frame = frame;
         backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
     }];
 }
 
-- (void)cancel:(UIButton *)sender
+- (void)cancelAction:(UIButton *)sender
 {
     [self hideButtons];
+}
+
+- (void)publishToTeam:(UIButton *)sender
+{
+    [self hideButtons];
+    NSLog(@"%ld", sender.tag);
 }
 
 - (void)resetLayout
@@ -183,7 +159,7 @@ static float const buttonHeight = 60.0;
 - (void)hideButtons
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.buttonsView.frame = CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count);
+        self.teamButtons.frame = CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count);
         self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
         [self.backdropView removeFromSuperview];
