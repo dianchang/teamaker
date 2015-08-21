@@ -11,9 +11,14 @@
 @interface TMFeed : NSObject
 
 @property (nonatomic) NSUInteger id;
-@property (nonatomic) NSInteger type;
-@property (nonatomic, strong) NSString *image;
-@property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) NSString *position;
+@property (nonatomic) NSUInteger user_id;
+@property (strong, nonatomic) NSString *user;
+@property (nonatomic) NSUInteger team_id;
+@property (strong, nonatomic) NSString *team;
+@property (strong, nonatomic) NSString *kind;
+@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *text;
+@property (strong, nonatomic) NSString *location;
+@property (strong, nonatomic) NSString *punch;
 
 @end

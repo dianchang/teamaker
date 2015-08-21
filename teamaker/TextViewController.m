@@ -122,7 +122,6 @@ static int const sendButtonHeight = 50;
                                              initWithTarget:self action:@selector(cancelAction:)];
     tapRecognizer.numberOfTapsRequired = 1;
     [backdropView addGestureRecognizer:tapRecognizer];
-    
     [self.view addSubview:backdropView];
     [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -161,7 +160,7 @@ static int const sendButtonHeight = 50;
 
 // 隐藏按钮
 - (void)hideTeamButtons
-{    
+{
     CGRect frame = self.teamButtons.frame;
     frame.origin.y = self.view.bounds.size.height;
     [UIView animateWithDuration:0.3 animations:^{
