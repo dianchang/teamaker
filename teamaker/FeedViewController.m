@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "AFNetworking.h"
 #import "TMFeed.h"
+#import "MyProfileViewController.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) UITableView *tableView;
@@ -21,11 +22,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
     [self.refreshControl beginRefreshing];
     [self getUserFeeds];
@@ -34,6 +30,11 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] init];
+    
+    // 导航栏
+    self.navigationItem.title = @"圈子";
+    UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(redirectToMyProfile)];
+    self.navigationItem.rightBarButtonItem = myProfileButtonItem;
 
     // 表格
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
@@ -80,10 +81,19 @@
     return _feeds;
 }
 
+// 跳转到我的主页
+- (void)redirectToMyProfile
+{
+    UIViewController *myProfileViewController = [[MyProfileViewController alloc] init];
+    [self.navigationController pushViewController:myProfileViewController animated:YES];
+}
+
+// 向下翻页
 - (IBAction)pageDown:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PageDown" object:self];
 }
 
+// 获取feeds
 - (IBAction)getUserFeeds
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

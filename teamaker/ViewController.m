@@ -145,12 +145,15 @@
     UIViewController *controller;
     
     switch (page) {
-        case 0:
-            controller = [[FeedViewController alloc] init];
+        case 0: {
+            UIViewController * feedViewController = [[FeedViewController alloc] init];
+            controller = [[UINavigationController alloc] initWithRootViewController:feedViewController];
             break;
-        case 1:
+        }
+        case 1: {
             controller = [[ComposeViewController alloc] init];
             break;
+        }
     }
     
     [self addChildViewController:controller];
