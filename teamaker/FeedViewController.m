@@ -11,6 +11,8 @@
 #import "AFNetworking.h"
 #import "TMFeed.h"
 #import "MyProfileViewController.h"
+#import "UIColor+Helper.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) UITableView *tableView;
@@ -128,24 +130,88 @@
     return [self.feeds count];
 }
 
+static NSString *cellIdentifier = @"FeedCell";
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"FeedCell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        TMFeed *feed = self.feeds[indexPath.row];
-        
-        if ([feed.kind isEqualToString:@"text"]) {
-            cell.textLabel.text = feed.text;
-        } else if ([feed.kind isEqualToString:@"punch"]) {
-            cell.textLabel.text = feed.punch;
-        }
-    } 
+        [self configureCell:cell atIndexPath:indexPath];
+    }
     
     return cell;
+}
+
+// 自定义cell
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    TMFeed *feed = self.feeds[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    // 用户头像
+    UIView *avatarView = [[UIView alloc] init];
+    avatarView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
+    avatarView.layer.cornerRadius = 15;
+    avatarView.layer.masksToBounds = YES;
+    [cell.contentView addSubview:avatarView];
+    [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell.contentView).with.offset(15);
+        make.top.equalTo(cell.contentView).with.offset(15);
+        make.width.equalTo(@30);
+        make.height.equalTo(@30);
+    }];
+    
+    // 用户名
+    UIButton *userButton = [[UIButton alloc] init];
+    userButton.tag = feed.user_id;
+    [userButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [userButton setTitle:feed.user forState:UIControlStateNormal];
+    userButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [cell.contentView addSubview:userButton];
+    [userButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(avatarView.mas_right).with.offset(15);
+        make.top.equalTo(cell.contentView).with.offset(15);
+        make.height.equalTo(@18);
+    }];
+    
+    // 团队
+    UIButton *teamButton = [[UIButton alloc] init];
+    teamButton.tag = feed.team_id;
+    [teamButton setTitleColor:[UIColor colorWithRGBA:0xAAAAAAFF] forState:UIControlStateNormal];
+    [teamButton setTitle:feed.team forState:UIControlStateNormal];
+    teamButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [cell.contentView addSubview:teamButton];
+    [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(avatarView.mas_right).with.offset(15);
+        make.top.equalTo(userButton.mas_bottom).with.offset(5);
+        make.bottom.equalTo(cell.contentView).with.offset(-15);
+        make.height.equalTo(@14);
+    }];
+    
+    //        if ([feed.kind isEqualToString:@"text"]) {
+    //            cell.textLabel.text = feed.text;
+    //        } else if ([feed.kind isEqualToString:@"punch"]) {
+    //            cell.textLabel.text = feed.punch;
+    //        }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static UITableViewCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        sizingCell = [[UITableViewCell alloc] init];
+    });
+    
+    [self configureCell:sizingCell atIndexPath:indexPath];
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    
+    return size.height + 1.0f;
 }
 
 @end
