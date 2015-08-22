@@ -6,13 +6,14 @@
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "FeedViewController.h"
 #import "Masonry.h"
 #import "AFNetworking.h"
 #import "TMFeed.h"
 #import "MyProfileViewController.h"
 #import "UIColor+Helper.h"
-#import <QuartzCore/QuartzCore.h>
+#import "UIImageView+AFNetworking.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) UITableView *tableView;
@@ -151,8 +152,9 @@ static NSString *cellIdentifier = @"FeedCell";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     // 用户头像
-    UIView *avatarView = [[UIView alloc] init];
-    avatarView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
+    UIImageView *avatarView = [[UIImageView alloc] init];
+    [avatarView setImageWithURL:[NSURL URLWithString:@"https://placeholdit.imgix.net/~text?txtsize=33&txt=30%C3%9730&w=30&h=30"]];
+//    avatarView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
     avatarView.layer.cornerRadius = 15;
     avatarView.layer.masksToBounds = YES;
     [cell.contentView addSubview:avatarView];
