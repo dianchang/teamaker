@@ -14,8 +14,10 @@
 #import "MyProfileViewController.h"
 #import "UIColor+Helper.h"
 #import "UIImageView+AFNetworking.h"
+#import "FeedTableViewCellProtocol.h"
+#import "FeedTableViewCell.h"
 
-@interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface FeedViewController () <UITableViewDataSource, UITableViewDelegate, FeedTableViewCellProtocol>
 @property (weak, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSMutableArray *feeds;
@@ -50,14 +52,16 @@
     self.tableView = tableView;
     tableView.dataSource = self;
     tableView.delegate = self;
-    tableView.separatorColor = [UIColor clearColor];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(getUserFeeds) forControlEvents:UIControlEventValueChanged];
     tableViewController.refreshControl = self.refreshControl;
-    
-    [tableViewController didMoveToParentViewController:self];
 
+    [tableViewController didMoveToParentViewController:self];
+    
+    // 注册reuseIdentifier
+    [FeedTableViewCell registerClassForCellReuseIdentifierOnTableView:tableView];
+    
     // 下翻按钮
     UIButton *pageDown = [[UIButton alloc] init];
     [pageDown setTitle:@"⌵" forState:UIControlStateNormal];
@@ -112,6 +116,7 @@
             feed.id = [[item objectForKey:@"id"] integerValue];
             feed.user_id = [[item objectForKey:@"user_id"] integerValue];
             feed.user = [item objectForKey:@"user"];
+            feed.userAvatar = [item objectForKey:@"user_avatar"];
             feed.team_id = [[item objectForKey:@"team_id"] integerValue];
             feed.team = [item objectForKey:@"team"];
             feed.kind = [item objectForKey:@"kind"];
@@ -134,117 +139,35 @@
     return [self.feeds count];
 }
 
-static NSString *cellIdentifier = @"FeedCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-//    if (cell == nil) {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        [self configureCell:cell atIndexPath:indexPath];
-//    } else {
-//        [self updateCell:cell atIndexPath:indexPath];
-//    }
-    
+    TMFeed *feed = self.feeds[indexPath.row];
+    NSString *cellIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
+    FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    cell.delegate = self;
+    [cell updateCellWithFeed:feed];
     return cell;
 }
 
-// 新建cell
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+// 跳转用户主页
+- (void)userButtonClicked:(UIButton *)sender
 {
-    TMFeed *feed = self.feeds[indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    // 用户头像
-    UIImageView *avatarView = [[UIImageView alloc] init];
-    [avatarView setImageWithURL:[NSURL URLWithString:@"https://placeholdit.imgix.net/~text?txtsize=33&txt=30%C3%9730&w=30&h=30"]];
-    avatarView.layer.cornerRadius = 15;
-    avatarView.layer.masksToBounds = YES;
-    [cell.contentView addSubview:avatarView];
-    
-    // 用户名
-    UIButton *userButton = [[UIButton alloc] init];
-    userButton.tag = feed.user_id;
-    [userButton setTitleColor:[UIColor colorWithRGBA:0x333333FF] forState:UIControlStateNormal];
-    [userButton setTitle:feed.user forState:UIControlStateNormal];
-    [userButton addTarget:self action:@selector(redirectToUserProfile) forControlEvents:UIControlEventTouchUpInside];
-    userButton.titleLabel.font = [UIFont systemFontOfSize:16];
-    [cell.contentView addSubview:userButton];
-    
-    // 团队名
-    UIButton *teamButton = [[UIButton alloc] init];
-    teamButton.tag = feed.team_id;
-    [teamButton setTitleColor:[UIColor colorWithRGBA:0xAAAAAAFF] forState:UIControlStateNormal];
-    [teamButton setTitle:feed.team forState:UIControlStateNormal];
-    [teamButton addTarget:self action:@selector(redirectToTeamProfile) forControlEvents:UIControlEventTouchUpInside];
-    teamButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    [cell.contentView addSubview:teamButton];
-
-    // gap
-    UIView *gapView = [[UIView alloc] init];
-    gapView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
-    [cell.contentView addSubview:gapView];
-    
-    // 约束
-    [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(cell.contentView).with.offset(15);
-        make.top.equalTo(cell.contentView).with.offset(15);
-        
-        make.width.equalTo(@30).priorityHigh();
-        make.height.equalTo(@30).priorityHigh();
-    }];
-    
-    [userButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(avatarView.mas_right).with.offset(15);
-        make.top.equalTo(cell.contentView).with.offset(15);
-        make.height.equalTo(@18).priorityHigh();
-    }];
-    
-    [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(avatarView.mas_right).with.offset(15);
-        make.top.equalTo(userButton.mas_bottom).with.offset(5);
-        make.height.equalTo(@14).priorityHigh();
-    }];
-    
-    [gapView mas_makeConstraints:^(MASConstraintMaker *make) {
-        if (indexPath.row == self.feeds.count - 1) {
-            make.height.equalTo(@0).priorityHigh();
-        } else {
-            make.height.equalTo(@15).priorityHigh();
-        }
-        make.left.right.and.bottom.equalTo(cell.contentView);
-        make.top.equalTo(teamButton.mas_bottom).with.offset(15.0);
-    }];
+    NSLog(@"Feed %lu", (unsigned long)sender.tag);
 }
 
-// 跳转到用户主页
-- (void)redirectToUserProfile
+// 跳转团队主页
+- (void)teamButtonClicked:(UIButton *)sender
 {
-    NSLog(@"user");
-}
-
-// 跳转到
-- (void)redirectToTeamProfile
-{
-    NSLog(@"team");
-}
-
-// 更新cell
-- (void)updateCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
+    NSLog(@"Feed %lu", (unsigned long)sender.tag);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     UITableViewCell *sizingCell = nil;
-//    static dispatch_once_t onceToken;
-    
-//    dispatch_once(&onceToken, ^{
-        sizingCell = [[UITableViewCell alloc] init];
-////    });
-    
-    [self configureCell:sizingCell atIndexPath:indexPath];
+    TMFeed *feed = self.feeds[indexPath.row];
+    NSString *cellIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
+    FeedTableViewCell *sizingCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    [sizingCell updateCellWithFeed:feed];
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];

@@ -27,6 +27,7 @@
 		053EA25F1B81B09000BBAF12 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA25E1B81B09000BBAF12 /* TMTeam.m */; };
 		053EA2621B81B45800BBAF12 /* TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2611B81B45800BBAF12 /* TMFeed.m */; };
 		05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05763E7A1B8713820007CD9B /* MyProfileViewController.m */; };
+		05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */; };
 		05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F40E1B82CFE80074C996 /* TextViewController.m */; };
 		05F4F4121B82D00E0074C996 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F4111B82D00E0074C996 /* LocationViewController.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
@@ -81,6 +82,9 @@
 		053EA2611B81B45800BBAF12 /* TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMFeed.m; path = models/TMFeed.m; sourceTree = "<group>"; };
 		05763E791B8713820007CD9B /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileViewController.h; sourceTree = "<group>"; };
 		05763E7A1B8713820007CD9B /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileViewController.m; sourceTree = "<group>"; };
+		05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = Views/FeedTableViewCell.h; sourceTree = "<group>"; };
+		05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = Views/FeedTableViewCell.m; sourceTree = "<group>"; };
+		05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCellProtocol.h; path = Views/FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
 		05F4F40D1B82CFE80074C996 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		05F4F40E1B82CFE80074C996 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
 		05F4F4101B82D00E0074C996 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
@@ -179,6 +183,9 @@
 			children = (
 				053082551B84ADAC008C6C16 /* TeamButtons.h */,
 				053082561B84ADAC008C6C16 /* TeamButtons.m */,
+				05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */,
+				05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */,
+				05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -404,6 +411,7 @@
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
 				05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */,
 				053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */,
+				05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */,
 				053EA25C1B81AD8700BBAF12 /* TMPunch.m in Sources */,
 				053EA25F1B81B09000BBAF12 /* TMTeam.m in Sources */,
 				05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */,

@@ -13,6 +13,7 @@
 @property (nonatomic) NSUInteger id;
 @property (nonatomic) NSUInteger user_id;
 @property (strong, nonatomic) NSString *user;
+@property (strong, nonatomic) NSString *userAvatar;
 @property (nonatomic) NSUInteger team_id;
 @property (strong, nonatomic) NSString *team;
 @property (strong, nonatomic) NSString *kind;
