@@ -186,31 +186,32 @@ static NSString *cellIdentifier = @"FeedCell";
     gapView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
     [cell.contentView addSubview:gapView];
     
-    [userButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(avatarView.mas_right).with.offset(15);
-        make.top.equalTo(cell.contentView).with.offset(15);
-        make.height.equalTo(@18);
-    }];
-    
     // 约束
     [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.contentView).with.offset(15);
         make.top.equalTo(cell.contentView).with.offset(15);
-        make.width.equalTo(@30);
-        make.height.equalTo(@30);
+        
+        make.width.equalTo(@30).priorityHigh();
+        make.height.equalTo(@30).priorityHigh();
+    }];
+    
+    [userButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(avatarView.mas_right).with.offset(15);
+        make.top.equalTo(cell.contentView).with.offset(15);
+        make.height.equalTo(@18).priorityHigh();
     }];
     
     [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(avatarView.mas_right).with.offset(15);
         make.top.equalTo(userButton.mas_bottom).with.offset(5);
-        make.height.equalTo(@14);
+        make.height.equalTo(@14).priorityHigh();
     }];
     
     [gapView mas_makeConstraints:^(MASConstraintMaker *make) {
         if (indexPath.row == self.feeds.count - 1) {
-            make.height.equalTo(@0);
+            make.height.equalTo(@0).priorityHigh();
         } else {
-            make.height.equalTo(@15);
+            make.height.equalTo(@15).priorityHigh();
         }
         make.left.right.and.bottom.equalTo(cell.contentView);
         make.top.equalTo(teamButton.mas_bottom).with.offset(15.0);
@@ -241,7 +242,7 @@ static NSString *cellIdentifier = @"FeedCell";
     
 //    dispatch_once(&onceToken, ^{
         sizingCell = [[UITableViewCell alloc] init];
-//    });
+////    });
     
     [self configureCell:sizingCell atIndexPath:indexPath];
     [sizingCell setNeedsLayout];
