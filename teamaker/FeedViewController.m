@@ -21,6 +21,8 @@
 @property (strong, nonatomic) NSMutableArray *feeds;
 @end
 
+//#define avatarViewTag
+
 @implementation FeedViewController
 
 - (void)viewDidLoad {
@@ -48,6 +50,7 @@
     self.tableView = tableView;
     tableView.dataSource = self;
     tableView.delegate = self;
+    tableView.separatorColor = [UIColor clearColor];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(getUserFeeds) forControlEvents:UIControlEventValueChanged];
@@ -135,17 +138,19 @@ static NSString *cellIdentifier = @"FeedCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//    if (cell == nil) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         [self configureCell:cell atIndexPath:indexPath];
-    }
+//    } else {
+//        [self updateCell:cell atIndexPath:indexPath];
+//    }
     
     return cell;
 }
 
-// 自定义cell
+// 新建cell
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     TMFeed *feed = self.feeds[indexPath.row];
@@ -154,10 +159,40 @@ static NSString *cellIdentifier = @"FeedCell";
     // 用户头像
     UIImageView *avatarView = [[UIImageView alloc] init];
     [avatarView setImageWithURL:[NSURL URLWithString:@"https://placeholdit.imgix.net/~text?txtsize=33&txt=30%C3%9730&w=30&h=30"]];
-//    avatarView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
     avatarView.layer.cornerRadius = 15;
     avatarView.layer.masksToBounds = YES;
     [cell.contentView addSubview:avatarView];
+    
+    // 用户名
+    UIButton *userButton = [[UIButton alloc] init];
+    userButton.tag = feed.user_id;
+    [userButton setTitleColor:[UIColor colorWithRGBA:0x333333FF] forState:UIControlStateNormal];
+    [userButton setTitle:feed.user forState:UIControlStateNormal];
+    [userButton addTarget:self action:@selector(redirectToUserProfile) forControlEvents:UIControlEventTouchUpInside];
+    userButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [cell.contentView addSubview:userButton];
+    
+    // 团队名
+    UIButton *teamButton = [[UIButton alloc] init];
+    teamButton.tag = feed.team_id;
+    [teamButton setTitleColor:[UIColor colorWithRGBA:0xAAAAAAFF] forState:UIControlStateNormal];
+    [teamButton setTitle:feed.team forState:UIControlStateNormal];
+    [teamButton addTarget:self action:@selector(redirectToTeamProfile) forControlEvents:UIControlEventTouchUpInside];
+    teamButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [cell.contentView addSubview:teamButton];
+
+    // gap
+    UIView *gapView = [[UIView alloc] init];
+    gapView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
+    [cell.contentView addSubview:gapView];
+    
+    [userButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(avatarView.mas_right).with.offset(15);
+        make.top.equalTo(cell.contentView).with.offset(15);
+        make.height.equalTo(@18);
+    }];
+    
+    // 约束
     [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.contentView).with.offset(15);
         make.top.equalTo(cell.contentView).with.offset(15);
@@ -165,48 +200,48 @@ static NSString *cellIdentifier = @"FeedCell";
         make.height.equalTo(@30);
     }];
     
-    // 用户名
-    UIButton *userButton = [[UIButton alloc] init];
-    userButton.tag = feed.user_id;
-    [userButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [userButton setTitle:feed.user forState:UIControlStateNormal];
-    userButton.titleLabel.font = [UIFont systemFontOfSize:16];
-    [cell.contentView addSubview:userButton];
-    [userButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(avatarView.mas_right).with.offset(15);
-        make.top.equalTo(cell.contentView).with.offset(15);
-        make.height.equalTo(@18);
-    }];
-    
-    // 团队
-    UIButton *teamButton = [[UIButton alloc] init];
-    teamButton.tag = feed.team_id;
-    [teamButton setTitleColor:[UIColor colorWithRGBA:0xAAAAAAFF] forState:UIControlStateNormal];
-    [teamButton setTitle:feed.team forState:UIControlStateNormal];
-    teamButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    [cell.contentView addSubview:teamButton];
     [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(avatarView.mas_right).with.offset(15);
         make.top.equalTo(userButton.mas_bottom).with.offset(5);
-        make.bottom.equalTo(cell.contentView).with.offset(-15);
         make.height.equalTo(@14);
     }];
     
-    //        if ([feed.kind isEqualToString:@"text"]) {
-    //            cell.textLabel.text = feed.text;
-    //        } else if ([feed.kind isEqualToString:@"punch"]) {
-    //            cell.textLabel.text = feed.punch;
-    //        }
+    [gapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        if (indexPath.row == self.feeds.count - 1) {
+            make.height.equalTo(@0);
+        } else {
+            make.height.equalTo(@15);
+        }
+        make.left.right.and.bottom.equalTo(cell.contentView);
+        make.top.equalTo(teamButton.mas_bottom).with.offset(15.0);
+    }];
+}
+
+// 跳转到用户主页
+- (void)redirectToUserProfile
+{
+    NSLog(@"user");
+}
+
+// 跳转到
+- (void)redirectToTeamProfile
+{
+    NSLog(@"team");
+}
+
+// 更新cell
+- (void)updateCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static UITableViewCell *sizingCell = nil;
-    static dispatch_once_t onceToken;
+     UITableViewCell *sizingCell = nil;
+//    static dispatch_once_t onceToken;
     
-    dispatch_once(&onceToken, ^{
+//    dispatch_once(&onceToken, ^{
         sizingCell = [[UITableViewCell alloc] init];
-    });
+//    });
     
     [self configureCell:sizingCell atIndexPath:indexPath];
     [sizingCell setNeedsLayout];

@@ -133,6 +133,7 @@
 		050BC3671B799D0E00A35EFD /* teamaker */ = {
 			isa = PBXGroup;
 			children = (
+				05CE04FC1B883F0700A7C718 /* Libraries */,
 				0530824F1B84AD07008C6C16 /* Models */,
 				0530824E1B84ACD6008C6C16 /* Categories */,
 				0530824D1B84AADA008C6C16 /* Views */,
@@ -229,6 +230,13 @@
 				053082471B8433CC008C6C16 /* ComposeViewControllerProtocol.h */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		05CE04FC1B883F0700A7C718 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		0916D379E1D2DF4E7F5A8CE4 /* Frameworks */ = {

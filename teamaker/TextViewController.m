@@ -48,9 +48,10 @@ static int const sendButtonHeight = 50;
         make.bottom.equalTo(sendButton.mas_top);
         make.top.equalTo(self.view).with.offset(20);
     }];
+    
     [sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view);
         make.height.equalTo([NSNumber numberWithInt:sendButtonHeight]);
     }];
 }
