@@ -69,6 +69,29 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [self.contentView addSubview:teamButton];
     self.teamButton = teamButton;
     
+    if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
+        // 文字
+        UILabel *textLabel = [[UILabel alloc] init];
+        textLabel.numberOfLines = 0;
+        textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        textLabel.font = [UIFont systemFontOfSize:14];
+        [self.contentView addSubview:textLabel];
+        self.myTextLabel = textLabel;
+    } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
+        // 打卡
+        UILabel *punchLabel = [[UILabel alloc] init];
+        punchLabel.numberOfLines = 0;
+        punchLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        punchLabel.font = [UIFont systemFontOfSize:14];
+        [self.contentView addSubview:punchLabel];
+        self.punchLabel = punchLabel;
+    }
+    
+//    // 时间与命令
+//    UIView *timeAndCommandsView = [[UIView alloc] init];
+//    [self.contentView addSubview:timeAndCommandsView];
+//    // 时间
+    
     // 约束
     [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).with.offset(15);
@@ -87,14 +110,29 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         make.left.equalTo(avatarView.mas_right).with.offset(15);
         make.top.equalTo(userButton.mas_bottom).with.offset(5);
         make.height.equalTo(@14).priorityHigh();
-        make.bottom.equalTo(self.contentView).with.offset(-15);
     }];
+    
+    if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
+        [self.myTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(avatarView.mas_right).with.offset(15);
+            make.top.equalTo(teamButton.mas_bottom).with.offset(6);
+            make.bottom.equalTo(self.contentView).offset(-15);
+        }];
+    } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
+        [self.punchLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(avatarView.mas_right).with.offset(15);
+            make.top.equalTo(teamButton.mas_bottom).with.offset(6);
+            make.bottom.equalTo(self.contentView).offset(-15);
+        }];
+    }
     
     return self;
 }
 
 - (void)updateCellWithFeed:(TMFeed *)feed
 {
+    NSString *reuseIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
+    
     [self.userButton setTitle:feed.user forState:UIControlStateNormal];
     self.userButton.tag = feed.id;
     
@@ -106,12 +144,19 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [self.userAvatarImageView setImageWithURLRequest:request placeholderImage:nil
                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                  cell.userAvatarImageView.image = image;
-                                                 NSLog(@"hehe");
                                              }
                                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                                  NSLog(@"%@", error);
                                              }];
     self.userAvatarImageView.tag = feed.id;
+    
+    if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
+        self.myTextLabel.text = feed.text;
+        self.myTextLabel.tag = feed.id;
+    } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
+        self.punchLabel.text = feed.punch;
+        self.punchLabel.tag = feed.id;
+    }
 }
 
 - (void)userButtonClicked:(UIButton *)sender

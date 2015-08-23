@@ -13,11 +13,12 @@
 @interface FeedTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) id<FeedTableViewCellProtocol> delegate;
+@property (strong, nonatomic) UIImageView *userAvatarImageView;
 @property (strong, nonatomic) UIButton *userButton;
 @property (strong, nonatomic) UIButton *teamButton;
 @property (strong, nonatomic) UILabel *createdAtLabel;
-@property (strong, nonatomic) UIImageView *userAvatarImageView;
-@property (strong, nonatomic) UILabel *text;
+@property (strong, nonatomic) UILabel *myTextLabel;
+@property (strong, nonatomic) UILabel *punchLabel;
 
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed;
 + (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView;

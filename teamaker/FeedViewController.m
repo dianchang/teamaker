@@ -139,7 +139,6 @@
     return [self.feeds count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TMFeed *feed = self.feeds[indexPath.row];
