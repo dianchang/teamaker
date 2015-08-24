@@ -8,6 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "FeedViewController.h"
+#import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
 #import "AFNetworking.h"
 #import "TMFeed.h"
@@ -29,9 +30,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
-    [self.refreshControl beginRefreshing];
-    [self getUserFeeds];
+//    self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
+//    [self.refreshControl beginRefreshing];
+    [self loadFeeds];
+    NSLog(@"%@", [NSPersistentStore MR_urlForStoreName:[MagicalRecord defaultStoreName]]);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFeeds) name:@"ReloadFeeds" object:nil];
 }
 
 - (void)loadView
@@ -53,9 +56,9 @@
     tableView.dataSource = self;
     tableView.delegate = self;
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(getUserFeeds) forControlEvents:UIControlEventValueChanged];
-    tableViewController.refreshControl = self.refreshControl;
+//    self.refreshControl = [[UIRefreshControl alloc] init];
+//    [self.refreshControl addTarget:self action:@selector(loadFeeds) forControlEvents:UIControlEventValueChanged];
+//    tableViewController.refreshControl = self.refreshControl;
 
     [tableViewController didMoveToParentViewController:self];
     
@@ -104,33 +107,36 @@
 }
 
 // 获取feeds
-- (IBAction)getUserFeeds
+- (void)loadFeeds
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager GET:@"http://localhost:5000/api/user/1/feeds" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *response = (NSArray *)responseObject;
-        [self.feeds removeAllObjects];
-        for (NSDictionary *item in response) {
-            TMFeed *feed = [[TMFeed alloc] init];
-            feed.id = [[item objectForKey:@"id"] integerValue];
-            feed.user_id = [[item objectForKey:@"user_id"] integerValue];
-            feed.user = [item objectForKey:@"user"];
-            feed.userAvatar = [item objectForKey:@"user_avatar"];
-            feed.team_id = [[item objectForKey:@"team_id"] integerValue];
-            feed.team = [item objectForKey:@"team"];
-            feed.kind = [item objectForKey:@"kind"];
-            feed.text = [item objectForKey:@"text"];
-            feed.image = [item objectForKey:@"image"];
-            feed.punch = [item objectForKey:@"punch"];
-            feed.location = [item objectForKey:@"location"];
-            [self.feeds addObject:feed];
-        }
-        [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    [manager GET:@"http://localhost:5000/api/user/1/feeds" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSArray *response = (NSArray *)responseObject;
+//        [self.feeds removeAllObjects];
+//        for (NSDictionary *item in response) {
+//            TMFeed *feed = [[TMFeed alloc] init];
+//            feed.id = [[item objectForKey:@"id"] integerValue];
+//            feed.user_id = [[item objectForKey:@"user_id"] integerValue];
+//            feed.user = [item objectForKey:@"user"];
+//            feed.userAvatar = [item objectForKey:@"user_avatar"];
+//            feed.team_id = [[item objectForKey:@"team_id"] integerValue];
+//            feed.team = [item objectForKey:@"team"];
+//            feed.kind = [item objectForKey:@"kind"];
+//            feed.text = [item objectForKey:@"text"];
+//            feed.image = [item objectForKey:@"image"];
+//            feed.punch = [item objectForKey:@"punch"];
+//            feed.location = [item objectForKey:@"location"];
+//            [self.feeds addObject:feed];
+//        }
+//        [self.refreshControl endRefreshing];
+//        [self.tableView reloadData];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
+//    }];
+    self.feeds = (NSMutableArray *)[TMFeed MR_findAll];
+    [self.tableView reloadData];
 }
 
 # pragma mark - tableview datasource and delegate

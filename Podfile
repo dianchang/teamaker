@@ -4,6 +4,7 @@ platform :ios, '7.0'
 target 'teamaker' do
   pod 'Masonry'
   pod 'AFNetworking', '~> 2.5'
+  pod 'MagicalRecord'
 end
 
 target 'teamakerTests' do
