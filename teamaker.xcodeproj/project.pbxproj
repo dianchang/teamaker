@@ -38,6 +38,7 @@
 		053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 053082561B84ADAC008C6C16 /* TeamButtons.m */; };
 		05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */; };
 		053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2541B819E1600BBAF12 /* UIColor+Helper.m */; };
+		056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */; };
 		05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05763E7A1B8713820007CD9B /* MyProfileViewController.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
 		05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */; };
@@ -97,6 +98,8 @@
 		05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileViewController.m; path = Controllers/UserProfileViewController.m; sourceTree = "<group>"; };
 		053EA2531B819E1600BBAF12 /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
 		053EA2541B819E1600BBAF12 /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
+		0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamProfileViewController.h; path = Controllers/TeamProfileViewController.h; sourceTree = "<group>"; };
+		056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamProfileViewController.m; path = Controllers/TeamProfileViewController.m; sourceTree = "<group>"; };
 		05763E791B8713820007CD9B /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileViewController.h; sourceTree = "<group>"; };
 		05763E7A1B8713820007CD9B /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileViewController.m; sourceTree = "<group>"; };
 		05A0736F1B8AC657005C5CE3 /* TMModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMModel.xcdatamodel; sourceTree = "<group>"; };
@@ -260,6 +263,8 @@
 		053EA2561B81AB6A00BBAF12 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */,
+				056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */,
 				050BC36F1B799D0E00A35EFD /* ViewController.h */,
 				050BC3701B799D0E00A35EFD /* ViewController.m */,
 				05F4F4101B82D00E0074C996 /* LocationViewController.h */,
@@ -476,6 +481,7 @@
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
 				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
 				05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */,
+				056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */,
 				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
 				053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */,
 				05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */,

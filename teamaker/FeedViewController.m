@@ -18,6 +18,7 @@
 #import "FeedTableViewCellProtocol.h"
 #import "FeedTableViewCell.h"
 #import "UserProfileViewController.h"
+#import "TeamProfileViewController.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate, FeedTableViewCellProtocol>
 @property (weak, nonatomic) UITableView *tableView;
@@ -165,7 +166,8 @@
 // 跳转团队主页
 - (void)redirectToTeamProfile:(NSNumber *)teamId
 {
-    NSLog(@"Feed %@", teamId);
+    TeamProfileViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:teamId];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
