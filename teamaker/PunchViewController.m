@@ -12,6 +12,7 @@
 #import "UIColor+Helper.h"
 #import "TMPunch.h"
 #import "TMTeam.h"
+#import "TMFeed.h"
 #import "ComposeViewControllerProtocol.h"
 #import "TeamButtons.h"
 
@@ -22,6 +23,7 @@
 @property (weak, nonatomic) TeamButtons *teamButtons;
 @property (strong, nonatomic) NSArray *punchs;
 @property (strong, nonatomic) NSArray *teams;
+@property (strong, nonatomic) NSString *selectedPunch;
 @end
 
 @implementation PunchViewController
@@ -115,6 +117,9 @@ static float const buttonHeight = 60.0;
 // 点击触发事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    TMPunch *punch = self.punchs[indexPath.row];
+    self.selectedPunch = punch.content;
+    
     UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
     self.backdropView = backdropView;
     backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
@@ -147,8 +152,10 @@ static float const buttonHeight = 60.0;
 
 - (void)publishToTeam:(UIButton *)sender
 {
-    [self hideButtons];
-    NSLog(@"%ld", sender.tag);
+    [TMFeed createPunchFeed:self.selectedPunch teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFeeds" object:self];
+    }];
 }
 
 - (void)resetLayout

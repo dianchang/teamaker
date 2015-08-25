@@ -27,4 +27,20 @@
     }];
 }
 
++ (void)createPunchFeed:(NSString *)punch teamId:(NSNumber *)teamId completion:(void(^)(BOOL contextDidSave, NSError *error))completionBlock;
+{
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        TMUser *loggedInUser = [TMUser getLoggedInUserInContext:localContext];
+        TMFeed *feed = [TMFeed MR_createEntityInContext:localContext];
+        feed.kind = @"punch";
+        feed.userId = loggedInUser.id;
+        feed.user = loggedInUser;
+        feed.teamId = teamId;
+        feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:localContext];
+        feed.punch = punch;
+    } completion:^(BOOL contextDidSave, NSError *error) {
+        completionBlock(contextDidSave, error);
+    }];
+}
+
 @end
