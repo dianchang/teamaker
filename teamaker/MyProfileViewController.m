@@ -8,8 +8,15 @@
 
 #import "MyProfileViewController.h"
 #import "TMUser.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @implementation MyProfileViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    return self;
+}
 
 - (void)loadView
 {

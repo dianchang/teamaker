@@ -36,6 +36,7 @@
 		050BC3A81B79F71F00A35EFD /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */; };
 		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
 		053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 053082561B84ADAC008C6C16 /* TeamButtons.m */; };
+		05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */; };
 		053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2541B819E1600BBAF12 /* UIColor+Helper.m */; };
 		05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05763E7A1B8713820007CD9B /* MyProfileViewController.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
@@ -92,6 +93,8 @@
 		0530824B1B8482A8008C6C16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		053082551B84ADAC008C6C16 /* TeamButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamButtons.h; path = Views/TeamButtons.h; sourceTree = "<group>"; };
 		053082561B84ADAC008C6C16 /* TeamButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamButtons.m; path = Views/TeamButtons.m; sourceTree = "<group>"; };
+		05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileViewController.h; path = Controllers/UserProfileViewController.h; sourceTree = "<group>"; };
+		05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileViewController.m; path = Controllers/UserProfileViewController.m; sourceTree = "<group>"; };
 		053EA2531B819E1600BBAF12 /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
 		053EA2541B819E1600BBAF12 /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		05763E791B8713820007CD9B /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileViewController.h; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 				050BC3A01B79F6B300A35EFD /* FeedViewController.m */,
 				05763E791B8713820007CD9B /* MyProfileViewController.h */,
 				05763E7A1B8713820007CD9B /* MyProfileViewController.m */,
+				05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */,
+				05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */,
 				050BC3A41B79F71F00A35EFD /* ComposeViewController.h */,
 				050BC3A51B79F71F00A35EFD /* ComposeViewController.m */,
 				050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */,
@@ -485,6 +490,7 @@
 				05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */,
 				05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */,
 				050BC3A21B79F6B300A35EFD /* FeedViewController.m in Sources */,
+				05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */,
 				050BC36B1B799D0E00A35EFD /* main.m in Sources */,
 				053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */,
 				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
@@ -718,6 +724,7 @@
 				05BD79F91B8C10A900329BF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

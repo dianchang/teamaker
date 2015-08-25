@@ -138,10 +138,10 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     NSString *reuseIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
     
     [self.userButton setTitle:feed.user.name forState:UIControlStateNormal];
-    self.userButton.tag = feed.idValue;
+    self.userButton.tag = feed.userIdValue;
     
     [self.teamButton setTitle:feed.team.name forState:UIControlStateNormal];
-    self.teamButton.tag = feed.idValue;
+    self.teamButton.tag = feed.teamIdValue;
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:feed.user.avatar]];
     __weak FeedTableViewCell *cell = self;
@@ -152,7 +152,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
                                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                                  NSLog(@"%@", error);
                                              }];
-    self.userAvatarImageView.tag = feed.idValue;
+    self.userAvatarImageView.tag = feed.userIdValue;
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         self.myTextLabel.text = feed.text;

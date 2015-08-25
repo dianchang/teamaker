@@ -17,6 +17,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "FeedTableViewCellProtocol.h"
 #import "FeedTableViewCell.h"
+#import "UserProfileViewController.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate, FeedTableViewCellProtocol>
 @property (weak, nonatomic) UITableView *tableView;
@@ -157,7 +158,8 @@
 // 跳转用户主页
 - (void)userButtonClicked:(UIButton *)sender
 {
-    NSLog(@"Feed %lu", (unsigned long)sender.tag);
+    UserProfileViewController *controller = [[UserProfileViewController alloc] initWithUserId:[NSNumber numberWithLong:sender.tag]];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 // 跳转团队主页
