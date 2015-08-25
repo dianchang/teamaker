@@ -25,7 +25,7 @@ static int const buttonHeight = 60;
     UIView *parentView = controller.view;
     self = [super initWithFrame:CGRectMake(0, parentView.bounds.size.height, parentView.bounds.size.width, [self getButtonsHeight])];
     self.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
-    
+
     // 取消按钮
     UIButton *cancelButton = [[UIButton alloc] init];
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
@@ -55,7 +55,7 @@ static int const buttonHeight = 60;
             make.height.equalTo([NSNumber numberWithInt:buttonHeight]);
         }];
     }
-
+    
     return self;
 }
 

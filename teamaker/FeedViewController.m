@@ -156,16 +156,16 @@
 }
 
 // 跳转用户主页
-- (void)userButtonClicked:(UIButton *)sender
+- (void)redirectToUserProfile:(NSNumber *)userId
 {
-    UserProfileViewController *controller = [[UserProfileViewController alloc] initWithUserId:[NSNumber numberWithLong:sender.tag]];
+    UserProfileViewController *controller = [[UserProfileViewController alloc] initWithUserId:userId];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 // 跳转团队主页
-- (void)teamButtonClicked:(UIButton *)sender
+- (void)redirectToTeamProfile:(NSNumber *)teamId
 {
-    NSLog(@"Feed %lu", (unsigned long)sender.tag);
+    NSLog(@"Feed %@", teamId);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

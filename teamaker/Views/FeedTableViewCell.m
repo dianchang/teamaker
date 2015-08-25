@@ -52,6 +52,10 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     UIImageView *avatarView = [[UIImageView alloc] init];
     avatarView.layer.cornerRadius = 15;
     avatarView.layer.masksToBounds = YES;
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userAvatarClicked:)];
+    gesture.numberOfTapsRequired = 1;
+    avatarView.userInteractionEnabled = YES;
+    [avatarView addGestureRecognizer:gesture];
     [self.contentView addSubview:avatarView];
     self.userAvatarImageView = avatarView;
     
@@ -165,12 +169,17 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 
 - (void)userButtonClicked:(UIButton *)sender
 {
-    [self.delegate userButtonClicked:sender];
+    [self.delegate redirectToUserProfile:[NSNumber numberWithLong:sender.tag]];
+}
+
+- (void)userAvatarClicked:(UITapGestureRecognizer *)gestureRecognizer
+{
+    [self.delegate redirectToUserProfile:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
 }
 
 - (void)teamButtonClicked:(UIButton *)sender
 {
-    [self.delegate teamButtonClicked:sender];
+    [self.delegate redirectToTeamProfile:[NSNumber numberWithLong:sender.tag]];
 }
 
 @end

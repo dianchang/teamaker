@@ -34,6 +34,7 @@
             TMUser *user1 = [TMUser MR_createEntityInContext:localContext];
             user1.id = @1;
             user1.name = @"hustlzp";
+            user1.avatar = @"http://img3.douban.com/icon/up45197381-5.jpg";
         }];
     }
     

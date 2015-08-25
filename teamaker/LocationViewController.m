@@ -80,7 +80,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     [manager stopUpdatingLocation];
-    
+
     CLLocation *location = [locations lastObject];
     CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
     CGFloat zoomLevel = 0.01;

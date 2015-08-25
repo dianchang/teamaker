@@ -10,8 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @protocol FeedTableViewCellProtocol <NSObject>
-@optional
-- (void)userButtonClicked:(UIButton *)sender;
-- (void)teamButtonClicked:(UIButton *)sender;
-- (void)userAvatarImageViewClicked:(UIImageView *)sender;
+- (void)redirectToUserProfile:(NSNumber *)userId;
+- (void)redirectToTeamProfile:(NSNumber *)teamId;
 @end
