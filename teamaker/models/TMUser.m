@@ -1,4 +1,5 @@
 #import "TMUser.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface TMUser ()
 
@@ -8,6 +9,11 @@
 
 @implementation TMUser
 
-// Custom logic goes here.
++ (TMUser *)getLoggedInUser
+{
+    NSNumber *loggedInUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"LoggedInUserId"];
+    
+    return [TMUser MR_findFirstByAttribute:@"id" withValue:loggedInUserId];
+}
 
 @end

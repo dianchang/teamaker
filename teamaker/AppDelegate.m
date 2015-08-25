@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "TMTeam.h"
 #import "TMPunch.h"
+#import "TMUser.h"
 #import <MagicalRecord/MagicalRecord.h>
 
 @interface AppDelegate ()
@@ -17,11 +18,26 @@
 
 @implementation AppDelegate
 
++ (void)initialize
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults registerDefaults:@{@"LoggedInUserId": @1}];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"TMModel"];
     
-    if ([[TMTeam MR_findAll] count] == 0) {
+    NSLog(@"%@", [TMUser MR_numberOfEntities]);
+    
+    if ([[TMUser MR_numberOfEntities] isEqualToNumber:@0]) {
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            TMUser *user1 = [TMUser MR_createEntityInContext:localContext];
+            user1.id = @1;
+            user1.name = @"hustlzp";
+        }];
+    }
+    
+    if ([[TMTeam MR_numberOfEntities] isEqualToNumber:@0]) {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             TMTeam *team1 = [TMTeam MR_createEntityInContext:localContext];
             team1.id = @1;
@@ -33,7 +49,7 @@
         }];
     }
     
-    if ([[TMPunch MR_findAll] count] == 0) {
+    if ([[TMPunch MR_numberOfEntities] isEqualToNumber:@0]) {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             TMPunch *punch1 = [TMPunch MR_createEntityInContext:localContext];
             punch1.id = @1;
@@ -61,6 +77,8 @@
             punch5.content = @"上班路上";
         }];
     }
+    
+    TMUser *user = [TMUser getLoggedInUser];
     
     return YES;
 }
