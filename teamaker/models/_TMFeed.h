@@ -9,10 +9,9 @@ extern const struct TMFeedAttributes {
 	__unsafe_unretained NSString *kind;
 	__unsafe_unretained NSString *location;
 	__unsafe_unretained NSString *punch;
-	__unsafe_unretained NSString *team_id;
+	__unsafe_unretained NSString *teamId;
 	__unsafe_unretained NSString *text;
-	__unsafe_unretained NSString *userAvatar;
-	__unsafe_unretained NSString *user_id;
+	__unsafe_unretained NSString *userId;
 } TMFeedAttributes;
 
 extern const struct TMFeedRelationships {
@@ -56,29 +55,25 @@ extern const struct TMFeedRelationships {
 
 //- (BOOL)validatePunch:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) NSNumber* team_id;
+@property (nonatomic, strong) NSNumber* teamId;
 
-@property (atomic) int64_t team_idValue;
-- (int64_t)team_idValue;
-- (void)setTeam_idValue:(int64_t)value_;
+@property (atomic) int64_t teamIdValue;
+- (int64_t)teamIdValue;
+- (void)setTeamIdValue:(int64_t)value_;
 
-//- (BOOL)validateTeam_id:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateTeamId:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* text;
 
 //- (BOOL)validateText:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) NSString* userAvatar;
+@property (nonatomic, strong) NSNumber* userId;
 
-//- (BOOL)validateUserAvatar:(id*)value_ error:(NSError**)error_;
+@property (atomic) int64_t userIdValue;
+- (int64_t)userIdValue;
+- (void)setUserIdValue:(int64_t)value_;
 
-@property (nonatomic, strong) NSNumber* user_id;
-
-@property (atomic) int64_t user_idValue;
-- (int64_t)user_idValue;
-- (void)setUser_idValue:(int64_t)value_;
-
-//- (BOOL)validateUser_id:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) TMTeam *team;
 
@@ -110,23 +105,20 @@ extern const struct TMFeedRelationships {
 - (NSString*)primitivePunch;
 - (void)setPrimitivePunch:(NSString*)value;
 
-- (NSNumber*)primitiveTeam_id;
-- (void)setPrimitiveTeam_id:(NSNumber*)value;
+- (NSNumber*)primitiveTeamId;
+- (void)setPrimitiveTeamId:(NSNumber*)value;
 
-- (int64_t)primitiveTeam_idValue;
-- (void)setPrimitiveTeam_idValue:(int64_t)value_;
+- (int64_t)primitiveTeamIdValue;
+- (void)setPrimitiveTeamIdValue:(int64_t)value_;
 
 - (NSString*)primitiveText;
 - (void)setPrimitiveText:(NSString*)value;
 
-- (NSString*)primitiveUserAvatar;
-- (void)setPrimitiveUserAvatar:(NSString*)value;
+- (NSNumber*)primitiveUserId;
+- (void)setPrimitiveUserId:(NSNumber*)value;
 
-- (NSNumber*)primitiveUser_id;
-- (void)setPrimitiveUser_id:(NSNumber*)value;
-
-- (int64_t)primitiveUser_idValue;
-- (void)setPrimitiveUser_idValue:(int64_t)value_;
+- (int64_t)primitiveUserIdValue;
+- (void)setPrimitiveUserIdValue:(int64_t)value_;
 
 - (TMTeam*)primitiveTeam;
 - (void)setPrimitiveTeam:(TMTeam*)value;

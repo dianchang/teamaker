@@ -4,6 +4,7 @@
 #import "_TMUser.h"
 
 const struct TMUserAttributes TMUserAttributes = {
+	.avatar = @"avatar",
 	.email = @"email",
 	.id = @"id",
 	.name = @"name",
@@ -48,26 +49,28 @@ const struct TMUserRelationships TMUserRelationships = {
 	return keyPaths;
 }
 
+@dynamic avatar;
+
 @dynamic email;
 
 @dynamic id;
 
-- (BOOL)idValue {
+- (int64_t)idValue {
 	NSNumber *result = [self id];
-	return [result boolValue];
+	return [result longLongValue];
 }
 
-- (void)setIdValue:(BOOL)value_ {
-	[self setId:[NSNumber numberWithBool:value_]];
+- (void)setIdValue:(int64_t)value_ {
+	[self setId:[NSNumber numberWithLongLong:value_]];
 }
 
-- (BOOL)primitiveIdValue {
+- (int64_t)primitiveIdValue {
 	NSNumber *result = [self primitiveId];
-	return [result boolValue];
+	return [result longLongValue];
 }
 
-- (void)setPrimitiveIdValue:(BOOL)value_ {
-	[self setPrimitiveId:[NSNumber numberWithBool:value_]];
+- (void)setPrimitiveIdValue:(int64_t)value_ {
+	[self setPrimitiveId:[NSNumber numberWithLongLong:value_]];
 }
 
 @dynamic name;

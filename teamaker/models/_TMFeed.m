@@ -9,10 +9,9 @@ const struct TMFeedAttributes TMFeedAttributes = {
 	.kind = @"kind",
 	.location = @"location",
 	.punch = @"punch",
-	.team_id = @"team_id",
+	.teamId = @"teamId",
 	.text = @"text",
-	.userAvatar = @"userAvatar",
-	.user_id = @"user_id",
+	.userId = @"userId",
 };
 
 const struct TMFeedRelationships TMFeedRelationships = {
@@ -51,13 +50,13 @@ const struct TMFeedRelationships TMFeedRelationships = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"team_idValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"team_id"];
+	if ([key isEqualToString:@"teamIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"teamId"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"user_idValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"user_id"];
+	if ([key isEqualToString:@"userIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"userId"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -93,48 +92,46 @@ const struct TMFeedRelationships TMFeedRelationships = {
 
 @dynamic punch;
 
-@dynamic team_id;
+@dynamic teamId;
 
-- (int64_t)team_idValue {
-	NSNumber *result = [self team_id];
+- (int64_t)teamIdValue {
+	NSNumber *result = [self teamId];
 	return [result longLongValue];
 }
 
-- (void)setTeam_idValue:(int64_t)value_ {
-	[self setTeam_id:[NSNumber numberWithLongLong:value_]];
+- (void)setTeamIdValue:(int64_t)value_ {
+	[self setTeamId:[NSNumber numberWithLongLong:value_]];
 }
 
-- (int64_t)primitiveTeam_idValue {
-	NSNumber *result = [self primitiveTeam_id];
+- (int64_t)primitiveTeamIdValue {
+	NSNumber *result = [self primitiveTeamId];
 	return [result longLongValue];
 }
 
-- (void)setPrimitiveTeam_idValue:(int64_t)value_ {
-	[self setPrimitiveTeam_id:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveTeamIdValue:(int64_t)value_ {
+	[self setPrimitiveTeamId:[NSNumber numberWithLongLong:value_]];
 }
 
 @dynamic text;
 
-@dynamic userAvatar;
+@dynamic userId;
 
-@dynamic user_id;
-
-- (int64_t)user_idValue {
-	NSNumber *result = [self user_id];
+- (int64_t)userIdValue {
+	NSNumber *result = [self userId];
 	return [result longLongValue];
 }
 
-- (void)setUser_idValue:(int64_t)value_ {
-	[self setUser_id:[NSNumber numberWithLongLong:value_]];
+- (void)setUserIdValue:(int64_t)value_ {
+	[self setUserId:[NSNumber numberWithLongLong:value_]];
 }
 
-- (int64_t)primitiveUser_idValue {
-	NSNumber *result = [self primitiveUser_id];
+- (int64_t)primitiveUserIdValue {
+	NSNumber *result = [self primitiveUserId];
 	return [result longLongValue];
 }
 
-- (void)setPrimitiveUser_idValue:(int64_t)value_ {
-	[self setPrimitiveUser_id:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveUserIdValue:(int64_t)value_ {
+	[self setPrimitiveUserId:[NSNumber numberWithLongLong:value_]];
 }
 
 @dynamic team;

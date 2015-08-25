@@ -6,10 +6,9 @@
         <attribute name="kind" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="punch" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="team_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="teamId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="user_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="userAvatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMTeam" inverseName="feeds" inverseEntity="TMTeam" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUser" inverseName="feeds" inverseEntity="TMUser" syncable="YES"/>
     </entity>
@@ -25,15 +24,16 @@
         <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="team" inverseEntity="TMFeed" syncable="YES"/>
     </entity>
     <entity name="TMUser" representedClassName="TMUser" syncable="YES">
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="user" inverseEntity="TMFeed" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TMFeed" positionX="178" positionY="72" width="128" height="208"/>
+        <element name="TMFeed" positionX="178" positionY="72" width="128" height="195"/>
         <element name="TMPunch" positionX="-36" positionY="81" width="128" height="90"/>
         <element name="TMTeam" positionX="7" positionY="-85" width="128" height="103"/>
-        <element name="TMUser" positionX="-54" positionY="239" width="128" height="103"/>
+        <element name="TMUser" positionX="-54" positionY="239" width="128" height="120"/>
     </elements>
 </model>

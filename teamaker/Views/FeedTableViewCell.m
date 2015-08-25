@@ -57,6 +57,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     
     // 用户名
     UIButton *userButton = [[UIButton alloc] init];
+    userButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [userButton setTitleColor:[UIColor colorWithRGBA:0x333333FF] forState:UIControlStateNormal];
     [userButton addTarget:self action:@selector(userButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     userButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -65,6 +66,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     
     // 团队名
     UIButton *teamButton = [[UIButton alloc] init];
+    teamButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [teamButton setTitleColor:[UIColor colorWithRGBA:0xAAAAAAFF] forState:UIControlStateNormal];
     [teamButton addTarget:self action:@selector(teamButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     teamButton.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -109,20 +111,20 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     }];
     
     [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(avatarView.mas_right).with.offset(15);
+        make.left.equalTo(userButton);
         make.top.equalTo(userButton.mas_bottom).with.offset(5);
         make.height.equalTo(@14).priorityHigh();
     }];
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         [self.myTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(avatarView.mas_right).with.offset(15);
+            make.left.equalTo(teamButton);
             make.top.equalTo(teamButton.mas_bottom).with.offset(6);
             make.bottom.equalTo(self.contentView).offset(-15);
         }];
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         [self.punchLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(avatarView.mas_right).with.offset(15);
+            make.left.equalTo(teamButton);
             make.top.equalTo(teamButton.mas_bottom).with.offset(6);
             make.bottom.equalTo(self.contentView).offset(-15);
         }];
@@ -141,7 +143,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [self.teamButton setTitle:feed.team.name forState:UIControlStateNormal];
     self.teamButton.tag = feed.idValue;
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:feed.userAvatar]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:feed.user.avatar]];
     __weak FeedTableViewCell *cell = self;
     [self.userAvatarImageView setImageWithURLRequest:request placeholderImage:nil
                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {

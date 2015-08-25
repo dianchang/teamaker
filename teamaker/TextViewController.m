@@ -163,16 +163,7 @@ static int const sendButtonHeight = 50;
     [self hideTeamButtons];
     [self.textView becomeFirstResponder];
     
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        TMFeed *feed = [TMFeed MR_createEntityInContext:localContext];
-        feed.kind = @"text";
-        feed.user_id = @1;
-//        feed.user = @"hustlzp";
-        feed.userAvatar = @"http://img3.douban.com/icon/up45197381-5.jpg";
-        feed.team_id = [NSNumber numberWithLong:sender.tag];
-//        feed.team = @"Teamaker";
-        feed.text = self.textView.text;
-    } completion:^(BOOL contextDidSave, NSError *error) {
+    [TMFeed createTextFeed:self.textView.text teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
         self.textView.text = @"";
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFeeds" object:self];

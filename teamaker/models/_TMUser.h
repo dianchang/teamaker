@@ -4,6 +4,7 @@
 #import <CoreData/CoreData.h>
 
 extern const struct TMUserAttributes {
+	__unsafe_unretained NSString *avatar;
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *name;
@@ -24,15 +25,19 @@ extern const struct TMUserRelationships {
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) TMUserID* objectID;
 
+@property (nonatomic, strong) NSString* avatar;
+
+//- (BOOL)validateAvatar:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* email;
 
 //- (BOOL)validateEmail:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* id;
 
-@property (atomic) BOOL idValue;
-- (BOOL)idValue;
-- (void)setIdValue:(BOOL)value_;
+@property (atomic) int64_t idValue;
+- (int64_t)idValue;
+- (void)setIdValue:(int64_t)value_;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
@@ -56,14 +61,17 @@ extern const struct TMUserRelationships {
 
 @interface _TMUser (CoreDataGeneratedPrimitiveAccessors)
 
+- (NSString*)primitiveAvatar;
+- (void)setPrimitiveAvatar:(NSString*)value;
+
 - (NSString*)primitiveEmail;
 - (void)setPrimitiveEmail:(NSString*)value;
 
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
 
-- (BOOL)primitiveIdValue;
-- (void)setPrimitiveIdValue:(BOOL)value_;
+- (int64_t)primitiveIdValue;
+- (void)setPrimitiveIdValue:(int64_t)value_;
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;

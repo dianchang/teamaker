@@ -27,7 +27,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"TMModel"];
     
-    NSLog(@"%@", [TMUser MR_numberOfEntities]);
+    NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
     if ([[TMUser MR_numberOfEntities] isEqualToNumber:@0]) {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
@@ -77,8 +77,6 @@
             punch5.content = @"上班路上";
         }];
     }
-    
-    TMUser *user = [TMUser getLoggedInUser];
     
     return YES;
 }

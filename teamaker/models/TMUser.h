@@ -3,5 +3,6 @@
 @interface TMUser : _TMUser {}
 
 + (TMUser *)getLoggedInUser;
++ (TMUser *)getLoggedInUserInContext:(NSManagedObjectContext *)context;
 
 @end
