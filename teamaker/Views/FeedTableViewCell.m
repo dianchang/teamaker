@@ -10,6 +10,8 @@
 #import "UIColor+Helper.h"
 #import "Masonry.h"
 #import "UIImageView+AFNetworking.h"
+#import "TMTeam.h"
+#import "TMUser.h"
 
 static NSString *const textCellReuseIdentifier = @"TextCell";
 static NSString *const imageCellReuseIdentifier = @"ImageCell";
@@ -133,11 +135,11 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 {
     NSString *reuseIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
     
-    [self.userButton setTitle:feed.user forState:UIControlStateNormal];
-    self.userButton.tag = feed.id;
+    [self.userButton setTitle:feed.user.name forState:UIControlStateNormal];
+    self.userButton.tag = feed.idValue;
     
-    [self.teamButton setTitle:feed.team forState:UIControlStateNormal];
-    self.teamButton.tag = feed.id;
+    [self.teamButton setTitle:feed.team.name forState:UIControlStateNormal];
+    self.teamButton.tag = feed.idValue;
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:feed.userAvatar]];
     __weak FeedTableViewCell *cell = self;
@@ -148,14 +150,14 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
                                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                                  NSLog(@"%@", error);
                                              }];
-    self.userAvatarImageView.tag = feed.id;
+    self.userAvatarImageView.tag = feed.idValue;
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         self.myTextLabel.text = feed.text;
-        self.myTextLabel.tag = feed.id;
+        self.myTextLabel.tag = feed.idValue;
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         self.punchLabel.text = feed.punch;
-        self.punchLabel.tag = feed.id;
+        self.punchLabel.tag = feed.idValue;
     }
 }
 

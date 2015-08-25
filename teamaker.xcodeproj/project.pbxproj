@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		05BD79F71B8C10A900329BF0 /* Mogenerator */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 05BD79FA1B8C10A900329BF0 /* Build configuration list for PBXAggregateTarget "Mogenerator" */;
+			buildPhases = (
+				05BD79FB1B8C10C300329BF0 /* Run Script */,
+			);
+			dependencies = (
+			);
+			name = Mogenerator;
+			productName = Mogenerator;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		050BC36B1B799D0E00A35EFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC36A1B799D0E00A35EFD /* main.m */; };
 		050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC36D1B799D0E00A35EFD /* AppDelegate.m */; };
@@ -23,11 +37,16 @@
 		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
 		053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 053082561B84ADAC008C6C16 /* TeamButtons.m */; };
 		053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2541B819E1600BBAF12 /* UIColor+Helper.m */; };
-		053EA25C1B81AD8700BBAF12 /* TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA25B1B81AD8700BBAF12 /* TMPunch.m */; };
-		053EA25F1B81B09000BBAF12 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA25E1B81B09000BBAF12 /* TMTeam.m */; };
 		05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05763E7A1B8713820007CD9B /* MyProfileViewController.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
-		05A073911B8ACEBB005C5CE3 /* TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A073901B8ACEBB005C5CE3 /* TMFeed.m */; };
+		05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */; };
+		05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */; };
+		05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A1B1B8C1C3F00329BF0 /* _TMTeam.m */; };
+		05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A1D1B8C1C3F00329BF0 /* _TMUser.m */; };
+		05BD7A2A1B8C1C3F00329BF0 /* TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A1F1B8C1C3F00329BF0 /* TMFeed.m */; };
+		05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A211B8C1C3F00329BF0 /* TMPunch.m */; };
+		05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A231B8C1C3F00329BF0 /* TMTeam.m */; };
+		05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A251B8C1C3F00329BF0 /* TMUser.m */; };
 		05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */; };
 		05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F40E1B82CFE80074C996 /* TextViewController.m */; };
 		05F4F4121B82D00E0074C996 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F4111B82D00E0074C996 /* LocationViewController.m */; };
@@ -75,15 +94,25 @@
 		053082561B84ADAC008C6C16 /* TeamButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamButtons.m; path = Views/TeamButtons.m; sourceTree = "<group>"; };
 		053EA2531B819E1600BBAF12 /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
 		053EA2541B819E1600BBAF12 /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
-		053EA25A1B81AD8700BBAF12 /* TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPunch.h; path = models/TMPunch.h; sourceTree = "<group>"; };
-		053EA25B1B81AD8700BBAF12 /* TMPunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMPunch.m; path = models/TMPunch.m; sourceTree = "<group>"; };
-		053EA25D1B81B09000BBAF12 /* TMTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMTeam.h; path = models/TMTeam.h; sourceTree = "<group>"; };
-		053EA25E1B81B09000BBAF12 /* TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeam.m; path = models/TMTeam.m; sourceTree = "<group>"; };
 		05763E791B8713820007CD9B /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileViewController.h; sourceTree = "<group>"; };
 		05763E7A1B8713820007CD9B /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileViewController.m; sourceTree = "<group>"; };
 		05A0736F1B8AC657005C5CE3 /* TMModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMModel.xcdatamodel; sourceTree = "<group>"; };
-		05A0738F1B8ACEBB005C5CE3 /* TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMFeed.h; path = Models/TMFeed.h; sourceTree = "<group>"; };
-		05A073901B8ACEBB005C5CE3 /* TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMFeed.m; path = Models/TMFeed.m; sourceTree = "<group>"; };
+		05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMFeed.h; path = Models/_TMFeed.h; sourceTree = "<group>"; };
+		05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMFeed.m; path = Models/_TMFeed.m; sourceTree = "<group>"; };
+		05BD7A181B8C1C3F00329BF0 /* _TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMPunch.h; path = Models/_TMPunch.h; sourceTree = "<group>"; };
+		05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMPunch.m; path = Models/_TMPunch.m; sourceTree = "<group>"; };
+		05BD7A1A1B8C1C3F00329BF0 /* _TMTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMTeam.h; path = Models/_TMTeam.h; sourceTree = "<group>"; };
+		05BD7A1B1B8C1C3F00329BF0 /* _TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMTeam.m; path = Models/_TMTeam.m; sourceTree = "<group>"; };
+		05BD7A1C1B8C1C3F00329BF0 /* _TMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMUser.h; path = Models/_TMUser.h; sourceTree = "<group>"; };
+		05BD7A1D1B8C1C3F00329BF0 /* _TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMUser.m; path = Models/_TMUser.m; sourceTree = "<group>"; };
+		05BD7A1E1B8C1C3F00329BF0 /* TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMFeed.h; path = Models/TMFeed.h; sourceTree = "<group>"; };
+		05BD7A1F1B8C1C3F00329BF0 /* TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMFeed.m; path = Models/TMFeed.m; sourceTree = "<group>"; };
+		05BD7A201B8C1C3F00329BF0 /* TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPunch.h; path = Models/TMPunch.h; sourceTree = "<group>"; };
+		05BD7A211B8C1C3F00329BF0 /* TMPunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMPunch.m; path = Models/TMPunch.m; sourceTree = "<group>"; };
+		05BD7A221B8C1C3F00329BF0 /* TMTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMTeam.h; path = Models/TMTeam.h; sourceTree = "<group>"; };
+		05BD7A231B8C1C3F00329BF0 /* TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeam.m; path = Models/TMTeam.m; sourceTree = "<group>"; };
+		05BD7A241B8C1C3F00329BF0 /* TMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMUser.h; path = Models/TMUser.h; sourceTree = "<group>"; };
+		05BD7A251B8C1C3F00329BF0 /* TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMUser.m; path = Models/TMUser.m; sourceTree = "<group>"; };
 		05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = Views/FeedTableViewCell.h; sourceTree = "<group>"; };
 		05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = Views/FeedTableViewCell.m; sourceTree = "<group>"; };
 		05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCellProtocol.h; path = Views/FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
@@ -205,12 +234,22 @@
 		0530824F1B84AD07008C6C16 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				05A0738F1B8ACEBB005C5CE3 /* TMFeed.h */,
-				05A073901B8ACEBB005C5CE3 /* TMFeed.m */,
-				053EA25A1B81AD8700BBAF12 /* TMPunch.h */,
-				053EA25B1B81AD8700BBAF12 /* TMPunch.m */,
-				053EA25D1B81B09000BBAF12 /* TMTeam.h */,
-				053EA25E1B81B09000BBAF12 /* TMTeam.m */,
+				05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */,
+				05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */,
+				05BD7A181B8C1C3F00329BF0 /* _TMPunch.h */,
+				05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */,
+				05BD7A1A1B8C1C3F00329BF0 /* _TMTeam.h */,
+				05BD7A1B1B8C1C3F00329BF0 /* _TMTeam.m */,
+				05BD7A1C1B8C1C3F00329BF0 /* _TMUser.h */,
+				05BD7A1D1B8C1C3F00329BF0 /* _TMUser.m */,
+				05BD7A1E1B8C1C3F00329BF0 /* TMFeed.h */,
+				05BD7A1F1B8C1C3F00329BF0 /* TMFeed.m */,
+				05BD7A201B8C1C3F00329BF0 /* TMPunch.h */,
+				05BD7A211B8C1C3F00329BF0 /* TMPunch.m */,
+				05BD7A221B8C1C3F00329BF0 /* TMTeam.h */,
+				05BD7A231B8C1C3F00329BF0 /* TMTeam.m */,
+				05BD7A241B8C1C3F00329BF0 /* TMUser.h */,
+				05BD7A251B8C1C3F00329BF0 /* TMUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -328,6 +367,9 @@
 						CreatedOnToolsVersion = 6.4;
 						TestTargetID = 050BC3641B799D0E00A35EFD;
 					};
+					05BD79F71B8C10A900329BF0 = {
+						CreatedOnToolsVersion = 6.4;
+					};
 				};
 			};
 			buildConfigurationList = 050BC3601B799D0E00A35EFD /* Build configuration list for PBXProject "teamaker" */;
@@ -345,6 +387,7 @@
 			targets = (
 				050BC3641B799D0E00A35EFD /* teamaker */,
 				050BC37D1B799D0F00A35EFD /* teamakerTests */,
+				05BD79F71B8C10A900329BF0 /* Mogenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -372,6 +415,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		05BD79FB1B8C10C300329BF0 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/mogenerator -m teamaker/TMModel.xcdatamodeld/TMModel.xcdatamodel -O teamaker/Models --template-var arc=true";
+		};
 		C772C851A6223FC15720A36E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -412,20 +469,25 @@
 				050BC3711B799D0E00A35EFD /* ViewController.m in Sources */,
 				050BC3901B79A4C000A35EFD /* PunchViewController.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
-				05A073911B8ACEBB005C5CE3 /* TMFeed.m in Sources */,
+				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
 				05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */,
+				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
 				053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */,
 				05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */,
-				053EA25C1B81AD8700BBAF12 /* TMPunch.m in Sources */,
-				053EA25F1B81B09000BBAF12 /* TMTeam.m in Sources */,
 				05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */,
+				05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */,
+				05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */,
 				05F4F4121B82D00E0074C996 /* LocationViewController.m in Sources */,
+				05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */,
 				050BC3961B79AD8B00A35EFD /* CaptureViewController.m in Sources */,
+				05BD7A2A1B8C1C3F00329BF0 /* TMFeed.m in Sources */,
 				050BC3A71B79F71F00A35EFD /* ComposeViewController.m in Sources */,
+				05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */,
 				05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */,
 				050BC3A21B79F6B300A35EFD /* FeedViewController.m in Sources */,
 				050BC36B1B799D0E00A35EFD /* main.m in Sources */,
 				053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */,
+				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +667,20 @@
 			};
 			name = Release;
 		};
+		05BD79F81B8C10A900329BF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		05BD79F91B8C10A900329BF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -634,6 +710,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		05BD79FA1B8C10A900329BF0 /* Build configuration list for PBXAggregateTarget "Mogenerator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05BD79F81B8C10A900329BF0 /* Debug */,
+				05BD79F91B8C10A900329BF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 

@@ -7,6 +7,7 @@
 //
 
 #import "CaptureViewController.h"
+#import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
 #import "TMTeam.h"
 #import "UIColor+Helper.h"
@@ -58,7 +59,7 @@
 - (NSArray *)teams
 {
     if (!_teams) {
-        _teams = [TMTeam getAll];
+        _teams = [TMTeam MR_findAll];
     }
     
     return _teams;

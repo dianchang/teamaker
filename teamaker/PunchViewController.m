@@ -7,6 +7,7 @@
 //
 
 #import "PunchViewController.h"
+#import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
 #import "UIColor+Helper.h"
 #import "TMPunch.h"
@@ -34,7 +35,7 @@
 - (NSArray *)punchs
 {
     if (!_punchs) {
-        _punchs = [TMPunch getAll];
+        _punchs = [TMPunch MR_findAll];
     }
     
     return _punchs;
@@ -43,7 +44,7 @@
 - (NSArray *)teams
 {
     if (!_teams) {
-        _teams = [TMTeam getAll];
+        _teams = [TMTeam MR_findAll];
     }
     return _teams;
 }

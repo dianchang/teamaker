@@ -10,6 +10,7 @@
 #import "UIColor+Helper.h"
 #import "TMTeam.h"
 #import "Masonry.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface TeamButtons()
 @property (strong, nonatomic) NSArray *teams;
@@ -45,7 +46,7 @@ static int const buttonHeight = 60;
         [teamButton setTitle:team.name forState:UIControlStateNormal];
         teamButton.backgroundColor = [UIColor whiteColor];
         [teamButton setTitleColor:[UIColor colorWithRGBA:0x000000FF] forState:UIControlStateNormal];
-        teamButton.tag = team.id;
+        teamButton.tag = team.idValue;
         [teamButton addTarget:controller action:publishAction forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:teamButton];
         [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,7 +67,7 @@ static int const buttonHeight = 60;
 - (NSArray *)teams
 {
     if (!_teams) {
-        _teams = [TMTeam getAll];
+        _teams = [TMTeam MR_findAll];
     }
     
     return _teams;

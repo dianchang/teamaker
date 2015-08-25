@@ -33,7 +33,6 @@
 //    self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
 //    [self.refreshControl beginRefreshing];
     [self loadFeeds];
-    NSLog(@"%@", [NSPersistentStore MR_urlForStoreName:[MagicalRecord defaultStoreName]]);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFeeds) name:@"ReloadFeeds" object:nil];
 }
 

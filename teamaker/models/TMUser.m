@@ -1,12 +1,12 @@
-#import "TMPunch.h"
+#import "TMUser.h"
 
-@interface TMPunch ()
+@interface TMUser ()
 
 // Private interface goes here.
 
 @end
 
-@implementation TMPunch
+@implementation TMUser
 
 // Custom logic goes here.
 

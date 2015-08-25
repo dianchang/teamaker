@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "TMTeam.h"
+#import "TMPunch.h"
 #import <MagicalRecord/MagicalRecord.h>
 
 @interface AppDelegate ()
@@ -15,10 +17,51 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"TMModel"];
+    
+    if ([[TMTeam MR_findAll] count] == 0) {
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            TMTeam *team1 = [TMTeam MR_createEntityInContext:localContext];
+            team1.id = @1;
+            team1.name = @"Teamaker";
+    
+            TMTeam *team2 = [TMTeam MR_createEntityInContext:localContext];
+            team2.id = @2;
+            team2.name = @"拉勾";
+        }];
+    }
+    
+    if ([[TMPunch MR_findAll] count] == 0) {
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            TMPunch *punch1 = [TMPunch MR_createEntityInContext:localContext];
+            punch1.id = @1;
+            punch1.order = @1;
+            punch1.content = @"开会中";
+            
+            TMPunch *punch2 = [TMPunch MR_createEntityInContext:localContext];
+            punch2.id = @YES;
+            punch2.order = @2;
+            punch2.content = @"头脑风暴ing";
+            
+            TMPunch *punch3 = [TMPunch MR_createEntityInContext:localContext];
+            punch3.id = @3;
+            punch3.order = @3;
+            punch3.content = @"开始工作！";
+            
+            TMPunch *punch4 = [TMPunch MR_createEntityInContext:localContext];
+            punch4.id = @4;
+            punch4.order = @4;
+            punch4.content = @"加油！坚持！";
+            
+            TMPunch *punch5 = [TMPunch MR_createEntityInContext:localContext];
+            punch5.id = @5;
+            punch5.order = @5;
+            punch5.content = @"上班路上";
+        }];
+    }
+    
     return YES;
 }
 
