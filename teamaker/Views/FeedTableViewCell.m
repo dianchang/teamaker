@@ -90,7 +90,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         UILabel *punchLabel = [[UILabel alloc] init];
         punchLabel.numberOfLines = 0;
         punchLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        punchLabel.font = [UIFont systemFontOfSize:14];
+        punchLabel.font = [UIFont systemFontOfSize:16];
         [self.contentView addSubview:punchLabel];
         self.punchLabel = punchLabel;
     }
@@ -128,8 +128,11 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         }];
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         [self.punchLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(teamButton);
-            make.top.equalTo(teamButton.mas_bottom).with.offset(6);
+            make.left.equalTo(userButton.mas_right).offset(5);
+            make.top.equalTo(userButton);
+        }];
+        
+        [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.contentView).offset(-15);
         }];
     }
@@ -162,7 +165,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         self.myTextLabel.text = feed.text;
         self.myTextLabel.tag = feed.idValue;
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
-        self.punchLabel.text = feed.punch;
+        self.punchLabel.text = [[NSString alloc] initWithFormat:@": %@", feed.punch];
         self.punchLabel.tag = feed.idValue;
     }
 }
