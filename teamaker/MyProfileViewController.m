@@ -7,12 +7,14 @@
 //
 
 #import "MyProfileViewController.h"
+#import "TMUser.h"
 
 @implementation MyProfileViewController
 
 - (void)loadView
 {
     self.view = [[UIView alloc] init];
+    self.navigationItem.title = [[TMUser getLoggedInUser] name];
     self.view.backgroundColor = [UIColor grayColor];
 }
 
