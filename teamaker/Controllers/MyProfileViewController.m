@@ -14,6 +14,8 @@
 #import "UIImageView+AFNetworking.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "TeamProfileViewController.h"
+#import "MyDetailsViewController.h"
+#import "MySettingsViewController.h"
 
 @interface MyProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -163,6 +165,14 @@
         
         UIViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:team.id];
         [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            UIViewController *controller = [[MyDetailsViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        } else if (indexPath.row == 1) {
+            UIViewController *controller = [[MySettingsViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

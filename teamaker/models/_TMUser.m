@@ -5,9 +5,15 @@
 
 const struct TMUserAttributes TMUserAttributes = {
 	.avatar = @"avatar",
+	.city = @"city",
 	.email = @"email",
 	.id = @"id",
+	.motto = @"motto",
 	.name = @"name",
+	.phone = @"phone",
+	.province = @"province",
+	.sex = @"sex",
+	.wechat = @"wechat",
 };
 
 const struct TMUserRelationships TMUserRelationships = {
@@ -52,6 +58,8 @@ const struct TMUserRelationships TMUserRelationships = {
 
 @dynamic avatar;
 
+@dynamic city;
+
 @dynamic email;
 
 @dynamic id;
@@ -74,7 +82,17 @@ const struct TMUserRelationships TMUserRelationships = {
 	[self setPrimitiveId:[NSNumber numberWithLongLong:value_]];
 }
 
+@dynamic motto;
+
 @dynamic name;
+
+@dynamic phone;
+
+@dynamic province;
+
+@dynamic sex;
+
+@dynamic wechat;
 
 @dynamic feeds;
 

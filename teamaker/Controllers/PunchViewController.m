@@ -106,7 +106,7 @@ static float const buttonHeight = 60.0;
 // 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.punchs count];
+    return self.punchs.count;
 }
 
 // 高度

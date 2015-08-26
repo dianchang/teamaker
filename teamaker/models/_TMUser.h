@@ -5,9 +5,15 @@
 
 extern const struct TMUserAttributes {
 	__unsafe_unretained NSString *avatar;
+	__unsafe_unretained NSString *city;
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *id;
+	__unsafe_unretained NSString *motto;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *phone;
+	__unsafe_unretained NSString *province;
+	__unsafe_unretained NSString *sex;
+	__unsafe_unretained NSString *wechat;
 } TMUserAttributes;
 
 extern const struct TMUserRelationships {
@@ -31,6 +37,10 @@ extern const struct TMUserRelationships {
 
 //- (BOOL)validateAvatar:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSString* city;
+
+//- (BOOL)validateCity:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* email;
 
 //- (BOOL)validateEmail:(id*)value_ error:(NSError**)error_;
@@ -43,9 +53,29 @@ extern const struct TMUserRelationships {
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSString* motto;
+
+//- (BOOL)validateMotto:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* name;
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* phone;
+
+//- (BOOL)validatePhone:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* province;
+
+//- (BOOL)validateProvince:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* sex;
+
+//- (BOOL)validateSex:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* wechat;
+
+//- (BOOL)validateWechat:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSSet *feeds;
 
@@ -78,6 +108,9 @@ extern const struct TMUserRelationships {
 - (NSString*)primitiveAvatar;
 - (void)setPrimitiveAvatar:(NSString*)value;
 
+- (NSString*)primitiveCity;
+- (void)setPrimitiveCity:(NSString*)value;
+
 - (NSString*)primitiveEmail;
 - (void)setPrimitiveEmail:(NSString*)value;
 
@@ -87,8 +120,23 @@ extern const struct TMUserRelationships {
 - (int64_t)primitiveIdValue;
 - (void)setPrimitiveIdValue:(int64_t)value_;
 
+- (NSString*)primitiveMotto;
+- (void)setPrimitiveMotto:(NSString*)value;
+
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
+
+- (NSString*)primitivePhone;
+- (void)setPrimitivePhone:(NSString*)value;
+
+- (NSString*)primitiveProvince;
+- (void)setPrimitiveProvince:(NSString*)value;
+
+- (NSString*)primitiveSex;
+- (void)setPrimitiveSex:(NSString*)value;
+
+- (NSString*)primitiveWechat;
+- (void)setPrimitiveWechat:(NSString*)value;
 
 - (NSMutableSet*)primitiveFeeds;
 - (void)setPrimitiveFeeds:(NSMutableSet*)value;
