@@ -93,7 +93,7 @@
         if (indexPath.row == 0) {
             [self configTableViewCell:cell key:@"手机号" value:self.loggedInUser.phone];
         } else if (indexPath.row == 1) {
-            [self configTableViewCell:cell key:@"名字" value:self.loggedInUser.name];
+            [self configTableViewCell:cell key:@"微信" value:self.loggedInUser.wechat];
         } else if (indexPath.row == 2) {
             [self configTableViewCell:cell key:@"邮箱" value:self.loggedInUser.email];
         } else if (indexPath.row == 3) {
