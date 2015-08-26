@@ -10,4 +10,6 @@
 
 @interface TeamDetailsViewController : UIViewController
 
+- (instancetype)initWithTeamId:(NSNumber *)teamId;
+
 @end

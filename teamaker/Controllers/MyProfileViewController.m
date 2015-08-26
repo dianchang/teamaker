@@ -61,6 +61,23 @@
     }];
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    [tableView setTableHeaderView:[self createHeaderView]];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    UIView *headerView = self.tableView.tableHeaderView;
+    [headerView setNeedsLayout];
+    [headerView layoutIfNeeded];
+    CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGRect frame = headerView.frame;
+    frame.size.height = size.height;
+    headerView.frame = frame;
+    [self.tableView setTableHeaderView:headerView];
+}
+
+- (UIView *)createHeaderView
+{
     UIView *headerView = [UIView new];
     
     // 头像
@@ -87,22 +104,10 @@
     [userLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(headerView);
         make.top.equalTo(avatarView.mas_bottom).offset(10);
-        make.bottom.equalTo(headerView).offset(-30);
+        make.bottom.equalTo(headerView).offset(-30).priorityHigh();
     }];
     
-    [tableView setTableHeaderView:headerView];
-}
-
-- (void)viewDidLayoutSubviews
-{
-    UIView *headerView = self.tableView.tableHeaderView;
-    [headerView setNeedsLayout];
-    [headerView layoutIfNeeded];
-    CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    CGRect frame = headerView.frame;
-    frame.size.height = size.height;
-    headerView.frame = frame;
-    [self.tableView setTableHeaderView:headerView];
+    return headerView;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
