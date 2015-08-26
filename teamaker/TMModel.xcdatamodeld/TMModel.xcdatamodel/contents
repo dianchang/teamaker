@@ -23,6 +23,7 @@
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="team" inverseEntity="TMFeed" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMUser" inverseName="teams" inverseEntity="TMUser" syncable="YES"/>
     </entity>
     <entity name="TMUser" representedClassName="TMUser" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
@@ -30,11 +31,12 @@
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="user" inverseEntity="TMFeed" syncable="YES"/>
+        <relationship name="teams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMTeam" inverseName="users" inverseEntity="TMTeam" syncable="YES"/>
     </entity>
     <elements>
         <element name="TMFeed" positionX="178" positionY="72" width="128" height="210"/>
         <element name="TMPunch" positionX="-36" positionY="81" width="128" height="90"/>
-        <element name="TMTeam" positionX="7" positionY="-85" width="128" height="105"/>
-        <element name="TMUser" positionX="-54" positionY="239" width="128" height="120"/>
+        <element name="TMTeam" positionX="7" positionY="-85" width="128" height="120"/>
+        <element name="TMUser" positionX="-54" positionY="239" width="128" height="135"/>
     </elements>
 </model>

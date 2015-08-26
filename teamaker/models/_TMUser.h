@@ -12,9 +12,11 @@ extern const struct TMUserAttributes {
 
 extern const struct TMUserRelationships {
 	__unsafe_unretained NSString *feeds;
+	__unsafe_unretained NSString *teams;
 } TMUserRelationships;
 
 @class TMFeed;
+@class TMTeam;
 
 @interface TMUserID : NSManagedObjectID {}
 @end
@@ -49,6 +51,10 @@ extern const struct TMUserRelationships {
 
 - (NSMutableSet*)feedsSet;
 
+@property (nonatomic, strong) NSSet *teams;
+
+- (NSMutableSet*)teamsSet;
+
 @end
 
 @interface _TMUser (FeedsCoreDataGeneratedAccessors)
@@ -56,6 +62,14 @@ extern const struct TMUserRelationships {
 - (void)removeFeeds:(NSSet*)value_;
 - (void)addFeedsObject:(TMFeed*)value_;
 - (void)removeFeedsObject:(TMFeed*)value_;
+
+@end
+
+@interface _TMUser (TeamsCoreDataGeneratedAccessors)
+- (void)addTeams:(NSSet*)value_;
+- (void)removeTeams:(NSSet*)value_;
+- (void)addTeamsObject:(TMTeam*)value_;
+- (void)removeTeamsObject:(TMTeam*)value_;
 
 @end
 
@@ -78,5 +92,8 @@ extern const struct TMUserRelationships {
 
 - (NSMutableSet*)primitiveFeeds;
 - (void)setPrimitiveFeeds:(NSMutableSet*)value;
+
+- (NSMutableSet*)primitiveTeams;
+- (void)setPrimitiveTeams:(NSMutableSet*)value;
 
 @end

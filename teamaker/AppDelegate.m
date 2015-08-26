@@ -43,10 +43,12 @@
             TMTeam *team1 = [TMTeam MR_createEntityInContext:localContext];
             team1.id = @1;
             team1.name = @"Teamaker";
+            [team1 addUsersObject:[TMUser MR_findFirstByAttribute:@"id" withValue:@1 inContext:localContext]];
     
             TMTeam *team2 = [TMTeam MR_createEntityInContext:localContext];
             team2.id = @2;
             team2.name = @"拉勾";
+            [team2 addUsersObject:[TMUser MR_findFirstByAttribute:@"id" withValue:@1 inContext:localContext]];
         }];
     }
     

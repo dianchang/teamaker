@@ -11,6 +11,7 @@ const struct TMTeamAttributes TMTeamAttributes = {
 
 const struct TMTeamRelationships TMTeamRelationships = {
 	.feeds = @"feeds",
+	.users = @"users",
 };
 
 @implementation TMTeamID
@@ -80,6 +81,17 @@ const struct TMTeamRelationships TMTeamRelationships = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"feeds"];
 
 	[self didAccessValueForKey:@"feeds"];
+	return result;
+}
+
+@dynamic users;
+
+- (NSMutableSet*)usersSet {
+	[self willAccessValueForKey:@"users"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"users"];
+
+	[self didAccessValueForKey:@"users"];
 	return result;
 }
 
