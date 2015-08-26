@@ -23,23 +23,14 @@
 /* Begin PBXBuildFile section */
 		050BC36B1B799D0E00A35EFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC36A1B799D0E00A35EFD /* main.m */; };
 		050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC36D1B799D0E00A35EFD /* AppDelegate.m */; };
-		050BC3711B799D0E00A35EFD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3701B799D0E00A35EFD /* ViewController.m */; };
 		050BC3741B799D0F00A35EFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3721B799D0F00A35EFD /* Main.storyboard */; };
 		050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3751B799D0F00A35EFD /* Images.xcassets */; };
 		050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3771B799D0F00A35EFD /* LaunchScreen.xib */; };
 		050BC3851B799D0F00A35EFD /* teamakerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3841B799D0F00A35EFD /* teamakerTests.m */; };
-		050BC3901B79A4C000A35EFD /* PunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC38F1B79A4C000A35EFD /* PunchViewController.m */; };
-		050BC3921B79ACFA00A35EFD /* PunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3911B79ACFA00A35EFD /* PunchViewController.xib */; };
-		050BC3961B79AD8B00A35EFD /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3941B79AD8B00A35EFD /* CaptureViewController.m */; };
-		050BC3A21B79F6B300A35EFD /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3A01B79F6B300A35EFD /* FeedViewController.m */; };
-		050BC3A71B79F71F00A35EFD /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3A51B79F71F00A35EFD /* ComposeViewController.m */; };
-		050BC3A81B79F71F00A35EFD /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */; };
 		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
 		053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 053082561B84ADAC008C6C16 /* TeamButtons.m */; };
 		05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */; };
-		053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EA2541B819E1600BBAF12 /* UIColor+Helper.m */; };
 		056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */; };
-		05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05763E7A1B8713820007CD9B /* MyProfileViewController.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
 		05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */; };
 		05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */; };
@@ -53,9 +44,19 @@
 		05CEB7B61B8DA3AE003DF51A /* MyDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */; };
 		05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */; };
 		05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */; };
+		05CEB7CC1B8DA477003DF51A /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */; };
+		05CEB7CD1B8DA477003DF51A /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CEB7BF1B8DA477003DF51A /* ComposeViewController.xib */; };
+		05CEB7CE1B8DA477003DF51A /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C21B8DA477003DF51A /* FeedViewController.m */; };
+		05CEB7CF1B8DA477003DF51A /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C41B8DA477003DF51A /* LocationViewController.m */; };
+		05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */; };
+		05CEB7D11B8DA477003DF51A /* PunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C81B8DA477003DF51A /* PunchViewController.m */; };
+		05CEB7D21B8DA477003DF51A /* PunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CEB7C91B8DA477003DF51A /* PunchViewController.xib */; };
+		05CEB7D31B8DA477003DF51A /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7CB1B8DA477003DF51A /* TextViewController.m */; };
+		05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */; };
+		05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */; };
+		05CEB7DC1B8DA4AB003DF51A /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */; };
+		05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DE1B8DA4DC003DF51A /* ViewController.m */; };
 		05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */; };
-		05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F40E1B82CFE80074C996 /* TextViewController.m */; };
-		05F4F4121B82D00E0074C996 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F4111B82D00E0074C996 /* LocationViewController.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
 /* End PBXBuildFile section */
 
@@ -75,37 +76,20 @@
 		050BC36A1B799D0E00A35EFD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		050BC36C1B799D0E00A35EFD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		050BC36D1B799D0E00A35EFD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		050BC36F1B799D0E00A35EFD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		050BC3701B799D0E00A35EFD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		050BC3731B799D0F00A35EFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		050BC3751B799D0F00A35EFD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		050BC3781B799D0F00A35EFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		050BC37E1B799D0F00A35EFD /* teamakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = teamakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		050BC3831B799D0F00A35EFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		050BC3841B799D0F00A35EFD /* teamakerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = teamakerTests.m; sourceTree = "<group>"; };
-		050BC38E1B79A4C000A35EFD /* PunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchViewController.h; sourceTree = "<group>"; };
-		050BC38F1B79A4C000A35EFD /* PunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchViewController.m; sourceTree = "<group>"; };
-		050BC3911B79ACFA00A35EFD /* PunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PunchViewController.xib; sourceTree = "<group>"; };
-		050BC3931B79AD8B00A35EFD /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureViewController.h; sourceTree = "<group>"; };
-		050BC3941B79AD8B00A35EFD /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
-		050BC39F1B79F6B300A35EFD /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
-		050BC3A01B79F6B300A35EFD /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
-		050BC3A41B79F71F00A35EFD /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
-		050BC3A51B79F71F00A35EFD /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
-		050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
-		053082471B8433CC008C6C16 /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
 		053082481B844D8A008C6C16 /* ScrollDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollDirection.h; sourceTree = "<group>"; };
 		0530824B1B8482A8008C6C16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		053082551B84ADAC008C6C16 /* TeamButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamButtons.h; path = Views/TeamButtons.h; sourceTree = "<group>"; };
 		053082561B84ADAC008C6C16 /* TeamButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamButtons.m; path = Views/TeamButtons.m; sourceTree = "<group>"; };
 		05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileViewController.h; path = Controllers/UserProfileViewController.h; sourceTree = "<group>"; };
 		05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileViewController.m; path = Controllers/UserProfileViewController.m; sourceTree = "<group>"; };
-		053EA2531B819E1600BBAF12 /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
-		053EA2541B819E1600BBAF12 /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamProfileViewController.h; path = Controllers/TeamProfileViewController.h; sourceTree = "<group>"; };
 		056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamProfileViewController.m; path = Controllers/TeamProfileViewController.m; sourceTree = "<group>"; };
-		05763E791B8713820007CD9B /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileViewController.h; sourceTree = "<group>"; };
-		05763E7A1B8713820007CD9B /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileViewController.m; sourceTree = "<group>"; };
 		05A0736F1B8AC657005C5CE3 /* TMModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMModel.xcdatamodel; sourceTree = "<group>"; };
 		05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMFeed.h; path = Models/_TMFeed.h; sourceTree = "<group>"; };
 		05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMFeed.m; path = Models/_TMFeed.m; sourceTree = "<group>"; };
@@ -131,13 +115,32 @@
 		05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySettingsViewController.m; path = Controllers/MySettingsViewController.m; sourceTree = "<group>"; };
 		05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamDetailsViewController.h; path = Controllers/TeamDetailsViewController.h; sourceTree = "<group>"; };
 		05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamDetailsViewController.m; path = Controllers/TeamDetailsViewController.m; sourceTree = "<group>"; };
+		05CEB7BD1B8DA477003DF51A /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeViewController.h; path = Controllers/ComposeViewController.h; sourceTree = "<group>"; };
+		05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComposeViewController.m; path = Controllers/ComposeViewController.m; sourceTree = "<group>"; };
+		05CEB7BF1B8DA477003DF51A /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ComposeViewController.xib; path = Controllers/ComposeViewController.xib; sourceTree = "<group>"; };
+		05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeViewControllerProtocol.h; path = Controllers/ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
+		05CEB7C11B8DA477003DF51A /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = Controllers/FeedViewController.h; sourceTree = "<group>"; };
+		05CEB7C21B8DA477003DF51A /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = Controllers/FeedViewController.m; sourceTree = "<group>"; };
+		05CEB7C31B8DA477003DF51A /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = Controllers/LocationViewController.h; sourceTree = "<group>"; };
+		05CEB7C41B8DA477003DF51A /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = Controllers/LocationViewController.m; sourceTree = "<group>"; };
+		05CEB7C51B8DA477003DF51A /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyProfileViewController.h; path = Controllers/MyProfileViewController.h; sourceTree = "<group>"; };
+		05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyProfileViewController.m; path = Controllers/MyProfileViewController.m; sourceTree = "<group>"; };
+		05CEB7C71B8DA477003DF51A /* PunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PunchViewController.h; path = Controllers/PunchViewController.h; sourceTree = "<group>"; };
+		05CEB7C81B8DA477003DF51A /* PunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PunchViewController.m; path = Controllers/PunchViewController.m; sourceTree = "<group>"; };
+		05CEB7C91B8DA477003DF51A /* PunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PunchViewController.xib; path = Controllers/PunchViewController.xib; sourceTree = "<group>"; };
+		05CEB7CA1B8DA477003DF51A /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextViewController.h; path = Controllers/TextViewController.h; sourceTree = "<group>"; };
+		05CEB7CB1B8DA477003DF51A /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextViewController.m; path = Controllers/TextViewController.m; sourceTree = "<group>"; };
+		05CEB7D41B8DA488003DF51A /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "Categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
+		05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+URLEncode.m"; path = "Categories/NSString+URLEncode.m"; sourceTree = "<group>"; };
+		05CEB7D61B8DA488003DF51A /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Helper.h"; path = "Categories/UIColor+Helper.h"; sourceTree = "<group>"; };
+		05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Helper.m"; path = "Categories/UIColor+Helper.m"; sourceTree = "<group>"; };
+		05CEB7DA1B8DA4AB003DF51A /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaptureViewController.h; path = Controllers/CaptureViewController.h; sourceTree = "<group>"; };
+		05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CaptureViewController.m; path = Controllers/CaptureViewController.m; sourceTree = "<group>"; };
+		05CEB7DD1B8DA4DC003DF51A /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Controllers/ViewController.h; sourceTree = "<group>"; };
+		05CEB7DE1B8DA4DC003DF51A /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Controllers/ViewController.m; sourceTree = "<group>"; };
 		05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = Views/FeedTableViewCell.h; sourceTree = "<group>"; };
 		05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = Views/FeedTableViewCell.m; sourceTree = "<group>"; };
 		05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCellProtocol.h; path = Views/FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
-		05F4F40D1B82CFE80074C996 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
-		05F4F40E1B82CFE80074C996 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
-		05F4F4101B82D00E0074C996 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
-		05F4F4111B82D00E0074C996 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.debug.xcconfig"; sourceTree = "<group>"; };
 		6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.release.xcconfig"; sourceTree = "<group>"; };
 		D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-teamaker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -243,8 +246,10 @@
 		0530824E1B84ACD6008C6C16 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				053EA2531B819E1600BBAF12 /* UIColor+Helper.h */,
-				053EA2541B819E1600BBAF12 /* UIColor+Helper.m */,
+				05CEB7D41B8DA488003DF51A /* NSString+URLEncode.h */,
+				05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */,
+				05CEB7D61B8DA488003DF51A /* UIColor+Helper.h */,
+				05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */,
 				05CEB7B11B8D5FC2003DF51A /* NSDate+FriendlyInterval.h */,
 				05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */,
 			);
@@ -277,30 +282,30 @@
 		053EA2561B81AB6A00BBAF12 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				05CEB7DD1B8DA4DC003DF51A /* ViewController.h */,
+				05CEB7DE1B8DA4DC003DF51A /* ViewController.m */,
+				05CEB7DA1B8DA4AB003DF51A /* CaptureViewController.h */,
+				05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */,
+				05CEB7BD1B8DA477003DF51A /* ComposeViewController.h */,
+				05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */,
+				05CEB7BF1B8DA477003DF51A /* ComposeViewController.xib */,
+				05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */,
+				05CEB7C11B8DA477003DF51A /* FeedViewController.h */,
+				05CEB7C21B8DA477003DF51A /* FeedViewController.m */,
+				05CEB7C31B8DA477003DF51A /* LocationViewController.h */,
+				05CEB7C41B8DA477003DF51A /* LocationViewController.m */,
+				05CEB7C51B8DA477003DF51A /* MyProfileViewController.h */,
+				05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */,
+				05CEB7C71B8DA477003DF51A /* PunchViewController.h */,
+				05CEB7C81B8DA477003DF51A /* PunchViewController.m */,
+				05CEB7C91B8DA477003DF51A /* PunchViewController.xib */,
+				05CEB7CA1B8DA477003DF51A /* TextViewController.h */,
+				05CEB7CB1B8DA477003DF51A /* TextViewController.m */,
 				0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */,
 				056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */,
-				050BC36F1B799D0E00A35EFD /* ViewController.h */,
-				050BC3701B799D0E00A35EFD /* ViewController.m */,
-				05F4F4101B82D00E0074C996 /* LocationViewController.h */,
-				05F4F4111B82D00E0074C996 /* LocationViewController.m */,
-				050BC39F1B79F6B300A35EFD /* FeedViewController.h */,
-				050BC3A01B79F6B300A35EFD /* FeedViewController.m */,
-				05763E791B8713820007CD9B /* MyProfileViewController.h */,
-				05763E7A1B8713820007CD9B /* MyProfileViewController.m */,
 				05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */,
 				05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */,
-				050BC3A41B79F71F00A35EFD /* ComposeViewController.h */,
-				050BC3A51B79F71F00A35EFD /* ComposeViewController.m */,
-				050BC3A61B79F71F00A35EFD /* ComposeViewController.xib */,
-				050BC3931B79AD8B00A35EFD /* CaptureViewController.h */,
-				050BC3941B79AD8B00A35EFD /* CaptureViewController.m */,
 				050BC3721B799D0F00A35EFD /* Main.storyboard */,
-				050BC38E1B79A4C000A35EFD /* PunchViewController.h */,
-				050BC38F1B79A4C000A35EFD /* PunchViewController.m */,
-				050BC3911B79ACFA00A35EFD /* PunchViewController.xib */,
-				05F4F40D1B82CFE80074C996 /* TextViewController.h */,
-				05F4F40E1B82CFE80074C996 /* TextViewController.m */,
-				053082471B8433CC008C6C16 /* ComposeViewControllerProtocol.h */,
 				05CEB7B41B8DA3AE003DF51A /* MyDetailsViewController.h */,
 				05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */,
 				05CEB7B71B8DA3C5003DF51A /* MySettingsViewController.h */,
@@ -428,10 +433,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				050BC3741B799D0F00A35EFD /* Main.storyboard in Resources */,
-				050BC3921B79ACFA00A35EFD /* PunchViewController.xib in Resources */,
 				050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */,
-				050BC3A81B79F71F00A35EFD /* ComposeViewController.xib in Resources */,
 				050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */,
+				05CEB7CD1B8DA477003DF51A /* ComposeViewController.xib in Resources */,
+				05CEB7D21B8DA477003DF51A /* PunchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,33 +501,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				050BC3711B799D0E00A35EFD /* ViewController.m in Sources */,
 				05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */,
+				05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */,
+				05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */,
+				05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */,
 				05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */,
-				050BC3901B79A4C000A35EFD /* PunchViewController.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
+				05CEB7DC1B8DA4AB003DF51A /* CaptureViewController.m in Sources */,
 				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
-				05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */,
 				056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */,
 				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
 				05CEB7B61B8DA3AE003DF51A /* MyDetailsViewController.m in Sources */,
-				053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */,
+				05CEB7CF1B8DA477003DF51A /* LocationViewController.m in Sources */,
 				05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */,
-				05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */,
+				05CEB7CE1B8DA477003DF51A /* FeedViewController.m in Sources */,
 				05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */,
 				05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */,
-				05F4F4121B82D00E0074C996 /* LocationViewController.m in Sources */,
 				05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */,
-				050BC3961B79AD8B00A35EFD /* CaptureViewController.m in Sources */,
+				05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */,
 				05BD7A2A1B8C1C3F00329BF0 /* TMFeed.m in Sources */,
-				050BC3A71B79F71F00A35EFD /* ComposeViewController.m in Sources */,
 				05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */,
 				05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */,
-				050BC3A21B79F6B300A35EFD /* FeedViewController.m in Sources */,
 				05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */,
 				050BC36B1B799D0E00A35EFD /* main.m in Sources */,
 				053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */,
+				05CEB7D31B8DA477003DF51A /* TextViewController.m in Sources */,
 				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
+				05CEB7D11B8DA477003DF51A /* PunchViewController.m in Sources */,
+				05CEB7CC1B8DA477003DF51A /* ComposeViewController.m in Sources */,
 				05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
