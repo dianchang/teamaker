@@ -54,6 +54,7 @@
     [self addChildViewController:tableViewController];
     [self.view addSubview:tableView];
     self.tableView = tableView;
+    tableView.allowsSelection = NO;
     tableView.dataSource = self;
     tableView.delegate = self;
     
