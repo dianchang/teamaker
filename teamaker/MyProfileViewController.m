@@ -159,6 +159,8 @@
         UIViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:team.id];
         [self.navigationController pushViewController:controller animated:YES];
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
