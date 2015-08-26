@@ -119,7 +119,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     
     [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(userButton);
-        make.top.equalTo(userButton.mas_bottom).with.offset(5);
+        make.top.equalTo(userButton.mas_bottom).with.offset(5).priorityHigh();
         make.height.equalTo(@14).priorityHigh();
     }];
     
@@ -131,7 +131,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         [self.myTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(teamButton);
-            make.top.equalTo(teamButton.mas_bottom).with.offset(6);
+            make.top.equalTo(teamButton.mas_bottom).with.offset(6).priorityHigh();
             make.bottom.equalTo(timeLable.mas_top).offset(-10);
         }];
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {

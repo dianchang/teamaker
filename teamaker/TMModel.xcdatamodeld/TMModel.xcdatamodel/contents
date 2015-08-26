@@ -34,7 +34,7 @@
     <elements>
         <element name="TMFeed" positionX="178" positionY="72" width="128" height="210"/>
         <element name="TMPunch" positionX="-36" positionY="81" width="128" height="90"/>
-        <element name="TMTeam" positionX="7" positionY="-85" width="128" height="103"/>
+        <element name="TMTeam" positionX="7" positionY="-85" width="128" height="105"/>
         <element name="TMUser" positionX="-54" positionY="239" width="128" height="120"/>
     </elements>
 </model>
