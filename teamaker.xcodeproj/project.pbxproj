@@ -50,6 +50,9 @@
 		05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A231B8C1C3F00329BF0 /* TMTeam.m */; };
 		05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A251B8C1C3F00329BF0 /* TMUser.m */; };
 		05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */; };
+		05CEB7B61B8DA3AE003DF51A /* MyDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */; };
+		05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */; };
+		05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */; };
 		05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */; };
 		05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F40E1B82CFE80074C996 /* TextViewController.m */; };
 		05F4F4121B82D00E0074C996 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F4F4111B82D00E0074C996 /* LocationViewController.m */; };
@@ -122,6 +125,12 @@
 		05BD7A251B8C1C3F00329BF0 /* TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMUser.m; path = Models/TMUser.m; sourceTree = "<group>"; };
 		05CEB7B11B8D5FC2003DF51A /* NSDate+FriendlyInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+FriendlyInterval.h"; path = "Categories/NSDate+FriendlyInterval.h"; sourceTree = "<group>"; };
 		05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+FriendlyInterval.m"; path = "Categories/NSDate+FriendlyInterval.m"; sourceTree = "<group>"; };
+		05CEB7B41B8DA3AE003DF51A /* MyDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDetailsViewController.h; path = Controllers/MyDetailsViewController.h; sourceTree = "<group>"; };
+		05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyDetailsViewController.m; path = Controllers/MyDetailsViewController.m; sourceTree = "<group>"; };
+		05CEB7B71B8DA3C5003DF51A /* MySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MySettingsViewController.h; path = Controllers/MySettingsViewController.h; sourceTree = "<group>"; };
+		05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySettingsViewController.m; path = Controllers/MySettingsViewController.m; sourceTree = "<group>"; };
+		05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamDetailsViewController.h; path = Controllers/TeamDetailsViewController.h; sourceTree = "<group>"; };
+		05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamDetailsViewController.m; path = Controllers/TeamDetailsViewController.m; sourceTree = "<group>"; };
 		05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = Views/FeedTableViewCell.h; sourceTree = "<group>"; };
 		05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = Views/FeedTableViewCell.m; sourceTree = "<group>"; };
 		05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCellProtocol.h; path = Views/FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
@@ -292,6 +301,12 @@
 				05F4F40D1B82CFE80074C996 /* TextViewController.h */,
 				05F4F40E1B82CFE80074C996 /* TextViewController.m */,
 				053082471B8433CC008C6C16 /* ComposeViewControllerProtocol.h */,
+				05CEB7B41B8DA3AE003DF51A /* MyDetailsViewController.h */,
+				05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */,
+				05CEB7B71B8DA3C5003DF51A /* MySettingsViewController.h */,
+				05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */,
+				05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */,
+				05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -482,12 +497,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				050BC3711B799D0E00A35EFD /* ViewController.m in Sources */,
+				05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */,
+				05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */,
 				050BC3901B79A4C000A35EFD /* PunchViewController.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
 				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
 				05F4F40F1B82CFE80074C996 /* TextViewController.m in Sources */,
 				056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */,
 				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
+				05CEB7B61B8DA3AE003DF51A /* MyDetailsViewController.m in Sources */,
 				053EA2551B819E1600BBAF12 /* UIColor+Helper.m in Sources */,
 				05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */,
 				05763E7B1B8713820007CD9B /* MyProfileViewController.m in Sources */,
