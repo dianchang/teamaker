@@ -22,6 +22,7 @@
         feed.teamId = teamId;
         feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:localContext];
         feed.text = text;
+        feed.createdAt = [NSDate date];
     } completion:^(BOOL contextDidSave, NSError *error) {
         completionBlock(contextDidSave, error);
     }];
@@ -38,6 +39,7 @@
         feed.teamId = teamId;
         feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:localContext];
         feed.punch = punch;
+        feed.createdAt = [NSDate date];
     } completion:^(BOOL contextDidSave, NSError *error) {
         completionBlock(contextDidSave, error);
     }];

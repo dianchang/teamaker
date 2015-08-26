@@ -136,7 +136,7 @@
 //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSLog(@"Error: %@", error);
 //    }];
-    self.feeds = (NSMutableArray *)[TMFeed MR_findAll];
+    self.feeds = (NSMutableArray *)[TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO];
     [self.tableView reloadData];
 }
 

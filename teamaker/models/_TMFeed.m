@@ -4,6 +4,7 @@
 #import "_TMFeed.h"
 
 const struct TMFeedAttributes TMFeedAttributes = {
+	.createdAt = @"createdAt",
 	.id = @"id",
 	.image = @"image",
 	.kind = @"kind",
@@ -63,6 +64,8 @@ const struct TMFeedRelationships TMFeedRelationships = {
 
 	return keyPaths;
 }
+
+@dynamic createdAt;
 
 @dynamic id;
 

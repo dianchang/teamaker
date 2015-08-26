@@ -12,6 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "TMTeam.h"
 #import "TMUser.h"
+#import "NSDate+FriendlyInterval.h"
 
 static NSString *const textCellReuseIdentifier = @"TextCell";
 static NSString *const imageCellReuseIdentifier = @"ImageCell";
@@ -63,7 +64,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     UIButton *userButton = [[UIButton alloc] init];
     userButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [userButton setTitleColor:[UIColor colorWithRGBA:0x333333FF] forState:UIControlStateNormal];
-    [userButton addTarget:self action:@selector(userButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [userButton addTarget:self action:@selector(userButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     userButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:userButton];
     self.userButton = userButton;
@@ -71,8 +72,8 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     // 团队名
     UIButton *teamButton = [[UIButton alloc] init];
     teamButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [teamButton setTitleColor:[UIColor colorWithRGBA:0xAAAAAAFF] forState:UIControlStateNormal];
-    [teamButton addTarget:self action:@selector(teamButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [teamButton setTitleColor:[UIColor colorWithRGBA:0x999999FF] forState:UIControlStateNormal];
+//    [teamButton addTarget:self action:@selector(teamButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     teamButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:teamButton];
     self.teamButton = teamButton;
@@ -95,10 +96,12 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         self.punchLabel = punchLabel;
     }
     
-//    // 时间与命令
-//    UIView *timeAndCommandsView = [[UIView alloc] init];
-//    [self.contentView addSubview:timeAndCommandsView];
-//    // 时间
+    // 时间
+    UILabel *timeLable = [UILabel new];
+    timeLable.font = [UIFont systemFontOfSize:12];
+    [self.contentView addSubview:timeLable];
+    timeLable.textColor = [UIColor colorWithRGBA:0x999999FF];
+    self.createdAtLabel = timeLable;
     
     // 约束
     [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -120,11 +123,16 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         make.height.equalTo(@14).priorityHigh();
     }];
     
+    [timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(userButton);
+        make.bottom.equalTo(self.contentView).offset(-15);
+    }];
+    
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         [self.myTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(teamButton);
             make.top.equalTo(teamButton.mas_bottom).with.offset(6);
-            make.bottom.equalTo(self.contentView).offset(-15);
+            make.bottom.equalTo(timeLable.mas_top).offset(-10);
         }];
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         [self.punchLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -133,7 +141,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         }];
         
         [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.contentView).offset(-15);
+            make.bottom.equalTo(timeLable.mas_top).offset(-10);
         }];
     }
     
@@ -160,6 +168,8 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
                                                  NSLog(@"%@", error);
                                              }];
     self.userAvatarImageView.tag = feed.userIdValue;
+    
+    self.createdAtLabel.text = [feed.createdAt friendlyInterval];
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         self.myTextLabel.text = feed.text;

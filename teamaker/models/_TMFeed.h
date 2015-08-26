@@ -4,6 +4,7 @@
 #import <CoreData/CoreData.h>
 
 extern const struct TMFeedAttributes {
+	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *image;
 	__unsafe_unretained NSString *kind;
@@ -30,6 +31,10 @@ extern const struct TMFeedRelationships {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) TMFeedID* objectID;
+
+@property (nonatomic, strong) NSDate* createdAt;
+
+//- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* id;
 
@@ -86,6 +91,9 @@ extern const struct TMFeedRelationships {
 @end
 
 @interface _TMFeed (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSDate*)primitiveCreatedAt;
+- (void)setPrimitiveCreatedAt:(NSDate*)value;
 
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
