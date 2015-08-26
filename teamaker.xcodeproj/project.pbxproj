@@ -56,6 +56,7 @@
 		05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */; };
 		05CEB7DC1B8DA4AB003DF51A /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */; };
 		05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DE1B8DA4DC003DF51A /* ViewController.m */; };
+		05CEB7E21B8DA557003DF51A /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */; };
 		05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
 /* End PBXBuildFile section */
@@ -138,6 +139,8 @@
 		05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CaptureViewController.m; path = Controllers/CaptureViewController.m; sourceTree = "<group>"; };
 		05CEB7DD1B8DA4DC003DF51A /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Controllers/ViewController.h; sourceTree = "<group>"; };
 		05CEB7DE1B8DA4DC003DF51A /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Controllers/ViewController.m; sourceTree = "<group>"; };
+		05CEB7E01B8DA557003DF51A /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationDetailsViewController.h; path = Controllers/LocationDetailsViewController.h; sourceTree = "<group>"; };
+		05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationDetailsViewController.m; path = Controllers/LocationDetailsViewController.m; sourceTree = "<group>"; };
 		05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = Views/FeedTableViewCell.h; sourceTree = "<group>"; };
 		05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = Views/FeedTableViewCell.m; sourceTree = "<group>"; };
 		05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCellProtocol.h; path = Views/FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
@@ -312,6 +315,8 @@
 				05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */,
 				05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */,
 				05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */,
+				05CEB7E01B8DA557003DF51A /* LocationDetailsViewController.h */,
+				05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */,
 				05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */,
 				05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */,
+				05CEB7E21B8DA557003DF51A /* LocationDetailsViewController.m in Sources */,
 				05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
 				05CEB7DC1B8DA4AB003DF51A /* CaptureViewController.m in Sources */,
