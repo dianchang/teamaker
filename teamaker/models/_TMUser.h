@@ -12,13 +12,14 @@ extern const struct TMUserAttributes {
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *phone;
 	__unsafe_unretained NSString *province;
+	__unsafe_unretained NSString *qrcode;
 	__unsafe_unretained NSString *sex;
 	__unsafe_unretained NSString *wechat;
 } TMUserAttributes;
 
 extern const struct TMUserRelationships {
 	__unsafe_unretained NSString *feeds;
-	__unsafe_unretained NSString *teams;
+	__unsafe_unretained NSString *teamsInfos;
 } TMUserRelationships;
 
 @class TMFeed;
@@ -69,6 +70,10 @@ extern const struct TMUserRelationships {
 
 //- (BOOL)validateProvince:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSString* qrcode;
+
+//- (BOOL)validateQrcode:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* sex;
 
 //- (BOOL)validateSex:(id*)value_ error:(NSError**)error_;
@@ -81,9 +86,9 @@ extern const struct TMUserRelationships {
 
 - (NSMutableSet*)feedsSet;
 
-@property (nonatomic, strong) NSSet *teams;
+@property (nonatomic, strong) NSSet *teamsInfos;
 
-- (NSMutableSet*)teamsSet;
+- (NSMutableSet*)teamsInfosSet;
 
 @end
 
@@ -95,11 +100,11 @@ extern const struct TMUserRelationships {
 
 @end
 
-@interface _TMUser (TeamsCoreDataGeneratedAccessors)
-- (void)addTeams:(NSSet*)value_;
-- (void)removeTeams:(NSSet*)value_;
-- (void)addTeamsObject:(TMTeamUserInfo*)value_;
-- (void)removeTeamsObject:(TMTeamUserInfo*)value_;
+@interface _TMUser (TeamsInfosCoreDataGeneratedAccessors)
+- (void)addTeamsInfos:(NSSet*)value_;
+- (void)removeTeamsInfos:(NSSet*)value_;
+- (void)addTeamsInfosObject:(TMTeamUserInfo*)value_;
+- (void)removeTeamsInfosObject:(TMTeamUserInfo*)value_;
 
 @end
 
@@ -132,6 +137,9 @@ extern const struct TMUserRelationships {
 - (NSString*)primitiveProvince;
 - (void)setPrimitiveProvince:(NSString*)value;
 
+- (NSString*)primitiveQrcode;
+- (void)setPrimitiveQrcode:(NSString*)value;
+
 - (NSString*)primitiveSex;
 - (void)setPrimitiveSex:(NSString*)value;
 
@@ -141,7 +149,7 @@ extern const struct TMUserRelationships {
 - (NSMutableSet*)primitiveFeeds;
 - (void)setPrimitiveFeeds:(NSMutableSet*)value;
 
-- (NSMutableSet*)primitiveTeams;
-- (void)setPrimitiveTeams:(NSMutableSet*)value;
+- (NSMutableSet*)primitiveTeamsInfos;
+- (void)setPrimitiveTeamsInfos:(NSMutableSet*)value;
 
 @end

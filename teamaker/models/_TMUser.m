@@ -12,13 +12,14 @@ const struct TMUserAttributes TMUserAttributes = {
 	.name = @"name",
 	.phone = @"phone",
 	.province = @"province",
+	.qrcode = @"qrcode",
 	.sex = @"sex",
 	.wechat = @"wechat",
 };
 
 const struct TMUserRelationships TMUserRelationships = {
 	.feeds = @"feeds",
-	.teams = @"teams",
+	.teamsInfos = @"teamsInfos",
 };
 
 @implementation TMUserID
@@ -90,6 +91,8 @@ const struct TMUserRelationships TMUserRelationships = {
 
 @dynamic province;
 
+@dynamic qrcode;
+
 @dynamic sex;
 
 @dynamic wechat;
@@ -105,14 +108,14 @@ const struct TMUserRelationships TMUserRelationships = {
 	return result;
 }
 
-@dynamic teams;
+@dynamic teamsInfos;
 
-- (NSMutableSet*)teamsSet {
-	[self willAccessValueForKey:@"teams"];
+- (NSMutableSet*)teamsInfosSet {
+	[self willAccessValueForKey:@"teamsInfos"];
 
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"teams"];
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"teamsInfos"];
 
-	[self didAccessValueForKey:@"teams"];
+	[self didAccessValueForKey:@"teamsInfos"];
 	return result;
 }
 

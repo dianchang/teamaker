@@ -7,11 +7,12 @@ const struct TMTeamAttributes TMTeamAttributes = {
 	.avatar = @"avatar",
 	.id = @"id",
 	.name = @"name",
+	.qrcode = @"qrcode",
 };
 
 const struct TMTeamRelationships TMTeamRelationships = {
 	.feeds = @"feeds",
-	.users = @"users",
+	.usersInfos = @"usersInfos",
 };
 
 @implementation TMTeamID
@@ -73,6 +74,8 @@ const struct TMTeamRelationships TMTeamRelationships = {
 
 @dynamic name;
 
+@dynamic qrcode;
+
 @dynamic feeds;
 
 - (NSMutableSet*)feedsSet {
@@ -84,14 +87,14 @@ const struct TMTeamRelationships TMTeamRelationships = {
 	return result;
 }
 
-@dynamic users;
+@dynamic usersInfos;
 
-- (NSMutableSet*)usersSet {
-	[self willAccessValueForKey:@"users"];
+- (NSMutableSet*)usersInfosSet {
+	[self willAccessValueForKey:@"usersInfos"];
 
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"users"];
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"usersInfos"];
 
-	[self didAccessValueForKey:@"users"];
+	[self didAccessValueForKey:@"usersInfos"];
 	return result;
 }
 

@@ -7,11 +7,12 @@ extern const struct TMTeamAttributes {
 	__unsafe_unretained NSString *avatar;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *qrcode;
 } TMTeamAttributes;
 
 extern const struct TMTeamRelationships {
 	__unsafe_unretained NSString *feeds;
-	__unsafe_unretained NSString *users;
+	__unsafe_unretained NSString *usersInfos;
 } TMTeamRelationships;
 
 @class TMFeed;
@@ -42,13 +43,17 @@ extern const struct TMTeamRelationships {
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSString* qrcode;
+
+//- (BOOL)validateQrcode:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSSet *feeds;
 
 - (NSMutableSet*)feedsSet;
 
-@property (nonatomic, strong) NSSet *users;
+@property (nonatomic, strong) NSSet *usersInfos;
 
-- (NSMutableSet*)usersSet;
+- (NSMutableSet*)usersInfosSet;
 
 @end
 
@@ -60,11 +65,11 @@ extern const struct TMTeamRelationships {
 
 @end
 
-@interface _TMTeam (UsersCoreDataGeneratedAccessors)
-- (void)addUsers:(NSSet*)value_;
-- (void)removeUsers:(NSSet*)value_;
-- (void)addUsersObject:(TMTeamUserInfo*)value_;
-- (void)removeUsersObject:(TMTeamUserInfo*)value_;
+@interface _TMTeam (UsersInfosCoreDataGeneratedAccessors)
+- (void)addUsersInfos:(NSSet*)value_;
+- (void)removeUsersInfos:(NSSet*)value_;
+- (void)addUsersInfosObject:(TMTeamUserInfo*)value_;
+- (void)removeUsersInfosObject:(TMTeamUserInfo*)value_;
 
 @end
 
@@ -82,10 +87,13 @@ extern const struct TMTeamRelationships {
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
 
+- (NSString*)primitiveQrcode;
+- (void)setPrimitiveQrcode:(NSString*)value;
+
 - (NSMutableSet*)primitiveFeeds;
 - (void)setPrimitiveFeeds:(NSMutableSet*)value;
 
-- (NSMutableSet*)primitiveUsers;
-- (void)setPrimitiveUsers:(NSMutableSet*)value;
+- (NSMutableSet*)primitiveUsersInfos;
+- (void)setPrimitiveUsersInfos:(NSMutableSet*)value;
 
 @end

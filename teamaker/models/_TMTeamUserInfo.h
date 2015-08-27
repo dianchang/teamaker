@@ -8,6 +8,8 @@ extern const struct TMTeamUserInfoAttributes {
 	__unsafe_unretained NSString *desc;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *teamId;
+	__unsafe_unretained NSString *userId;
 } TMTeamUserInfoAttributes;
 
 extern const struct TMTeamUserInfoRelationships {
@@ -47,6 +49,22 @@ extern const struct TMTeamUserInfoRelationships {
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* teamId;
+
+@property (atomic) int64_t teamIdValue;
+- (int64_t)teamIdValue;
+- (void)setTeamIdValue:(int64_t)value_;
+
+//- (BOOL)validateTeamId:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* userId;
+
+@property (atomic) int64_t userIdValue;
+- (int64_t)userIdValue;
+- (void)setUserIdValue:(int64_t)value_;
+
+//- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) TMTeam *team;
 
 //- (BOOL)validateTeam:(id*)value_ error:(NSError**)error_;
@@ -73,6 +91,18 @@ extern const struct TMTeamUserInfoRelationships {
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
+
+- (NSNumber*)primitiveTeamId;
+- (void)setPrimitiveTeamId:(NSNumber*)value;
+
+- (int64_t)primitiveTeamIdValue;
+- (void)setPrimitiveTeamIdValue:(int64_t)value_;
+
+- (NSNumber*)primitiveUserId;
+- (void)setPrimitiveUserId:(NSNumber*)value;
+
+- (int64_t)primitiveUserIdValue;
+- (void)setPrimitiveUserIdValue:(int64_t)value_;
 
 - (TMTeam*)primitiveTeam;
 - (void)setPrimitiveTeam:(TMTeam*)value;

@@ -10,6 +10,7 @@
 #import "TeamDetailsViewController.h"
 #import "TMTeam.h"
 #import "TMFeed.h"
+#import "TMTeamUserInfo.h"
 #import "TMUser.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
@@ -21,9 +22,10 @@
 
 @property (strong, nonatomic) NSNumber *teamId;
 @property (strong, nonatomic) TMTeam *team;
-@property (strong, nonatomic) NSArray *users;
+@property (strong, nonatomic) NSArray *userInfos;
 @property (strong, nonatomic) NSArray *starFeeds;
 @property (strong, nonatomic) TMUser *loggedInUser;
+@property (strong, nonatomic) TMTeamUserInfo *teamUserInfo;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 
@@ -76,13 +78,13 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     return _team;
 }
 
-- (NSArray *)users
+- (NSArray *)userInfos
 {
-    if (!_users) {
-        _users = [self.team.users allObjects];
+    if (!_userInfos) {
+        _userInfos = [self.team.usersInfos allObjects];
     }
     
-    return _users;
+    return _userInfos;
 }
 
 - (TMUser *)loggedInUser
@@ -92,6 +94,16 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     }
     
     return _loggedInUser;
+}
+
+- (TMTeamUserInfo *)teamUserInfo
+{
+    if (!_teamUserInfo) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userId == %@) AND (teamId == %@)", self.loggedInUser.id, self.teamId];
+        _teamUserInfo = [TMTeamUserInfo MR_findFirstWithPredicate:predicate];
+    }
+    
+    return _teamUserInfo;
 }
 
 - (NSArray *)starFeeds
@@ -224,11 +236,11 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
         case 1: {
             switch (indexPath.row) {
                 case 0: {
-                    [self configTableViewCell:cell key:@"圈子名称" value:self.team.name];
+                    [self configTableViewCell:cell key:@"圈子名称" value:self.teamUserInfo.name];
                     break;
                 }
                 case 1: {
-                    [self configTableViewCell:cell key:@"圈子头像" imageUrl:[NSURL URLWithString:self.team.avatar] border:30 radius:2];
+                    [self configTableViewCell:cell key:@"圈子头像" imageUrl:[NSURL URLWithString:self.teamUserInfo.avatar] border:30 radius:2];
                     break;
                 }
                 case 2: {
@@ -417,29 +429,29 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    TMUser *user = self.users[indexPath.row];
+    TMTeamUserInfo *userInfo = self.userInfos[indexPath.row];
     
     TeamMemberCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionViewReuseIdentifier forIndexPath:indexPath];
-    [cell updateDataWithUser:user];
+    [cell updateDataWithUser:userInfo.user];
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.users.count;
+    return self.userInfos.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static TeamMemberCollectionViewCell *sizingCell;
     static dispatch_once_t onceToken;
-    TMUser *user = self.users[indexPath.row];
+    TMTeamUserInfo *userInfo = self.userInfos[indexPath.row];
     
     dispatch_once(&onceToken, ^{
         sizingCell = [[TeamMemberCollectionViewCell alloc] initWithFrame:CGRectZero];
     });
     
-    [sizingCell updateDataWithUser:user];
+    [sizingCell updateDataWithUser:userInfo.user];
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];

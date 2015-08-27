@@ -9,6 +9,7 @@
 #import "MyProfileViewController.h"
 #import "TMUser.h"
 #import "TMTeam.h"
+#import "TMTeamUserInfo.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Masonry.h"
 #import "UIImageView+AFNetworking.h"
@@ -21,7 +22,7 @@
 
 @property (strong, nonatomic) TMUser *loggedInUser;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *teams;
+@property (strong, nonatomic) NSArray *teamInfos;
 
 @end
 
@@ -36,13 +37,13 @@
     return _loggedInUser;
 }
 
-- (NSArray *)teams
+- (NSArray *)teamInfos
 {
-    if (!_teams) {
-        _teams = [self.loggedInUser.teams allObjects];
+    if (!_teamInfos) {
+        _teamInfos = [self.loggedInUser.teamsInfos allObjects];
     }
     
-    return _teams;
+    return _teamInfos;
 }
 
 - (void)loadView
@@ -120,7 +121,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return self.teams.count;
+        return self.teamInfos.count;
     } else if (section == 1) {
         return 2;
     } else {
@@ -134,8 +135,8 @@
     
     // 团队
     if (indexPath.section == 0) {
-        TMTeam *team = self.teams[indexPath.row];
-        cell.textLabel.text = team.name;
+        TMTeamUserInfo *teamInfo = self.teamInfos[indexPath.row];
+        cell.textLabel.text = teamInfo.team.name;
     } else if (indexPath.section == 1) {    // 其他
         if (indexPath.row == 0) {
             cell.textLabel.text = @"个人资料";
@@ -161,9 +162,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        TMTeam *team = self.teams[indexPath.row];
+        TMTeamUserInfo *teamInfo = self.teamInfos[indexPath.row];
         
-        UIViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:team.id];
+        UIViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:teamInfo.teamId];
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {

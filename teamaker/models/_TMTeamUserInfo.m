@@ -8,6 +8,8 @@ const struct TMTeamUserInfoAttributes TMTeamUserInfoAttributes = {
 	.desc = @"desc",
 	.id = @"id",
 	.name = @"name",
+	.teamId = @"teamId",
+	.userId = @"userId",
 };
 
 const struct TMTeamUserInfoRelationships TMTeamUserInfoRelationships = {
@@ -46,6 +48,16 @@ const struct TMTeamUserInfoRelationships TMTeamUserInfoRelationships = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"teamIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"teamId"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"userIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"userId"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -75,6 +87,46 @@ const struct TMTeamUserInfoRelationships TMTeamUserInfoRelationships = {
 }
 
 @dynamic name;
+
+@dynamic teamId;
+
+- (int64_t)teamIdValue {
+	NSNumber *result = [self teamId];
+	return [result longLongValue];
+}
+
+- (void)setTeamIdValue:(int64_t)value_ {
+	[self setTeamId:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveTeamIdValue {
+	NSNumber *result = [self primitiveTeamId];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveTeamIdValue:(int64_t)value_ {
+	[self setPrimitiveTeamId:[NSNumber numberWithLongLong:value_]];
+}
+
+@dynamic userId;
+
+- (int64_t)userIdValue {
+	NSNumber *result = [self userId];
+	return [result longLongValue];
+}
+
+- (void)setUserIdValue:(int64_t)value_ {
+	[self setUserId:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveUserIdValue {
+	NSNumber *result = [self primitiveUserId];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveUserIdValue:(int64_t)value_ {
+	[self setPrimitiveUserId:[NSNumber numberWithLongLong:value_]];
+}
 
 @dynamic team;
 
