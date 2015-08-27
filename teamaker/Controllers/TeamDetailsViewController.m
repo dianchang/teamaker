@@ -9,17 +9,21 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TeamDetailsViewController.h"
 #import "TMTeam.h"
+#import "TMFeed.h"
 #import "TMUser.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
 #import "UIImageView+AFNetworking.h"
 #import "TeamMemberCollectionViewCell.h"
+#import "UIColor+Helper.h"
 
 @interface TeamDetailsViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) NSNumber *teamId;
 @property (strong, nonatomic) TMTeam *team;
 @property (strong, nonatomic) NSArray *users;
+@property (strong, nonatomic) NSArray *starFeeds;
+@property (strong, nonatomic) TMUser *loggedInUser;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 
@@ -56,6 +60,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     self.tableView = tableView;
     
     [self.tableView setTableHeaderView:[self createHeaderView]];
+    [self.tableView setTableFooterView:[self createFooterView]];
 
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -78,6 +83,24 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     }
     
     return _users;
+}
+
+- (TMUser *)loggedInUser
+{
+    if (!_loggedInUser) {
+        _loggedInUser = [TMUser getLoggedInUser];
+    }
+    
+    return _loggedInUser;
+}
+
+- (NSArray *)starFeeds
+{
+    if (!_starFeeds) {
+        _starFeeds = [self.team.feeds allObjects];
+    }
+    
+    return _starFeeds;
 }
 
 - (UIView *)createHeaderView
@@ -117,18 +140,48 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     
     [userLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(headerView);
-        make.top.equalTo(avatarView.mas_bottom).offset(5);
+        make.top.equalTo(avatarView.mas_bottom).offset(8);
     }];
     
     [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.and.bottom.equalTo(headerView);
+        make.left.right.equalTo(headerView);
+        make.bottom.equalTo(headerView).offset(-15);
         make.top.equalTo(userLable.mas_bottom).offset(20);
     }];
     
     return headerView;
 }
 
+- (UIView *)createFooterView
+{
+    UIView *footerView = [UIView new];
+    footerView.backgroundColor = [UIColor colorWithRGBA:0xCCCCCCFF];
+    
+    // 退出圈子
+    UIButton *quitButton = [UIButton new];
+    [quitButton setTitle:@"退出圈子" forState:UIControlStateNormal];
+    [quitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    quitButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    quitButton.backgroundColor = [UIColor colorWithRGBA:0x666666FF];
+    quitButton.layer.cornerRadius = 2;
+    quitButton.layer.masksToBounds = YES;
+    [footerView addSubview:quitButton];
+    
+    [quitButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@40);
+        make.edges.equalTo(footerView).insets(UIEdgeInsetsMake(15, 10, 15, 10));
+    }];
+    
+    return footerView;
+}
+
 - (void)viewDidLayoutSubviews
+{
+    [self sizeHeaderViewToFit];
+    [self sizeFooterViewToFit];
+}
+
+- (void)sizeHeaderViewToFit
 {
     UIView *headerView = self.tableView.tableHeaderView;
     [headerView setNeedsLayout];
@@ -140,6 +193,18 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     [self.tableView setTableHeaderView:headerView];
 }
 
+- (void)sizeFooterViewToFit
+{
+    UIView *footerView = self.tableView.tableFooterView;
+    [footerView setNeedsLayout];
+    [footerView layoutIfNeeded];
+    CGSize size = [footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGRect frame = footerView.frame;
+    frame.size.height = size.height;
+    footerView.frame = frame;
+    [self.tableView setTableFooterView:footerView];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -149,12 +214,203 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [UITableViewCell new];
+    
+    switch (indexPath.section) {
+        case 0: {
+            [self configTableViewCell:cell ForStarFeeds:self.starFeeds];
+            break;
+        }
+            
+        case 1: {
+            switch (indexPath.row) {
+                case 0: {
+                    [self configTableViewCell:cell key:@"圈子名称" value:self.team.name];
+                    break;
+                }
+                case 1: {
+                    [self configTableViewCell:cell key:@"圈子头像" imageUrl:[NSURL URLWithString:self.team.avatar] border:30 radius:2];
+                    break;
+                }
+                case 2: {
+                    [self configTableViewCell:cell key:@"圈子二维码" imageUrl:[NSURL URLWithString:self.team.avatar] border:20 radius:2];
+                    break;
+                }
+                default:
+                    break;
+            }
+            break;
+        }
+            
+        case 2: {
+            switch (indexPath.row) {
+                case 0: {
+                    [self configTableViewCell:cell key:@"我在该圈子的头像" imageUrl:[NSURL URLWithString:self.loggedInUser.avatar] border:30 radius:15];
+                    break;
+                }
+                case 1: {
+                    [self configTableViewCell:cell key:@"我在该圈子的昵称" value:@"哈丁"];
+                    break;
+                }
+                case 2: {
+                    [self configTableViewCell:cell key:@"我在该圈子的简介" value:@"产品经理"];
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+            
+        default:
+//            return nil;
+            break;
+    }
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     return cell;
+}
+
+- (void)configTableViewCell:(UITableViewCell *)cell ForStarFeeds:(NSArray *)starFeeds
+{
+    if (starFeeds.count == 0) {
+    }
+    
+    UIView *firstStarFeedView = [UIView new];
+    firstStarFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFFF];
+    [cell.contentView addSubview:firstStarFeedView];
+    
+    UIView *secondStarFeedView = [UIView new];
+    secondStarFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFFF];
+    [cell.contentView addSubview:secondStarFeedView];
+    
+    [firstStarFeedView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell.contentView).offset(15);
+        make.width.equalTo(secondStarFeedView);
+        make.right.equalTo(secondStarFeedView.mas_left).offset(-10);
+        make.centerY.equalTo(cell.contentView);
+        make.height.equalTo(@50);
+    }];
+    
+    [secondStarFeedView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(cell.contentView);
+        make.centerY.equalTo(cell.contentView);
+        make.height.equalTo(@50);
+    }];
+}
+
+- (void)configTableViewCell:(UITableViewCell *)cell key:(NSString *)key value:(NSString *)value
+{
+    UILabel *keyLabel = [UILabel new];
+    keyLabel.text = key;
+    keyLabel.textColor = [UIColor grayColor];
+    keyLabel.font = [UIFont systemFontOfSize:14];
+    [cell.contentView addSubview:keyLabel];
+    
+    UILabel *valueLabel = [UILabel new];
+    valueLabel.text = value;
+    valueLabel.font = [UIFont systemFontOfSize:14];
+    [cell.contentView addSubview:valueLabel];
+    
+    // 约束
+    [keyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(cell.contentView);
+        make.left.equalTo(cell.contentView).offset(15);
+    }];
+    
+    [valueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(cell.contentView);
+        make.right.equalTo(cell.contentView);
+    }];
+}
+
+- (void)configTableViewCell:(UITableViewCell *)cell key:(NSString *)key imageUrl:(NSURL *)imageUrl border:(NSInteger)border radius:(NSInteger)radius
+{
+    UILabel *keyLabel = [UILabel new];
+    keyLabel.text = key;
+    keyLabel.textColor = [UIColor grayColor];
+    keyLabel.font = [UIFont systemFontOfSize:14];
+    [cell.contentView addSubview:keyLabel];
+    
+    UIImageView *imageView = [UIImageView new];
+    [imageView setImageWithURL:imageUrl];
+    imageView.layer.cornerRadius = radius;
+    imageView.layer.masksToBounds = YES;
+    [cell.contentView addSubview:imageView];
+    
+    // 约束
+    [keyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(cell.contentView);
+        make.left.equalTo(cell.contentView).offset(15);
+    }];
+    
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(cell.contentView);
+        make.width.equalTo([NSNumber numberWithInteger:border]);
+        make.height.equalTo([NSNumber numberWithInteger:border]);
+        make.right.equalTo(cell.contentView);
+    }];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [UIView new];
+    headerView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
+    
+    if (section == 0) {
+        UILabel *myLabel = [UILabel new];
+        myLabel.font = [UIFont boldSystemFontOfSize:12];
+        myLabel.textColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+        myLabel.text = @"★ 星标内容";
+        [headerView addSubview:myLabel];
+        
+        [myLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(headerView).offset(15);
+            make.bottom.equalTo(headerView).offset(-8);
+        }];
+    }
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return 70;
+    } else {
+        return 40;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 35;
+    } else {
+        return 15;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    if (section == 0) {
+        return 1;
+    } else if (section == 1) {
+        return 3;
+    } else if (section == 2) {
+        return 3;
+    } else {
+        return 0;
+    }
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - collection view delegate and data source
@@ -195,7 +451,6 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"hehe");
 }
 
 @end
