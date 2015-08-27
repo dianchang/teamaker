@@ -27,6 +27,8 @@
 		050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3751B799D0F00A35EFD /* Images.xcassets */; };
 		050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3771B799D0F00A35EFD /* LaunchScreen.xib */; };
 		050BC3851B799D0F00A35EFD /* teamakerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3841B799D0F00A35EFD /* teamakerTests.m */; };
+		051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */; };
+		051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */; };
 		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
 		053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 053082561B84ADAC008C6C16 /* TeamButtons.m */; };
 		05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */; };
@@ -84,6 +86,10 @@
 		050BC37E1B799D0F00A35EFD /* teamakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = teamakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		050BC3831B799D0F00A35EFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		050BC3841B799D0F00A35EFD /* teamakerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = teamakerTests.m; sourceTree = "<group>"; };
+		051214CF1B8F2D350050EB6C /* _TMTeamUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMTeamUserInfo.h; path = Models/_TMTeamUserInfo.h; sourceTree = "<group>"; };
+		051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMTeamUserInfo.m; path = Models/_TMTeamUserInfo.m; sourceTree = "<group>"; };
+		051214D11B8F2D350050EB6C /* TMTeamUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMTeamUserInfo.h; path = Models/TMTeamUserInfo.h; sourceTree = "<group>"; };
+		051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeamUserInfo.m; path = Models/TMTeamUserInfo.m; sourceTree = "<group>"; };
 		053082481B844D8A008C6C16 /* ScrollDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollDirection.h; sourceTree = "<group>"; };
 		0530824B1B8482A8008C6C16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		053082551B84ADAC008C6C16 /* TeamButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamButtons.h; path = Views/TeamButtons.h; sourceTree = "<group>"; };
@@ -268,6 +274,10 @@
 		0530824F1B84AD07008C6C16 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				051214CF1B8F2D350050EB6C /* _TMTeamUserInfo.h */,
+				051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */,
+				051214D11B8F2D350050EB6C /* TMTeamUserInfo.h */,
+				051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */,
 				05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */,
 				05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */,
 				05BD7A181B8C1C3F00329BF0 /* _TMPunch.h */,
@@ -542,7 +552,9 @@
 				05CEB7D31B8DA477003DF51A /* TextViewController.m in Sources */,
 				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
 				05CEB7D11B8DA477003DF51A /* PunchViewController.m in Sources */,
+				051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */,
 				05CEB7CC1B8DA477003DF51A /* ComposeViewController.m in Sources */,
+				051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */,
 				05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

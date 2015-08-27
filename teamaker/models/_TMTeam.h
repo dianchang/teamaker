@@ -15,7 +15,7 @@ extern const struct TMTeamRelationships {
 } TMTeamRelationships;
 
 @class TMFeed;
-@class TMUser;
+@class TMTeamUserInfo;
 
 @interface TMTeamID : NSManagedObjectID {}
 @end
@@ -63,8 +63,8 @@ extern const struct TMTeamRelationships {
 @interface _TMTeam (UsersCoreDataGeneratedAccessors)
 - (void)addUsers:(NSSet*)value_;
 - (void)removeUsers:(NSSet*)value_;
-- (void)addUsersObject:(TMUser*)value_;
-- (void)removeUsersObject:(TMUser*)value_;
+- (void)addUsersObject:(TMTeamUserInfo*)value_;
+- (void)removeUsersObject:(TMTeamUserInfo*)value_;
 
 @end
 
