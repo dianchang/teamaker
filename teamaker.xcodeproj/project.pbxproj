@@ -58,6 +58,7 @@
 		05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DE1B8DA4DC003DF51A /* ViewController.m */; };
 		05CEB7E21B8DA557003DF51A /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */; };
 		05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */; };
+		05D43EB51B8ED31C00974B74 /* TeamMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D43EB41B8ED31C00974B74 /* TeamMemberCollectionViewCell.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +145,9 @@
 		05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = Views/FeedTableViewCell.h; sourceTree = "<group>"; };
 		05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = Views/FeedTableViewCell.m; sourceTree = "<group>"; };
 		05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCellProtocol.h; path = Views/FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
+		05D43EB11B8EC57300974B74 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		05D43EB31B8ED31C00974B74 /* TeamMemberCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamMemberCollectionViewCell.h; path = Views/TeamMemberCollectionViewCell.h; sourceTree = "<group>"; };
+		05D43EB41B8ED31C00974B74 /* TeamMemberCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamMemberCollectionViewCell.m; path = Views/TeamMemberCollectionViewCell.m; sourceTree = "<group>"; };
 		533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.debug.xcconfig"; sourceTree = "<group>"; };
 		6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.release.xcconfig"; sourceTree = "<group>"; };
 		D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-teamaker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,6 +246,8 @@
 				05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */,
 				05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */,
 				05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */,
+				05D43EB31B8ED31C00974B74 /* TeamMemberCollectionViewCell.h */,
+				05D43EB41B8ED31C00974B74 /* TeamMemberCollectionViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -310,11 +316,11 @@
 				05CEB7CB1B8DA477003DF51A /* TextViewController.m */,
 				0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */,
 				056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */,
+				05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */,
+				05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */,
 				05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */,
 				05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */,
 				050BC3721B799D0F00A35EFD /* Main.storyboard */,
-				05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */,
-				05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */,
 				05CEB7E01B8DA557003DF51A /* LocationDetailsViewController.h */,
 				05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */,
 			);
@@ -331,6 +337,7 @@
 		0916D379E1D2DF4E7F5A8CE4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05D43EB11B8EC57300974B74 /* Reveal.framework */,
 				0530824B1B8482A8008C6C16 /* MapKit.framework */,
 				D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */,
 			);
@@ -507,6 +514,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */,
+				05D43EB51B8ED31C00974B74 /* TeamMemberCollectionViewCell.m in Sources */,
 				05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */,
 				05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */,
 				05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */,
@@ -662,9 +670,38 @@
 			baseConfigurationReference = 533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = teamaker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"MagicalRecord\"",
+					"-l\"Masonry\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-ObjC",
+					"-lz",
+					"-framework",
+					Reveal,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -674,6 +711,10 @@
 			baseConfigurationReference = 6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = teamaker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

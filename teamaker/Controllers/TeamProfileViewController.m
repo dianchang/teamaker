@@ -72,7 +72,7 @@
     // 头像
     UIImageView *avatarView = [UIImageView new];
     [avatarView setImageWithURL:[NSURL URLWithString:self.team.avatar]];
-    avatarView.layer.cornerRadius = 30;
+    avatarView.layer.cornerRadius = 4;
     avatarView.layer.masksToBounds = YES;
     [headerView addSubview:avatarView];
     
