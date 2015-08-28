@@ -31,16 +31,6 @@
 {
     self.view = [[UIView alloc] init];
     
-    // 地址
-    UILabel *locationLabel = [[UILabel alloc] init];
-    locationLabel.text = @"Location";
-    self.locationLabel = locationLabel;
-    [self.view addSubview:locationLabel];
-    [locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).with.offset(20);
-    }];
-    
     // 地图
     MKMapView *map = [[MKMapView alloc] init];
     map.showsUserLocation = YES;
@@ -51,23 +41,45 @@
     map.scrollEnabled = NO;
     [self.view addSubview:map];
     self.map = map;
+    
+    // 地址
+    UILabel *locationLabel = [[UILabel alloc] init];
+    locationLabel.text = @"朝阳区青年路润丰水尚西区";
+    locationLabel.backgroundColor = [UIColor grayColor];
+    locationLabel.font = [UIFont systemFontOfSize:14];
+    locationLabel.textColor = [UIColor whiteColor];
+    locationLabel.layer.cornerRadius = 3;
+    locationLabel.textAlignment = NSTextAlignmentCenter;
+    locationLabel.layer.masksToBounds = YES;
+    self.locationLabel = locationLabel;
+    [self.view addSubview:locationLabel];
+    
+    // 发布按钮
+    UIButton *publishButton = [[UIButton alloc] init];
+    publishButton.backgroundColor = [UIColor colorWithRGBA:0x999999FF];
+    publishButton.layer.cornerRadius = 25;
+    publishButton.layer.masksToBounds = YES;
+    [self.view addSubview:publishButton];
+    [publishButton addTarget:self action:@selector(publishLocation:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 约束
     [map mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
-    // 发布按钮
-    UIButton *publishButton = [[UIButton alloc] init];
-    publishButton.backgroundColor = [UIColor colorWithRGBA:0x1E90FFFF];
-    publishButton.layer.cornerRadius = 30;
-    publishButton.layer.masksToBounds = YES;
-//    [publishButton setTitle:@"发布" forState:UIControlStateNormal];
-    [self.view addSubview:publishButton];
-    [publishButton addTarget:self action:@selector(publishLocation:) forControlEvents:UIControlEventTouchUpInside];
+    [locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.left.equalTo(self.view).offset(30);
+        make.right.equalTo(self.view).offset(-30);
+        make.height.equalTo(@40);
+        make.top.equalTo(self.view).with.offset(30);
+    }];
+
     [publishButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.bottom.equalTo(self.view).with.offset(-20);
-        make.height.equalTo(@60);
-        make.width.equalTo(@60);
+        make.height.equalTo(@50);
+        make.width.equalTo(@50);
     }];
     
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];
