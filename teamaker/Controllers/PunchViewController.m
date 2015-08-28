@@ -14,6 +14,7 @@
 #import "TMTeam.h"
 #import "TMFeed.h"
 #import "ComposeViewControllerProtocol.h"
+#import "PunchTableViewCell.h"
 #import "TeamButtons.h"
 
 @interface PunchViewController () <UITableViewDelegate, UITableViewDataSource, ComposeViewControllerProtocol>
@@ -28,11 +29,20 @@
 
 @implementation PunchViewController
 
+static NSString *cellIdentifier = @"PunchCell";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [self.tableView registerClass:[PunchTableViewCell class] forCellReuseIdentifier:cellIdentifier];
+    
+    UIMenuItem *testMenuItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(deletePunch:)];
+    [[UIMenuController sharedMenuController] setMenuItems: @[testMenuItem]];
+    [[UIMenuController sharedMenuController] update];
 }
 
 - (NSArray *)punchs
@@ -64,94 +74,10 @@
 #define MAINLABEL_TAG 1
 static float const buttonHeight = 60.0;
 
-// 单元格
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellIdentifier = @"PunchCell";
-    
-    UILabel *mainLabel;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        
-        mainLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        mainLabel.tag = MAINLABEL_TAG;
-        mainLabel.font = [UIFont systemFontOfSize:20.0];
-        mainLabel.textColor = [UIColor blackColor];
-        [cell.contentView addSubview:mainLabel];
-    } else {
-        mainLabel = (UILabel *)[cell.contentView viewWithTag:MAINLABEL_TAG];
-    }
-    
-    if (indexPath.row % 2 == 0) {
-        cell.backgroundColor = [UIColor colorWithRGBA:0xDDDDDDFF];
-    } else {
-        cell.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
-    }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    [mainLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(cell.contentView);
-        make.centerY.equalTo(cell.contentView);
-    }];
-
-    TMPunch *punch = [self.punchs objectAtIndex:indexPath.row];
-    mainLabel.text = punch.content;
-
-    return cell;
-}
-
 - (void)reloadData
 {
     self.punchs = [TMPunch MR_findAllSortedBy:@"order" ascending:YES];
     [self.tableView reloadData];
-}
-
-// 行数
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.punchs.count;
-}
-
-// 高度
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 60.0;
-}
-
-// 点击触发事件
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
-    
-    TMPunch *punch = self.punchs[indexPath.row];
-    self.selectedPunch = punch;
-    
-    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
-    self.backdropView = backdropView;
-    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                             initWithTarget:self action:@selector(cancelAction:)];
-    tapRecognizer.numberOfTapsRequired = 1;
-    [backdropView addGestureRecognizer:tapRecognizer];
-    
-    [self.view insertSubview:backdropView aboveSubview:self.addPunch];
-    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
-    [self.backdropView addSubview:teamButtons];
-    self.teamButtons = teamButtons;
-    
-    CGRect frame = teamButtons.frame;
-    frame.origin.y = frame.origin.y - frame.size.height;
-    [UIView animateWithDuration:0.3 animations:^{
-        teamButtons.frame = frame;
-        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
-    }];
 }
 
 - (void)cancelAction:(UIButton *)sender
@@ -197,6 +123,94 @@ static float const buttonHeight = 60.0;
         [self.backdropView removeFromSuperview];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
+}
+
+#pragma mark - tableview delegate and datasource
+
+// 单元格
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TMPunch *punch = self.punchs[indexPath.row];
+    PunchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (indexPath.row % 2 == 0) {
+        cell.backgroundColor = [UIColor colorWithRGBA:0xDDDDDDFF];
+    } else {
+        cell.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+    }
+    
+    [cell updateCellWithPunch:punch];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TMPunch *punch = self.punchs[indexPath.row];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
+    
+    self.selectedPunch = punch;
+    
+    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backdropView = backdropView;
+    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                             initWithTarget:self action:@selector(cancelAction:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    [backdropView addGestureRecognizer:tapRecognizer];
+    
+    [self.view insertSubview:backdropView aboveSubview:self.addPunch];
+    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
+    [self.backdropView addSubview:teamButtons];
+    self.teamButtons = teamButtons;
+    
+    CGRect frame = teamButtons.frame;
+    frame.origin.y = frame.origin.y - frame.size.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        teamButtons.frame = frame;
+        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+    }];
+}
+
+// 行数
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.punchs.count;
+}
+
+// 高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    return (action == @selector(deletePunch:));
+}
+
+- (void) tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    if (action == @selector(deletePunch:)) {
+        TMPunch* punch = self.punchs[indexPath.row];
+        [punch MR_deleteEntity];
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+    }
+}
+
+// 仅用于消除 XCode 的 warning
+- (void)deletePunch:(id)sender
+{
 }
 
 @end

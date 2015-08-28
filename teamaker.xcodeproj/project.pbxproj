@@ -33,6 +33,7 @@
 		053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 053082561B84ADAC008C6C16 /* TeamButtons.m */; };
 		05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */; };
 		056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */; };
+		05854B0C1B9073B400EAC376 /* PunchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05854B0B1B9073B400EAC376 /* PunchTableViewCell.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
 		05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */; };
 		05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */; };
@@ -98,6 +99,8 @@
 		05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileViewController.m; path = Controllers/UserProfileViewController.m; sourceTree = "<group>"; };
 		0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamProfileViewController.h; path = Controllers/TeamProfileViewController.h; sourceTree = "<group>"; };
 		056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamProfileViewController.m; path = Controllers/TeamProfileViewController.m; sourceTree = "<group>"; };
+		05854B0A1B9073B400EAC376 /* PunchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PunchTableViewCell.h; path = Views/PunchTableViewCell.h; sourceTree = "<group>"; };
+		05854B0B1B9073B400EAC376 /* PunchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PunchTableViewCell.m; path = Views/PunchTableViewCell.m; sourceTree = "<group>"; };
 		05A0736F1B8AC657005C5CE3 /* TMModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMModel.xcdatamodel; sourceTree = "<group>"; };
 		05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMFeed.h; path = Models/_TMFeed.h; sourceTree = "<group>"; };
 		05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMFeed.m; path = Models/_TMFeed.m; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 				05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */,
 				05D43EB31B8ED31C00974B74 /* TeamMemberCollectionViewCell.h */,
 				05D43EB41B8ED31C00974B74 /* TeamMemberCollectionViewCell.m */,
+				05854B0A1B9073B400EAC376 /* PunchTableViewCell.h */,
+				05854B0B1B9073B400EAC376 /* PunchTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -585,6 +590,7 @@
 				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
 				05CEB7D11B8DA477003DF51A /* PunchViewController.m in Sources */,
 				051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */,
+				05854B0C1B9073B400EAC376 /* PunchTableViewCell.m in Sources */,
 				05CEB7CC1B8DA477003DF51A /* ComposeViewController.m in Sources */,
 				051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */,
 				05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */,
