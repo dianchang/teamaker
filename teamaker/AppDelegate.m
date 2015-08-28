@@ -101,7 +101,7 @@
             punch1.content = @"开会中";
             
             TMPunch *punch2 = [TMPunch MR_createEntityInContext:localContext];
-            punch2.id = @YES;
+            punch2.id = @2;
             punch2.order = @2;
             punch2.content = @"头脑风暴ing";
             

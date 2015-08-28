@@ -41,7 +41,9 @@
         feed.punch = punch;
         feed.createdAt = [NSDate date];
     } completion:^(BOOL contextDidSave, NSError *error) {
-        completionBlock(contextDidSave, error);
+        if (completionBlock) {
+            completionBlock(contextDidSave, error);
+        }
     }];
 }
 

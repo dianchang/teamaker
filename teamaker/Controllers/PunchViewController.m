@@ -23,7 +23,7 @@
 @property (weak, nonatomic) TeamButtons *teamButtons;
 @property (strong, nonatomic) NSArray *punchs;
 @property (strong, nonatomic) NSArray *teams;
-@property (strong, nonatomic) NSString *selectedPunch;
+@property (strong, nonatomic) TMPunch *selectedPunch;
 @end
 
 @implementation PunchViewController
@@ -38,7 +38,7 @@
 - (NSArray *)punchs
 {
     if (!_punchs) {
-        _punchs = [TMPunch MR_findAll];
+        _punchs = [TMPunch MR_findAllSortedBy:@"order" ascending:YES];
     }
     
     return _punchs;
@@ -103,6 +103,12 @@ static float const buttonHeight = 60.0;
     return cell;
 }
 
+- (void)reloadData
+{
+    self.punchs = [TMPunch MR_findAllSortedBy:@"order" ascending:YES];
+    [self.tableView reloadData];
+}
+
 // 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -121,7 +127,7 @@ static float const buttonHeight = 60.0;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     
     TMPunch *punch = self.punchs[indexPath.row];
-    self.selectedPunch = punch.content;
+    self.selectedPunch = punch;
     
     UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
     self.backdropView = backdropView;
@@ -155,9 +161,24 @@ static float const buttonHeight = 60.0;
 
 - (void)publishToTeam:(UIButton *)sender
 {
-    [TMFeed createPunchFeed:self.selectedPunch teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFeeds" object:self];
+    [TMFeed createPunchFeed:self.selectedPunch.content teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            NSUInteger order = 1;
+            for (TMPunch *punch in self.punchs) {
+                TMPunch *punchInContext = [punch MR_inContext:localContext];
+                
+                if ([punchInContext.id isEqualToNumber:self.selectedPunch.id]) {
+                    punchInContext.order = @0;
+                } else {
+                    punchInContext.order = [NSNumber numberWithLong:order];
+                    order++;
+                }
+            }
+        } completion:^(BOOL contextDidSave, NSError *error) {
+            [self reloadData];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFeeds" object:self];
+        }];
     }];
 }
 

@@ -181,7 +181,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     
     [quitButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@40);
-        make.edges.equalTo(footerView).insets(UIEdgeInsetsMake(15, 10, 15, 10));
+        make.edges.equalTo(footerView).insets(UIEdgeInsetsMake(15, 10, 15, 10)).priorityHigh();
     }];
     
     return footerView;
