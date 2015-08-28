@@ -122,6 +122,8 @@ static int const sendButtonHeight = 50;
 
 - (IBAction)publishText:(UIButton *)sender
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
+    
     UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
     self.backdropView = backdropView;
     backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
@@ -158,10 +160,11 @@ static int const sendButtonHeight = 50;
 }
 
 // 发布文字到某团队
--(IBAction)publishToTeam:(UIButton *)sender
+-(void)publishToTeam:(UIButton *)sender
 {
     [self hideTeamButtons];
     [self.textView becomeFirstResponder];
+    
     
     [TMFeed createTextFeed:self.textView.text teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
         self.textView.text = @"";
@@ -175,11 +178,13 @@ static int const sendButtonHeight = 50;
 {
     CGRect frame = self.teamButtons.frame;
     frame.origin.y = self.view.bounds.size.height;
+    
     [UIView animateWithDuration:0.3 animations:^{
         self.teamButtons.frame = frame;
         self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
         [self.backdropView removeFromSuperview];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }
 

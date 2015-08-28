@@ -43,6 +43,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSubviewsLayout) name:@"resetSubviewsLayout" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareSubviewsLayout) name:@"prepareSubviewsLayout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showComposePager) name:@"showComposePager" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideComposePager) name:@"hideComposePager" object:nil];
 }
 
 - (NSMutableArray *)viewControllers
@@ -147,6 +149,16 @@
     if ([controller respondsToSelector:@selector(prepareLayout)]) {
         [controller performSelector:@selector(prepareLayout) withObject:nil];
     }
+}
+
+- (void)showComposePager
+{
+    self.pageControl.hidden = NO;
+}
+
+- (void)hideComposePager
+{
+    self.pageControl.hidden = YES;
 }
 
 - (void)dealloc

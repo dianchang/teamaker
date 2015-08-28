@@ -190,6 +190,8 @@
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
 }
 
 // 隐藏可选地址菜单
@@ -202,6 +204,9 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
+        
+    } completion:^(BOOL finished) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }
 
@@ -253,7 +258,7 @@
         return;
     }
     
-    [self hideAlternativeLocations];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     
     self.buttonsViewBeginSlidingUp = YES;
     TeamButtons *buttonsView = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelPublish:) publishAction:@selector(publishToTeam:)];
@@ -277,6 +282,7 @@
         self.buttonsView.frame = frame;
     } completion:^(BOOL finished) {
         [self.buttonsView removeFromSuperview];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }
 

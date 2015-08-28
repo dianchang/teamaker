@@ -70,6 +70,7 @@ static int const buttonHeight = 60;
 // 拍摄按钮
 - (IBAction)capture:(UIButton *)sender
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     sender.hidden = YES;
     
     TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishAction:)];
@@ -125,6 +126,7 @@ static int const buttonHeight = 60;
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.teamButtons removeFromSuperview];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }
 

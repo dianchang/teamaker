@@ -118,6 +118,8 @@ static float const buttonHeight = 60.0;
 // 点击触发事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
+    
     TMPunch *punch = self.punchs[indexPath.row];
     self.selectedPunch = punch.content;
     
@@ -172,6 +174,7 @@ static float const buttonHeight = 60.0;
         self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
         [self.backdropView removeFromSuperview];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }
 
