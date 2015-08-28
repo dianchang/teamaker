@@ -17,9 +17,12 @@
 
 @interface LocationViewController () <ComposeViewControllerProtocol, MKMapViewDelegate, CLLocationManagerDelegate>
 
-@property (weak, nonatomic) MKMapView *map;
-@property (weak, nonatomic) UILabel *locationLabel;
-@property (weak, nonatomic) TeamButtons *buttonsView;
+@property (strong, nonatomic) MKMapView *map;
+@property (strong, nonatomic) UIButton *locationButton;
+@property (strong, nonatomic) TeamButtons *buttonsView;
+@property (strong, nonatomic) UIView *alternativeLocationsMenu;
+@property (strong, nonatomic) NSArray *alternativeLocations;
+@property (strong, nonatomic) NSString *selectedLocation;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) BOOL buttonsViewBeginSlidingUp;
 
@@ -43,16 +46,17 @@
     self.map = map;
     
     // 地址
-    UILabel *locationLabel = [[UILabel alloc] init];
-    locationLabel.text = @"朝阳区青年路润丰水尚西区";
-    locationLabel.backgroundColor = [UIColor grayColor];
-    locationLabel.font = [UIFont systemFontOfSize:14];
-    locationLabel.textColor = [UIColor whiteColor];
-    locationLabel.layer.cornerRadius = 3;
-    locationLabel.textAlignment = NSTextAlignmentCenter;
-    locationLabel.layer.masksToBounds = YES;
-    self.locationLabel = locationLabel;
-    [self.view addSubview:locationLabel];
+    UIButton *locationButton = [UIButton new];
+    [locationButton setTitle:@"朝阳区青年路润丰水尚西区" forState:UIControlStateNormal];
+    locationButton.backgroundColor = [UIColor grayColor];
+    locationButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    locationButton.titleLabel.textColor = [UIColor whiteColor];
+    locationButton.layer.cornerRadius = 3;
+    locationButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    locationButton.layer.masksToBounds = YES;
+    [locationButton addTarget:self action:@selector(showAlternativeLocations) forControlEvents:UIControlEventTouchUpInside];
+    self.locationButton = locationButton;
+    [self.view addSubview:locationButton];
     
     // 发布按钮
     UIButton *publishButton = [[UIButton alloc] init];
@@ -67,10 +71,10 @@
         make.edges.equalTo(self.view);
     }];
     
-    [locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [locationButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.left.equalTo(self.view).offset(30);
-        make.right.equalTo(self.view).offset(-30);
+        make.left.equalTo(self.view).offset(30).priorityHigh();
+        make.right.equalTo(self.view).offset(-30).priorityHigh();
         make.height.equalTo(@40);
         make.top.equalTo(self.view).with.offset(30);
     }];
@@ -92,6 +96,89 @@
     [super viewWillAppear:animated];
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager startUpdatingLocation];
+}
+
+- (UIView *)createLocationsView
+{
+    if (self.alternativeLocationsMenu) {
+        [self.alternativeLocationsMenu removeFromSuperview];
+    }
+    
+    UIView *alternativeLocationsMenu = [UIView new];
+    alternativeLocationsMenu.backgroundColor = [UIColor colorWithRGBA:0xDDDDDDFF];
+    
+    UIButton *prevButton;
+    
+    // 可选地址
+    for (int i = 0; i < self.alternativeLocations.count; i++) {
+        NSString *location = self.alternativeLocations[i];
+        
+        UIButton *currentButton = [UIButton new];
+        currentButton.backgroundColor = [UIColor whiteColor];
+        currentButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        currentButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+        currentButton.titleLabel.textColor = [UIColor blackColor];
+        currentButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [currentButton setTitle:location forState:UIControlStateNormal];
+        [currentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        [alternativeLocationsMenu addSubview:currentButton];
+        [currentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(alternativeLocationsMenu);
+            make.height.equalTo(@45);
+            
+            if (i == 0) {
+                make.top.equalTo(alternativeLocationsMenu);
+            } else {
+                make.top.equalTo(prevButton.mas_bottom).offset(1);
+            }
+            
+            if (i == self.alternativeLocations.count - 1) {
+                make.bottom.equalTo(alternativeLocationsMenu);
+            }
+        }];
+        
+        prevButton = currentButton;
+    }
+    
+    return alternativeLocationsMenu;
+}
+
+// 显示可选地址菜单
+- (void)showAlternativeLocations
+{
+    UIView *alternativeLocationsMenu = [self createLocationsView];
+    self.alternativeLocationsMenu = alternativeLocationsMenu;
+    [self.view addSubview:self.alternativeLocationsMenu];
+    
+    [alternativeLocationsMenu mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_top);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    [alternativeLocationsMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+// 隐藏可选地址菜单
+- (void)hideAlternativeLocations
+{
+    [self.alternativeLocationsMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_top);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -128,6 +215,8 @@
         return;
     }
     
+    [self hideAlternativeLocations];
+    
     self.buttonsViewBeginSlidingUp = YES;
     TeamButtons *buttonsView = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelPublish:) publishAction:@selector(publishToTeam:)];
     self.buttonsView = buttonsView;
@@ -142,7 +231,7 @@
     }];
 }
 
-- (IBAction)cancelPublish:(UIButton *)sender
+- (void)cancelPublish:(UIButton *)sender
 {
     CGRect frame = self.buttonsView.frame;
     frame.origin.y = self.view.bounds.size.height;
@@ -153,7 +242,7 @@
     }];
 }
 
-- (IBAction)publishToTeam:(UIButton *)sender
+- (void)publishToTeam:(UIButton *)sender
 {
     NSInteger teamId = sender.tag;
     NSLog(@"%ld", (long)teamId);
@@ -162,6 +251,19 @@
 - (void)resetLayout
 {
 
+}
+
+- (NSArray *)alternativeLocations
+{
+    if (!_alternativeLocations) {
+        _alternativeLocations = @[@"朝阳区青年路润枫水尚西区",
+                                  @"漫咖啡（十里堡店）",
+                                  @"华纺易城",
+                                  @"十里堡",
+                                  @"润枫水尚"];
+    }
+    
+    return _alternativeLocations;
 }
 
 @end
