@@ -8,6 +8,7 @@
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "LocationViewController.h"
 #import "Masonry.h"
 #import "UIColor+Helper.h"
@@ -15,11 +16,13 @@
 #import "TeamButtons.h"
 
 @interface LocationViewController () <ComposeViewControllerProtocol, MKMapViewDelegate, CLLocationManagerDelegate>
-@property (weak, nonatomic) MKMapView *map;
 
+@property (weak, nonatomic) MKMapView *map;
 @property (weak, nonatomic) UILabel *locationLabel;
 @property (weak, nonatomic) TeamButtons *buttonsView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) BOOL buttonsViewBeginSlidingUp;
+
 @end
 
 @implementation LocationViewController
@@ -55,14 +58,16 @@
     // 发布按钮
     UIButton *publishButton = [[UIButton alloc] init];
     publishButton.backgroundColor = [UIColor colorWithRGBA:0x1E90FFFF];
-    [publishButton setTitle:@"发布" forState:UIControlStateNormal];
+    publishButton.layer.cornerRadius = 30;
+    publishButton.layer.masksToBounds = YES;
+//    [publishButton setTitle:@"发布" forState:UIControlStateNormal];
     [self.view addSubview:publishButton];
     [publishButton addTarget:self action:@selector(publishLocation:) forControlEvents:UIControlEventTouchUpInside];
     [publishButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.bottom.equalTo(self.view).with.offset(-20);
-        make.height.equalTo(@40);
-        make.width.equalTo(@80);
+        make.height.equalTo(@60);
+        make.width.equalTo(@60);
     }];
     
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];
@@ -105,8 +110,13 @@
     }];
 }
 
-- (IBAction)publishLocation:(UIButton *)sender
+- (void)publishLocation:(UIButton *)sender
 {
+    if (self.buttonsViewBeginSlidingUp) {
+        return;
+    }
+    
+    self.buttonsViewBeginSlidingUp = YES;
     TeamButtons *buttonsView = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelPublish:) publishAction:@selector(publishToTeam:)];
     self.buttonsView = buttonsView;
     [self.view addSubview:buttonsView];
@@ -115,6 +125,8 @@
     frame.origin.y = frame.origin.y - frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
         buttonsView.frame = frame;
+    } completion:^(BOOL finished) {
+        self.buttonsViewBeginSlidingUp = NO;
     }];
 }
 
