@@ -240,7 +240,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
                     break;
                 }
                 case 1: {
-                    [self configTableViewCell:cell key:@"圈子头像" imageUrl:[NSURL URLWithString:self.teamUserInfo.avatar] border:30 radius:2];
+                    [self configTableViewCell:cell key:@"圈子头像" imageUrl:[NSURL URLWithString:self.team.avatar] border:30 radius:2];
                     break;
                 }
                 case 2: {

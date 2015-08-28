@@ -77,8 +77,8 @@
     
     [locationButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.left.equalTo(self.view).offset(30).priorityHigh();
-        make.right.equalTo(self.view).offset(-30).priorityHigh();
+        make.left.equalTo(self.view).offset(20).priorityHigh();
+        make.right.equalTo(self.view).offset(-20).priorityHigh();
         make.height.equalTo(@40);
         make.top.equalTo(self.view).with.offset(30);
     }];
