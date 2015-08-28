@@ -20,9 +20,13 @@
 @property (strong, nonatomic) MKMapView *map;
 @property (strong, nonatomic) UIButton *locationButton;
 @property (strong, nonatomic) TeamButtons *buttonsView;
+
 @property (strong, nonatomic) UIView *alternativeLocationsMenu;
+@property (strong, nonatomic) UIView *selectedFlag;
 @property (strong, nonatomic) NSArray *alternativeLocations;
 @property (strong, nonatomic) NSString *selectedLocation;
+@property (strong, nonatomic) MASConstraint *selectedFlagCenterYConstraint;
+
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) BOOL buttonsViewBeginSlidingUp;
 
@@ -100,14 +104,11 @@
 
 - (UIView *)createLocationsView
 {
-    if (self.alternativeLocationsMenu) {
-        [self.alternativeLocationsMenu removeFromSuperview];
-    }
-    
     UIView *alternativeLocationsMenu = [UIView new];
     alternativeLocationsMenu.backgroundColor = [UIColor colorWithRGBA:0xDDDDDDFF];
     
     UIButton *prevButton;
+    __block UIButton *firstButton;
     
     // 可选地址
     for (int i = 0; i < self.alternativeLocations.count; i++) {
@@ -119,6 +120,7 @@
         currentButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
         currentButton.titleLabel.textColor = [UIColor blackColor];
         currentButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [currentButton addTarget:self action:@selector(selectLocation:) forControlEvents:UIControlEventTouchUpInside];
         [currentButton setTitle:location forState:UIControlStateNormal];
         [currentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
@@ -129,6 +131,7 @@
             
             if (i == 0) {
                 make.top.equalTo(alternativeLocationsMenu);
+                firstButton = currentButton;
             } else {
                 make.top.equalTo(prevButton.mas_bottom).offset(1);
             }
@@ -141,14 +144,35 @@
         prevButton = currentButton;
     }
     
+    // 选中标记
+    UIView *selectedFlag = [UIView new];
+    self.selectedFlag = selectedFlag;
+    selectedFlag.backgroundColor = [UIColor colorWithRGBA:0x54B884FF];
+    selectedFlag.layer.cornerRadius = 4;
+    selectedFlag.layer.masksToBounds = YES;
+    [alternativeLocationsMenu addSubview:selectedFlag];
+    [selectedFlag mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(alternativeLocationsMenu).offset(-15);
+        self.selectedFlagCenterYConstraint = make.centerY.equalTo(firstButton);
+        make.size.equalTo(@8);
+        make.height.equalTo(@8);
+    }];
+    
     return alternativeLocationsMenu;
 }
 
 // 显示可选地址菜单
 - (void)showAlternativeLocations
 {
-    UIView *alternativeLocationsMenu = [self createLocationsView];
-    self.alternativeLocationsMenu = alternativeLocationsMenu;
+    UIView *alternativeLocationsMenu;
+    
+    if (!self.alternativeLocationsMenu) {
+        alternativeLocationsMenu = [self createLocationsView];
+        self.alternativeLocationsMenu = alternativeLocationsMenu;
+    } else {
+        alternativeLocationsMenu = self.alternativeLocationsMenu;
+    }
+    
     [self.view addSubview:self.alternativeLocationsMenu];
     
     [alternativeLocationsMenu mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -179,6 +203,20 @@
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+// 选择地址
+- (void)selectLocation:(UIButton *)sender
+{
+    self.selectedLocation = sender.titleLabel.text;
+    
+    [self.selectedFlagCenterYConstraint uninstall];
+    [self.selectedFlag mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.selectedFlagCenterYConstraint = make.centerY.equalTo(sender);
+    }];
+    
+    [self hideAlternativeLocations];
+    [self.locationButton setTitle:self.selectedLocation forState:UIControlStateNormal];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
