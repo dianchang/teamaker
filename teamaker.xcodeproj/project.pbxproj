@@ -301,40 +301,72 @@
 		053EA2561B81AB6A00BBAF12 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				05854B091B8FFB1200EAC376 /* Team */,
+				05854B081B8FFAFA00EAC376 /* Feed */,
+				05854B071B8FFAE600EAC376 /* User */,
+				05854B061B8FFAC200EAC376 /* Compose */,
 				05CEB7DD1B8DA4DC003DF51A /* ViewController.h */,
 				05CEB7DE1B8DA4DC003DF51A /* ViewController.m */,
+				050BC3721B799D0F00A35EFD /* Main.storyboard */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		05854B061B8FFAC200EAC376 /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */,
+				05CEB7C71B8DA477003DF51A /* PunchViewController.h */,
+				05CEB7C81B8DA477003DF51A /* PunchViewController.m */,
+				05CEB7C91B8DA477003DF51A /* PunchViewController.xib */,
+				05CEB7CA1B8DA477003DF51A /* TextViewController.h */,
+				05CEB7CB1B8DA477003DF51A /* TextViewController.m */,
+				05CEB7C31B8DA477003DF51A /* LocationViewController.h */,
+				05CEB7C41B8DA477003DF51A /* LocationViewController.m */,
 				05CEB7DA1B8DA4AB003DF51A /* CaptureViewController.h */,
 				05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */,
 				05CEB7BD1B8DA477003DF51A /* ComposeViewController.h */,
 				05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */,
 				05CEB7BF1B8DA477003DF51A /* ComposeViewController.xib */,
-				05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */,
-				05CEB7C11B8DA477003DF51A /* FeedViewController.h */,
-				05CEB7C21B8DA477003DF51A /* FeedViewController.m */,
-				05CEB7C31B8DA477003DF51A /* LocationViewController.h */,
-				05CEB7C41B8DA477003DF51A /* LocationViewController.m */,
+			);
+			name = Compose;
+			sourceTree = "<group>";
+		};
+		05854B071B8FFAE600EAC376 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */,
+				05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */,
 				05CEB7C51B8DA477003DF51A /* MyProfileViewController.h */,
 				05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */,
 				05CEB7B41B8DA3AE003DF51A /* MyDetailsViewController.h */,
 				05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */,
 				05CEB7B71B8DA3C5003DF51A /* MySettingsViewController.h */,
 				05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */,
-				05CEB7C71B8DA477003DF51A /* PunchViewController.h */,
-				05CEB7C81B8DA477003DF51A /* PunchViewController.m */,
-				05CEB7C91B8DA477003DF51A /* PunchViewController.xib */,
-				05CEB7CA1B8DA477003DF51A /* TextViewController.h */,
-				05CEB7CB1B8DA477003DF51A /* TextViewController.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		05854B081B8FFAFA00EAC376 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				05CEB7C11B8DA477003DF51A /* FeedViewController.h */,
+				05CEB7C21B8DA477003DF51A /* FeedViewController.m */,
+				05CEB7E01B8DA557003DF51A /* LocationDetailsViewController.h */,
+				05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
+		05854B091B8FFB1200EAC376 /* Team */ = {
+			isa = PBXGroup;
+			children = (
 				0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */,
 				056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */,
 				05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */,
 				05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */,
-				05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */,
-				05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */,
-				050BC3721B799D0F00A35EFD /* Main.storyboard */,
-				05CEB7E01B8DA557003DF51A /* LocationDetailsViewController.h */,
-				05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */,
 			);
-			name = Controllers;
+			name = Team;
 			sourceTree = "<group>";
 		};
 		05CE04FC1B883F0700A7C718 /* Libraries */ = {
