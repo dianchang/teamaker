@@ -252,7 +252,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
             }
             break;
         }
-            
+
         case 2: {
             switch (indexPath.row) {
                 case 0: {
@@ -270,11 +270,11 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
                 default:
                     break;
             }
+            break;
         }
             
         default:
-//            return nil;
-            break;
+            return nil;
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
