@@ -125,9 +125,9 @@ static NSString *cellIdentifier = @"PunchCell";
                 }
             }
         } completion:^(BOOL contextDidSave, NSError *error) {
-            [self reloadData];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFeeds" object:self];
+            [self reloadData];
         }];
     }];
 }

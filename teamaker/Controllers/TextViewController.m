@@ -174,9 +174,6 @@ static int const sendButtonHeight = 50;
 // 发布文字到某团队
 -(void)publish:(UIButton *)sender
 {
-    [self hideTeamButtons];
-    [self.textView becomeFirstResponder];
-    
     [TMFeed createTextFeed:self.textView.text teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
         self.textView.text = @"";
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
