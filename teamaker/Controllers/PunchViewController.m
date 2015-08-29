@@ -132,6 +132,45 @@ static NSString *cellIdentifier = @"PunchCell";
     }];
 }
 
+- (void)preparePublish:(id)sender
+{
+    // 背景
+    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backdropView = backdropView;
+    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                             initWithTarget:self action:@selector(cancelPublish:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    [backdropView addGestureRecognizer:tapRecognizer];
+    [self.view addSubview:backdropView];
+    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    // 团队按钮
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
+    [self.backdropView addSubview:teamButtons];
+    self.teamButtons = teamButtons;
+    teamButtons.delegate = self;
+    
+    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+    }];
+}
+
 - (void)resetLayout
 {
     [self hideButtons];
@@ -139,7 +178,7 @@ static NSString *cellIdentifier = @"PunchCell";
 
 // 隐藏团队按钮
 - (void)hideButtons
-{
+{    
     [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
         make.top.equalTo(self.view.mas_bottom);
@@ -150,6 +189,8 @@ static NSString *cellIdentifier = @"PunchCell";
         self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
         [self.backdropView removeFromSuperview];
+        self.backdropView = nil;
+        self.teamButtons = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }
@@ -180,41 +221,7 @@ static NSString *cellIdentifier = @"PunchCell";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     self.selectedPunch = punch;
     
-    // 背景
-    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
-    self.backdropView = backdropView;
-    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                             initWithTarget:self action:@selector(cancelPublish:)];
-    tapRecognizer.numberOfTapsRequired = 1;
-    [backdropView addGestureRecognizer:tapRecognizer];
-    [self.view addSubview:backdropView];
-    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    // 团队按钮
-    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
-    [self.backdropView addSubview:teamButtons];
-    self.teamButtons = teamButtons;
-    teamButtons.delegate = self;
-    
-    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_bottom);
-    }];
-
-    [self.view layoutIfNeeded];
-    
-    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.bottom.equalTo(self.view);
-    }];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
-        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
-    }];
+    [self preparePublish:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
 // 行数

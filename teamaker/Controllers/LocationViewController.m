@@ -71,7 +71,7 @@
     publishButton.layer.cornerRadius = 25;
     publishButton.layer.masksToBounds = YES;
     [self.view addSubview:publishButton];
-    [publishButton addTarget:self action:@selector(publish:) forControlEvents:UIControlEventTouchUpInside];
+    [publishButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
     
     // 约束
     [map mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -255,7 +255,7 @@
     }];
 }
 
-- (void)publish:(UIButton *)sender
+- (void)preparePublish:(UIButton *)sender
 {
     if (self.buttonsViewBeginSlidingUp) {
         return;
@@ -292,6 +292,11 @@
 
 - (void)cancelPublish:(UIButton *)sender
 {
+    [self hideButtons];
+}
+
+- (void)hideButtons
+{
     [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
         make.top.equalTo(self.view.mas_bottom);
@@ -301,11 +306,12 @@
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.teamButtons removeFromSuperview];
+        self.teamButtons = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }
 
-- (void)publishToTeam:(UIButton *)sender
+- (void)publish:(UIButton *)sender
 {
     NSInteger teamId = sender.tag;
     NSLog(@"%ld", (long)teamId);
@@ -313,6 +319,7 @@
 
 - (void)resetLayout
 {
+    [self hideButtons];
 }
 
 - (NSArray *)alternativeLocations

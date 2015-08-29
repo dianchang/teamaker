@@ -52,7 +52,7 @@
         make.centerX.equalTo(self.view);
         make.bottom.equalTo(self.view).with.offset(-20);
     }];
-    [captureButton addTarget:self action:@selector(capture:) forControlEvents:UIControlEventTouchUpInside];
+    [captureButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (NSArray *)teams
@@ -67,7 +67,7 @@
 static int const buttonHeight = 60;
 
 // 拍摄按钮
-- (void)capture:(UIButton *)sender
+- (void)preparePublish:(UIButton *)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     sender.hidden = YES;
@@ -138,6 +138,7 @@ static int const buttonHeight = 60;
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.teamButtons removeFromSuperview];
+        self.teamButtons = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }

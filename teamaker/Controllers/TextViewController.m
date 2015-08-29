@@ -47,7 +47,7 @@ static int const sendButtonHeight = 50;
     [sendButton setTitle:@"发送" forState:UIControlStateNormal];
     sendButton.backgroundColor = [UIColor brownColor];
     sendButton.titleLabel.textColor = [UIColor whiteColor];
-    [sendButton addTarget:self action:@selector(publish:) forControlEvents:UIControlEventTouchUpInside];
+    [sendButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sendButton];
     
     // 约束
@@ -122,7 +122,7 @@ static int const sendButtonHeight = 50;
     [self.textView becomeFirstResponder];
 }
 
-- (void)publish:(UIButton *)sender
+- (void)preparePublish:(UIButton *)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     
@@ -172,7 +172,7 @@ static int const sendButtonHeight = 50;
 }
 
 // 发布文字到某团队
--(void)publishToTeam:(UIButton *)sender
+-(void)publish:(UIButton *)sender
 {
     [self hideTeamButtons];
     [self.textView becomeFirstResponder];
@@ -197,6 +197,8 @@ static int const sendButtonHeight = 50;
         self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
         [self.backdropView removeFromSuperview];
+        self.backdropView = nil;
+        self.teamButtons = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }

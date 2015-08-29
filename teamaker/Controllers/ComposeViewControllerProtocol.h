@@ -11,6 +11,7 @@
 
 @protocol ComposeViewControllerProtocol
 
+- (void)preparePublish:(id)sender;
 - (void)publish:(UIButton *)sender;
 - (void)cancelPublish:(UIButton *)sender;
 
