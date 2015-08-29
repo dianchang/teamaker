@@ -50,7 +50,6 @@
 		05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */; };
 		05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */; };
 		05CEB7CC1B8DA477003DF51A /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */; };
-		05CEB7CD1B8DA477003DF51A /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CEB7BF1B8DA477003DF51A /* ComposeViewController.xib */; };
 		05CEB7CE1B8DA477003DF51A /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C21B8DA477003DF51A /* FeedViewController.m */; };
 		05CEB7CF1B8DA477003DF51A /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C41B8DA477003DF51A /* LocationViewController.m */; };
 		05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */; };
@@ -132,7 +131,6 @@
 		05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamDetailsViewController.m; path = Controllers/TeamDetailsViewController.m; sourceTree = "<group>"; };
 		05CEB7BD1B8DA477003DF51A /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeViewController.h; path = Controllers/ComposeViewController.h; sourceTree = "<group>"; };
 		05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComposeViewController.m; path = Controllers/ComposeViewController.m; sourceTree = "<group>"; };
-		05CEB7BF1B8DA477003DF51A /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ComposeViewController.xib; path = Controllers/ComposeViewController.xib; sourceTree = "<group>"; };
 		05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeViewControllerProtocol.h; path = Controllers/ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
 		05CEB7C11B8DA477003DF51A /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = Controllers/FeedViewController.h; sourceTree = "<group>"; };
 		05CEB7C21B8DA477003DF51A /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = Controllers/FeedViewController.m; sourceTree = "<group>"; };
@@ -329,7 +327,6 @@
 				05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */,
 				05CEB7BD1B8DA477003DF51A /* ComposeViewController.h */,
 				05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */,
-				05CEB7BF1B8DA477003DF51A /* ComposeViewController.xib */,
 			);
 			name = Compose;
 			sourceTree = "<group>";
@@ -491,7 +488,6 @@
 				050BC3741B799D0F00A35EFD /* Main.storyboard in Resources */,
 				050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */,
 				050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */,
-				05CEB7CD1B8DA477003DF51A /* ComposeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

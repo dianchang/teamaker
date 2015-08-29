@@ -12,10 +12,11 @@
 #import "TextViewController.h"
 #import "LocationViewController.h"
 #import "ComposeViewControllerProtocol.h"
+#import "Masonry.h"
 
 @interface ComposeViewController () <UIScrollViewDelegate>
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) UIScrollView *scrollView;
+@property (weak, nonatomic) UIPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 @property (nonatomic) BOOL hasSendedResetLayoutMessage;
 @end
@@ -23,6 +24,29 @@
 #define PAGE_COUNT 4
 
 @implementation ComposeViewController
+
+- (void)loadView
+{
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    
+    UIScrollView *scrollView = [UIScrollView new];
+    [self.view addSubview:scrollView];
+    self.scrollView = scrollView;
+    
+    UIPageControl *pageControl = [UIPageControl new];
+    [self.view addSubview:pageControl];
+    self.pageControl = pageControl;
+    
+    // 约束
+    [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.view).offset(-5);
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
