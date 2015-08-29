@@ -98,21 +98,18 @@ static NSString *cellIdentifier = @"PunchCell";
 
 #pragma mark - table view delegate & data source
 
-#define MAINLABEL_TAG 1
-static float const buttonHeight = 60.0;
-
 - (void)reloadData
 {
     self.punchs = [TMPunch MR_findAllSortedBy:@"order" ascending:YES];
     [self.tableView reloadData];
 }
 
-- (void)cancelAction:(UIButton *)sender
+- (void)cancelPublish:(UIButton *)sender
 {
     [self hideButtons];
 }
 
-- (void)publishToTeam:(UIButton *)sender
+- (void)publish:(UIButton *)sender
 {
     [TMFeed createPunchFeed:self.selectedPunch.content teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
@@ -143,8 +140,13 @@ static float const buttonHeight = 60.0;
 // 隐藏团队按钮
 - (void)hideButtons
 {
+    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
     [UIView animateWithDuration:0.3 animations:^{
-        self.teamButtons.frame = CGRectMake(0, self.tableView.bounds.size.height, self.tableView.bounds.size.width, buttonHeight * (self.teams.count + 1) + 1 * self.teams.count);
+        [self.view layoutIfNeeded];
         self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
         [self.backdropView removeFromSuperview];
@@ -176,30 +178,41 @@ static float const buttonHeight = 60.0;
     TMPunch *punch = self.punchs[indexPath.row];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
-    
     self.selectedPunch = punch;
     
+    // 背景
     UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
     self.backdropView = backdropView;
     backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                             initWithTarget:self action:@selector(cancelAction:)];
+                                             initWithTarget:self action:@selector(cancelPublish:)];
     tapRecognizer.numberOfTapsRequired = 1;
     [backdropView addGestureRecognizer:tapRecognizer];
-    
     [self.view addSubview:backdropView];
     [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
-    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
+    // 团队按钮
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
     [self.backdropView addSubview:teamButtons];
     self.teamButtons = teamButtons;
+    teamButtons.delegate = self;
     
-    CGRect frame = teamButtons.frame;
-    frame.origin.y = frame.origin.y - frame.size.height;
+    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+
+    [self.view layoutIfNeeded];
+    
+    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
+    
     [UIView animateWithDuration:0.3 animations:^{
-        teamButtons.frame = frame;
+        [self.view layoutIfNeeded];
         backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
     }];
 }

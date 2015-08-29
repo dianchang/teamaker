@@ -10,6 +10,10 @@
 #define teamaker_ComposeViewControllerProtocol_h
 
 @protocol ComposeViewControllerProtocol
+
+- (void)publish:(UIButton *)sender;
+- (void)cancelPublish:(UIButton *)sender;
+
 @optional
 - (void)resetLayout;
 - (void)prepareLayout;

@@ -9,6 +9,7 @@
 #import "TextViewController.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
+#import "TMTeam.h"
 #import "ComposeViewControllerProtocol.h"
 #import "TeamButtons.h"
 #import "UIColor+Helper.h"
@@ -17,9 +18,10 @@
 @import CoreData;
 
 @interface TextViewController () <ComposeViewControllerProtocol>
-@property (weak, nonatomic) UITextView *textView;
-@property (weak, nonatomic) UIButton *sendButton;
-@property (weak, nonatomic) TeamButtons *teamButtons;
+@property (strong, nonatomic) UITextView *textView;
+@property (strong, nonatomic) UIButton *sendButton;
+@property (strong, nonatomic) TeamButtons *teamButtons;
+@property (strong, nonatomic) NSArray *teams;
 @property (weak, nonatomic) UIView *backdropView;
 @end
 
@@ -45,7 +47,7 @@ static int const sendButtonHeight = 50;
     [sendButton setTitle:@"发送" forState:UIControlStateNormal];
     sendButton.backgroundColor = [UIColor brownColor];
     sendButton.titleLabel.textColor = [UIColor whiteColor];
-    [sendButton addTarget:self action:@selector(publishText:) forControlEvents:UIControlEventTouchUpInside];
+    [sendButton addTarget:self action:@selector(publish:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sendButton];
     
     // 约束
@@ -120,7 +122,7 @@ static int const sendButtonHeight = 50;
     [self.textView becomeFirstResponder];
 }
 
-- (IBAction)publishText:(UIButton *)sender
+- (void)publish:(UIButton *)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     
@@ -128,7 +130,7 @@ static int const sendButtonHeight = 50;
     self.backdropView = backdropView;
     backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                             initWithTarget:self action:@selector(cancelAction:)];
+                                             initWithTarget:self action:@selector(cancelPublish:)];
     tapRecognizer.numberOfTapsRequired = 1;
     [backdropView addGestureRecognizer:tapRecognizer];
     [self.view addSubview:backdropView];
@@ -136,24 +138,34 @@ static int const sendButtonHeight = 50;
         make.edges.equalTo(self.view);
     }];
     
-    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishToTeam:)];
+    // 团队按钮
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
+    [self.view addSubview:teamButtons];
     self.teamButtons = teamButtons;
-    [self.backdropView addSubview:teamButtons];
+    teamButtons.delegate = self;
+    
+    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
     
     [self.view layoutIfNeeded];
     
+    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
+    
     [self.textView resignFirstResponder];
     
-    CGRect frame = teamButtons.frame;
-    frame.origin.y = frame.origin.y - frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
         backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
-        teamButtons.frame = frame;
+        [self.view layoutIfNeeded];
     }];
 }
 
 // 取消发送
-- (IBAction)cancelAction:(UIButton *)sender
+- (void)cancelPublish:(UIButton *)sender
 {
     [self hideTeamButtons];
     [self.textView becomeFirstResponder];
@@ -165,7 +177,6 @@ static int const sendButtonHeight = 50;
     [self hideTeamButtons];
     [self.textView becomeFirstResponder];
     
-    
     [TMFeed createTextFeed:self.textView.text teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
         self.textView.text = @"";
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
@@ -176,11 +187,13 @@ static int const sendButtonHeight = 50;
 // 隐藏按钮
 - (void)hideTeamButtons
 {
-    CGRect frame = self.teamButtons.frame;
-    frame.origin.y = self.view.bounds.size.height;
+    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.teamButtons.frame = frame;
+        [self.view layoutIfNeeded];
         self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
     } completion:^(BOOL finished) {
         [self.backdropView removeFromSuperview];
@@ -192,6 +205,14 @@ static int const sendButtonHeight = 50;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (NSArray *)teams
+{
+    if (!_teams) {
+        _teams = [TMTeam MR_findAll];
+    }
+    return _teams;
 }
 
 @end

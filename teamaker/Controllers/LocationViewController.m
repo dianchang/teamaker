@@ -8,9 +8,11 @@
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MagicalRecord/MagicalRecord.h>
 #import <QuartzCore/QuartzCore.h>
 #import "LocationViewController.h"
 #import "Masonry.h"
+#import "TMTeam.h"
 #import "UIColor+Helper.h"
 #import "ComposeViewControllerProtocol.h"
 #import "TeamButtons.h"
@@ -19,7 +21,8 @@
 
 @property (strong, nonatomic) MKMapView *map;
 @property (strong, nonatomic) UIButton *locationButton;
-@property (strong, nonatomic) TeamButtons *buttonsView;
+@property (strong, nonatomic) NSArray *teams;
+@property (strong, nonatomic) TeamButtons *teamButtons;
 
 @property (strong, nonatomic) UIView *alternativeLocationsMenu;
 @property (strong, nonatomic) UIView *selectedFlag;
@@ -68,7 +71,7 @@
     publishButton.layer.cornerRadius = 25;
     publishButton.layer.masksToBounds = YES;
     [self.view addSubview:publishButton];
-    [publishButton addTarget:self action:@selector(publishLocation:) forControlEvents:UIControlEventTouchUpInside];
+    [publishButton addTarget:self action:@selector(publish:) forControlEvents:UIControlEventTouchUpInside];
     
     // 约束
     [map mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -252,7 +255,7 @@
     }];
 }
 
-- (void)publishLocation:(UIButton *)sender
+- (void)publish:(UIButton *)sender
 {
     if (self.buttonsViewBeginSlidingUp) {
         return;
@@ -261,14 +264,27 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     
     self.buttonsViewBeginSlidingUp = YES;
-    TeamButtons *buttonsView = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelPublish:) publishAction:@selector(publishToTeam:)];
-    self.buttonsView = buttonsView;
-    [self.view addSubview:buttonsView];
     
-    CGRect frame = buttonsView.frame;
-    frame.origin.y = frame.origin.y - frame.size.height;
+    // 团队按钮
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
+    [self.view addSubview:teamButtons];
+    self.teamButtons = teamButtons;
+    teamButtons.delegate = self;
+    
+    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
+    
     [UIView animateWithDuration:0.3 animations:^{
-        buttonsView.frame = frame;
+        [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.buttonsViewBeginSlidingUp = NO;
     }];
@@ -276,12 +292,15 @@
 
 - (void)cancelPublish:(UIButton *)sender
 {
-    CGRect frame = self.buttonsView.frame;
-    frame.origin.y = self.view.bounds.size.height;
+    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
     [UIView animateWithDuration:0.3 animations:^{
-        self.buttonsView.frame = frame;
+        [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [self.buttonsView removeFromSuperview];
+        [self.teamButtons removeFromSuperview];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
     }];
 }
@@ -294,7 +313,6 @@
 
 - (void)resetLayout
 {
-
 }
 
 - (NSArray *)alternativeLocations
@@ -308,6 +326,14 @@
     }
     
     return _alternativeLocations;
+}
+
+- (NSArray *)teams
+{
+    if (!_teams) {
+        _teams = [TMTeam MR_findAll];
+    }
+    return _teams;
 }
 
 @end

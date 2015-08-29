@@ -19,7 +19,6 @@
 @property (nonatomic, weak) UIView *imageView;
 @property (nonatomic, weak) TeamButtons *teamButtons;
 @property (nonatomic, weak) UIButton *captureButton;
-
 @property (nonatomic, strong) NSArray *teams;
 
 @end
@@ -68,16 +67,27 @@
 static int const buttonHeight = 60;
 
 // 拍摄按钮
-- (IBAction)capture:(UIButton *)sender
+- (void)capture:(UIButton *)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     sender.hidden = YES;
     
-    TeamButtons *teamButtons = [[TeamButtons alloc] initWithController:self cancelAction:@selector(cancelAction:) publishAction:@selector(publishAction:)];
+    // 团队按钮
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
     self.teamButtons = teamButtons;
-    [self.view addSubview:teamButtons];
+    teamButtons.delegate = self;
+    
+    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
     
     [self.view layoutIfNeeded];
+    
+    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
     
     // 照片缩小
     CGFloat verticalOffset = 25.0;
@@ -88,20 +98,17 @@ static int const buttonHeight = 60;
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(verticalOffset, horizonalOffset, verticalOffset + [self getButtonsHeight], horizonalOffset));
     }];
     
-    CGRect frame = self.teamButtons.frame;
-    frame.origin.y = frame.origin.y - frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
-        self.teamButtons.frame = frame;
         [self.view layoutIfNeeded];
     }];
 }
 
-- (IBAction)cancelAction:(UIButton *)sender
+- (IBAction)cancelPublish:(UIButton *)sender
 {
     [self hideButtons];
 }
 
-- (IBAction)publishAction:(UIButton *)sender
+- (IBAction)publish:(UIButton *)sender
 {
     NSLog(@"%ld", (long)sender.tag);
     [self hideButtons];
@@ -121,8 +128,12 @@ static int const buttonHeight = 60;
         make.edges.equalTo(self.view);
     }];
     
+    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
     [UIView animateWithDuration:0.3 animations:^{
-        self.teamButtons.frame = CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, [self getButtonsHeight]);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.teamButtons removeFromSuperview];

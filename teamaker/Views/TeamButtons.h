@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ComposeViewControllerProtocol.h"
 
 @interface TeamButtons : UIView
-- (instancetype)initWithController:(UIViewController *)controller cancelAction:(SEL)cancelAction publishAction:(SEL)publishAction;
+
+@property (strong, nonatomic) id <ComposeViewControllerProtocol> delegate;
+
+
+- (instancetype)initWithTeams:(NSArray *)teams;
+
 @end
