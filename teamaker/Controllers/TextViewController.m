@@ -113,6 +113,7 @@ static int const sendButtonHeight = 50;
 - (void)resetLayout
 {
     [self.textView resignFirstResponder];
+    [self.textView setEditable:YES];
     [self hideTeamButtons];
 }
 
@@ -157,6 +158,7 @@ static int const sendButtonHeight = 50;
     }];
     
     [self.textView resignFirstResponder];
+    [self.textView setEditable:NO];
     
     [UIView animateWithDuration:0.3 animations:^{
         backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
@@ -169,6 +171,7 @@ static int const sendButtonHeight = 50;
 {
     [self hideTeamButtons];
     [self.textView becomeFirstResponder];
+    [self.textView setEditable:YES];
 }
 
 // 发布文字到某团队
