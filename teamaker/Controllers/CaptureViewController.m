@@ -76,6 +76,7 @@ static int const buttonHeight = 60;
     TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
     self.teamButtons = teamButtons;
     teamButtons.delegate = self;
+    [self.view addSubview:teamButtons];
     
     [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
