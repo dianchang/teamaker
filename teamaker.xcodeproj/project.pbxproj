@@ -30,10 +30,12 @@
 		051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */; };
 		051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */; };
 		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
-		053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 053082561B84ADAC008C6C16 /* TeamButtons.m */; };
 		05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */; };
 		056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */; };
-		05854B0C1B9073B400EAC376 /* PunchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05854B0B1B9073B400EAC376 /* PunchTableViewCell.m */; };
+		0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */; };
+		0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3E1B90CC0B00A670B4 /* PunchTableViewCell.m */; };
+		0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC401B90CC0B00A670B4 /* TeamButtons.m */; };
+		0573DC461B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC421B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
 		05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */; };
 		05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */; };
@@ -53,15 +55,12 @@
 		05CEB7CF1B8DA477003DF51A /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C41B8DA477003DF51A /* LocationViewController.m */; };
 		05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */; };
 		05CEB7D11B8DA477003DF51A /* PunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C81B8DA477003DF51A /* PunchViewController.m */; };
-		05CEB7D21B8DA477003DF51A /* PunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CEB7C91B8DA477003DF51A /* PunchViewController.xib */; };
 		05CEB7D31B8DA477003DF51A /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7CB1B8DA477003DF51A /* TextViewController.m */; };
 		05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */; };
 		05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */; };
 		05CEB7DC1B8DA4AB003DF51A /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */; };
 		05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DE1B8DA4DC003DF51A /* ViewController.m */; };
 		05CEB7E21B8DA557003DF51A /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */; };
-		05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */; };
-		05D43EB51B8ED31C00974B74 /* TeamMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D43EB41B8ED31C00974B74 /* TeamMemberCollectionViewCell.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
 /* End PBXBuildFile section */
 
@@ -93,14 +92,19 @@
 		051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeamUserInfo.m; path = Models/TMTeamUserInfo.m; sourceTree = "<group>"; };
 		053082481B844D8A008C6C16 /* ScrollDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollDirection.h; sourceTree = "<group>"; };
 		0530824B1B8482A8008C6C16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		053082551B84ADAC008C6C16 /* TeamButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamButtons.h; path = Views/TeamButtons.h; sourceTree = "<group>"; };
-		053082561B84ADAC008C6C16 /* TeamButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamButtons.m; path = Views/TeamButtons.m; sourceTree = "<group>"; };
 		05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileViewController.h; path = Controllers/UserProfileViewController.h; sourceTree = "<group>"; };
 		05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileViewController.m; path = Controllers/UserProfileViewController.m; sourceTree = "<group>"; };
 		0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamProfileViewController.h; path = Controllers/TeamProfileViewController.h; sourceTree = "<group>"; };
 		056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamProfileViewController.m; path = Controllers/TeamProfileViewController.m; sourceTree = "<group>"; };
-		05854B0A1B9073B400EAC376 /* PunchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PunchTableViewCell.h; path = Views/PunchTableViewCell.h; sourceTree = "<group>"; };
-		05854B0B1B9073B400EAC376 /* PunchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PunchTableViewCell.m; path = Views/PunchTableViewCell.m; sourceTree = "<group>"; };
+		0573DC3A1B90CC0B00A670B4 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
+		0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
+		0573DC3C1B90CC0B00A670B4 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
+		0573DC3D1B90CC0B00A670B4 /* PunchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchTableViewCell.h; sourceTree = "<group>"; };
+		0573DC3E1B90CC0B00A670B4 /* PunchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchTableViewCell.m; sourceTree = "<group>"; };
+		0573DC3F1B90CC0B00A670B4 /* TeamButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamButtons.h; sourceTree = "<group>"; };
+		0573DC401B90CC0B00A670B4 /* TeamButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamButtons.m; sourceTree = "<group>"; };
+		0573DC411B90CC0B00A670B4 /* TeamMemberCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamMemberCollectionViewCell.h; sourceTree = "<group>"; };
+		0573DC421B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamMemberCollectionViewCell.m; sourceTree = "<group>"; };
 		05A0736F1B8AC657005C5CE3 /* TMModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMModel.xcdatamodel; sourceTree = "<group>"; };
 		05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMFeed.h; path = Models/_TMFeed.h; sourceTree = "<group>"; };
 		05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMFeed.m; path = Models/_TMFeed.m; sourceTree = "<group>"; };
@@ -138,7 +142,6 @@
 		05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyProfileViewController.m; path = Controllers/MyProfileViewController.m; sourceTree = "<group>"; };
 		05CEB7C71B8DA477003DF51A /* PunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PunchViewController.h; path = Controllers/PunchViewController.h; sourceTree = "<group>"; };
 		05CEB7C81B8DA477003DF51A /* PunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PunchViewController.m; path = Controllers/PunchViewController.m; sourceTree = "<group>"; };
-		05CEB7C91B8DA477003DF51A /* PunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PunchViewController.xib; path = Controllers/PunchViewController.xib; sourceTree = "<group>"; };
 		05CEB7CA1B8DA477003DF51A /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextViewController.h; path = Controllers/TextViewController.h; sourceTree = "<group>"; };
 		05CEB7CB1B8DA477003DF51A /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextViewController.m; path = Controllers/TextViewController.m; sourceTree = "<group>"; };
 		05CEB7D41B8DA488003DF51A /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "Categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
@@ -151,12 +154,7 @@
 		05CEB7DE1B8DA4DC003DF51A /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Controllers/ViewController.m; sourceTree = "<group>"; };
 		05CEB7E01B8DA557003DF51A /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationDetailsViewController.h; path = Controllers/LocationDetailsViewController.h; sourceTree = "<group>"; };
 		05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationDetailsViewController.m; path = Controllers/LocationDetailsViewController.m; sourceTree = "<group>"; };
-		05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = Views/FeedTableViewCell.h; sourceTree = "<group>"; };
-		05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = Views/FeedTableViewCell.m; sourceTree = "<group>"; };
-		05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCellProtocol.h; path = Views/FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
 		05D43EB11B8EC57300974B74 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
-		05D43EB31B8ED31C00974B74 /* TeamMemberCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamMemberCollectionViewCell.h; path = Views/TeamMemberCollectionViewCell.h; sourceTree = "<group>"; };
-		05D43EB41B8ED31C00974B74 /* TeamMemberCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamMemberCollectionViewCell.m; path = Views/TeamMemberCollectionViewCell.m; sourceTree = "<group>"; };
 		533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.debug.xcconfig"; sourceTree = "<group>"; };
 		6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.release.xcconfig"; sourceTree = "<group>"; };
 		D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-teamaker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,17 +248,17 @@
 		0530824D1B84AADA008C6C16 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				053082551B84ADAC008C6C16 /* TeamButtons.h */,
-				053082561B84ADAC008C6C16 /* TeamButtons.m */,
-				05CEEA391B88C7BB00F45DA5 /* FeedTableViewCell.h */,
-				05CEEA3A1B88C7BB00F45DA5 /* FeedTableViewCell.m */,
-				05CEEA3F1B88D64200F45DA5 /* FeedTableViewCellProtocol.h */,
-				05D43EB31B8ED31C00974B74 /* TeamMemberCollectionViewCell.h */,
-				05D43EB41B8ED31C00974B74 /* TeamMemberCollectionViewCell.m */,
-				05854B0A1B9073B400EAC376 /* PunchTableViewCell.h */,
-				05854B0B1B9073B400EAC376 /* PunchTableViewCell.m */,
+				0573DC3A1B90CC0B00A670B4 /* FeedTableViewCell.h */,
+				0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */,
+				0573DC3C1B90CC0B00A670B4 /* FeedTableViewCellProtocol.h */,
+				0573DC3D1B90CC0B00A670B4 /* PunchTableViewCell.h */,
+				0573DC3E1B90CC0B00A670B4 /* PunchTableViewCell.m */,
+				0573DC3F1B90CC0B00A670B4 /* TeamButtons.h */,
+				0573DC401B90CC0B00A670B4 /* TeamButtons.m */,
+				0573DC411B90CC0B00A670B4 /* TeamMemberCollectionViewCell.h */,
+				0573DC421B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0530824E1B84ACD6008C6C16 /* Categories */ = {
@@ -323,7 +321,6 @@
 				05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */,
 				05CEB7C71B8DA477003DF51A /* PunchViewController.h */,
 				05CEB7C81B8DA477003DF51A /* PunchViewController.m */,
-				05CEB7C91B8DA477003DF51A /* PunchViewController.xib */,
 				05CEB7CA1B8DA477003DF51A /* TextViewController.h */,
 				05CEB7CB1B8DA477003DF51A /* TextViewController.m */,
 				05CEB7C31B8DA477003DF51A /* LocationViewController.h */,
@@ -495,7 +492,6 @@
 				050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */,
 				050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */,
 				05CEB7CD1B8DA477003DF51A /* ComposeViewController.xib in Resources */,
-				05CEB7D21B8DA477003DF51A /* PunchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,12 +557,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */,
-				05D43EB51B8ED31C00974B74 /* TeamMemberCollectionViewCell.m in Sources */,
 				05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */,
 				05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */,
 				05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */,
+				0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */,
 				05CEB7E21B8DA557003DF51A /* LocationDetailsViewController.m in Sources */,
 				05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */,
+				0573DC461B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
 				05CEB7DC1B8DA4AB003DF51A /* CaptureViewController.m in Sources */,
 				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
@@ -574,23 +571,22 @@
 				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
 				05CEB7B61B8DA3AE003DF51A /* MyDetailsViewController.m in Sources */,
 				05CEB7CF1B8DA477003DF51A /* LocationViewController.m in Sources */,
-				05CEEA3B1B88C7BB00F45DA5 /* FeedTableViewCell.m in Sources */,
 				05CEB7CE1B8DA477003DF51A /* FeedViewController.m in Sources */,
 				05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */,
+				0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */,
 				05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */,
 				05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */,
 				05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */,
 				05BD7A2A1B8C1C3F00329BF0 /* TMFeed.m in Sources */,
 				05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */,
+				0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */,
 				05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */,
 				05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */,
 				050BC36B1B799D0E00A35EFD /* main.m in Sources */,
-				053082571B84ADAC008C6C16 /* TeamButtons.m in Sources */,
 				05CEB7D31B8DA477003DF51A /* TextViewController.m in Sources */,
 				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
 				05CEB7D11B8DA477003DF51A /* PunchViewController.m in Sources */,
 				051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */,
-				05854B0C1B9073B400EAC376 /* PunchTableViewCell.m in Sources */,
 				05CEB7CC1B8DA477003DF51A /* ComposeViewController.m in Sources */,
 				051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */,
 				05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */,

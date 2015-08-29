@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "PunchViewController.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
@@ -18,10 +19,10 @@
 #import "TeamButtons.h"
 
 @interface PunchViewController () <UITableViewDelegate, UITableViewDataSource, ComposeViewControllerProtocol>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIButton *addPunch;
-@property (weak, nonatomic) UIView *backdropView;
-@property (weak, nonatomic) TeamButtons *teamButtons;
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UIButton *addPunchButton;
+@property (strong, nonatomic) UIView *backdropView;
+@property (strong, nonatomic) TeamButtons *teamButtons;
 @property (strong, nonatomic) NSArray *punchs;
 @property (strong, nonatomic) NSArray *teams;
 @property (strong, nonatomic) TMPunch *selectedPunch;
@@ -31,14 +32,40 @@
 
 static NSString *cellIdentifier = @"PunchCell";
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)loadView
+{
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     
+    // 表格
+    UITableView *tableView = [UITableView new];
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+     [self.tableView registerClass:[PunchTableViewCell class] forCellReuseIdentifier:cellIdentifier];
+
+    // 添加按钮
+    UIButton *addPunchButton = [UIButton new];
+    [addPunchButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [addPunchButton setTitle:@"+" forState:UIControlStateNormal];
+    [self.view addSubview:addPunchButton];
+    self.addPunchButton = addPunchButton;
+    self.addPunchButton.titleLabel.font = [UIFont systemFontOfSize:40];
     
-    [self.tableView registerClass:[PunchTableViewCell class] forCellReuseIdentifier:cellIdentifier];
+    // 约束
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [addPunchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-30);
+    }];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     UIMenuItem *testMenuItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(deletePunch:)];
     [[UIMenuController sharedMenuController] setMenuItems: @[testMenuItem]];
@@ -160,7 +187,7 @@ static float const buttonHeight = 60.0;
     tapRecognizer.numberOfTapsRequired = 1;
     [backdropView addGestureRecognizer:tapRecognizer];
     
-    [self.view insertSubview:backdropView aboveSubview:self.addPunch];
+    [self.view addSubview:backdropView];
     [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
