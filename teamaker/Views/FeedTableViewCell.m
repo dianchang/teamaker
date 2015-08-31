@@ -78,13 +78,17 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [self.contentView addSubview:teamButton];
     self.teamButton = teamButton;
     
+    // 内容
+    UIView *contentView = [UIView new];
+    [self.contentView addSubview:contentView];
+    
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         // 文字
         UILabel *textLabel = [[UILabel alloc] init];
         textLabel.numberOfLines = 0;
         textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         textLabel.font = [UIFont systemFontOfSize:14];
-        [self.contentView addSubview:textLabel];
+        [contentView addSubview:textLabel];
         self.myTextLabel = textLabel;
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         // 打卡
@@ -96,10 +100,14 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         self.punchLabel = punchLabel;
     }
     
+    /* 时间与命令容器 */
+    UIView *timeAndCommandsContainer = [UIView new];
+    [self.contentView addSubview:timeAndCommandsContainer];
+    
     // 时间
     UILabel *timeLable = [UILabel new];
     timeLable.font = [UIFont systemFontOfSize:12];
-    [self.contentView addSubview:timeLable];
+    [timeAndCommandsContainer addSubview:timeLable];
     timeLable.textColor = [UIColor colorWithRGBA:0x999999FF];
     self.createdAtLabel = timeLable;
     
@@ -119,31 +127,38 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     
     [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(userButton);
-        make.top.equalTo(userButton.mas_bottom).with.offset(5).priorityHigh();
+        make.top.equalTo(userButton.mas_bottom).with.offset(5);
         make.height.equalTo(@14).priorityHigh();
     }];
     
-    [timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(teamButton.mas_bottom);
         make.left.equalTo(userButton);
-        make.bottom.equalTo(self.contentView).offset(-15);
+        make.right.equalTo(self.contentView);
     }];
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         [self.myTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(teamButton);
-            make.top.equalTo(teamButton.mas_bottom).with.offset(6).priorityHigh();
-            make.bottom.equalTo(timeLable.mas_top).offset(-10);
+            make.left.bottom.equalTo(contentView);
+            make.top.equalTo(contentView).with.offset(6).priorityHigh();
         }];
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         [self.punchLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(userButton.mas_right).offset(5);
             make.top.equalTo(userButton);
         }];
-        
-        [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(timeLable.mas_top).offset(-10);
-        }];
     }
+    
+    [timeAndCommandsContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(contentView.mas_bottom).offset(10).priorityHigh();
+        make.left.equalTo(userButton);
+        make.right.equalTo(self.contentView);
+        make.bottom.equalTo(self.contentView).offset(-15);
+    }];
+    
+    [timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.and.bottom.equalTo(timeAndCommandsContainer);
+    }];
     
     return self;
 }
