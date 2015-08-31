@@ -170,8 +170,8 @@ static int const sendButtonHeight = 50;
 - (void)cancelPublish:(UIButton *)sender
 {
     [self hideTeamButtons];
-    [self.textView becomeFirstResponder];
     [self.textView setEditable:YES];
+    [self.textView becomeFirstResponder];
 }
 
 // 发布文字到某团队

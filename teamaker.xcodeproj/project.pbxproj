@@ -316,7 +316,6 @@
 		05854B061B8FFAC200EAC376 /* Compose */ = {
 			isa = PBXGroup;
 			children = (
-				05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */,
 				05CEB7C71B8DA477003DF51A /* PunchViewController.h */,
 				05CEB7C81B8DA477003DF51A /* PunchViewController.m */,
 				05CEB7CA1B8DA477003DF51A /* TextViewController.h */,
@@ -327,6 +326,7 @@
 				05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */,
 				05CEB7BD1B8DA477003DF51A /* ComposeViewController.h */,
 				05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */,
+				05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */,
 			);
 			name = Compose;
 			sourceTree = "<group>";
