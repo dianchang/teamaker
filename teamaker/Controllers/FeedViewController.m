@@ -60,18 +60,12 @@
     self.navigationItem.title = @"圈子";
     
     // 左边按钮
-    UIImage *personIcon = [IonIcons imageWithIcon:ion_ios_person
-                                        iconColor:[UIColor grayColor]
-                                         iconSize:28.0f
-                                        imageSize:CGSizeMake(28.0f, 28.0f)];
+    UIImage *personIcon = [IonIcons imageWithIcon:ion_ios_person size:28 color:[UIColor lightGrayColor]];
     UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithImage:personIcon style:UIBarButtonItemStylePlain target:self action:@selector(redirectToMyProfile)];
     self.navigationItem.leftBarButtonItem = myProfileButtonItem;
     
     // 右边按钮
-    UIImage *plusIcon = [IonIcons imageWithIcon:ion_android_add
-                                        iconColor:[UIColor grayColor]
-                                         iconSize:28.0f
-                                        imageSize:CGSizeMake(28.0f, 28.0f)];
+    UIImage *plusIcon = [IonIcons imageWithIcon:ion_android_add size:28 color:[UIColor lightGrayColor]];
     UIBarButtonItem *joinTeamButtonItem = [[UIBarButtonItem alloc] initWithImage:plusIcon style:UIBarButtonItemStylePlain target:self action:@selector(showJoinTeamMenu)];
     self.navigationItem.rightBarButtonItem = joinTeamButtonItem;
 
@@ -229,6 +223,8 @@
     
     return size.height + 1.0f;
 }
+
+#pragma mark - getters and setters
 
 - (JoinTeamMenu *)joinTeamMenu
 {
