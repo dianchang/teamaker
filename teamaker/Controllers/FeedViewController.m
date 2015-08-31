@@ -11,6 +11,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
 #import "AFNetworking.h"
+#import "IonIcons.h"
 #import "TMFeed.h"
 #import "MyProfileViewController.h"
 #import "UIColor+Helper.h"
@@ -44,8 +45,22 @@
     
     // 导航栏
     self.navigationItem.title = @"圈子";
-    UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(redirectToMyProfile)];
-    self.navigationItem.rightBarButtonItem = myProfileButtonItem;
+    
+    // 左边按钮
+    UIImage *personIcon = [IonIcons imageWithIcon:ion_ios_person
+                                        iconColor:[UIColor grayColor]
+                                         iconSize:28.0f
+                                        imageSize:CGSizeMake(28.0f, 28.0f)];
+    UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithImage:personIcon style:UIBarButtonItemStylePlain target:self action:@selector(redirectToMyProfile)];
+    self.navigationItem.leftBarButtonItem = myProfileButtonItem;
+    
+    // 右边按钮
+    UIImage *plusIcon = [IonIcons imageWithIcon:ion_android_add
+                                        iconColor:[UIColor grayColor]
+                                         iconSize:28.0f
+                                        imageSize:CGSizeMake(28.0f, 28.0f)];
+    UIBarButtonItem *joinTeamButtonItem = [[UIBarButtonItem alloc] initWithImage:plusIcon style:UIBarButtonItemStylePlain target:self action:@selector(showJoinTeamMenu)];
+    self.navigationItem.rightBarButtonItem = joinTeamButtonItem;
 
     // 表格
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
@@ -103,8 +118,20 @@
     [self.navigationController pushViewController:myProfileViewController animated:YES];
 }
 
+// 显示加入队伍菜单
+- (void)showJoinTeamMenu
+{
+
+}
+
+// 隐藏加入队伍菜单
+- (void)hideJoinTeamMenu
+{
+
+}
+
 // 向下翻页
-- (IBAction)pageDown:(UIButton *)sender {
+- (void)pageDown:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PageDown" object:self];
 }
 

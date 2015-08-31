@@ -115,20 +115,20 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).with.offset(15);
         make.top.equalTo(self.contentView).with.offset(15);
-        make.width.equalTo(@30).priorityHigh();
-        make.height.equalTo(@30).priorityHigh();
+        make.width.equalTo(@30);
+        make.height.equalTo(@30);
     }];
     
     [userButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(avatarView.mas_right).with.offset(15);
         make.top.equalTo(self.contentView).with.offset(15);
-        make.height.equalTo(@18).priorityHigh();
+        make.height.equalTo(@18);
     }];
     
     [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(userButton);
         make.top.equalTo(userButton.mas_bottom).with.offset(5);
-        make.height.equalTo(@14).priorityHigh();
+        make.height.equalTo(@14);
     }];
     
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -140,7 +140,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         [self.myTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.bottom.equalTo(contentView);
-            make.top.equalTo(contentView).with.offset(6).priorityHigh();
+            make.top.equalTo(contentView).with.offset(6);
         }];
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         [self.punchLabel mas_makeConstraints:^(MASConstraintMaker *make) {

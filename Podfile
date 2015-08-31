@@ -5,6 +5,7 @@ target 'teamaker' do
   pod 'Masonry'
   pod 'AFNetworking', '~> 2.5'
   pod 'MagicalRecord'
+  pod 'ionicons'
 end
 
 target 'teamakerTests' do
