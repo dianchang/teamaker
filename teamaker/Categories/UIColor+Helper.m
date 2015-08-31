@@ -18,4 +18,9 @@
                            alpha:((color) & 0xFF) / 255.0f];
 }
 
++ (UIColor *)TMBackgroundColorGray
+{
+    return [self colorWithRGBA:0xEEEEEEFF];
+}
+
 @end

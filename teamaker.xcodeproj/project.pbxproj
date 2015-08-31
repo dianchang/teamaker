@@ -129,6 +129,7 @@
 		0537178E1B941C3300A92A7D /* CreateTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTeamViewController.m; sourceTree = "<group>"; };
 		053717901B941C4C00A92A7D /* JoinTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamViewController.h; sourceTree = "<group>"; };
 		053717911B941C4C00A92A7D /* JoinTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamViewController.m; sourceTree = "<group>"; };
+		053717931B945A8B00A92A7D /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0573DC3A1B90CC0B00A670B4 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		0573DC3C1B90CC0B00A670B4 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
@@ -218,6 +219,7 @@
 				053EA2561B81AB6A00BBAF12 /* Controllers */,
 				050BC3681B799D0E00A35EFD /* Supporting Files */,
 				053082481B844D8A008C6C16 /* ScrollDirection.h */,
+				053717931B945A8B00A92A7D /* Constants.h */,
 			);
 			path = teamaker;
 			sourceTree = "<group>";

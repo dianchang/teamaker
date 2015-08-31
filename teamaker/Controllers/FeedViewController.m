@@ -222,7 +222,7 @@
     
 }
 
-# pragma mark - tableview datasource and delegate
+# pragma mark - tableview dataSource and delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.feeds count];

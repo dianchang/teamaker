@@ -11,5 +11,6 @@
 @interface UIColor (Helper)
 
 + (UIColor *)colorWithRGBA:(NSUInteger)color;
++ (UIColor *)TMBackgroundColorGray;
 
 @end
