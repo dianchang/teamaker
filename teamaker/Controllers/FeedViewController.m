@@ -66,7 +66,7 @@
     
     // 右边按钮
     UIImage *plusIcon = [IonIcons imageWithIcon:ion_android_add size:28 color:[UIColor lightGrayColor]];
-    UIBarButtonItem *joinTeamButtonItem = [[UIBarButtonItem alloc] initWithImage:plusIcon style:UIBarButtonItemStylePlain target:self action:@selector(showJoinTeamMenu)];
+    UIBarButtonItem *joinTeamButtonItem = [[UIBarButtonItem alloc] initWithImage:plusIcon style:UIBarButtonItemStylePlain target:self action:@selector(switchJoinTeamMenu)];
     self.navigationItem.rightBarButtonItem = joinTeamButtonItem;
 
     // 表格
@@ -126,31 +126,34 @@
 }
 
 // 显示加入队伍菜单
-- (void)showJoinTeamMenu
+- (void)switchJoinTeamMenu
 {
-    // 背景
-    [self.view addSubview:self.backdropView];
-    [self.backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.and.bottom.equalTo(self.view);
-        make.top.equalTo(self.view).offset(44);
-    }];
-    
-    [self.backdropView addSubview:self.joinTeamMenu];
-    [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.backdropView);
-        make.bottom.equalTo(self.backdropView.mas_top);
-    }];
-    
-    [self.view layoutIfNeeded];
-    
-    [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.and.top.equalTo(self.backdropView);
-    }];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+    if (self.backdropView.superview) {
+        [self hideJoinTeamMenu];
+    } else {
+        // 背景
+        [self.view addSubview:self.backdropView];
+        [self.backdropView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.and.bottom.equalTo(self.view);
+            make.top.equalTo(self.view).offset(44);
+        }];
+        
+        [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(self.backdropView);
+            make.bottom.equalTo(self.backdropView.mas_top);
+        }];
+        
         [self.view layoutIfNeeded];
-    }];
+        
+        [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.and.top.equalTo(self.backdropView);
+        }];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 // 隐藏加入队伍菜单
@@ -230,22 +233,6 @@
 
 #pragma mark - getters and setters
 
-- (JoinTeamMenu *)joinTeamMenu
-{
-    if (!_joinTeamMenu) {
-        _joinTeamMenu = [[JoinTeamMenu alloc] initWithCreateTeam:^{
-            UIViewController *controller = [[CreateTeamViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:YES];
-        } joinTeam:^{
-            UIViewController *controller = [[JoinTeamViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:YES];
-        } inviteFriend:^{
-        }];
-    }
-    
-    return _joinTeamMenu;
-}
-
 - (UIView *)backdropView
 {
     if (!_backdropView) {
@@ -258,6 +245,24 @@
     }
     
     return _backdropView;
+}
+
+- (JoinTeamMenu *)joinTeamMenu
+{
+    if (!_joinTeamMenu) {
+        _joinTeamMenu = [[JoinTeamMenu alloc] initWithCreateTeam:^{
+            UIViewController *controller = [[CreateTeamViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        } joinTeam:^{
+            UIViewController *controller = [[JoinTeamViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        } inviteFriend:^{
+        }];
+        
+        [self.backdropView addSubview:_joinTeamMenu];
+    }
+    
+    return _joinTeamMenu;
 }
 
 @end
