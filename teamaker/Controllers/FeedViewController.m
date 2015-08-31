@@ -188,6 +188,40 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - FeedTableViewCellProtocol
+
+// 跳转用户主页
+- (void)redirectToUserProfile:(NSNumber *)userId
+{
+    UserProfileViewController *controller = [[UserProfileViewController alloc] initWithUserId:userId];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+// 跳转团队主页
+- (void)redirectToTeamProfile:(NSNumber *)teamId
+{
+    TeamProfileViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:teamId];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+// 星标feed
+- (void)starFeed:(TMFeed *)feed
+{
+    
+}
+
+// 赞feed
+- (void)likeFeed:(TMFeed *)feed
+{
+
+}
+
+// 评论feed
+- (void)commentFeed:(TMFeed *)feed
+{
+    
+}
+
 # pragma mark - tableview datasource and delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -202,20 +236,6 @@
     cell.delegate = self;
     [cell updateCellWithFeed:feed];
     return cell;
-}
-
-// 跳转用户主页
-- (void)redirectToUserProfile:(NSNumber *)userId
-{
-    UserProfileViewController *controller = [[UserProfileViewController alloc] initWithUserId:userId];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
-// 跳转团队主页
-- (void)redirectToTeamProfile:(NSNumber *)teamId
-{
-    TeamProfileViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:teamId];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

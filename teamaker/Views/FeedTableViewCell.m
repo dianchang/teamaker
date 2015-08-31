@@ -26,6 +26,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 
 @property (strong, nonatomic) UILabel *commandButton;
 @property (strong, nonatomic) UIView* commandsToolbar;
+@property (strong, nonatomic) TMFeed *feed;
 
 @end
 
@@ -189,6 +190,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 
 - (void)updateCellWithFeed:(TMFeed *)feed
 {
+    self.feed = feed;
     NSString *reuseIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
     
     [self.userButton setTitle:feed.user.name forState:UIControlStateNormal];
@@ -339,19 +341,22 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 // 打星标
 - (void)starFeed
 {
-
+    [self.delegate starFeed:self.feed];
+    [self hideCommandsToolbar];
 }
 
 // 赞
 - (void)likeFeed
 {
-
+    [self.delegate likeFeed:self.feed];
+    [self hideCommandsToolbar];
 }
 
 // 评论
 - (void)commentFeed
 {
-
+    [self.delegate commentFeed:self.feed];
+    [self hideCommandsToolbar];
 }
 
 // 重置布局
