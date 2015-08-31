@@ -21,7 +21,7 @@
 @property (nonatomic) BOOL hasSendedResetLayoutMessage;
 @end
 
-#define PAGE_COUNT 4
+#define PAGE_COUNT 3
 
 @implementation ComposeViewController
 
@@ -110,16 +110,16 @@
     UIViewController *controller;
     
     switch (page) {
+//        case 0:
+//            controller = [[LocationViewController alloc] init];
+//            break;
         case 0:
-            controller = [[LocationViewController alloc] init];
-            break;
-        case 1:
             controller = [[TextViewController alloc] init];
             break;
-        case 2:
+        case 1:
             controller = [[PunchViewController alloc] init];
             break;
-        case 3:
+        case 2:
             controller = [[CaptureViewController alloc] init];
             break;
     }
@@ -140,6 +140,7 @@
     self.hasSendedResetLayoutMessage = NO;
 }
 
+// 翻到其他页时，对当前页进行界面重置
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);

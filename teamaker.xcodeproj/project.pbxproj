@@ -327,11 +327,11 @@
 		05854B061B8FFAC200EAC376 /* Compose */ = {
 			isa = PBXGroup;
 			children = (
-				053717741B941BA500A92A7D /* CaptureViewController.h */,
-				053717751B941BA500A92A7D /* CaptureViewController.m */,
 				053717761B941BA500A92A7D /* ComposeViewController.h */,
 				053717771B941BA500A92A7D /* ComposeViewController.m */,
 				053717781B941BA500A92A7D /* ComposeViewControllerProtocol.h */,
+				053717741B941BA500A92A7D /* CaptureViewController.h */,
+				053717751B941BA500A92A7D /* CaptureViewController.m */,
 				053717791B941BA500A92A7D /* LocationDetailsViewController.h */,
 				0537177A1B941BA500A92A7D /* LocationDetailsViewController.m */,
 				0537177B1B941BA500A92A7D /* LocationViewController.h */,
