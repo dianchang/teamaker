@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 
 @protocol FeedTableViewCellProtocol <NSObject>
+
 - (void)redirectToUserProfile:(NSNumber *)userId;
 - (void)redirectToTeamProfile:(NSNumber *)teamId;
+
 @end

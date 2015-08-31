@@ -156,6 +156,10 @@
 // 隐藏加入队伍菜单
 - (void)hideJoinTeamMenu
 {
+    if (!self.joinTeamMenu.superview) {
+        return;
+    }
+    
     [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.backdropView);
         make.bottom.equalTo(self.backdropView.mas_top);

@@ -6,13 +6,16 @@
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "FeedTableViewCell.h"
 #import "UIColor+Helper.h"
 #import "Masonry.h"
 #import "UIImageView+AFNetworking.h"
 #import "TMTeam.h"
 #import "TMUser.h"
+#import "IonIcons.h"
 #import "NSDate+FriendlyInterval.h"
+#import "UIColor+Helper.h"
 
 static NSString *const textCellReuseIdentifier = @"TextCell";
 static NSString *const imageCellReuseIdentifier = @"ImageCell";
@@ -20,6 +23,10 @@ static NSString *const punchCellReuseIdentifier = @"PunchCell";
 static NSString *const locationCellReuseIdentifier = @"LocationCell";
 
 @interface FeedTableViewCell()
+
+@property (strong, nonatomic) UILabel *commandButton;
+@property (strong, nonatomic) UIView* commandsToolbar;
+
 @end
 
 @implementation FeedTableViewCell
@@ -48,6 +55,10 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+    UITapGestureRecognizer *gestureRecognizerForCell = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetLayout)];
+    gestureRecognizerForCell.numberOfTapsRequired = 1;
+    [self addGestureRecognizer:gestureRecognizerForCell];
     
     // 用户头像
     UIImageView *avatarView = [[UIImageView alloc] init];
@@ -111,6 +122,15 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     timeLable.textColor = [UIColor colorWithRGBA:0x999999FF];
     self.createdAtLabel = timeLable;
     
+    // 操作
+    UILabel *commandButton = [IonIcons labelWithIcon:ion_navicon_round size:12.0f color:[UIColor grayColor]];
+    commandButton.userInteractionEnabled = YES;
+    self.commandButton = commandButton;
+    [timeAndCommandsContainer addSubview:commandButton];
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(switchCommandsToolbar)];
+    gr.numberOfTapsRequired = 1;
+    [commandButton addGestureRecognizer:gr];
+    
     // 约束
     [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).with.offset(15);
@@ -152,12 +172,16 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [timeAndCommandsContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(contentView.mas_bottom).offset(10).priorityHigh();
         make.left.equalTo(userButton);
-        make.right.equalTo(self.contentView);
+        make.right.equalTo(self.contentView).offset(-15);
         make.bottom.equalTo(self.contentView).offset(-15);
     }];
     
     [timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.and.bottom.equalTo(timeAndCommandsContainer);
+    }];
+    
+    [commandButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.equalTo(timeAndCommandsContainer);
     }];
     
     return self;
@@ -202,12 +226,138 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 
 - (void)userAvatarClicked:(UITapGestureRecognizer *)gestureRecognizer
 {
+    [self hideCommandsToolbar];
     [self.delegate redirectToUserProfile:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
 }
 
 - (void)teamButtonClicked:(UIButton *)sender
 {
     [self.delegate redirectToTeamProfile:[NSNumber numberWithLong:sender.tag]];
+}
+
+// 弹出命令工具栏
+- (void)switchCommandsToolbar
+{
+    if ([self.commandsToolbar superview]) {
+        [self hideCommandsToolbar];
+    } else {
+        [self.contentView addSubview:self.commandsToolbar];
+        [self.commandsToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.commandButton);
+            make.right.equalTo(self.commandButton.mas_left).offset(-5);
+        }];
+    }
+}
+
+// 隐藏命令工具栏
+- (void)hideCommandsToolbar
+{
+    [self.commandsToolbar removeFromSuperview];
+}
+
+#pragma mark - getters & setters
+
+- (UIView *)commandsToolbar
+{
+    if (!_commandsToolbar) {
+        _commandsToolbar = [UIView new];
+        _commandsToolbar.backgroundColor = [UIColor colorWithRGBA:0x333333FF];
+        _commandsToolbar.layer.cornerRadius = 2;
+        _commandsToolbar.layer.masksToBounds = YES;
+        
+        // 星标
+        UIButton *starButton = [UIButton new];
+        [starButton setTitle:@"星标" forState:UIControlStateNormal];
+        [starButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        starButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [starButton addTarget:self action:@selector(starFeed) forControlEvents:UIControlEventTouchUpInside];
+        [_commandsToolbar addSubview:starButton];
+        
+        // 分隔符
+        UIView *firstDivider = [UIView new];
+        firstDivider.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+        [_commandsToolbar addSubview:firstDivider];
+        
+        // 赞
+        UIButton *likeButton = [UIButton new];
+        [likeButton setTitle:@"赞" forState:UIControlStateNormal];
+        [likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        likeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [likeButton addTarget:self action:@selector(likeFeed) forControlEvents:UIControlEventTouchUpInside];
+        [_commandsToolbar addSubview:likeButton];
+        
+        // 分隔符
+        UIView *secondDivider = [UIView new];
+        secondDivider.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+        [_commandsToolbar addSubview:secondDivider];
+        
+        // 评论
+        UIButton *commentButton = [UIButton new];
+        [commentButton setTitle:@"评论" forState:UIControlStateNormal];
+        [commentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        commentButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [commentButton addTarget:self action:@selector(commentFeed) forControlEvents:UIControlEventTouchUpInside];
+        [_commandsToolbar addSubview:commentButton];
+        
+        // 约束
+        [starButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.and.bottom.equalTo(_commandsToolbar);
+            make.width.equalTo(@60);
+            make.height.equalTo(@30);
+        }];
+        
+        [firstDivider mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_commandsToolbar).offset(8);
+            make.bottom.equalTo(_commandsToolbar).offset(-8);
+            make.width.equalTo(@1);
+            make.left.equalTo(starButton.mas_right);
+            make.right.equalTo(likeButton.mas_left);
+        }];
+        
+        [likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.and.bottom.equalTo(_commandsToolbar);
+            make.size.equalTo(starButton);
+        }];
+        
+        [secondDivider mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_commandsToolbar).offset(8);
+            make.bottom.equalTo(_commandsToolbar).offset(-8);
+            make.width.equalTo(@1);
+            make.left.equalTo(likeButton.mas_right);
+            make.right.equalTo(commentButton.mas_left);
+        }];
+        
+        [commentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.and.bottom.equalTo(_commandsToolbar);
+            make.size.equalTo(starButton);
+        }];
+    }
+    
+    return _commandsToolbar;
+}
+
+// 打星标
+- (void)starFeed
+{
+
+}
+
+// 赞
+- (void)likeFeed
+{
+
+}
+
+// 评论
+- (void)commentFeed
+{
+
+}
+
+// 重置布局
+- (void)resetLayout
+{
+    [self hideCommandsToolbar];
 }
 
 @end
