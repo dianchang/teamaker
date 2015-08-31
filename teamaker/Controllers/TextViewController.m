@@ -127,6 +127,7 @@ static int const sendButtonHeight = 50;
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
     
+    // 背景
     UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
     self.backdropView = backdropView;
     backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];

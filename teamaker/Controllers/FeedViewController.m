@@ -20,11 +20,18 @@
 #import "FeedTableViewCell.h"
 #import "UserProfileViewController.h"
 #import "TeamProfileViewController.h"
+#import "JoinTeamMenu.h"
+#import "CreateTeamViewController.h"
+#import "JoinTeamViewController.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate, FeedTableViewCellProtocol>
+
 @property (weak, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSMutableArray *feeds;
+@property (strong, nonatomic) UIView *backdropView;
+@property (strong, nonatomic) JoinTeamMenu *joinTeamMenu;
+
 @end
 
 //#define avatarViewTag
@@ -37,6 +44,12 @@
 //    [self.refreshControl beginRefreshing];
     [self loadFeeds];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFeeds) name:@"ReloadFeeds" object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self hideJoinTeamMenu];
 }
 
 - (void)loadView
@@ -121,13 +134,45 @@
 // 显示加入队伍菜单
 - (void)showJoinTeamMenu
 {
-
+    // 背景
+    [self.view addSubview:self.backdropView];
+    [self.backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.and.bottom.equalTo(self.view);
+        make.top.equalTo(self.view).offset(44);
+    }];
+    
+    [self.backdropView addSubview:self.joinTeamMenu];
+    [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.backdropView);
+        make.bottom.equalTo(self.backdropView.mas_top);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.and.top.equalTo(self.backdropView);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+        [self.view layoutIfNeeded];
+    }];
 }
 
 // 隐藏加入队伍菜单
 - (void)hideJoinTeamMenu
 {
-
+    [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.backdropView);
+        make.bottom.equalTo(self.backdropView.mas_top);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self.backdropView removeFromSuperview];
+    }];
 }
 
 // 向下翻页
@@ -138,32 +183,6 @@
 // 获取feeds
 - (void)loadFeeds
 {
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-//    [manager GET:@"http://localhost:5000/api/user/1/feeds" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSArray *response = (NSArray *)responseObject;
-//        [self.feeds removeAllObjects];
-//        for (NSDictionary *item in response) {
-//            TMFeed *feed = [[TMFeed alloc] init];
-//            feed.id = [[item objectForKey:@"id"] integerValue];
-//            feed.user_id = [[item objectForKey:@"user_id"] integerValue];
-//            feed.user = [item objectForKey:@"user"];
-//            feed.userAvatar = [item objectForKey:@"user_avatar"];
-//            feed.team_id = [[item objectForKey:@"team_id"] integerValue];
-//            feed.team = [item objectForKey:@"team"];
-//            feed.kind = [item objectForKey:@"kind"];
-//            feed.text = [item objectForKey:@"text"];
-//            feed.image = [item objectForKey:@"image"];
-//            feed.punch = [item objectForKey:@"punch"];
-//            feed.location = [item objectForKey:@"location"];
-//            [self.feeds addObject:feed];
-//        }
-//        [self.refreshControl endRefreshing];
-//        [self.tableView reloadData];
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
     self.feeds = (NSMutableArray *)[TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO];
     [self.tableView reloadData];
 }
@@ -209,6 +228,36 @@
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
     return size.height + 1.0f;
+}
+
+- (JoinTeamMenu *)joinTeamMenu
+{
+    if (!_joinTeamMenu) {
+        _joinTeamMenu = [[JoinTeamMenu alloc] initWithCreateTeam:^{
+            UIViewController *controller = [[CreateTeamViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        } joinTeam:^{
+            UIViewController *controller = [[JoinTeamViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        } inviteFriend:^{
+        }];
+    }
+    
+    return _joinTeamMenu;
+}
+
+- (UIView *)backdropView
+{
+    if (!_backdropView) {
+        _backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
+        _backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                                 initWithTarget:self action:@selector(hideJoinTeamMenu)];
+        tapRecognizer.numberOfTapsRequired = 1;
+        [_backdropView addGestureRecognizer:tapRecognizer];
+    }
+    
+    return _backdropView;
 }
 
 @end

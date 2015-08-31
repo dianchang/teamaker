@@ -23,15 +23,30 @@
 /* Begin PBXBuildFile section */
 		050BC36B1B799D0E00A35EFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC36A1B799D0E00A35EFD /* main.m */; };
 		050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC36D1B799D0E00A35EFD /* AppDelegate.m */; };
-		050BC3741B799D0F00A35EFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3721B799D0F00A35EFD /* Main.storyboard */; };
 		050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3751B799D0F00A35EFD /* Images.xcassets */; };
 		050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3771B799D0F00A35EFD /* LaunchScreen.xib */; };
 		050BC3851B799D0F00A35EFD /* teamakerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3841B799D0F00A35EFD /* teamakerTests.m */; };
 		051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */; };
 		051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */; };
 		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
-		05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */; };
-		056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */; };
+		0537175E1B94041E00A92A7D /* JoinTeamMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537175D1B94041E00A92A7D /* JoinTeamMenu.m */; };
+		053717631B941B6000A92A7D /* TeamDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717601B941B6000A92A7D /* TeamDetailsViewController.m */; };
+		053717641B941B6000A92A7D /* TeamProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717621B941B6000A92A7D /* TeamProfileViewController.m */; };
+		053717671B941B6B00A92A7D /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717661B941B6B00A92A7D /* FeedViewController.m */; };
+		053717701B941B8000A92A7D /* MyDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717691B941B8000A92A7D /* MyDetailsViewController.m */; };
+		053717711B941B8000A92A7D /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537176B1B941B8000A92A7D /* MyProfileViewController.m */; };
+		053717721B941B8000A92A7D /* MySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537176D1B941B8000A92A7D /* MySettingsViewController.m */; };
+		053717731B941B8000A92A7D /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537176F1B941B8000A92A7D /* UserProfileViewController.m */; };
+		053717811B941BA500A92A7D /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717751B941BA500A92A7D /* CaptureViewController.m */; };
+		053717821B941BA500A92A7D /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717771B941BA500A92A7D /* ComposeViewController.m */; };
+		053717831B941BA500A92A7D /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537177A1B941BA500A92A7D /* LocationDetailsViewController.m */; };
+		053717841B941BA500A92A7D /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537177C1B941BA500A92A7D /* LocationViewController.m */; };
+		053717851B941BA500A92A7D /* PunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537177E1B941BA500A92A7D /* PunchViewController.m */; };
+		053717861B941BA500A92A7D /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717801B941BA500A92A7D /* TextViewController.m */; };
+		053717891B941BB400A92A7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717881B941BB400A92A7D /* ViewController.m */; };
+		0537178C1B941BF100A92A7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0537178A1B941BF100A92A7D /* Main.storyboard */; };
+		0537178F1B941C3300A92A7D /* CreateTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537178E1B941C3300A92A7D /* CreateTeamViewController.m */; };
+		053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717911B941C4C00A92A7D /* JoinTeamViewController.m */; };
 		0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */; };
 		0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3E1B90CC0B00A670B4 /* PunchTableViewCell.m */; };
 		0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC401B90CC0B00A670B4 /* TeamButtons.m */; };
@@ -46,20 +61,8 @@
 		05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A231B8C1C3F00329BF0 /* TMTeam.m */; };
 		05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A251B8C1C3F00329BF0 /* TMUser.m */; };
 		05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */; };
-		05CEB7B61B8DA3AE003DF51A /* MyDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */; };
-		05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */; };
-		05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */; };
-		05CEB7CC1B8DA477003DF51A /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */; };
-		05CEB7CE1B8DA477003DF51A /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C21B8DA477003DF51A /* FeedViewController.m */; };
-		05CEB7CF1B8DA477003DF51A /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C41B8DA477003DF51A /* LocationViewController.m */; };
-		05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */; };
-		05CEB7D11B8DA477003DF51A /* PunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7C81B8DA477003DF51A /* PunchViewController.m */; };
-		05CEB7D31B8DA477003DF51A /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7CB1B8DA477003DF51A /* TextViewController.m */; };
 		05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */; };
 		05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */; };
-		05CEB7DC1B8DA4AB003DF51A /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */; };
-		05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7DE1B8DA4DC003DF51A /* ViewController.m */; };
-		05CEB7E21B8DA557003DF51A /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
 /* End PBXBuildFile section */
 
@@ -79,7 +82,6 @@
 		050BC36A1B799D0E00A35EFD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		050BC36C1B799D0E00A35EFD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		050BC36D1B799D0E00A35EFD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		050BC3731B799D0F00A35EFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		050BC3751B799D0F00A35EFD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		050BC3781B799D0F00A35EFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		050BC37E1B799D0F00A35EFD /* teamakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = teamakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,10 +93,42 @@
 		051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeamUserInfo.m; path = Models/TMTeamUserInfo.m; sourceTree = "<group>"; };
 		053082481B844D8A008C6C16 /* ScrollDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollDirection.h; sourceTree = "<group>"; };
 		0530824B1B8482A8008C6C16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileViewController.h; path = Controllers/UserProfileViewController.h; sourceTree = "<group>"; };
-		05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileViewController.m; path = Controllers/UserProfileViewController.m; sourceTree = "<group>"; };
-		0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamProfileViewController.h; path = Controllers/TeamProfileViewController.h; sourceTree = "<group>"; };
-		056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamProfileViewController.m; path = Controllers/TeamProfileViewController.m; sourceTree = "<group>"; };
+		0537175C1B94041E00A92A7D /* JoinTeamMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamMenu.h; sourceTree = "<group>"; };
+		0537175D1B94041E00A92A7D /* JoinTeamMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamMenu.m; sourceTree = "<group>"; };
+		0537175F1B941B6000A92A7D /* TeamDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDetailsViewController.h; sourceTree = "<group>"; };
+		053717601B941B6000A92A7D /* TeamDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDetailsViewController.m; sourceTree = "<group>"; };
+		053717611B941B6000A92A7D /* TeamProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamProfileViewController.h; sourceTree = "<group>"; };
+		053717621B941B6000A92A7D /* TeamProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamProfileViewController.m; sourceTree = "<group>"; };
+		053717651B941B6B00A92A7D /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
+		053717661B941B6B00A92A7D /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		053717681B941B8000A92A7D /* MyDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDetailsViewController.h; sourceTree = "<group>"; };
+		053717691B941B8000A92A7D /* MyDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDetailsViewController.m; sourceTree = "<group>"; };
+		0537176A1B941B8000A92A7D /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileViewController.h; sourceTree = "<group>"; };
+		0537176B1B941B8000A92A7D /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileViewController.m; sourceTree = "<group>"; };
+		0537176C1B941B8000A92A7D /* MySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySettingsViewController.h; sourceTree = "<group>"; };
+		0537176D1B941B8000A92A7D /* MySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySettingsViewController.m; sourceTree = "<group>"; };
+		0537176E1B941B8000A92A7D /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		0537176F1B941B8000A92A7D /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
+		053717741B941BA500A92A7D /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureViewController.h; sourceTree = "<group>"; };
+		053717751B941BA500A92A7D /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
+		053717761B941BA500A92A7D /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		053717771B941BA500A92A7D /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		053717781B941BA500A92A7D /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
+		053717791B941BA500A92A7D /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
+		0537177A1B941BA500A92A7D /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
+		0537177B1B941BA500A92A7D /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		0537177C1B941BA500A92A7D /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		0537177D1B941BA500A92A7D /* PunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchViewController.h; sourceTree = "<group>"; };
+		0537177E1B941BA500A92A7D /* PunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchViewController.m; sourceTree = "<group>"; };
+		0537177F1B941BA500A92A7D /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		053717801B941BA500A92A7D /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		053717871B941BB400A92A7D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		053717881B941BB400A92A7D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0537178B1B941BF100A92A7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0537178D1B941C3300A92A7D /* CreateTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateTeamViewController.h; sourceTree = "<group>"; };
+		0537178E1B941C3300A92A7D /* CreateTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTeamViewController.m; sourceTree = "<group>"; };
+		053717901B941C4C00A92A7D /* JoinTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamViewController.h; sourceTree = "<group>"; };
+		053717911B941C4C00A92A7D /* JoinTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamViewController.m; sourceTree = "<group>"; };
 		0573DC3A1B90CC0B00A670B4 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		0573DC3C1B90CC0B00A670B4 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
@@ -123,35 +157,10 @@
 		05BD7A251B8C1C3F00329BF0 /* TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMUser.m; path = Models/TMUser.m; sourceTree = "<group>"; };
 		05CEB7B11B8D5FC2003DF51A /* NSDate+FriendlyInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+FriendlyInterval.h"; path = "Categories/NSDate+FriendlyInterval.h"; sourceTree = "<group>"; };
 		05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+FriendlyInterval.m"; path = "Categories/NSDate+FriendlyInterval.m"; sourceTree = "<group>"; };
-		05CEB7B41B8DA3AE003DF51A /* MyDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDetailsViewController.h; path = Controllers/MyDetailsViewController.h; sourceTree = "<group>"; };
-		05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyDetailsViewController.m; path = Controllers/MyDetailsViewController.m; sourceTree = "<group>"; };
-		05CEB7B71B8DA3C5003DF51A /* MySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MySettingsViewController.h; path = Controllers/MySettingsViewController.h; sourceTree = "<group>"; };
-		05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySettingsViewController.m; path = Controllers/MySettingsViewController.m; sourceTree = "<group>"; };
-		05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamDetailsViewController.h; path = Controllers/TeamDetailsViewController.h; sourceTree = "<group>"; };
-		05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamDetailsViewController.m; path = Controllers/TeamDetailsViewController.m; sourceTree = "<group>"; };
-		05CEB7BD1B8DA477003DF51A /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeViewController.h; path = Controllers/ComposeViewController.h; sourceTree = "<group>"; };
-		05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComposeViewController.m; path = Controllers/ComposeViewController.m; sourceTree = "<group>"; };
-		05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeViewControllerProtocol.h; path = Controllers/ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
-		05CEB7C11B8DA477003DF51A /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = Controllers/FeedViewController.h; sourceTree = "<group>"; };
-		05CEB7C21B8DA477003DF51A /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = Controllers/FeedViewController.m; sourceTree = "<group>"; };
-		05CEB7C31B8DA477003DF51A /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = Controllers/LocationViewController.h; sourceTree = "<group>"; };
-		05CEB7C41B8DA477003DF51A /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = Controllers/LocationViewController.m; sourceTree = "<group>"; };
-		05CEB7C51B8DA477003DF51A /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyProfileViewController.h; path = Controllers/MyProfileViewController.h; sourceTree = "<group>"; };
-		05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyProfileViewController.m; path = Controllers/MyProfileViewController.m; sourceTree = "<group>"; };
-		05CEB7C71B8DA477003DF51A /* PunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PunchViewController.h; path = Controllers/PunchViewController.h; sourceTree = "<group>"; };
-		05CEB7C81B8DA477003DF51A /* PunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PunchViewController.m; path = Controllers/PunchViewController.m; sourceTree = "<group>"; };
-		05CEB7CA1B8DA477003DF51A /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextViewController.h; path = Controllers/TextViewController.h; sourceTree = "<group>"; };
-		05CEB7CB1B8DA477003DF51A /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextViewController.m; path = Controllers/TextViewController.m; sourceTree = "<group>"; };
 		05CEB7D41B8DA488003DF51A /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "Categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
 		05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+URLEncode.m"; path = "Categories/NSString+URLEncode.m"; sourceTree = "<group>"; };
 		05CEB7D61B8DA488003DF51A /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Helper.h"; path = "Categories/UIColor+Helper.h"; sourceTree = "<group>"; };
 		05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Helper.m"; path = "Categories/UIColor+Helper.m"; sourceTree = "<group>"; };
-		05CEB7DA1B8DA4AB003DF51A /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaptureViewController.h; path = Controllers/CaptureViewController.h; sourceTree = "<group>"; };
-		05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CaptureViewController.m; path = Controllers/CaptureViewController.m; sourceTree = "<group>"; };
-		05CEB7DD1B8DA4DC003DF51A /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Controllers/ViewController.h; sourceTree = "<group>"; };
-		05CEB7DE1B8DA4DC003DF51A /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Controllers/ViewController.m; sourceTree = "<group>"; };
-		05CEB7E01B8DA557003DF51A /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationDetailsViewController.h; path = Controllers/LocationDetailsViewController.h; sourceTree = "<group>"; };
-		05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationDetailsViewController.m; path = Controllers/LocationDetailsViewController.m; sourceTree = "<group>"; };
 		05D43EB11B8EC57300974B74 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.debug.xcconfig"; sourceTree = "<group>"; };
 		6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.release.xcconfig"; sourceTree = "<group>"; };
@@ -216,6 +225,7 @@
 		050BC3681B799D0E00A35EFD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0537178A1B941BF100A92A7D /* Main.storyboard */,
 				050BC3751B799D0F00A35EFD /* Images.xcassets */,
 				050BC3771B799D0F00A35EFD /* LaunchScreen.xib */,
 				050BC36C1B799D0E00A35EFD /* AppDelegate.h */,
@@ -255,6 +265,8 @@
 				0573DC401B90CC0B00A670B4 /* TeamButtons.m */,
 				0573DC411B90CC0B00A670B4 /* TeamMemberCollectionViewCell.h */,
 				0573DC421B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m */,
+				0537175C1B94041E00A92A7D /* JoinTeamMenu.h */,
+				0537175D1B94041E00A92A7D /* JoinTeamMenu.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -302,31 +314,32 @@
 		053EA2561B81AB6A00BBAF12 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				053717871B941BB400A92A7D /* ViewController.h */,
+				053717881B941BB400A92A7D /* ViewController.m */,
 				05854B091B8FFB1200EAC376 /* Team */,
 				05854B081B8FFAFA00EAC376 /* Feed */,
 				05854B071B8FFAE600EAC376 /* User */,
 				05854B061B8FFAC200EAC376 /* Compose */,
-				05CEB7DD1B8DA4DC003DF51A /* ViewController.h */,
-				05CEB7DE1B8DA4DC003DF51A /* ViewController.m */,
-				050BC3721B799D0F00A35EFD /* Main.storyboard */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		05854B061B8FFAC200EAC376 /* Compose */ = {
 			isa = PBXGroup;
 			children = (
-				05CEB7C71B8DA477003DF51A /* PunchViewController.h */,
-				05CEB7C81B8DA477003DF51A /* PunchViewController.m */,
-				05CEB7CA1B8DA477003DF51A /* TextViewController.h */,
-				05CEB7CB1B8DA477003DF51A /* TextViewController.m */,
-				05CEB7C31B8DA477003DF51A /* LocationViewController.h */,
-				05CEB7C41B8DA477003DF51A /* LocationViewController.m */,
-				05CEB7DA1B8DA4AB003DF51A /* CaptureViewController.h */,
-				05CEB7DB1B8DA4AB003DF51A /* CaptureViewController.m */,
-				05CEB7BD1B8DA477003DF51A /* ComposeViewController.h */,
-				05CEB7BE1B8DA477003DF51A /* ComposeViewController.m */,
-				05CEB7C01B8DA477003DF51A /* ComposeViewControllerProtocol.h */,
+				053717741B941BA500A92A7D /* CaptureViewController.h */,
+				053717751B941BA500A92A7D /* CaptureViewController.m */,
+				053717761B941BA500A92A7D /* ComposeViewController.h */,
+				053717771B941BA500A92A7D /* ComposeViewController.m */,
+				053717781B941BA500A92A7D /* ComposeViewControllerProtocol.h */,
+				053717791B941BA500A92A7D /* LocationDetailsViewController.h */,
+				0537177A1B941BA500A92A7D /* LocationDetailsViewController.m */,
+				0537177B1B941BA500A92A7D /* LocationViewController.h */,
+				0537177C1B941BA500A92A7D /* LocationViewController.m */,
+				0537177D1B941BA500A92A7D /* PunchViewController.h */,
+				0537177E1B941BA500A92A7D /* PunchViewController.m */,
+				0537177F1B941BA500A92A7D /* TextViewController.h */,
+				053717801B941BA500A92A7D /* TextViewController.m */,
 			);
 			name = Compose;
 			sourceTree = "<group>";
@@ -334,14 +347,14 @@
 		05854B071B8FFAE600EAC376 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				05332BF31B8C5D0800DEA1E3 /* UserProfileViewController.h */,
-				05332BF41B8C5D0800DEA1E3 /* UserProfileViewController.m */,
-				05CEB7C51B8DA477003DF51A /* MyProfileViewController.h */,
-				05CEB7C61B8DA477003DF51A /* MyProfileViewController.m */,
-				05CEB7B41B8DA3AE003DF51A /* MyDetailsViewController.h */,
-				05CEB7B51B8DA3AE003DF51A /* MyDetailsViewController.m */,
-				05CEB7B71B8DA3C5003DF51A /* MySettingsViewController.h */,
-				05CEB7B81B8DA3C5003DF51A /* MySettingsViewController.m */,
+				053717681B941B8000A92A7D /* MyDetailsViewController.h */,
+				053717691B941B8000A92A7D /* MyDetailsViewController.m */,
+				0537176A1B941B8000A92A7D /* MyProfileViewController.h */,
+				0537176B1B941B8000A92A7D /* MyProfileViewController.m */,
+				0537176C1B941B8000A92A7D /* MySettingsViewController.h */,
+				0537176D1B941B8000A92A7D /* MySettingsViewController.m */,
+				0537176E1B941B8000A92A7D /* UserProfileViewController.h */,
+				0537176F1B941B8000A92A7D /* UserProfileViewController.m */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -349,10 +362,8 @@
 		05854B081B8FFAFA00EAC376 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				05CEB7C11B8DA477003DF51A /* FeedViewController.h */,
-				05CEB7C21B8DA477003DF51A /* FeedViewController.m */,
-				05CEB7E01B8DA557003DF51A /* LocationDetailsViewController.h */,
-				05CEB7E11B8DA557003DF51A /* LocationDetailsViewController.m */,
+				053717651B941B6B00A92A7D /* FeedViewController.h */,
+				053717661B941B6B00A92A7D /* FeedViewController.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -360,10 +371,14 @@
 		05854B091B8FFB1200EAC376 /* Team */ = {
 			isa = PBXGroup;
 			children = (
-				0569165F1B8C8B7600B0A1D3 /* TeamProfileViewController.h */,
-				056916601B8C8B7600B0A1D3 /* TeamProfileViewController.m */,
-				05CEB7BA1B8DA3E0003DF51A /* TeamDetailsViewController.h */,
-				05CEB7BB1B8DA3E0003DF51A /* TeamDetailsViewController.m */,
+				0537175F1B941B6000A92A7D /* TeamDetailsViewController.h */,
+				053717601B941B6000A92A7D /* TeamDetailsViewController.m */,
+				053717611B941B6000A92A7D /* TeamProfileViewController.h */,
+				053717621B941B6000A92A7D /* TeamProfileViewController.m */,
+				0537178D1B941C3300A92A7D /* CreateTeamViewController.h */,
+				0537178E1B941C3300A92A7D /* CreateTeamViewController.m */,
+				053717901B941C4C00A92A7D /* JoinTeamViewController.h */,
+				053717911B941C4C00A92A7D /* JoinTeamViewController.m */,
 			);
 			name = Team;
 			sourceTree = "<group>";
@@ -445,6 +460,7 @@
 				TargetAttributes = {
 					050BC3641B799D0E00A35EFD = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = N26JLKH94G;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -485,7 +501,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				050BC3741B799D0F00A35EFD /* Main.storyboard in Resources */,
+				0537178C1B941BF100A92A7D /* Main.storyboard in Resources */,
 				050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */,
 				050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */,
 			);
@@ -552,38 +568,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05CEB7B91B8DA3C5003DF51A /* MySettingsViewController.m in Sources */,
-				05CEB7DF1B8DA4DC003DF51A /* ViewController.m in Sources */,
-				05CEB7D01B8DA477003DF51A /* MyProfileViewController.m in Sources */,
+				053717731B941B8000A92A7D /* UserProfileViewController.m in Sources */,
 				05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */,
 				0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */,
-				05CEB7E21B8DA557003DF51A /* LocationDetailsViewController.m in Sources */,
-				05CEB7BC1B8DA3E0003DF51A /* TeamDetailsViewController.m in Sources */,
+				0537178F1B941C3300A92A7D /* CreateTeamViewController.m in Sources */,
+				053717821B941BA500A92A7D /* ComposeViewController.m in Sources */,
 				0573DC461B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
-				05CEB7DC1B8DA4AB003DF51A /* CaptureViewController.m in Sources */,
 				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
-				056916611B8C8B7600B0A1D3 /* TeamProfileViewController.m in Sources */,
+				053717861B941BA500A92A7D /* TextViewController.m in Sources */,
+				053717811B941BA500A92A7D /* CaptureViewController.m in Sources */,
 				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
-				05CEB7B61B8DA3AE003DF51A /* MyDetailsViewController.m in Sources */,
-				05CEB7CF1B8DA477003DF51A /* LocationViewController.m in Sources */,
-				05CEB7CE1B8DA477003DF51A /* FeedViewController.m in Sources */,
+				053717641B941B6000A92A7D /* TeamProfileViewController.m in Sources */,
+				053717711B941B8000A92A7D /* MyProfileViewController.m in Sources */,
+				053717841B941BA500A92A7D /* LocationViewController.m in Sources */,
 				05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */,
+				053717891B941BB400A92A7D /* ViewController.m in Sources */,
 				0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */,
 				05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */,
+				053717831B941BA500A92A7D /* LocationDetailsViewController.m in Sources */,
 				05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */,
 				05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */,
+				053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */,
+				053717721B941B8000A92A7D /* MySettingsViewController.m in Sources */,
 				05BD7A2A1B8C1C3F00329BF0 /* TMFeed.m in Sources */,
 				05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */,
 				0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */,
+				0537175E1B94041E00A92A7D /* JoinTeamMenu.m in Sources */,
 				05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */,
-				05332BF51B8C5D0800DEA1E3 /* UserProfileViewController.m in Sources */,
+				053717851B941BA500A92A7D /* PunchViewController.m in Sources */,
 				050BC36B1B799D0E00A35EFD /* main.m in Sources */,
-				05CEB7D31B8DA477003DF51A /* TextViewController.m in Sources */,
+				053717701B941B8000A92A7D /* MyDetailsViewController.m in Sources */,
 				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
-				05CEB7D11B8DA477003DF51A /* PunchViewController.m in Sources */,
 				051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */,
-				05CEB7CC1B8DA477003DF51A /* ComposeViewController.m in Sources */,
+				053717631B941B6000A92A7D /* TeamDetailsViewController.m in Sources */,
+				053717671B941B6B00A92A7D /* FeedViewController.m in Sources */,
 				051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */,
 				05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */,
 			);
@@ -608,20 +627,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		050BC3721B799D0F00A35EFD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				050BC3731B799D0F00A35EFD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		050BC3771B799D0F00A35EFD /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				050BC3781B799D0F00A35EFD /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		0537178A1B941BF100A92A7D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0537178B1B941BF100A92A7D /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -712,6 +731,8 @@
 			baseConfigurationReference = 533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -745,6 +766,7 @@
 					Reveal,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -753,6 +775,8 @@
 			baseConfigurationReference = 6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -761,6 +785,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

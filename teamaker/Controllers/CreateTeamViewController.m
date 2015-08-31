@@ -1,18 +1,18 @@
 //
-//  MyDetailsViewController.m
+//  CreateTeamViewController.m
 //  teamaker
 //
-//  Created by hustlzp on 15/8/26.
+//  Created by hustlzp on 15/8/31.
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 
-#import "MyDetailsViewController.h"
+#import "CreateTeamViewController.h"
 
-@interface MyDetailsViewController ()
+@interface CreateTeamViewController ()
 
 @end
 
-@implementation MyDetailsViewController
+@implementation CreateTeamViewController
 
 - (void)loadView
 {
@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"个人资料";
+    self.navigationItem.title = @"创建圈子";
 }
 
 @end
