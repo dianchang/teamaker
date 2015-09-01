@@ -17,6 +17,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "TeamMemberCollectionViewCell.h"
 #import "UIColor+Helper.h"
+#import "UserProfileViewController.h"
 
 @interface TeamDetailsViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -424,6 +425,10 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    TMTeamUserInfo *userInfo = self.userInfos[indexPath.row];
+    
+    UIViewController *controller = [[UserProfileViewController alloc] initWithUserId:userInfo.userId];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - getters and setters
