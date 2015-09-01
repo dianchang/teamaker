@@ -11,6 +11,12 @@
 
 #import <UIKit/UIKit.h>
 
-static NSInteger const TMStatusBarAndNavigationBarHeight = 64;
+// UI相关常数
+#define TMStatusBarAndNavigationBarHeight 64
+
+// 通知名
+#define TMVerticalScrollViewDidPageDownNotification @"TMVerticalScrollViewDidPageDownNotification"
+#define TMHorizonalScrollViewDidPageToTextComposeViewNotification @"TMHorizonalScrollViewDidPageToTextComposeViewNotification"
+#define TMHorizonalScrollViewDidPageToOtherComposeViewNotification @"TMHorizonalScrollViewDidPageToOtherComposeViewNotification"
 
 #endif

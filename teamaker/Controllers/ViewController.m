@@ -10,6 +10,7 @@
 #import "FeedViewController.h"
 #import "ComposeViewController.h"
 #import "ScrollDirection.h"
+#import "Constants.h"
 
 @interface ViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;;
@@ -45,6 +46,16 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDown:) name:@"PageDown" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableScroll) name:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableScroll) name:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
 }
 
 // 向上翻页
@@ -127,13 +138,21 @@
     } else {
         self.hasSendedResetComposeViewMessage = NO;
         self.hasSendedShowStatusBarMessage = NO;
-        self.scrollView.scrollEnabled = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewDidPageDownNotification object:nil];
     }
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+- (void)enableScroll
+{
+    self.scrollView.scrollEnabled = YES;
+    NSLog(@"Enable scroll");
+}
+
+- (void)disableScroll
+{
+    self.scrollView.scrollEnabled = NO;
+    NSLog(@"Disable scroll");
 }
 
 - (NSMutableArray *)viewControllers

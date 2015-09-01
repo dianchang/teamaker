@@ -13,12 +13,15 @@
 #import "LocationViewController.h"
 #import "ComposeViewControllerProtocol.h"
 #import "Masonry.h"
+#import "Constants.h"
 
 @interface ComposeViewController () <UIScrollViewDelegate>
+
 @property (weak, nonatomic) UIScrollView *scrollView;
 @property (weak, nonatomic) UIPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 @property (nonatomic) BOOL hasSendedResetLayoutMessage;
+
 @end
 
 #define PAGE_COUNT 3
@@ -62,13 +65,20 @@
     self.scrollView.delegate = self;
     
     self.pageControl.numberOfPages = PAGE_COUNT;
-    self.pageControl.currentPage = 2;
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSubviewsLayout) name:@"resetSubviewsLayout" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareSubviewsLayout) name:@"prepareSubviewsLayout" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showComposePager) name:@"showComposePager" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideComposePager) name:@"hideComposePager" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidPageDown) name:TMVerticalScrollViewDidPageDownNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"resetLayout" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"prepareLayout" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewDidPageDownNotification object:nil];
 }
 
 - (NSMutableArray *)viewControllers
@@ -84,7 +94,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    // 初始化翻页到打卡页
     [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.bounds.size.width * 1, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height) animated:NO];
+    self.pageControl.currentPage = 1;
 }
 
 // 初始化各页大小
@@ -130,6 +142,25 @@
     [controller didMoveToParentViewController:self];
 }
 
+- (void)scrollViewDidPageDown
+{
+    if (self.pageControl.currentPage == 1) {
+        [self disableVerticalScroll];
+    } else {
+        [self enableVerticalScroll];
+    }
+}
+
+- (void)enableVerticalScroll
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
+}
+
+- (void)disableVerticalScroll
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
+}
+
 // 翻页结束后，联动pageControl
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
@@ -138,6 +169,12 @@
 
     self.pageControl.currentPage = page;
     self.hasSendedResetLayoutMessage = NO;
+    
+    if (page == 1) {
+        [self disableVerticalScroll];
+    } else {
+        [self enableVerticalScroll];
+    }
 }
 
 // 翻到其他页时，对当前页进行界面重置
@@ -184,12 +221,6 @@
 - (void)hideComposePager
 {
     self.pageControl.hidden = YES;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"resetLayout" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"prepareLayout" object:nil];
 }
 
 @end
