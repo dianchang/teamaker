@@ -12,6 +12,7 @@
 #import "Masonry.h"
 #import "UIImageView+AFNetworking.h"
 #import <MagicalRecord/MagicalRecord.h>
+#import "UIColor+Helper.h"
 
 @interface MySettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -24,14 +25,13 @@
 
 - (void)loadView
 {
-    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    UIView *contentView = [[UIView alloc] initWithFrame:applicationFrame];
-    self.view = contentView;
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UITableView *tableView = [UITableView new];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.backgroundColor = [UIColor TMBackgroundColorGray];
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView = tableView;
     [self.view addSubview:tableView];
@@ -39,15 +39,6 @@
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-}
-
-- (TMUser *)loggedInUser
-{
-    if (!_loggedInUser) {
-        _loggedInUser = [TMUser getLoggedInUser];
-    }
-    
-    return _loggedInUser;
 }
 
 - (void)viewDidLoad {
@@ -122,6 +113,11 @@
     return 15;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -180,6 +176,17 @@
         make.height.equalTo(@50);
         make.left.equalTo(keyLabel.mas_right);
     }];
+}
+
+#pragma mark - getters and setters
+
+- (TMUser *)loggedInUser
+{
+    if (!_loggedInUser) {
+        _loggedInUser = [TMUser getLoggedInUser];
+    }
+    
+    return _loggedInUser;
 }
 
 @end

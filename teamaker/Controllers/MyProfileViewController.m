@@ -17,6 +17,7 @@
 #import "TeamProfileViewController.h"
 #import "MyDetailsViewController.h"
 #import "MySettingsViewController.h"
+#import "UIColor+Helper.h"
 
 @interface MyProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -54,10 +55,11 @@
     self.view.backgroundColor = [UIColor grayColor];
     
     // 表格
-    UITableView *tableView = [UITableView new];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView = tableView;
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.backgroundColor = [UIColor TMBackgroundColorGray];
     [self.view addSubview:tableView];
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -136,8 +138,10 @@
     // 团队
     if (indexPath.section == 0) {
         TMTeamUserInfo *teamInfo = self.teamInfos[indexPath.row];
-        cell.textLabel.text = teamInfo.team.name;
+        [self configTeamCell:cell team:teamInfo.team];
     } else if (indexPath.section == 1) {    // 其他
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        
         if (indexPath.row == 0) {
             cell.textLabel.text = @"个人资料";
         } else if (indexPath.row == 1) {
@@ -150,6 +154,44 @@
     return cell;
 }
 
+- (void)configTeamCell:(UITableViewCell *)cell team:(TMTeam *)team
+{
+    // 图像
+    UIImageView *imageView = [UIImageView new];
+    imageView.layer.cornerRadius = 3;
+    imageView.layer.masksToBounds = YES;
+    [imageView setImageWithURL:[NSURL URLWithString:team.avatar]];
+    [cell.contentView addSubview:imageView];
+    
+    // 团队
+    UILabel *teamLabel = [UILabel new];
+    teamLabel.font = [UIFont boldSystemFontOfSize:14];
+    teamLabel.text = team.name;
+    [cell.contentView addSubview:teamLabel];
+    
+    // 约束
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell.contentView).offset(15);
+        make.centerY.equalTo(cell.contentView);
+        make.width.equalTo(@30);
+        make.height.equalTo(@30);
+    }];
+    
+    [teamLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(imageView.mas_right).offset(10);
+        make.centerY.equalTo(cell.contentView);
+    }];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return 50;
+    } else {
+        return 40;
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
@@ -159,8 +201,15 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if (indexPath.section == 0) {
         TMTeamUserInfo *teamInfo = self.teamInfos[indexPath.row];
         
@@ -175,8 +224,6 @@
             [self.navigationController pushViewController:controller animated:YES];
         }
     }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

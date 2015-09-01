@@ -54,9 +54,10 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     self.view = contentView;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UITableView *tableView = [UITableView new];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.backgroundColor = [UIColor TMBackgroundColorGray];
     [tableView setTableHeaderView:[self createHeaderView]];
     [self.view addSubview:tableView];
     self.tableView = tableView;
@@ -69,55 +70,10 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     }];
 }
 
-- (TMTeam *)team
-{
-    if (!_team) {
-        _team = [TMTeam MR_findFirstByAttribute:@"id" withValue:self.teamId];
-    }
-    
-    return _team;
-}
-
-- (NSArray *)userInfos
-{
-    if (!_userInfos) {
-        _userInfos = [self.team.usersInfos allObjects];
-    }
-    
-    return _userInfos;
-}
-
-- (TMUser *)loggedInUser
-{
-    if (!_loggedInUser) {
-        _loggedInUser = [TMUser getLoggedInUser];
-    }
-    
-    return _loggedInUser;
-}
-
-- (TMTeamUserInfo *)teamUserInfo
-{
-    if (!_teamUserInfo) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userId == %@) AND (teamId == %@)", self.loggedInUser.id, self.teamId];
-        _teamUserInfo = [TMTeamUserInfo MR_findFirstWithPredicate:predicate];
-    }
-    
-    return _teamUserInfo;
-}
-
-- (NSArray *)starFeeds
-{
-    if (!_starFeeds) {
-        _starFeeds = [self.team.feeds allObjects];
-    }
-    
-    return _starFeeds;
-}
-
 - (UIView *)createHeaderView
 {
     UIView *headerView = [UIView new];
+    headerView.backgroundColor = [UIColor whiteColor];
     
     // 头像
     UIImageView *avatarView = [UIImageView new];
@@ -167,7 +123,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 - (UIView *)createFooterView
 {
     UIView *footerView = [UIView new];
-    footerView.backgroundColor = [UIColor colorWithRGBA:0xCCCCCCFF];
+    footerView.backgroundColor = [UIColor TMBackgroundColorGray];
     
     // 退出圈子
     UIButton *quitButton = [UIButton new];
@@ -398,8 +354,13 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     if (section == 0) {
         return 35;
     } else {
-        return 15;
+        return 0;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -463,6 +424,54 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+#pragma mark - getters and setters
+
+- (TMTeam *)team
+{
+    if (!_team) {
+        _team = [TMTeam MR_findFirstByAttribute:@"id" withValue:self.teamId];
+    }
+    
+    return _team;
+}
+
+- (NSArray *)userInfos
+{
+    if (!_userInfos) {
+        _userInfos = [self.team.usersInfos allObjects];
+    }
+    
+    return _userInfos;
+}
+
+- (TMUser *)loggedInUser
+{
+    if (!_loggedInUser) {
+        _loggedInUser = [TMUser getLoggedInUser];
+    }
+    
+    return _loggedInUser;
+}
+
+- (TMTeamUserInfo *)teamUserInfo
+{
+    if (!_teamUserInfo) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userId == %@) AND (teamId == %@)", self.loggedInUser.id, self.teamId];
+        _teamUserInfo = [TMTeamUserInfo MR_findFirstWithPredicate:predicate];
+    }
+    
+    return _teamUserInfo;
+}
+
+- (NSArray *)starFeeds
+{
+    if (!_starFeeds) {
+        _starFeeds = [self.team.feeds allObjects];
+    }
+    
+    return _starFeeds;
 }
 
 @end

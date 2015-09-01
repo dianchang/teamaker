@@ -12,9 +12,6 @@
 #import "UIColor+Helper.h"
 
 @interface JoinTeamViewController () <UITableViewDataSource, UITableViewDelegate>
-
-@property (strong, nonatomic) UITableView *tableView;
-
 @end
 
 @implementation JoinTeamViewController
@@ -24,12 +21,11 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UITableView *tableView = [UITableView new];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    tableView.delegate = self;
+    tableView.dataSource = self;
     tableView.backgroundColor = [UIColor TMBackgroundColorGray];
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView = tableView;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
     [self.view addSubview:tableView];
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -37,72 +33,50 @@
     }];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationItem.title = @"加入圈子";
 }
 
 # pragma mark - tableview delegate
 
-static NSString * const cellIdentifier = @"identifier";
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    if (section == 0) {
+        return 2;
+    } else if (section == 1) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    UITableViewCell *cell = [UITableViewCell new];
     
-    switch (indexPath.row) {
-        case 0: {
-            [self configGapCell:cell];
-            break;
-        }
-            
-        case 1: {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
             [self configCell:cell withText:@"扫二维码"];
-            break;
-        }
-            
-        case 2: {
+        } else if (indexPath.row == 1) {
             [self configCell:cell withText:@"通过邀请码"];
-            break;
         }
-            
-        case 3: {
-            [self configGapCell:cell];
-            break;
-        }
-            
-        case 4: {
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
             [self configCell:cell withText:@"面对面，建圈子"];
-            break;
         }
-            
-        default:
-            break;
     }
     
     return cell;
 }
 
-// 配置作为分隔符的cell
-- (void)configGapCell:(UITableViewCell *)cell
-{
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    UIView *innerView = [UIView new];
-    innerView.backgroundColor = [UIColor TMBackgroundColorGray];
-    [cell.contentView addSubview:innerView];
-    
-    [innerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(cell.contentView);
-    }];
-}
-
-// 配置普通cell
+// 配置cell
 - (void)configCell:(UITableViewCell *)cell withText:(NSString *)text
 {
     UILabel *textLabel = [UILabel new];
@@ -122,28 +96,17 @@ static NSString * const cellIdentifier = @"identifier";
 // 单元格高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height;
-    
-    switch (indexPath.row) {
-        case 0 :
-        case 3 : {
-            height = 20;
-            break;
-        }
-            
-        case 1:
-        case 2:
-        case 4: {
-            height = 45;
-            break;
-        }
-            
-        default:
-            height = 0;
-            break;
-    }
+    return 45;
+}
 
-    return height;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 15;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
 }
 
 // 单元格点击事件
@@ -151,21 +114,16 @@ static NSString * const cellIdentifier = @"identifier";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    switch (indexPath.row) {
-        case 1: {
-            break;
-        }
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
             
-        case 2: {
-            break;
+        } else if (indexPath.row == 1) {
+        
         }
-            
-        case 4: {
-            break;
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+        
         }
-            
-        default:
-            break;
     }
 }
 

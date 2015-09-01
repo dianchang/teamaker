@@ -124,7 +124,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     self.createdAtLabel = timeLable;
     
     // 操作
-    UILabel *commandButton = [IonIcons labelWithIcon:ion_navicon_round size:12.0f color:[UIColor grayColor]];
+    UILabel *commandButton = [IonIcons labelWithIcon:ion_navicon_round size:14.0f color:[UIColor grayColor]];
     commandButton.userInteractionEnabled = YES;
     self.commandButton = commandButton;
     [timeAndCommandsContainer addSubview:commandButton];
