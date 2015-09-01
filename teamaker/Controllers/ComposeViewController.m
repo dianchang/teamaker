@@ -84,7 +84,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.bounds.size.width * 2, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height) animated:NO];
+    [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.bounds.size.width * 1, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height) animated:NO];
 }
 
 // 初始化各页大小
