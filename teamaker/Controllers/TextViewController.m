@@ -31,9 +31,8 @@ static int const sendButtonHeight = 50;
 
 - (void)loadView
 {
-    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    UIView *contentView = [[UIView alloc] initWithFrame:applicationFrame];
-    self.view = contentView;
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // 文字编辑框
     UITextView *textView = [[UITextView alloc] init];

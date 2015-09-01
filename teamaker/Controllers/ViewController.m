@@ -15,8 +15,14 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 @property (nonatomic) NSUInteger currentPage;
-@property (nonatomic) BOOL hasSendedResetMessage;
+
+@property (nonatomic) BOOL hasSendedResetComposeViewMessage;
+@property (nonatomic) BOOL hasSendedHideStatusBarMessage;
+@property (nonatomic) BOOL hasSendedShowStatusBarMessage;
+
+// 用于判断滚动方向
 @property (nonatomic) CGFloat lastContentOffset;
+
 @end
 
 #define PAGE_COUNT 2
@@ -51,6 +57,7 @@
         [self.scrollView scrollRectToVisible:bounds animated:YES];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
     }
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"resetSubviewsLayout" object:self];
 }
 
@@ -77,10 +84,22 @@
         scrollDirection = ScrollDirectionDown;
     self.lastContentOffset = scrollView.contentOffset.y;
     
-    // 往上滑动、并且滑动超过一半时，触发reset效果
-    if (scrollDirection == ScrollDirectionUp && page == 0 && !self.hasSendedResetMessage) {
-        self.hasSendedResetMessage = YES;
+    // 往上滑动、并且滑动超过一半时，重置Compose Controller的界面重置效果，并显示导航栏
+    if (scrollDirection == ScrollDirectionUp && page == 0 && !self.hasSendedResetComposeViewMessage) {
+        self.hasSendedResetComposeViewMessage = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"resetSubviewsLayout" object:self];
+    }
+    
+    // 往上滑动、并且滑动超过一半时，显示导航栏
+    if (scrollDirection == ScrollDirectionUp && page == 0 && !self.hasSendedShowStatusBarMessage) {
+        self.hasSendedShowStatusBarMessage = YES;
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+    }
+    
+    // 往下滑动、并且滑动超过一半时，隐藏导航栏
+    if (scrollDirection == ScrollDirectionDown && page == 1 && !self.hasSendedHideStatusBarMessage) {
+        self.hasSendedHideStatusBarMessage = YES;
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
 }
 
@@ -103,13 +122,18 @@
     NSUInteger page = floor((self.scrollView.contentOffset.y - pageHeight / 2) / pageHeight) + 1;
     
     if (page == 0) {
-        self.hasSendedResetMessage = YES;
+        self.hasSendedHideStatusBarMessage = NO;
         self.scrollView.scrollEnabled = NO;
     } else {
-        self.hasSendedResetMessage = NO;
+        self.hasSendedResetComposeViewMessage = NO;
+        self.hasSendedShowStatusBarMessage = NO;
         self.scrollView.scrollEnabled = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
     }
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (NSMutableArray *)viewControllers

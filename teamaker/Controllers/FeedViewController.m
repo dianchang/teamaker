@@ -23,6 +23,7 @@
 #import "JoinTeamMenu.h"
 #import "CreateTeamViewController.h"
 #import "JoinTeamViewController.h"
+#import "Constants.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate, FeedTableViewCellProtocol>
 
@@ -135,7 +136,7 @@
         [self.view addSubview:self.backdropView];
         [self.backdropView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.and.bottom.equalTo(self.view);
-            make.top.equalTo(self.view).offset(44);
+            make.top.equalTo(self.view).offset(TMStatusBarAndNavigationBarHeight);
         }];
         
         [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {

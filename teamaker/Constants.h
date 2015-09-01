@@ -11,4 +11,6 @@
 
 #import <UIKit/UIKit.h>
 
+static NSInteger const TMStatusBarAndNavigationBarHeight = 64;
+
 #endif
