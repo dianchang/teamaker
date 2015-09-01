@@ -17,6 +17,7 @@
 #import "ComposeViewControllerProtocol.h"
 #import "PunchTableViewCell.h"
 #import "TeamButtons.h"
+#import "Constants.h"
 
 @interface PunchViewController () <UITableViewDelegate, UITableViewDataSource, ComposeViewControllerProtocol>
 @property (strong, nonatomic) UITableView *tableView;
@@ -92,7 +93,7 @@ static NSString *cellIdentifier = @"PunchCell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView.contentOffset.y < -50) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
     }
 }
 
@@ -125,8 +126,8 @@ static NSString *cellIdentifier = @"PunchCell";
                 }
             }
         } completion:^(BOOL contextDidSave, NSError *error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFeeds" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
             [self reloadData];
         }];
     }];
@@ -191,7 +192,7 @@ static NSString *cellIdentifier = @"PunchCell";
         [self.backdropView removeFromSuperview];
         self.backdropView = nil;
         self.teamButtons = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     }];
 }
 
@@ -218,7 +219,7 @@ static NSString *cellIdentifier = @"PunchCell";
 {
     TMPunch *punch = self.punchs[indexPath.row];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     self.selectedPunch = punch;
     
     [self preparePublish:[tableView cellForRowAtIndexPath:indexPath]];

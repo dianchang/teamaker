@@ -17,9 +17,8 @@
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 @property (nonatomic) NSUInteger currentPage;
 
-@property (nonatomic) BOOL hasSendedResetComposeViewMessage;
-@property (nonatomic) BOOL hasSendedHideStatusBarMessage;
-@property (nonatomic) BOOL hasSendedShowStatusBarMessage;
+@property (nonatomic) BOOL hasSendedMessageWhenPageUp;
+@property (nonatomic) BOOL hasSendedMessageWhenPageDown;
 
 // 用于判断滚动方向
 @property (nonatomic) CGFloat lastContentOffset;
@@ -44,16 +43,16 @@
     self.scrollView.delegate = self;
     self.scrollView.scrollEnabled = NO;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDown:) name:@"PageDown" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:TMVerticalScrollViewShouldPageUpNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDown:) name:TMVerticalScrollViewShouldPageDownNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableScroll) name:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableScroll) name:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewShouldPageUpNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewShouldPageDownNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
 }
@@ -66,10 +65,8 @@
         bounds.origin.x = 0;
         bounds.origin.y = 0;
         [self.scrollView scrollRectToVisible:bounds animated:YES];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageUp" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewShouldPageUpNotification object:nil];
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"resetSubviewsLayout" object:self];
 }
 
 // 向下翻页
@@ -79,7 +76,6 @@
     bounds.origin.x = 0;
     bounds.origin.y = bounds.size.height;
     [self.scrollView scrollRectToVisible:bounds animated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"prepareSubviewsLayout" object:self];
 }
 
 // 翻页中
@@ -95,21 +91,17 @@
         scrollDirection = ScrollDirectionDown;
     self.lastContentOffset = scrollView.contentOffset.y;
     
-    // 往上滑动、并且滑动超过一半时，重置Compose Controller的界面重置效果，并显示导航栏
-    if (scrollDirection == ScrollDirectionUp && page == 0 && !self.hasSendedResetComposeViewMessage) {
-        self.hasSendedResetComposeViewMessage = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"resetSubviewsLayout" object:self];
-    }
-    
-    // 往上滑动、并且滑动超过一半时，显示导航栏
-    if (scrollDirection == ScrollDirectionUp && page == 0 && !self.hasSendedShowStatusBarMessage) {
-        self.hasSendedShowStatusBarMessage = YES;
+    // 往上滑动、并且滑动超过一半时：重置Compose Controller、显示导航栏
+    if (scrollDirection == ScrollDirectionUp && page == 0 && !self.hasSendedMessageWhenPageUp) {
+        self.hasSendedMessageWhenPageUp = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollShouldResetSubviewsLayoutNotification object:self];
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
     }
-    
-    // 往下滑动、并且滑动超过一半时，隐藏导航栏
-    if (scrollDirection == ScrollDirectionDown && page == 1 && !self.hasSendedHideStatusBarMessage) {
-        self.hasSendedHideStatusBarMessage = YES;
+
+    // 往下滑动、并且滑动超过一半时，准备Compose Controller、隐藏导航栏
+    if (scrollDirection == ScrollDirectionDown && page == 1 && !self.hasSendedMessageWhenPageDown) {
+        self.hasSendedMessageWhenPageDown = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollShouldPrepareSubviewsLayoutNotification object:self];
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
 }
@@ -133,12 +125,11 @@
     NSUInteger page = floor((self.scrollView.contentOffset.y - pageHeight / 2) / pageHeight) + 1;
     
     if (page == 0) {
-        self.hasSendedHideStatusBarMessage = NO;
+        self.hasSendedMessageWhenPageDown = NO;
         self.scrollView.scrollEnabled = NO;
     } else {
-        self.hasSendedResetComposeViewMessage = NO;
-        self.hasSendedShowStatusBarMessage = NO;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:@"PageUp" object:nil];
+        self.hasSendedMessageWhenPageUp = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:TMVerticalScrollViewShouldPageUpNotification object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewDidPageDownNotification object:nil];
     }
 }
@@ -146,13 +137,11 @@
 - (void)enableScroll
 {
     self.scrollView.scrollEnabled = YES;
-    NSLog(@"Enable scroll");
 }
 
 - (void)disableScroll
 {
     self.scrollView.scrollEnabled = NO;
-    NSLog(@"Disable scroll");
 }
 
 - (NSMutableArray *)viewControllers

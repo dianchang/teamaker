@@ -44,7 +44,12 @@
 //    self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
 //    [self.refreshControl beginRefreshing];
     [self loadFeeds];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFeeds) name:@"ReloadFeeds" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFeeds) name:TMFeedViewShouldReloadDataNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadDataNotification object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -179,7 +184,7 @@
 
 // 向下翻页
 - (void)pageDown:(UIButton *)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PageDown" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageDownNotification object:self];
 }
 
 // 获取feeds

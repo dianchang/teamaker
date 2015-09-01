@@ -13,6 +13,7 @@
 #import "UIColor+Helper.h"
 #import "ComposeViewControllerProtocol.h"
 #import "TeamButtons.h"
+#import "Constants.h"
 
 @interface CaptureViewController () <ComposeViewControllerProtocol>
 
@@ -69,7 +70,7 @@ static int const buttonHeight = 60;
 // 拍摄按钮
 - (void)preparePublish:(UIButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     sender.hidden = YES;
     
     // 团队按钮
@@ -111,7 +112,6 @@ static int const buttonHeight = 60;
 
 - (IBAction)publish:(UIButton *)sender
 {
-    NSLog(@"%ld", (long)sender.tag);
     [self hideButtons];
 }
 
@@ -139,7 +139,7 @@ static int const buttonHeight = 60;
     } completion:^(BOOL finished) {
         [self.teamButtons removeFromSuperview];
         self.teamButtons = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     }];
 }
 

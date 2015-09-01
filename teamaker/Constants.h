@@ -16,7 +16,19 @@
 
 // 通知名
 #define TMVerticalScrollViewDidPageDownNotification @"TMVerticalScrollViewDidPageDownNotification"
+
+#define TMVerticalScrollViewShouldPageUpNotification @"TMVerticalScrollViewShouldPageUp"
+#define TMVerticalScrollViewShouldPageDownNotification @"TMVerticalScrollViewShouldPageDown"
+
 #define TMHorizonalScrollViewDidPageToTextComposeViewNotification @"TMHorizonalScrollViewDidPageToTextComposeViewNotification"
 #define TMHorizonalScrollViewDidPageToOtherComposeViewNotification @"TMHorizonalScrollViewDidPageToOtherComposeViewNotification"
+
+#define TMHorizonalScrollViewShouldHidePagerNotification @"TMHorizonalScrollViewShouldHidePagerNotification"
+#define TMHorizonalScrollViewShouldShowPagerNotification @"TMHorizonalScrollViewShouldShowPagerNotification"
+
+#define TMHorizonalScrollShouldResetSubviewsLayoutNotification @"TMHorizonalScrollShouldResetSubviewsLayout"
+#define TMHorizonalScrollShouldPrepareSubviewsLayoutNotification @"TMHorizonalScrollShouldPrepareSubviewsLayout"
+
+#define TMFeedViewShouldReloadDataNotification @"TMFeedViewShouldReloadDataNotification"
 
 #endif

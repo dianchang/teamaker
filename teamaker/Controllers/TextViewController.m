@@ -14,6 +14,7 @@
 #import "TeamButtons.h"
 #import "UIColor+Helper.h"
 #import "TMFeed.h"
+#import "Constants.h"
 
 @import CoreData;
 
@@ -70,6 +71,12 @@ static int const sendButtonHeight = 50;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
 // 键盘显示
 - (void)keyboardWillShow:(NSNotification *)notification
 {
@@ -124,7 +131,7 @@ static int const sendButtonHeight = 50;
 
 - (void)preparePublish:(UIButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     
     // 背景
     UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
@@ -179,8 +186,8 @@ static int const sendButtonHeight = 50;
 {
     [TMFeed createTextFeed:self.textView.text teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
         self.textView.text = @"";
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PageUp" object:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFeeds" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
     }];
 }
 
@@ -199,14 +206,8 @@ static int const sendButtonHeight = 50;
         [self.backdropView removeFromSuperview];
         self.backdropView = nil;
         self.teamButtons = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     }];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (NSArray *)teams

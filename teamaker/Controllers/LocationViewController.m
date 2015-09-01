@@ -16,6 +16,7 @@
 #import "UIColor+Helper.h"
 #import "ComposeViewControllerProtocol.h"
 #import "TeamButtons.h"
+#import "Constants.h"
 
 @interface LocationViewController () <ComposeViewControllerProtocol, MKMapViewDelegate, CLLocationManagerDelegate>
 
@@ -194,7 +195,7 @@
         [self.view layoutIfNeeded];
     }];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
 }
 
 // 隐藏可选地址菜单
@@ -207,9 +208,8 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
-        
     } completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     }];
 }
 
@@ -261,7 +261,7 @@
         return;
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideComposePager" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     
     self.buttonsViewBeginSlidingUp = YES;
     
@@ -307,7 +307,7 @@
     } completion:^(BOOL finished) {
         [self.teamButtons removeFromSuperview];
         self.teamButtons = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"showComposePager" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     }];
 }
 

@@ -67,17 +67,19 @@
     self.pageControl.numberOfPages = PAGE_COUNT;
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSubviewsLayout) name:@"resetSubviewsLayout" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareSubviewsLayout) name:@"prepareSubviewsLayout" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showComposePager) name:@"showComposePager" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideComposePager) name:@"hideComposePager" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSubviewsLayout) name:TMHorizonalScrollShouldResetSubviewsLayoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareSubviewsLayout) name:TMHorizonalScrollShouldPrepareSubviewsLayoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showComposePager) name:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideComposePager) name:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidPageDown) name:TMVerticalScrollViewDidPageDownNotification object:nil];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"resetLayout" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"prepareLayout" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollShouldResetSubviewsLayoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollShouldPrepareSubviewsLayoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewDidPageDownNotification object:nil];
 }
 
