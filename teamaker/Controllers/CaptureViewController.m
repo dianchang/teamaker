@@ -60,6 +60,7 @@
     UIImage *scanQRCodeButtonImage = [IonIcons imageWithIcon:ion_qr_scanner iconColor:[UIColor whiteColor] iconSize:23 imageSize:CGSizeMake(50.0f, 50.0f)];
     [scanQRCodeButton setImage:scanQRCodeButtonImage forState:UIControlStateNormal];
     [self.view addSubview:scanQRCodeButton];
+    self.scanQRCodeButton = scanQRCodeButton;
     [scanQRCodeButton addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
     
     // 切换镜头按钮
@@ -67,6 +68,7 @@
     UIImage *switchCameraButtonImage = [IonIcons imageWithIcon:ion_ios_reverse_camera iconColor:[UIColor whiteColor] iconSize:30 imageSize:CGSizeMake(50.0f, 50.0f)];
     [switchCameraButton setImage:switchCameraButtonImage forState:UIControlStateNormal];
     [self.view addSubview:switchCameraButton];
+    self.switchCameraButton = switchCameraButton;
     [switchCameraButton addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchUpInside];
     
     // 拍摄按钮
@@ -222,6 +224,7 @@
         switch (currentPosition) {
             case AVCaptureDevicePositionUnspecified:
                 preferredPosition = AVCaptureDevicePositionBack;
+                
                 break;
             case AVCaptureDevicePositionBack:
                 preferredPosition = AVCaptureDevicePositionFront;
@@ -240,8 +243,10 @@
         if ([self.session canAddInput:videoDeviceInput]) {
             [self.session addInput:videoDeviceInput];
             self.videoDeviceInput = videoDeviceInput;
+            self.currentDevicePosition = preferredPosition;
         } else {
             [self.session addInput:[self videoDeviceInput]];
+            self.currentDevicePosition = currentPosition;
         }
         
         [self.session commitConfiguration];
@@ -250,6 +255,12 @@
             self.scanQRCodeButton.enabled = YES;
             self.switchCameraButton.enabled = YES;
             self.captureButton.enabled = YES;
+            
+            if (self.currentDevicePosition == AVCaptureDevicePositionFront) {
+                self.scanQRCodeButton.hidden = YES;
+            } else {
+                self.scanQRCodeButton.hidden = NO;
+            }
         });
     });
 }
