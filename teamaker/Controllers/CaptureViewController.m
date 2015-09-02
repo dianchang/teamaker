@@ -205,7 +205,19 @@
     animation.duration = .5f;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animation.type = @"oglFlip";
-    animation.subtype = kCATransitionFromLeft;
+    
+    switch (self.currentDevicePosition) {
+        case AVCaptureDevicePositionFront:
+            animation.subtype = kCATransitionFromLeft;
+            break;
+        case AVCaptureDevicePositionBack:
+            animation.subtype = kCATransitionFromRight;
+            break;
+        default:
+            animation.subtype = kCATransitionFromLeft;
+            break;
+    }
+    
     [self.view.layer addAnimation:animation forKey:nil];
     
     if (TMRunOnSimulator) {
@@ -223,14 +235,11 @@
     
         switch (currentPosition) {
             case AVCaptureDevicePositionUnspecified:
+            case AVCaptureDevicePositionFront:
                 preferredPosition = AVCaptureDevicePositionBack;
-                
                 break;
             case AVCaptureDevicePositionBack:
                 preferredPosition = AVCaptureDevicePositionFront;
-                break;
-            case AVCaptureDevicePositionFront:
-                preferredPosition = AVCaptureDevicePositionBack;
                 break;
         }
         
