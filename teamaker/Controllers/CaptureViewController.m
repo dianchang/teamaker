@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "CaptureViewController.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
@@ -37,6 +38,7 @@
 - (void)loadView
 {
     CameraPreviewView *previewView = [[CameraPreviewView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    previewView.backgroundColor = [UIColor lightGrayColor];
     self.view = previewView;
     self.previewView = previewView;
     
@@ -51,12 +53,16 @@
     
     // 拍摄按钮
     UIButton *captureButton = [[UIButton alloc] init];
-    [captureButton setTitle:@"Capture" forState:UIControlStateNormal];
+    captureButton.backgroundColor = [UIColor whiteColor];
+    captureButton.layer.cornerRadius = 25;
+    captureButton.layer.masksToBounds = YES;
     [self.view addSubview:captureButton];
     self.captureButton = captureButton;
     [captureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.bottom.equalTo(self.view).with.offset(-20);
+        make.width.equalTo(@50);
+        make.height.equalTo(@50);
+        make.bottom.equalTo(self.view).with.offset(-30);
     }];
     [captureButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -71,6 +77,7 @@
     dispatch_queue_t sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
     self.sessionQueue = sessionQueue;
 
+#if !(TARGET_IPHONE_SIMULATOR)
     dispatch_async(sessionQueue, ^{
         // 视频
         NSError *error = nil;
@@ -86,29 +93,27 @@
         {
             [session addInput:videoDeviceInput];
             self.videoDeviceInput = videoDeviceInput;
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                // Why are we dispatching this to the main queue?
-//                // Because AVCaptureVideoPreviewLayer is the backing layer for AVCamPreviewView and UIView can only be manipulated on main thread.
-//                // Note: As an exception to the above rule, it is not necessary to serialize video orientation changes on the AVCaptureVideoPreviewLayer’s connection with other session manipulation.
-//                
-//                [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)[self interfaceOrientation]];
-//            });
         }
     });
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+#if !(TARGET_IPHONE_SIMULATOR)
     dispatch_async(self.sessionQueue, ^{
         [self.session startRunning];
     });
+#endif
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+#if !(TARGET_IPHONE_SIMULATOR)
     dispatch_async(self.sessionQueue, ^{
         [self.session stopRunning];
     });
+#endif
 }
 
 // 拍摄按钮
