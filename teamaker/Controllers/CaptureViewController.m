@@ -15,6 +15,7 @@
 #import "ComposeViewControllerProtocol.h"
 #import "TeamButtons.h"
 #import "Constants.h"
+#import "IonIcons.h"
 #import "CameraPreviewView.h"
 #import <AVFoundation/AVFoundation.h>
 
@@ -51,6 +52,20 @@
 //        make.edges.equalTo(self.view);
 //    }];
     
+    // 二维码扫描按钮
+    UIButton *scanQRCodeButton = [[UIButton alloc] init];
+    UIImage *scanQRCodeButtonImage = [IonIcons imageWithIcon:ion_qr_scanner size:22 color:[UIColor whiteColor]];
+    [scanQRCodeButton setImage:scanQRCodeButtonImage forState:UIControlStateNormal];
+    [self.view addSubview:scanQRCodeButton];
+    [scanQRCodeButton addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 切换镜头按钮
+    UIButton *switchCameraButton = [[UIButton alloc] init];
+    UIImage *switchCameraButtonImage = [IonIcons imageWithIcon:ion_ios_reverse_camera size:30 color:[UIColor whiteColor]];
+    [switchCameraButton setImage:switchCameraButtonImage forState:UIControlStateNormal];
+    [self.view addSubview:switchCameraButton];
+    [switchCameraButton addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchUpInside];
+    
     // 拍摄按钮
     UIButton *captureButton = [[UIButton alloc] init];
     captureButton.backgroundColor = [UIColor whiteColor];
@@ -58,13 +73,25 @@
     captureButton.layer.masksToBounds = YES;
     [self.view addSubview:captureButton];
     self.captureButton = captureButton;
+    [captureButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 约束
+    [scanQRCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(20);
+        make.right.equalTo(switchCameraButton.mas_left).offset(-15);
+    }];
+    
+    [switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-15);
+        make.top.equalTo(self.view).offset(15);
+    }];
+    
     [captureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.width.equalTo(@50);
         make.height.equalTo(@50);
         make.bottom.equalTo(self.view).with.offset(-30);
     }];
-    [captureButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidLoad {
@@ -154,12 +181,28 @@
 //    }];
 }
 
-- (IBAction)cancelPublish:(UIButton *)sender
+/**
+ *  切换前后镜头
+ */
+- (void)switchCamera
+{
+    
+}
+
+/**
+ *  扫描二维码
+ */
+- (void)scanQRCode
+{
+
+}
+
+- (void)cancelPublish:(UIButton *)sender
 {
     [self hideButtons];
 }
 
-- (IBAction)publish:(UIButton *)sender
+- (void)publish:(UIButton *)sender
 {
     [self hideButtons];
 }
