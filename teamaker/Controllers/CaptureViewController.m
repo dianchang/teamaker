@@ -41,9 +41,13 @@
 
 - (void)loadView
 {
-    CameraPreviewView *previewView = [[CameraPreviewView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    self.view.backgroundColor = [UIColor blackColor];
+                 
+    // preview
+    CameraPreviewView *previewView = [[CameraPreviewView alloc] init];
     previewView.backgroundColor = [UIColor lightGrayColor];
-    self.view = previewView;
+    [self.view addSubview:previewView];
     self.previewView = previewView;
     
     // 照片
@@ -59,7 +63,7 @@
     UIButton *scanQRCodeButton = [[UIButton alloc] init];
     UIImage *scanQRCodeButtonImage = [IonIcons imageWithIcon:ion_qr_scanner iconColor:[UIColor whiteColor] iconSize:23 imageSize:CGSizeMake(50.0f, 50.0f)];
     [scanQRCodeButton setImage:scanQRCodeButtonImage forState:UIControlStateNormal];
-    [self.view addSubview:scanQRCodeButton];
+    [previewView addSubview:scanQRCodeButton];
     self.scanQRCodeButton = scanQRCodeButton;
     [scanQRCodeButton addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
     
@@ -67,7 +71,7 @@
     UIButton *switchCameraButton = [[UIButton alloc] init];
     UIImage *switchCameraButtonImage = [IonIcons imageWithIcon:ion_ios_reverse_camera iconColor:[UIColor whiteColor] iconSize:30 imageSize:CGSizeMake(50.0f, 50.0f)];
     [switchCameraButton setImage:switchCameraButtonImage forState:UIControlStateNormal];
-    [self.view addSubview:switchCameraButton];
+    [previewView addSubview:switchCameraButton];
     self.switchCameraButton = switchCameraButton;
     [switchCameraButton addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchUpInside];
     
@@ -76,26 +80,30 @@
     captureButton.backgroundColor = [UIColor whiteColor];
     captureButton.layer.cornerRadius = 30;
     captureButton.layer.masksToBounds = YES;
-    [self.view addSubview:captureButton];
+    [previewView addSubview:captureButton];
     self.captureButton = captureButton;
     [captureButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
     
     // 约束
+    [previewView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
     [scanQRCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(0);
+        make.top.equalTo(previewView).offset(0);
         make.right.equalTo(switchCameraButton.mas_left).offset(0);
     }];
     
     [switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(0);
-        make.top.equalTo(self.view).offset(0);
+        make.right.equalTo(previewView).offset(0);
+        make.top.equalTo(previewView).offset(0);
     }];
     
     [captureButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
+        make.centerX.equalTo(previewView);
         make.width.equalTo(@60);
         make.height.equalTo(@60);
-        make.bottom.equalTo(self.view).with.offset(-30);
+        make.bottom.equalTo(previewView).with.offset(-30);
     }];
 }
 
@@ -218,7 +226,7 @@
             break;
     }
     
-    [self.view.layer addAnimation:animation forKey:nil];
+    [self.previewView.layer addAnimation:animation forKey:nil];
     
     if (TMRunOnSimulator) {
         return;
