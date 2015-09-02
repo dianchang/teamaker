@@ -45,7 +45,7 @@ static int const sendButtonHeight = 50;
     UIButton *sendButton = [[UIButton alloc] init];
     self.sendButton = sendButton;
     [sendButton setTitle:@"发送" forState:UIControlStateNormal];
-    sendButton.backgroundColor = [UIColor brownColor];
+    sendButton.backgroundColor = [UIColor colorWithRGBA:0x8D8E95FF];
     sendButton.titleLabel.textColor = [UIColor whiteColor];
     [sendButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sendButton];
