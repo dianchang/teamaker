@@ -245,11 +245,11 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     }
     
     UIView *firstStarFeedView = [UIView new];
-    firstStarFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFFF];
+    firstStarFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
     [cell.contentView addSubview:firstStarFeedView];
     
     UIView *secondStarFeedView = [UIView new];
-    secondStarFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFFF];
+    secondStarFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
     [cell.contentView addSubview:secondStarFeedView];
     
     [firstStarFeedView mas_makeConstraints:^(MASConstraintMaker *make) {

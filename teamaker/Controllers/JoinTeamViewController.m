@@ -82,7 +82,7 @@
     UILabel *textLabel = [UILabel new];
     textLabel.text = text;
     textLabel.font = [UIFont systemFontOfSize:14];
-    textLabel.textColor = [UIColor colorWithRGBA:0x666666FFF];
+    textLabel.textColor = [UIColor colorWithRGBA:0x666666FF];
     [cell.contentView addSubview:textLabel];
 
     [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {

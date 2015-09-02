@@ -39,9 +39,9 @@ extern const struct TMTeamUserInfoRelationships {
 
 @property (nonatomic, strong) NSNumber* id;
 
-@property (atomic) int64_t idValue;
-- (int64_t)idValue;
-- (void)setIdValue:(int64_t)value_;
+@property (atomic) int32_t idValue;
+- (int32_t)idValue;
+- (void)setIdValue:(int32_t)value_;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
@@ -51,17 +51,17 @@ extern const struct TMTeamUserInfoRelationships {
 
 @property (nonatomic, strong) NSNumber* teamId;
 
-@property (atomic) int64_t teamIdValue;
-- (int64_t)teamIdValue;
-- (void)setTeamIdValue:(int64_t)value_;
+@property (atomic) int32_t teamIdValue;
+- (int32_t)teamIdValue;
+- (void)setTeamIdValue:(int32_t)value_;
 
 //- (BOOL)validateTeamId:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* userId;
 
-@property (atomic) int64_t userIdValue;
-- (int64_t)userIdValue;
-- (void)setUserIdValue:(int64_t)value_;
+@property (atomic) int32_t userIdValue;
+- (int32_t)userIdValue;
+- (void)setUserIdValue:(int32_t)value_;
 
 //- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
 
@@ -86,8 +86,8 @@ extern const struct TMTeamUserInfoRelationships {
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
 
-- (int64_t)primitiveIdValue;
-- (void)setPrimitiveIdValue:(int64_t)value_;
+- (int32_t)primitiveIdValue;
+- (void)setPrimitiveIdValue:(int32_t)value_;
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
@@ -95,14 +95,14 @@ extern const struct TMTeamUserInfoRelationships {
 - (NSNumber*)primitiveTeamId;
 - (void)setPrimitiveTeamId:(NSNumber*)value;
 
-- (int64_t)primitiveTeamIdValue;
-- (void)setPrimitiveTeamIdValue:(int64_t)value_;
+- (int32_t)primitiveTeamIdValue;
+- (void)setPrimitiveTeamIdValue:(int32_t)value_;
 
 - (NSNumber*)primitiveUserId;
 - (void)setPrimitiveUserId:(NSNumber*)value;
 
-- (int64_t)primitiveUserIdValue;
-- (void)setPrimitiveUserIdValue:(int64_t)value_;
+- (int32_t)primitiveUserIdValue;
+- (void)setPrimitiveUserIdValue:(int32_t)value_;
 
 - (TMTeam*)primitiveTeam;
 - (void)setPrimitiveTeam:(TMTeam*)value;

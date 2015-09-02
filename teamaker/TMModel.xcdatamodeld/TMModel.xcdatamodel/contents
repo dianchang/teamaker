@@ -2,25 +2,25 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="TMFeed" representedClassName="TMFeed" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="kind" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="punch" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="teamId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="teamId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMTeam" inverseName="feeds" inverseEntity="TMTeam" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUser" inverseName="feeds" inverseEntity="TMUser" syncable="YES"/>
     </entity>
     <entity name="TMPunch" representedClassName="TMPunch" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="TMTeam" representedClassName="TMTeam" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="qrcode" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="team" inverseEntity="TMFeed" syncable="YES"/>
@@ -29,10 +29,10 @@
     <entity name="TMTeamUserInfo" representedClassName="TMTeamUserInfo" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="teamId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="userId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="teamId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMTeam" inverseName="usersInfos" inverseEntity="TMTeam" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUser" inverseName="teamsInfos" inverseEntity="TMUser" syncable="YES"/>
     </entity>
@@ -40,7 +40,7 @@
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="motto" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
@@ -52,10 +52,10 @@
         <relationship name="teamsInfos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMTeamUserInfo" inverseName="user" inverseEntity="TMTeamUserInfo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TMFeed" positionX="63" positionY="-2307" width="128" height="208"/>
-        <element name="TMPunch" positionX="-675" positionY="-27" width="128" height="88"/>
+        <element name="TMFeed" positionX="63" positionY="-2307" width="128" height="210"/>
+        <element name="TMPunch" positionX="-675" positionY="-27" width="128" height="90"/>
         <element name="TMTeam" positionX="304" positionY="-2109" width="128" height="135"/>
         <element name="TMTeamUserInfo" positionX="63" positionY="-2061" width="128" height="165"/>
-        <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="238"/>
+        <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="240"/>
     </elements>
 </model>

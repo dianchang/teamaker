@@ -33,9 +33,9 @@ extern const struct TMTeamRelationships {
 
 @property (nonatomic, strong) NSNumber* id;
 
-@property (atomic) int64_t idValue;
-- (int64_t)idValue;
-- (void)setIdValue:(int64_t)value_;
+@property (atomic) int32_t idValue;
+- (int32_t)idValue;
+- (void)setIdValue:(int32_t)value_;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
@@ -81,8 +81,8 @@ extern const struct TMTeamRelationships {
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
 
-- (int64_t)primitiveIdValue;
-- (void)setPrimitiveIdValue:(int64_t)value_;
+- (int32_t)primitiveIdValue;
+- (void)setPrimitiveIdValue:(int32_t)value_;
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;

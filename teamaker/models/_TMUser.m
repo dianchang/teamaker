@@ -65,22 +65,22 @@ const struct TMUserRelationships TMUserRelationships = {
 
 @dynamic id;
 
-- (int64_t)idValue {
+- (int32_t)idValue {
 	NSNumber *result = [self id];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setIdValue:(int64_t)value_ {
-	[self setId:[NSNumber numberWithLongLong:value_]];
+- (void)setIdValue:(int32_t)value_ {
+	[self setId:[NSNumber numberWithInt:value_]];
 }
 
-- (int64_t)primitiveIdValue {
+- (int32_t)primitiveIdValue {
 	NSNumber *result = [self primitiveId];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveIdValue:(int64_t)value_ {
-	[self setPrimitiveId:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveIdValue:(int32_t)value_ {
+	[self setPrimitiveId:[NSNumber numberWithInt:value_]];
 }
 
 @dynamic motto;

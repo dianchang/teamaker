@@ -24,17 +24,17 @@ extern const struct TMPunchAttributes {
 
 @property (nonatomic, strong) NSNumber* id;
 
-@property (atomic) int64_t idValue;
-- (int64_t)idValue;
-- (void)setIdValue:(int64_t)value_;
+@property (atomic) int32_t idValue;
+- (int32_t)idValue;
+- (void)setIdValue:(int32_t)value_;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* order;
 
-@property (atomic) int64_t orderValue;
-- (int64_t)orderValue;
-- (void)setOrderValue:(int64_t)value_;
+@property (atomic) int32_t orderValue;
+- (int32_t)orderValue;
+- (void)setOrderValue:(int32_t)value_;
 
 //- (BOOL)validateOrder:(id*)value_ error:(NSError**)error_;
 
@@ -48,13 +48,13 @@ extern const struct TMPunchAttributes {
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
 
-- (int64_t)primitiveIdValue;
-- (void)setPrimitiveIdValue:(int64_t)value_;
+- (int32_t)primitiveIdValue;
+- (void)setPrimitiveIdValue:(int32_t)value_;
 
 - (NSNumber*)primitiveOrder;
 - (void)setPrimitiveOrder:(NSNumber*)value;
 
-- (int64_t)primitiveOrderValue;
-- (void)setPrimitiveOrderValue:(int64_t)value_;
+- (int32_t)primitiveOrderValue;
+- (void)setPrimitiveOrderValue:(int32_t)value_;
 
 @end

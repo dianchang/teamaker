@@ -69,22 +69,22 @@ const struct TMFeedRelationships TMFeedRelationships = {
 
 @dynamic id;
 
-- (int64_t)idValue {
+- (int32_t)idValue {
 	NSNumber *result = [self id];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setIdValue:(int64_t)value_ {
-	[self setId:[NSNumber numberWithLongLong:value_]];
+- (void)setIdValue:(int32_t)value_ {
+	[self setId:[NSNumber numberWithInt:value_]];
 }
 
-- (int64_t)primitiveIdValue {
+- (int32_t)primitiveIdValue {
 	NSNumber *result = [self primitiveId];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveIdValue:(int64_t)value_ {
-	[self setPrimitiveId:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveIdValue:(int32_t)value_ {
+	[self setPrimitiveId:[NSNumber numberWithInt:value_]];
 }
 
 @dynamic image;
@@ -97,44 +97,44 @@ const struct TMFeedRelationships TMFeedRelationships = {
 
 @dynamic teamId;
 
-- (int64_t)teamIdValue {
+- (int32_t)teamIdValue {
 	NSNumber *result = [self teamId];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setTeamIdValue:(int64_t)value_ {
-	[self setTeamId:[NSNumber numberWithLongLong:value_]];
+- (void)setTeamIdValue:(int32_t)value_ {
+	[self setTeamId:[NSNumber numberWithInt:value_]];
 }
 
-- (int64_t)primitiveTeamIdValue {
+- (int32_t)primitiveTeamIdValue {
 	NSNumber *result = [self primitiveTeamId];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveTeamIdValue:(int64_t)value_ {
-	[self setPrimitiveTeamId:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveTeamIdValue:(int32_t)value_ {
+	[self setPrimitiveTeamId:[NSNumber numberWithInt:value_]];
 }
 
 @dynamic text;
 
 @dynamic userId;
 
-- (int64_t)userIdValue {
+- (int32_t)userIdValue {
 	NSNumber *result = [self userId];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setUserIdValue:(int64_t)value_ {
-	[self setUserId:[NSNumber numberWithLongLong:value_]];
+- (void)setUserIdValue:(int32_t)value_ {
+	[self setUserId:[NSNumber numberWithInt:value_]];
 }
 
-- (int64_t)primitiveUserIdValue {
+- (int32_t)primitiveUserIdValue {
 	NSNumber *result = [self primitiveUserId];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveUserIdValue:(int64_t)value_ {
-	[self setPrimitiveUserId:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveUserIdValue:(int32_t)value_ {
+	[self setPrimitiveUserId:[NSNumber numberWithInt:value_]];
 }
 
 @dynamic team;

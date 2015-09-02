@@ -53,42 +53,42 @@ const struct TMPunchAttributes TMPunchAttributes = {
 
 @dynamic id;
 
-- (int64_t)idValue {
+- (int32_t)idValue {
 	NSNumber *result = [self id];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setIdValue:(int64_t)value_ {
-	[self setId:[NSNumber numberWithLongLong:value_]];
+- (void)setIdValue:(int32_t)value_ {
+	[self setId:[NSNumber numberWithInt:value_]];
 }
 
-- (int64_t)primitiveIdValue {
+- (int32_t)primitiveIdValue {
 	NSNumber *result = [self primitiveId];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveIdValue:(int64_t)value_ {
-	[self setPrimitiveId:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveIdValue:(int32_t)value_ {
+	[self setPrimitiveId:[NSNumber numberWithInt:value_]];
 }
 
 @dynamic order;
 
-- (int64_t)orderValue {
+- (int32_t)orderValue {
 	NSNumber *result = [self order];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setOrderValue:(int64_t)value_ {
-	[self setOrder:[NSNumber numberWithLongLong:value_]];
+- (void)setOrderValue:(int32_t)value_ {
+	[self setOrder:[NSNumber numberWithInt:value_]];
 }
 
-- (int64_t)primitiveOrderValue {
+- (int32_t)primitiveOrderValue {
 	NSNumber *result = [self primitiveOrder];
-	return [result longLongValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveOrderValue:(int64_t)value_ {
-	[self setPrimitiveOrder:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveOrderValue:(int32_t)value_ {
+	[self setPrimitiveOrder:[NSNumber numberWithInt:value_]];
 }
 
 @end
