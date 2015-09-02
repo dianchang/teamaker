@@ -11,6 +11,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if TARGET_IPHONE_SIMULATOR
+#define TMRunOnSimulator 1
+#else
+#define TMRunOnSimulator 0
+#endif
+
 // UI相关常数
 #define TMStatusBarAndNavigationBarHeight 64
 

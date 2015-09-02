@@ -21,9 +21,11 @@
 
 @interface CaptureViewController () <ComposeViewControllerProtocol>
 
-@property (nonatomic, weak) UIView *imageView;
-@property (nonatomic, weak) TeamButtons *teamButtons;
-@property (nonatomic, weak) UIButton *captureButton;
+@property (strong, nonatomic) UIView *imageView;
+@property (strong, nonatomic) TeamButtons *teamButtons;
+@property (strong, nonatomic) UIButton *captureButton;
+@property (strong, nonatomic) UIButton *scanQRCodeButton;
+@property (strong, nonatomic) UIButton *switchCameraButton;
 @property (nonatomic, strong) NSArray *teams;
 
 @property (strong, nonatomic) CameraPreviewView *previewView;
@@ -31,6 +33,7 @@
 @property (strong, nonatomic) dispatch_queue_t sessionQueue;
 @property (nonatomic) BOOL deviceAuthorized;
 @property (strong, nonatomic) AVCaptureDeviceInput *videoDeviceInput;
+@property (nonatomic) AVCaptureDevicePosition currentDevicePosition;
 
 @end
 
@@ -54,14 +57,14 @@
     
     // 二维码扫描按钮
     UIButton *scanQRCodeButton = [[UIButton alloc] init];
-    UIImage *scanQRCodeButtonImage = [IonIcons imageWithIcon:ion_qr_scanner size:22 color:[UIColor whiteColor]];
+    UIImage *scanQRCodeButtonImage = [IonIcons imageWithIcon:ion_qr_scanner iconColor:[UIColor whiteColor] iconSize:23 imageSize:CGSizeMake(50.0f, 50.0f)];
     [scanQRCodeButton setImage:scanQRCodeButtonImage forState:UIControlStateNormal];
     [self.view addSubview:scanQRCodeButton];
     [scanQRCodeButton addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
     
     // 切换镜头按钮
     UIButton *switchCameraButton = [[UIButton alloc] init];
-    UIImage *switchCameraButtonImage = [IonIcons imageWithIcon:ion_ios_reverse_camera size:30 color:[UIColor whiteColor]];
+    UIImage *switchCameraButtonImage = [IonIcons imageWithIcon:ion_ios_reverse_camera iconColor:[UIColor whiteColor] iconSize:30 imageSize:CGSizeMake(50.0f, 50.0f)];
     [switchCameraButton setImage:switchCameraButtonImage forState:UIControlStateNormal];
     [self.view addSubview:switchCameraButton];
     [switchCameraButton addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchUpInside];
@@ -69,7 +72,7 @@
     // 拍摄按钮
     UIButton *captureButton = [[UIButton alloc] init];
     captureButton.backgroundColor = [UIColor whiteColor];
-    captureButton.layer.cornerRadius = 25;
+    captureButton.layer.cornerRadius = 30;
     captureButton.layer.masksToBounds = YES;
     [self.view addSubview:captureButton];
     self.captureButton = captureButton;
@@ -77,19 +80,19 @@
     
     // 约束
     [scanQRCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(20);
-        make.right.equalTo(switchCameraButton.mas_left).offset(-15);
+        make.top.equalTo(self.view).offset(0);
+        make.right.equalTo(switchCameraButton.mas_left).offset(0);
     }];
     
     [switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(-15);
-        make.top.equalTo(self.view).offset(15);
+        make.right.equalTo(self.view).offset(0);
+        make.top.equalTo(self.view).offset(0);
     }];
     
     [captureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.width.equalTo(@50);
-        make.height.equalTo(@50);
+        make.width.equalTo(@60);
+        make.height.equalTo(@60);
         make.bottom.equalTo(self.view).with.offset(-30);
     }];
 }
@@ -103,8 +106,11 @@
     
     dispatch_queue_t sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
     self.sessionQueue = sessionQueue;
-
-#if !(TARGET_IPHONE_SIMULATOR)
+    
+    if (TMRunOnSimulator) {
+        return;
+    }
+    
     dispatch_async(sessionQueue, ^{
         // 视频
         NSError *error = nil;
@@ -116,31 +122,38 @@
             NSLog(@"%@", error);
         }
         
-        if ([session canAddInput:videoDeviceInput])
-        {
+        if ([session canAddInput:videoDeviceInput]) {
             [session addInput:videoDeviceInput];
             self.videoDeviceInput = videoDeviceInput;
+            self.currentDevicePosition = AVCaptureDevicePositionBack;
         }
     });
-#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-#if !(TARGET_IPHONE_SIMULATOR)
+    [super viewWillAppear:animated];
+    
+    if (TMRunOnSimulator) {
+        return;
+    }
+    
     dispatch_async(self.sessionQueue, ^{
         [self.session startRunning];
     });
-#endif
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-#if !(TARGET_IPHONE_SIMULATOR)
+    [super viewDidDisappear:animated];
+    
+    if (TMRunOnSimulator) {
+        return;
+    }
+    
     dispatch_async(self.sessionQueue, ^{
         [self.session stopRunning];
     });
-#endif
 }
 
 // 拍摄按钮
@@ -186,7 +199,59 @@
  */
 - (void)switchCamera
 {
+    CATransition *animation = [CATransition animation];
+    animation.duration = .5f;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.type = @"oglFlip";
+    animation.subtype = kCATransitionFromLeft;
+    [self.view.layer addAnimation:animation forKey:nil];
     
+    if (TMRunOnSimulator) {
+        return;
+    }
+    
+    self.scanQRCodeButton.enabled = NO;
+    self.switchCameraButton.enabled = NO;
+    self.captureButton.enabled = NO;
+    
+    dispatch_async(self.sessionQueue, ^{
+        AVCaptureDevice *currentVideoDevice = self.videoDeviceInput.device;
+        AVCaptureDevicePosition preferredPosition = AVCaptureDevicePositionUnspecified;
+        AVCaptureDevicePosition currentPosition = currentVideoDevice.position;
+    
+        switch (currentPosition) {
+            case AVCaptureDevicePositionUnspecified:
+                preferredPosition = AVCaptureDevicePositionBack;
+                break;
+            case AVCaptureDevicePositionBack:
+                preferredPosition = AVCaptureDevicePositionFront;
+                break;
+            case AVCaptureDevicePositionFront:
+                preferredPosition = AVCaptureDevicePositionBack;
+                break;
+        }
+        
+        AVCaptureDevice *videoDevice = [self deviceWithMediaType:AVMediaTypeVideo preferringPosition:preferredPosition];
+        AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:nil];
+        
+        [self.session beginConfiguration];
+        
+        [self.session removeInput:[self videoDeviceInput]];
+        if ([self.session canAddInput:videoDeviceInput]) {
+            [self.session addInput:videoDeviceInput];
+            self.videoDeviceInput = videoDeviceInput;
+        } else {
+            [self.session addInput:[self videoDeviceInput]];
+        }
+        
+        [self.session commitConfiguration];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.scanQRCodeButton.enabled = YES;
+            self.switchCameraButton.enabled = YES;
+            self.captureButton.enabled = YES;
+        });
+    });
 }
 
 /**
