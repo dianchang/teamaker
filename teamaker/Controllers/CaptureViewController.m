@@ -183,6 +183,31 @@
 {
     UIView *scanQRCodeView = [UIView new];
     
+    UIView *topView = [UIView new];
+    topView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+    [scanQRCodeView addSubview:topView];
+    
+    UIView *leftView = [UIView new];
+    leftView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+    [scanQRCodeView addSubview:leftView];
+    
+    UIView *rightView = [UIView new];
+    rightView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+    [scanQRCodeView addSubview:rightView];
+    
+    UIView *bottomView = [UIView new];
+    bottomView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+    [scanQRCodeView addSubview:bottomView];
+    
+    UIView *centerView = [UIView new];
+    [scanQRCodeView addSubview:centerView];
+    
+    UILabel *tipLabel = [UILabel new];
+    tipLabel.text = @"放入二维码将自动扫描";
+    tipLabel.textColor = [UIColor whiteColor];
+    tipLabel.font = [UIFont systemFontOfSize:14];
+    [bottomView addSubview:tipLabel];
+    
     // 切换到拍摄模式按钮
     UIButton *switchToCaptureModeButton = [UIButton new];
     UIImage *switchToCaptureModeButtonImage = [IonIcons imageWithIcon:ion_ios_camera iconColor:[UIColor whiteColor] iconSize:30 imageSize:CGSizeMake(50.0f, 50.0f)];
@@ -190,6 +215,42 @@
     [scanQRCodeView addSubview:switchToCaptureModeButton];
     self.switchToCaptureModeButton = switchToCaptureModeButton;
     [switchToCaptureModeButton addTarget:self action:@selector(switchMode) forControlEvents:UIControlEventTouchUpInside];
+
+    // 约束
+    [topView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.and.right.equalTo(scanQRCodeView);
+    }];
+    
+    [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(scanQRCodeView);
+        make.top.equalTo(topView.mas_bottom);
+    }];
+    
+    [centerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(scanQRCodeView);
+        make.top.equalTo(topView.mas_bottom);
+        make.left.equalTo(leftView.mas_right);
+        make.right.equalTo(rightView.mas_left);
+        make.width.equalTo(@230);
+        make.height.equalTo(@230);
+    }];
+    
+    [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(topView.mas_bottom);
+        make.right.equalTo(scanQRCodeView);
+    }];
+    
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(leftView.mas_bottom);
+        make.top.equalTo(centerView.mas_bottom);
+        make.top.equalTo(rightView.mas_bottom);
+        make.left.right.and.bottom.equalTo(scanQRCodeView);
+    }];
+    
+    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(bottomView);
+        make.top.equalTo(bottomView).offset(20);
+    }];
     
     [switchToCaptureModeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(scanQRCodeView);
