@@ -21,19 +21,29 @@
 
 @interface CaptureViewController () <ComposeViewControllerProtocol>
 
-@property (strong, nonatomic) UIView *imageView;
-@property (strong, nonatomic) TeamButtons *teamButtons;
-@property (strong, nonatomic) UIButton *captureButton;
-@property (strong, nonatomic) UIButton *scanQRCodeButton;
-@property (strong, nonatomic) UIButton *switchCameraButton;
 @property (nonatomic, strong) NSArray *teams;
 
+// UI
 @property (strong, nonatomic) CameraPreviewView *previewView;
+
+@property (strong, nonatomic) UIButton *captureButton;
+@property (strong, nonatomic) UIButton *switchToScanQRCodeModeButton;
+@property (strong, nonatomic) UIButton *switchCameraButton;
+
+@property (strong, nonatomic) UIView *scanQRCodeView;
+@property (strong, nonatomic) UIButton *switchToCaptureModeButton;
+
+@property (strong, nonatomic) TeamButtons *teamButtons;
+
+// AV Foundation
 @property (strong, nonatomic) AVCaptureSession *session;
 @property (strong, nonatomic) dispatch_queue_t sessionQueue;
 @property (nonatomic) BOOL deviceAuthorized;
 @property (strong, nonatomic) AVCaptureDeviceInput *videoDeviceInput;
+
+// 状态
 @property (nonatomic) AVCaptureDevicePosition currentDevicePosition;
+@property (nonatomic) BOOL scanningQRCode;
 
 @end
 
@@ -43,32 +53,23 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.view.backgroundColor = [UIColor blackColor];
-                 
-    // preview
+    
+    // Preview view
     CameraPreviewView *previewView = [[CameraPreviewView alloc] init];
-    previewView.backgroundColor = [UIColor lightGrayColor];
+    previewView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:previewView];
     self.previewView = previewView;
     
-    // 照片
-//    UIView *imageView = [[UIView alloc] init];
-//    imageView.backgroundColor = [UIColor grayColor];
-//    self.imageView = imageView;
-//    [self.view addSubview:imageView];
-//    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view);
-//    }];
-    
-    // 二维码扫描按钮
-    UIButton *scanQRCodeButton = [[UIButton alloc] init];
-    UIImage *scanQRCodeButtonImage = [IonIcons imageWithIcon:ion_qr_scanner iconColor:[UIColor whiteColor] iconSize:23 imageSize:CGSizeMake(50.0f, 50.0f)];
-    [scanQRCodeButton setImage:scanQRCodeButtonImage forState:UIControlStateNormal];
-    [previewView addSubview:scanQRCodeButton];
-    self.scanQRCodeButton = scanQRCodeButton;
-    [scanQRCodeButton addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
+    // 切换到扫描二维码模式
+    UIButton *switchToScanQRCodeModeButton = [UIButton new];
+    UIImage *switchToScanQRCodeModeImage = [IonIcons imageWithIcon:ion_qr_scanner iconColor:[UIColor whiteColor] iconSize:23 imageSize:CGSizeMake(50.0f, 50.0f)];
+    [switchToScanQRCodeModeButton setImage:switchToScanQRCodeModeImage forState:UIControlStateNormal];
+    [previewView addSubview:switchToScanQRCodeModeButton];
+    self.switchToScanQRCodeModeButton = switchToScanQRCodeModeButton;
+    [switchToScanQRCodeModeButton addTarget:self action:@selector(switchMode) forControlEvents:UIControlEventTouchUpInside];
     
     // 切换镜头按钮
-    UIButton *switchCameraButton = [[UIButton alloc] init];
+    UIButton *switchCameraButton = [UIButton new];
     UIImage *switchCameraButtonImage = [IonIcons imageWithIcon:ion_ios_reverse_camera iconColor:[UIColor whiteColor] iconSize:30 imageSize:CGSizeMake(50.0f, 50.0f)];
     [switchCameraButton setImage:switchCameraButtonImage forState:UIControlStateNormal];
     [previewView addSubview:switchCameraButton];
@@ -84,12 +85,16 @@
     self.captureButton = captureButton;
     [captureButton addTarget:self action:@selector(preparePublish:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIView *scanQRCodeView = [self createScanQRCodeView];
+    [self.view addSubview:scanQRCodeView];
+    self.scanQRCodeView = scanQRCodeView;
+    
     // 约束
     [previewView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
-    [scanQRCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [switchToScanQRCodeModeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(previewView).offset(0);
         make.right.equalTo(switchCameraButton.mas_left).offset(0);
     }];
@@ -105,10 +110,18 @@
         make.height.equalTo(@60);
         make.bottom.equalTo(previewView).with.offset(-30);
     }];
+    
+    [scanQRCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self hideFrontCameraLayout];
+    [self hideScanQRCodeLayout];
+    [self showBackCameraLayout];
     
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
     self.session = session;
@@ -166,6 +179,26 @@
     });
 }
 
+- (UIView *)createScanQRCodeView
+{
+    UIView *scanQRCodeView = [UIView new];
+    
+    // 切换到拍摄模式按钮
+    UIButton *switchToCaptureModeButton = [UIButton new];
+    UIImage *switchToCaptureModeButtonImage = [IonIcons imageWithIcon:ion_ios_camera iconColor:[UIColor whiteColor] iconSize:30 imageSize:CGSizeMake(50.0f, 50.0f)];
+    [switchToCaptureModeButton setImage:switchToCaptureModeButtonImage forState:UIControlStateNormal];
+    [scanQRCodeView addSubview:switchToCaptureModeButton];
+    self.switchToCaptureModeButton = switchToCaptureModeButton;
+    [switchToCaptureModeButton addTarget:self action:@selector(switchMode) forControlEvents:UIControlEventTouchUpInside];
+    
+    [switchToCaptureModeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(scanQRCodeView);
+        make.top.equalTo(scanQRCodeView);
+    }];
+    
+    return scanQRCodeView;
+}
+
 // 拍摄按钮
 - (void)preparePublish:(UIButton *)sender
 {
@@ -211,28 +244,34 @@
 {
     CATransition *animation = [CATransition animation];
     animation.duration = .5f;
+    animation.delegate = self;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animation.type = @"oglFlip";
     
-    switch (self.currentDevicePosition) {
-        case AVCaptureDevicePositionFront:
-            animation.subtype = kCATransitionFromLeft;
-            break;
-        case AVCaptureDevicePositionBack:
-            animation.subtype = kCATransitionFromRight;
-            break;
-        default:
-            animation.subtype = kCATransitionFromLeft;
-            break;
-    }
+    dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animation.duration / 2 * NSEC_PER_SEC));
     
-    [self.previewView.layer addAnimation:animation forKey:nil];
+    if (self.currentDevicePosition == AVCaptureDevicePositionFront) {
+        animation.subtype = kCATransitionFromLeft;
+        [self.previewView.layer addAnimation:animation forKey:nil];
+        
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), ^{
+            [self hideFrontCameraLayout];
+            [self showBackCameraLayout];
+        });
+    } else {
+        animation.subtype = kCATransitionFromRight;
+        [self.previewView.layer addAnimation:animation forKey:nil];
+        
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), ^{
+            [self hideBackCameraLayout];
+            [self showFrontCameraLayout];
+        });
+    }
     
     if (TMRunOnSimulator) {
         return;
     }
     
-    self.scanQRCodeButton.enabled = NO;
     self.switchCameraButton.enabled = NO;
     self.captureButton.enabled = NO;
     
@@ -269,15 +308,8 @@
         [self.session commitConfiguration];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.scanQRCodeButton.enabled = YES;
             self.switchCameraButton.enabled = YES;
             self.captureButton.enabled = YES;
-            
-            if (self.currentDevicePosition == AVCaptureDevicePositionFront) {
-                self.scanQRCodeButton.hidden = YES;
-            } else {
-                self.scanQRCodeButton.hidden = NO;
-            }
         });
     });
 }
@@ -285,12 +317,94 @@
 /**
  *  扫描二维码
  */
-- (void)scanQRCode
+- (void)switchMode
 {
-
+    CATransition *animation = [CATransition animation];
+    animation.duration = .5f;
+    animation.delegate = self;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.type = @"oglFlip";
+    
+    dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animation.duration / 2 * NSEC_PER_SEC));
+    
+    if (self.scanningQRCode) {
+        animation.subtype = kCATransitionFromLeft;
+        [self.previewView.layer addAnimation:animation forKey:nil];
+        
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), ^{
+            [self hideScanQRCodeLayout];
+            [self showBackCameraLayout];
+        });
+        
+        self.scanningQRCode = NO;
+    } else {
+        animation.subtype = kCATransitionFromRight;
+        [self.previewView.layer addAnimation:animation forKey:nil];
+        
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), ^{
+            [self hideBackCameraLayout];
+            [self showScanQRCodeLayout];
+        });
+        
+        self.scanningQRCode = YES;
+    }
 }
 
-- (void)cancelPublish:(UIButton *)sender
+/**
+ *  显示适配于前端摄像头的界面布局
+ */
+- (void)showFrontCameraLayout
+{
+    self.captureButton.hidden = NO;
+    self.switchCameraButton.hidden = NO;
+}
+
+/**
+ *  隐藏适配于前端摄像头的界面布局
+ */
+- (void)hideFrontCameraLayout
+{
+    self.captureButton.hidden = YES;
+    self.switchCameraButton.hidden = YES;
+}
+
+/**
+ *  显示适配于后端摄像头的界面布局
+ */
+- (void)showBackCameraLayout
+{
+    self.captureButton.hidden = NO;
+    self.switchCameraButton.hidden = NO;
+    self.switchToScanQRCodeModeButton.hidden = NO;
+}
+
+/**
+ *  隐藏适配于后端摄像头的界面布局
+ */
+- (void)hideBackCameraLayout
+{
+    self.captureButton.hidden = YES;
+    self.switchCameraButton.hidden = YES;
+    self.switchToScanQRCodeModeButton.hidden = YES;
+}
+
+/**
+ *  显示适配于扫描二维码的界面布局
+ */
+- (void)showScanQRCodeLayout
+{
+    self.scanQRCodeView.hidden = NO;
+}
+
+/**
+ *  隐藏适配于扫描二维码的界面
+ */
+- (void)hideScanQRCodeLayout
+{
+    self.scanQRCodeView.hidden = YES;
+}
+
+- (void)cancelPublish:(UIButton *)senderw
 {
     [self hideButtons];
 }
@@ -308,24 +422,24 @@
 // 隐藏按钮组
 - (void)hideButtons
 {
-    self.captureButton.hidden = NO;
-    
-    [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_bottom);
-    }];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        [self.teamButtons removeFromSuperview];
-        self.teamButtons = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
-    }];
+//    self.captureButton.hidden = NO;
+//    
+//    [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
+//    
+//    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+//        make.left.and.right.equalTo(self.view);
+//        make.top.equalTo(self.view.mas_bottom);
+//    }];
+//    
+//    [UIView animateWithDuration:0.3 animations:^{
+//        [self.view layoutIfNeeded];
+//    } completion:^(BOOL finished) {
+//        [self.teamButtons removeFromSuperview];
+//        self.teamButtons = nil;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
+//    }];
 }
 
 /**
