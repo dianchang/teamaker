@@ -7,6 +7,9 @@ extern const struct TMFeedAttributes {
 	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *image;
+	__unsafe_unretained NSString *imageHeight;
+	__unsafe_unretained NSString *imageUrl;
+	__unsafe_unretained NSString *imageWidth;
 	__unsafe_unretained NSString *kind;
 	__unsafe_unretained NSString *location;
 	__unsafe_unretained NSString *punch;
@@ -44,9 +47,29 @@ extern const struct TMFeedRelationships {
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) NSString* image;
+@property (nonatomic, strong) NSData* image;
 
 //- (BOOL)validateImage:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* imageHeight;
+
+@property (atomic) int32_t imageHeightValue;
+- (int32_t)imageHeightValue;
+- (void)setImageHeightValue:(int32_t)value_;
+
+//- (BOOL)validateImageHeight:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* imageUrl;
+
+//- (BOOL)validateImageUrl:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* imageWidth;
+
+@property (atomic) int32_t imageWidthValue;
+- (int32_t)imageWidthValue;
+- (void)setImageWidthValue:(int32_t)value_;
+
+//- (BOOL)validateImageWidth:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* kind;
 
@@ -101,8 +124,23 @@ extern const struct TMFeedRelationships {
 - (int32_t)primitiveIdValue;
 - (void)setPrimitiveIdValue:(int32_t)value_;
 
-- (NSString*)primitiveImage;
-- (void)setPrimitiveImage:(NSString*)value;
+- (NSData*)primitiveImage;
+- (void)setPrimitiveImage:(NSData*)value;
+
+- (NSNumber*)primitiveImageHeight;
+- (void)setPrimitiveImageHeight:(NSNumber*)value;
+
+- (int32_t)primitiveImageHeightValue;
+- (void)setPrimitiveImageHeightValue:(int32_t)value_;
+
+- (NSString*)primitiveImageUrl;
+- (void)setPrimitiveImageUrl:(NSString*)value;
+
+- (NSNumber*)primitiveImageWidth;
+- (void)setPrimitiveImageWidth:(NSNumber*)value;
+
+- (int32_t)primitiveImageWidthValue;
+- (void)setPrimitiveImageWidthValue:(int32_t)value_;
 
 - (NSString*)primitiveKind;
 - (void)setPrimitiveKind:(NSString*)value;
