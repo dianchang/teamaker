@@ -85,6 +85,7 @@
     tableView.allowsSelection = NO;
     tableView.dataSource = self;
     tableView.delegate = self;
+    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
 //    self.refreshControl = [[UIRefreshControl alloc] init];
 //    [self.refreshControl addTarget:self action:@selector(loadFeeds) forControlEvents:UIControlEventValueChanged];
@@ -253,6 +254,8 @@
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    
+//    NSLog(@"%@-%f-%f", cellIdentifier, size.width, size.height);
     
     return size.height + 1.0f;
 }

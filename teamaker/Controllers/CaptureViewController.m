@@ -11,6 +11,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "Masonry.h"
 #import "TMTeam.h"
+#import "TMFeed.h"
 #import "UIColor+Helper.h"
 #import "ComposeViewControllerProtocol.h"
 #import "TeamButtons.h"
@@ -41,6 +42,7 @@
 @property (nonatomic) BOOL deviceAuthorized;
 @property (strong, nonatomic) AVCaptureDeviceInput *videoDeviceInput;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
+@property (strong, nonatomic) NSData *imageData;
 
 // 状态
 @property (nonatomic) AVCaptureDevicePosition currentDevicePosition;
@@ -139,7 +141,7 @@
     }
     
     dispatch_async(sessionQueue, ^{
-        // 视频
+        // 视频输入
         NSError *error = nil;
         
         AVCaptureDevice *videoDevice = [self deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionBack];
@@ -152,6 +154,14 @@
         if ([session canAddInput:videoDeviceInput]) {
             [session addInput:videoDeviceInput];
             self.videoDeviceInput = videoDeviceInput;
+        }
+        
+        // 拍照输出
+        AVCaptureStillImageOutput *stillImageOutput = [AVCaptureStillImageOutput new];
+        if ([session canAddOutput:stillImageOutput]) {
+            [stillImageOutput setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
+            [session addOutput:stillImageOutput];
+            self.stillImageOutput = stillImageOutput;
         }
     });
 }
@@ -266,8 +276,18 @@
 // 预备发布
 - (void)preparePublish:(UIButton *)sender
 {
-    dispatch_async(self.sessionQueue, ^{
-        [self.session stopRunning];
+    dispatch_async([self sessionQueue], ^{
+        // Flash set to Auto for Still Capture
+        [self setFlashMode:AVCaptureFlashModeAuto forDevice:[[self videoDeviceInput] device]];
+        
+        // Capture a still image.
+        [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+            if (imageDataSampleBuffer) {
+                self.imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            }
+            
+            [self.session stopRunning];
+        }];
     });
     
     [self showButtons];
@@ -294,24 +314,18 @@
  */
 - (void)publish:(UIButton *)sender
 {
-    //    dispatch_async([self sessionQueue], ^{
-    //        // Update the orientation on the still image output video connection before capturing.
-    //        [[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
-    //
-    //        // Flash set to Auto for Still Capture
-    //        [AVCamViewController setFlashMode:AVCaptureFlashModeAuto forDevice:[[self videoDeviceInput] device]];
-    //
-    //        // Capture a still image.
-    //        [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-    //
-    //            if (imageDataSampleBuffer)
-    //            {
-    //                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-    //                UIImage *image = [[UIImage alloc] initWithData:imageData];
-    //                [[[ALAssetsLibrary alloc] init] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:nil];
-    //            }
-    //        }];
-    //    });
+    NSNumber *teamId = [NSNumber numberWithLong:sender.tag];
+    
+    [TMFeed createImageFeed:self.imageData teamId:teamId completion:^(BOOL contextDidSave, NSError *error) {
+        [self hideButtons];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+        
+        dispatch_async(self.sessionQueue, ^{
+            [self.session stopRunning];
+        });
+    }];
 }
 
 /**

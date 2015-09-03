@@ -19,6 +19,7 @@
 @property (strong, nonatomic) UILabel *createdAtLabel;
 @property (strong, nonatomic) UILabel *myTextLabel;
 @property (strong, nonatomic) UILabel *punchLabel;
+@property (strong, nonatomic) UIImageView *feedImageView;
 
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed;
 + (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView;

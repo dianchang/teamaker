@@ -29,23 +29,7 @@
 
 @implementation MyProfileViewController
 
-- (TMUser *)loggedInUser
-{
-    if (!_loggedInUser) {
-        _loggedInUser = [TMUser getLoggedInUser];
-    }
-    
-    return _loggedInUser;
-}
 
-- (NSArray *)teamInfos
-{
-    if (!_teamInfos) {
-        _teamInfos = [self.loggedInUser.teamsInfos allObjects];
-    }
-    
-    return _teamInfos;
-}
 
 - (void)loadView
 {
@@ -224,6 +208,26 @@
             [self.navigationController pushViewController:controller animated:YES];
         }
     }
+}
+
+# pragma mark - getters and setters
+
+- (TMUser *)loggedInUser
+{
+    if (!_loggedInUser) {
+        _loggedInUser = [TMUser getLoggedInUser];
+    }
+    
+    return _loggedInUser;
+}
+
+- (NSArray *)teamInfos
+{
+    if (!_teamInfos) {
+        _teamInfos = [self.loggedInUser.teamsInfos allObjects];
+    }
+    
+    return _teamInfos;
 }
 
 @end
