@@ -451,6 +451,8 @@
 // 显示按钮组
 - (void)showButtons
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
+
     if (self.currentDevicePosition == AVCaptureDevicePositionBack) {
         [self hideBackCameraLayout];
     } else {
@@ -461,35 +463,41 @@
     self.stillImageView.image = [UIImage imageWithData:self.imageData];
     self.stillImageView.hidden = NO;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
-    
-    [self.view addSubview:self.teamButtons];
-    
-    [self.teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_bottom);
-    }];
-    
-    [self.view layoutIfNeeded];
-    
-    // 计算相关间距
-    CGFloat verticalOffset = 25.0;
-    CGSize teamButtonsSize = [self.teamButtons systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    CGFloat teamButtonsHeight = teamButtonsSize.height;
-    CGFloat imageWidth = self.previewView.bounds.size.width;
-    CGFloat imageHeight = self.previewView.bounds.size.height;
-    CGFloat horizonalOffset = imageWidth / 2 - imageWidth * (imageHeight - teamButtonsHeight - 2 * verticalOffset) / 2 / imageHeight;
-    
-    [self.previewView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(verticalOffset, horizonalOffset, verticalOffset + teamButtonsHeight, horizonalOffset));
-    }];
-    
-    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.and.bottom.equalTo(self.view);
-    }];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
+    [UIView animateWithDuration:.05 animations:^{
+        self.previewView.layer.opacity = 0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.2 animations:^{
+            self.previewView.layer.opacity = 1;
+        } completion:^(BOOL finished) {
+            [self.view addSubview:self.teamButtons];
+            
+            [self.teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.and.right.equalTo(self.view);
+                make.top.equalTo(self.view.mas_bottom);
+            }];
+            
+            [self.view layoutIfNeeded];
+            
+            // 计算相关间距
+            CGFloat verticalOffset = 25.0;
+            CGSize teamButtonsSize = [self.teamButtons systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            CGFloat teamButtonsHeight = teamButtonsSize.height;
+            CGFloat imageWidth = self.previewView.bounds.size.width;
+            CGFloat imageHeight = self.previewView.bounds.size.height;
+            CGFloat horizonalOffset = imageWidth / 2 - imageWidth * (imageHeight - teamButtonsHeight - 2 * verticalOffset) / 2 / imageHeight;
+            
+            [self.previewView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(verticalOffset, horizonalOffset, verticalOffset + teamButtonsHeight, horizonalOffset));
+            }];
+            
+            [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.and.bottom.equalTo(self.view);
+            }];
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.view layoutIfNeeded];
+            }];
+        }];
     }];
 }
 
