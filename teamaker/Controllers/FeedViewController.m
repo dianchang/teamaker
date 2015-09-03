@@ -193,6 +193,10 @@
 {
     self.feeds = (NSMutableArray *)[TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO];
     [self.tableView reloadData];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    });
 }
 
 #pragma mark - FeedTableViewCellProtocol
