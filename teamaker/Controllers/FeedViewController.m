@@ -44,7 +44,7 @@
 //    self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
 //    [self.refreshControl beginRefreshing];
     [self loadFeeds];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFeeds) name:TMFeedViewShouldReloadDataNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(insertLatestFeed) name:TMFeedViewShouldReloadDataNotification object:nil];
 }
 
 - (void)dealloc
@@ -193,9 +193,19 @@
 {
     self.feeds = (NSMutableArray *)[TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO];
     [self.tableView reloadData];
+}
+
+/**
+ *  插入最新的feed
+ */
+- (void)insertLatestFeed
+{
+    self.feeds = (NSMutableArray *)[TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO];
+    
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
     });
 }
 
@@ -251,17 +261,43 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    static NSMutableDictionary *cachedHeight;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cachedHeight = [NSMutableDictionary new];
+    });
+    
     TMFeed *feed = self.feeds[indexPath.row];
-    NSString *cellIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
-    FeedTableViewCell *sizingCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    [sizingCell updateCellWithFeed:feed];
-    [sizingCell setNeedsLayout];
-    [sizingCell layoutIfNeeded];
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
-//    NSLog(@"%@-%f-%f", cellIdentifier, size.width, size.height);
+    NSNumber *cellHeight = [cachedHeight objectForKey:[feed.objectID description]];
     
-    return size.height + 1.0f;
+    if (cellHeight) {
+        return [cellHeight floatValue];
+    }
+    
+    CGFloat height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
+    height += 1.0;
+    
+    [cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.objectID description]];
+
+    return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TMFeed *feed = self.feeds[indexPath.row];
+    CGFloat cellHeight;
+    
+    if ([feed.kind isEqualToString:@"punch"]) {
+        cellHeight = 90.0;
+    } else if ([feed.kind isEqualToString:@"image"]) {
+        cellHeight = 280.0;
+    } else if ([feed.kind isEqualToString:@"text"]) {
+        cellHeight = 150.0;
+    }
+    
+    return cellHeight;
 }
 
 #pragma mark - getters and setters

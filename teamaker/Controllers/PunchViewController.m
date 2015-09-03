@@ -126,8 +126,8 @@ static NSString *cellIdentifier = @"PunchCell";
                 }
             }
         } completion:^(BOOL contextDidSave, NSError *error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
             [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
             [self reloadData];
         }];
     }];

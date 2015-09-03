@@ -5,11 +5,10 @@
 
 const struct TMFeedAttributes TMFeedAttributes = {
 	.createdAt = @"createdAt",
+	.d = @"d",
 	.id = @"id",
 	.image = @"image",
-	.imageHeight = @"imageHeight",
 	.imageUrl = @"imageUrl",
-	.imageWidth = @"imageWidth",
 	.kind = @"kind",
 	.location = @"location",
 	.punch = @"punch",
@@ -49,18 +48,13 @@ const struct TMFeedRelationships TMFeedRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"dValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"d"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"idValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"id"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"imageHeightValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"imageHeight"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"imageWidthValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"imageWidth"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -79,6 +73,26 @@ const struct TMFeedRelationships TMFeedRelationships = {
 }
 
 @dynamic createdAt;
+
+@dynamic d;
+
+- (int16_t)dValue {
+	NSNumber *result = [self d];
+	return [result shortValue];
+}
+
+- (void)setDValue:(int16_t)value_ {
+	[self setD:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveDValue {
+	NSNumber *result = [self primitiveD];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveDValue:(int16_t)value_ {
+	[self setPrimitiveD:[NSNumber numberWithShort:value_]];
+}
 
 @dynamic id;
 
@@ -102,47 +116,7 @@ const struct TMFeedRelationships TMFeedRelationships = {
 
 @dynamic image;
 
-@dynamic imageHeight;
-
-- (int32_t)imageHeightValue {
-	NSNumber *result = [self imageHeight];
-	return [result intValue];
-}
-
-- (void)setImageHeightValue:(int32_t)value_ {
-	[self setImageHeight:[NSNumber numberWithInt:value_]];
-}
-
-- (int32_t)primitiveImageHeightValue {
-	NSNumber *result = [self primitiveImageHeight];
-	return [result intValue];
-}
-
-- (void)setPrimitiveImageHeightValue:(int32_t)value_ {
-	[self setPrimitiveImageHeight:[NSNumber numberWithInt:value_]];
-}
-
 @dynamic imageUrl;
-
-@dynamic imageWidth;
-
-- (int32_t)imageWidthValue {
-	NSNumber *result = [self imageWidth];
-	return [result intValue];
-}
-
-- (void)setImageWidthValue:(int32_t)value_ {
-	[self setImageWidth:[NSNumber numberWithInt:value_]];
-}
-
-- (int32_t)primitiveImageWidthValue {
-	NSNumber *result = [self primitiveImageWidth];
-	return [result intValue];
-}
-
-- (void)setPrimitiveImageWidthValue:(int32_t)value_ {
-	[self setPrimitiveImageWidth:[NSNumber numberWithInt:value_]];
-}
 
 @dynamic kind;
 

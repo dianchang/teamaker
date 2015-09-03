@@ -24,5 +24,6 @@
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed;
 + (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView;
 - (void)updateCellWithFeed:(TMFeed *)feed;
++ (CGFloat) calculateCellHeightWithFeed:(TMFeed *)feed;
 
 @end

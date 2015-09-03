@@ -282,6 +282,38 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [self.commandsToolbar removeFromSuperview];
 }
 
++ (CGFloat)calculateCellHeightWithFeed:(TMFeed *)feed
+{
+    FeedTableViewCell *sizingCell;
+    static FeedTableViewCell *imageCell;
+    static FeedTableViewCell *punchCell;
+    static FeedTableViewCell *textCell;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        imageCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:imageCellReuseIdentifier];
+        punchCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:punchCellReuseIdentifier];
+        textCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textCellReuseIdentifier];
+    });
+    
+    NSString *reuseIdentifier = [self getResuseIdentifierByFeed:feed];
+    
+    if ([reuseIdentifier isEqualToString:imageCellReuseIdentifier]) {
+        sizingCell = imageCell;
+    } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
+        sizingCell = punchCell;
+    } else {
+        sizingCell = textCell;
+    }
+    
+    [sizingCell updateCellWithFeed:feed];
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    
+    return size.height;
+}
+
 #pragma mark - getters & setters
 
 - (UIView *)commandsToolbar
