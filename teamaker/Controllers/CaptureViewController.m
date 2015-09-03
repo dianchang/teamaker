@@ -26,6 +26,7 @@
 
 // UI
 @property (strong, nonatomic) CameraPreviewView *previewView;
+@property (strong, nonatomic) UIImageView *stillImageView;
 
 @property (strong, nonatomic) UIButton *captureButton;
 @property (strong, nonatomic) UIButton *switchToScanQRCodeModeButton;
@@ -63,6 +64,12 @@
     [self.view addSubview:previewView];
     self.previewView = previewView;
     
+    // 用于
+    UIImageView *stillImageView = [UIImageView new];
+    [self.previewView addSubview:stillImageView];
+    self.stillImageView = stillImageView;
+    stillImageView.hidden = YES;
+    
     // 切换到扫描二维码模式
     UIButton *switchToScanQRCodeModeButton = [UIButton new];
     UIImage *switchToScanQRCodeModeImage = [IonIcons imageWithIcon:ion_qr_scanner iconColor:[UIColor whiteColor] iconSize:23 imageSize:CGSizeMake(50.0f, 50.0f)];
@@ -95,6 +102,10 @@
     // 约束
     [previewView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
+    }];
+    
+    [stillImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(previewView);
     }];
     
     [switchToScanQRCodeModeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -269,15 +280,14 @@
         
         // Capture a still image.
         [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-            if (imageDataSampleBuffer) {
-                self.imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-            }
             
-            [self.session stopRunning];
+            self.imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showButtons];
+            });
         }];
     });
-    
-    [self showButtons];
 }
 
 /**
@@ -447,19 +457,13 @@
         [self hideFrontCameraLayout];
     }
     
+    // 显示拍摄图片
+    self.stillImageView.image = [UIImage imageWithData:self.imageData];
+    self.stillImageView.hidden = NO;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     
-    // 团队按钮
     [self.view addSubview:self.teamButtons];
-    
-    CGFloat verticalOffset = 25.0;
-    CGSize teamButtonsSize = [self.teamButtons systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    CGFloat teamButtonsHeight = teamButtonsSize.height;
-    
-    // 照片缩小
-    CGFloat imageWidth = self.previewView.bounds.size.width;
-    CGFloat imageHeight = self.previewView.bounds.size.height;
-    CGFloat horizonalOffset = imageWidth / 2 - imageWidth * (imageHeight - teamButtonsHeight - 2 * verticalOffset) / 2 / imageHeight;
     
     [self.teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
@@ -467,6 +471,14 @@
     }];
     
     [self.view layoutIfNeeded];
+    
+    // 计算相关间距
+    CGFloat verticalOffset = 25.0;
+    CGSize teamButtonsSize = [self.teamButtons systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGFloat teamButtonsHeight = teamButtonsSize.height;
+    CGFloat imageWidth = self.previewView.bounds.size.width;
+    CGFloat imageHeight = self.previewView.bounds.size.height;
+    CGFloat horizonalOffset = imageWidth / 2 - imageWidth * (imageHeight - teamButtonsHeight - 2 * verticalOffset) / 2 / imageHeight;
     
     [self.previewView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(verticalOffset, horizonalOffset, verticalOffset + teamButtonsHeight, horizonalOffset));
@@ -509,6 +521,8 @@
         } else {
             [self showFrontCameraLayout];
         }
+        
+        self.stillImageView.hidden = YES;
     }];
 }
 
