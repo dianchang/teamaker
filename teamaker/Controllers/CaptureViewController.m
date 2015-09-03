@@ -21,7 +21,7 @@
 
 @interface CaptureViewController () <ComposeViewControllerProtocol>
 
-@property (nonatomic, strong) NSArray *teams;
+@property (strong, nonatomic) NSArray *teams;
 
 // UI
 @property (strong, nonatomic) CameraPreviewView *previewView;
@@ -40,6 +40,7 @@
 @property (strong, nonatomic) dispatch_queue_t sessionQueue;
 @property (nonatomic) BOOL deviceAuthorized;
 @property (strong, nonatomic) AVCaptureDeviceInput *videoDeviceInput;
+@property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
 
 // 状态
 @property (nonatomic) AVCaptureDevicePosition currentDevicePosition;
@@ -118,6 +119,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     
     [self hideFrontCameraLayout];
     [self hideScanQRCodeLayout];
@@ -129,6 +131,8 @@
     
     dispatch_queue_t sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
     self.sessionQueue = sessionQueue;
+    
+    self.currentDevicePosition = AVCaptureDevicePositionBack;
     
     if (TMRunOnSimulator) {
         return;
@@ -148,7 +152,6 @@
         if ([session canAddInput:videoDeviceInput]) {
             [session addInput:videoDeviceInput];
             self.videoDeviceInput = videoDeviceInput;
-            self.currentDevicePosition = AVCaptureDevicePositionBack;
         }
     });
 }
@@ -260,42 +263,55 @@
     return scanQRCodeView;
 }
 
-// 拍摄按钮
+// 预备发布
 - (void)preparePublish:(UIButton *)sender
 {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
-//    sender.hidden = YES;
-//    
-//    // 团队按钮
-//    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
-//    self.teamButtons = teamButtons;
-//    teamButtons.delegate = self;
-//    [self.view addSubview:teamButtons];
-//    
-//    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.equalTo(self.view);
-//        make.top.equalTo(self.view.mas_bottom);
-//    }];
-//    
-//    [self.view layoutIfNeeded];
-//    
-//    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.equalTo(self.view);
-//        make.bottom.equalTo(self.view);
-//    }];
-//    
-//    // 照片缩小
-//    CGFloat verticalOffset = 25.0;
-//    CGFloat imageWidth = self.imageView.bounds.size.width;
-//    CGFloat imageHeight = self.imageView.bounds.size.height;
-//    CGFloat horizonalOffset = imageWidth / 2 - imageWidth * (imageHeight - [self getButtonsHeight] - 2 * verticalOffset) / 2 / imageHeight;
-//    [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(verticalOffset, horizonalOffset, verticalOffset + [self getButtonsHeight], horizonalOffset));
-//    }];
-//    
-//    [UIView animateWithDuration:0.3 animations:^{
-//        [self.view layoutIfNeeded];
-//    }];
+    dispatch_async(self.sessionQueue, ^{
+        [self.session stopRunning];
+    });
+    
+    [self showButtons];
+}
+
+/**
+ *  取消发布
+ *
+ *  @param sender
+ */
+- (void)cancelPublish:(UIButton *)sender
+{
+    [self hideButtons];
+    
+    dispatch_async(self.sessionQueue, ^{
+        [self.session startRunning];
+    });
+}
+
+/**
+ *  发布
+ *
+ *  @param sender
+ */
+- (void)publish:(UIButton *)sender
+{
+    //    dispatch_async([self sessionQueue], ^{
+    //        // Update the orientation on the still image output video connection before capturing.
+    //        [[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
+    //
+    //        // Flash set to Auto for Still Capture
+    //        [AVCamViewController setFlashMode:AVCaptureFlashModeAuto forDevice:[[self videoDeviceInput] device]];
+    //
+    //        // Capture a still image.
+    //        [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+    //
+    //            if (imageDataSampleBuffer)
+    //            {
+    //                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+    //                UIImage *image = [[UIImage alloc] initWithData:imageData];
+    //                [[[ALAssetsLibrary alloc] init] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:nil];
+    //            }
+    //        }];
+    //    });
 }
 
 /**
@@ -412,6 +428,161 @@
 }
 
 /**
+ *  重置界面
+ */
+- (void)resetLayout
+{
+    [self hideButtons];
+}
+
+#pragma mark - private methods
+
+// 显示按钮组
+- (void)showButtons
+{
+    if (self.currentDevicePosition == AVCaptureDevicePositionBack) {
+        [self hideBackCameraLayout];
+    } else {
+        [self hideFrontCameraLayout];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
+    
+    // 团队按钮
+    [self.view addSubview:self.teamButtons];
+    
+    CGFloat verticalOffset = 25.0;
+    CGSize teamButtonsSize = [self.teamButtons systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGFloat teamButtonsHeight = teamButtonsSize.height;
+    
+    // 照片缩小
+    CGFloat imageWidth = self.previewView.bounds.size.width;
+    CGFloat imageHeight = self.previewView.bounds.size.height;
+    CGFloat horizonalOffset = imageWidth / 2 - imageWidth * (imageHeight - teamButtonsHeight - 2 * verticalOffset) / 2 / imageHeight;
+    
+    [self.teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    [self.previewView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(verticalOffset, horizonalOffset, verticalOffset + teamButtonsHeight, horizonalOffset));
+    }];
+    
+    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.and.bottom.equalTo(self.view);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+// 隐藏按钮组
+- (void)hideButtons
+{
+    if (!self.teamButtons.superview) {
+        return;
+    }
+    
+    [self.previewView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self.teamButtons removeFromSuperview];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
+        
+        if (self.currentDevicePosition == AVCaptureDevicePositionBack) {
+            [self showBackCameraLayout];
+        } else {
+            [self showFrontCameraLayout];
+        }
+    }];
+}
+
+/**
+ *  获取指定mediaType与position的设备
+ *
+ *  @param mediaType
+ *  @param position
+ *
+ *  @return
+ */
+- (AVCaptureDevice *)deviceWithMediaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)position
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:mediaType];
+    AVCaptureDevice *captureDevice = [devices firstObject];
+    
+    for (AVCaptureDevice *device in devices)
+    {
+        if ([device position] == position)
+        {
+            captureDevice = device;
+            break;
+        }
+    }
+    
+    return captureDevice;
+}
+
+/**
+ *  检测是否有使用video权限，若否，则弹框警告
+ */
+- (void)checkDeviceAuthorizationStatus
+{
+    NSString *mediaType = AVMediaTypeVideo;
+    
+    [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
+        if (granted) {
+            [self setDeviceAuthorized:YES];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[[UIAlertView alloc] initWithTitle:@"无法使用相机"
+                                            message:@"有圈无法使用相机，请前往系统设置开通权限。"
+                                           delegate:self
+                                  cancelButtonTitle:@"好的"
+                                  otherButtonTitles:nil] show];
+                [self setDeviceAuthorized:NO];
+            });
+        }
+    }];
+}
+
+/**
+ *  设置设备的闪光灯模式
+ *
+ *  @param flashMode 闪光模式
+ *  @param device    设备
+ */
+- (void)setFlashMode:(AVCaptureFlashMode)flashMode forDevice:(AVCaptureDevice *)device
+{
+    if ([device hasFlash] && [device isFlashModeSupported:flashMode])
+    {
+        NSError *error = nil;
+        if ([device lockForConfiguration:&error])
+        {
+            [device setFlashMode:flashMode];
+            [device unlockForConfiguration];
+        }
+        else
+        {
+            NSLog(@"%@", error);
+        }
+    }
+}
+
+/**
  *  显示适配于前端摄像头的界面布局
  */
 - (void)showFrontCameraLayout
@@ -465,92 +636,6 @@
     self.scanQRCodeView.hidden = YES;
 }
 
-- (void)cancelPublish:(UIButton *)senderw
-{
-    [self hideButtons];
-}
-
-- (void)publish:(UIButton *)sender
-{
-    [self hideButtons];
-}
-
-- (void)resetLayout
-{
-    [self hideButtons];
-}
-
-// 隐藏按钮组
-- (void)hideButtons
-{
-//    self.captureButton.hidden = NO;
-//    
-//    [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view);
-//    }];
-//    
-//    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.equalTo(self.view);
-//        make.top.equalTo(self.view.mas_bottom);
-//    }];
-//    
-//    [UIView animateWithDuration:0.3 animations:^{
-//        [self.view layoutIfNeeded];
-//    } completion:^(BOOL finished) {
-//        [self.teamButtons removeFromSuperview];
-//        self.teamButtons = nil;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
-//    }];
-}
-
-/**
- *  获取指定mediaType与position的设备
- *
- *  @param mediaType
- *  @param position
- *
- *  @return
- */
-- (AVCaptureDevice *)deviceWithMediaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)position
-{
-    NSArray *devices = [AVCaptureDevice devicesWithMediaType:mediaType];
-    AVCaptureDevice *captureDevice = [devices firstObject];
-    
-    for (AVCaptureDevice *device in devices)
-    {
-        if ([device position] == position)
-        {
-            captureDevice = device;
-            break;
-        }
-    }
-    
-    return captureDevice;
-}
-
-/**
- *  检测是否有使用video权限，若否，则弹框警告
- */
-- (void)checkDeviceAuthorizationStatus
-{
-    NSString *mediaType = AVMediaTypeVideo;
-    
-    [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
-        if (granted) {
-            [self setDeviceAuthorized:YES];
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"无法使用相机"
-                                            message:@"有圈无法使用相机，请前往系统设置开通权限。"
-                                           delegate:self
-                                  cancelButtonTitle:@"好的"
-                                  otherButtonTitles:nil] show];
-                [self setDeviceAuthorized:NO];
-            });
-        }
-    }];
-}
-
 #pragma mark - getters and setters
 
 - (NSArray *)teams
@@ -560,6 +645,16 @@
     }
     
     return _teams;
+}
+
+- (TeamButtons *)teamButtons
+{
+    if (!_teamButtons) {
+        _teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
+        _teamButtons.delegate = self;
+    }
+    
+    return _teamButtons;
 }
 
 @end
