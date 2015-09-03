@@ -121,7 +121,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startCamera) name:TMCameraShouldStartNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopCamera) name:TMCameraShouldStopNotification object:nil];
     
     [self hideFrontCameraLayout];
     [self hideScanQRCodeLayout];
@@ -166,32 +168,17 @@
     });
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dealloc
 {
-    [super viewWillAppear:animated];
-    
-    if (TMRunOnSimulator) {
-        return;
-    }
-    
-    dispatch_async(self.sessionQueue, ^{
-        [self.session startRunning];
-    });
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMCameraShouldStartNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMCameraShouldStopNotification object:nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    if (TMRunOnSimulator) {
-        return;
-    }
-    
-    dispatch_async(self.sessionQueue, ^{
-        [self.session stopRunning];
-    });
-}
-
+/**
+ *  创建二维码扫描view
+ *
+ *  @return 
+ */
 - (UIView *)createScanQRCodeView
 {
     UIView *scanQRCodeView = [UIView new];
@@ -523,6 +510,34 @@
             [self showFrontCameraLayout];
         }
     }];
+}
+
+/**
+ *  启动摄像头
+ */
+- (void)startCamera
+{
+    if (self.session.running) {
+        return;
+    }
+    
+    dispatch_async(self.sessionQueue, ^{
+        [self.session startRunning];
+    });
+}
+
+/**
+ *  停止摄像头
+ */
+- (void)stopCamera
+{
+    if (!self.session.running) {
+        return;
+    }
+    
+    dispatch_async(self.sessionQueue, ^{
+        [self.session stopRunning];
+    });
 }
 
 /**

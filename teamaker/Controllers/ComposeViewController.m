@@ -72,6 +72,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showComposePager) name:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideComposePager) name:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidPageDown) name:TMVerticalScrollViewDidPageDownNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidPageUp) name:TMVerticalScrollViewDidPageUpNotification object:nil];
 }
 
 - (void)dealloc
@@ -81,6 +82,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewDidPageDownNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewDidPageUpNotification object:nil];
 }
 
 - (NSMutableArray *)viewControllers
@@ -124,9 +126,6 @@
     UIViewController *controller;
     
     switch (page) {
-//        case 0:
-//            controller = [[LocationViewController alloc] init];
-//            break;
         case 0:
             controller = [[TextViewController alloc] init];
             break;
@@ -144,6 +143,9 @@
     [controller didMoveToParentViewController:self];
 }
 
+/**
+ *  向下翻页结束
+ */
 - (void)scrollViewDidPageDown
 {
     if (self.pageControl.currentPage == 1) {
@@ -151,6 +153,16 @@
     } else {
         [self enableVerticalScroll];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMCameraShouldStartNotification object:nil];
+}
+
+/**
+ *  向下翻页结束
+ */
+- (void)scrollViewDidPageUp
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMCameraShouldStopNotification object:nil];
 }
 
 - (void)enableVerticalScroll

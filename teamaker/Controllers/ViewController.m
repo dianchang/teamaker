@@ -127,6 +127,7 @@
     if (page == 0) {
         self.hasSendedMessageWhenPageDown = NO;
         self.scrollView.scrollEnabled = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewDidPageUpNotification object:nil];
     } else {
         self.hasSendedMessageWhenPageUp = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:TMVerticalScrollViewShouldPageUpNotification object:nil];

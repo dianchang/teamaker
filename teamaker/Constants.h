@@ -20,7 +20,10 @@
 // UI相关常数
 #define TMStatusBarAndNavigationBarHeight 64
 
-// 通知名
+/**
+ *  通知
+ */
+#define TMVerticalScrollViewDidPageUpNotification @"TMVerticalScrollViewDidPageUpNotification"
 #define TMVerticalScrollViewDidPageDownNotification @"TMVerticalScrollViewDidPageDownNotification"
 
 #define TMVerticalScrollViewShouldPageUpNotification @"TMVerticalScrollViewShouldPageUp"
@@ -36,5 +39,9 @@
 #define TMHorizonalScrollShouldPrepareSubviewsLayoutNotification @"TMHorizonalScrollShouldPrepareSubviewsLayout"
 
 #define TMFeedViewShouldReloadDataNotification @"TMFeedViewShouldReloadDataNotification"
+
+// 摄像头启动与停止
+#define TMCameraShouldStartNotification @"TMCameraShouldStartNotification"
+#define TMCameraShouldStopNotification @"TMCameraShouldStopNotification"
 
 #endif
