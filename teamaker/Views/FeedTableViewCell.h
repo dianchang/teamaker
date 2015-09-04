@@ -16,16 +16,19 @@
 @property (strong, nonatomic) UIImageView *userAvatarImageView;
 @property (strong, nonatomic) UIButton *userButton;
 @property (strong, nonatomic) UIButton *teamButton;
+
+@property (strong, nonatomic) UIView *timeAndCommandsView;
 @property (strong, nonatomic) UILabel *createdAtLabel;
-@property (strong, nonatomic) UILabel *myTextLabel;
-@property (strong, nonatomic) UILabel *punchLabel;
-@property (strong, nonatomic) UIImageView *feedImageView;
-@property (strong, nonatomic) UIView *shareView;
-@property (strong, nonatomic) UILabel *shareTitleLabel;
+@property (strong, nonatomic) UIButton *commandButton;
+@property (strong, nonatomic) UIView* commandsToolbar;
+
+@property (strong, nonatomic) UIView *feedContentView;
+
+@property (strong, nonatomic) TMFeed *feed;
 
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed;
 + (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView;
-- (void)updateCellWithFeed:(TMFeed *)feed;
 + (CGFloat) calculateCellHeightWithFeed:(TMFeed *)feed;
+- (void)updateCellWithFeed:(TMFeed *)feed;
 
 @end

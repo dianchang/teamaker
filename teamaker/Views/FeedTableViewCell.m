@@ -25,38 +25,27 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 
 @interface FeedTableViewCell()
 
-@property (strong, nonatomic) UIButton *commandButton;
-@property (strong, nonatomic) UIView* commandsToolbar;
-@property (strong, nonatomic) TMFeed *feed;
+@property (strong, nonatomic) UILabel *myTextLabel;
+@property (strong, nonatomic) UILabel *punchLabel;
+@property (strong, nonatomic) UIImageView *feedImageView;
+@property (strong, nonatomic) UIView *shareView;
+@property (strong, nonatomic) UILabel *shareTitleLabel;
+
 
 @end
 
 @implementation FeedTableViewCell
 
-+ (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed
-{
-    if ([feed.kind isEqualToString:@"text"]) {
-        return textCellReuseIdentifier;
-    } else if ([feed.kind isEqualToString:@"image"]) {
-        return imageCellReuseIdentifier;
-    } else if ([feed.kind isEqualToString:@"punch"]) {
-        return punchCellReuseIdentifier;
-    } else if ([feed.kind isEqualToString:@"location"]){
-        return locationCellReuseIdentifier;
-    } else {
-        return shareCellReuseIdentifier;
-    }
-}
 
-+ (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView
-{
-    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:textCellReuseIdentifier];
-    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:imageCellReuseIdentifier];
-    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:locationCellReuseIdentifier];
-    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:punchCellReuseIdentifier];
-    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:shareCellReuseIdentifier];
-}
 
+/**
+ *  初始化cell
+ *
+ *  @param style           <#style description#>
+ *  @param reuseIdentifier <#reuseIdentifier description#>
+ *
+ *  @return <#return value description#>
+ */
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -95,6 +84,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     // 内容
     UIView *feedContentView = [UIView new];
+    self.feedContentView = feedContentView;
     [self.contentView addSubview:feedContentView];
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
@@ -130,6 +120,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         shareView.userInteractionEnabled = YES;
         [shareView addGestureRecognizer:gestureForShare];
         
+        // 分享标题
         UILabel *shareTitleLabel = [UILabel new];
         shareTitleLabel.numberOfLines = 0;
         shareTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -139,13 +130,14 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     }
     
     /* 时间与命令容器 */
-    UIView *timeAndCommandsContainer = [UIView new];
-    [self.contentView addSubview:timeAndCommandsContainer];
+    UIView *timeAndCommandsView = [UIView new];
+    self.timeAndCommandsView = timeAndCommandsView;
+    [self.contentView addSubview:timeAndCommandsView];
     
     // 时间
     UILabel *timeLable = [UILabel new];
     timeLable.font = [UIFont systemFontOfSize:12];
-    [timeAndCommandsContainer addSubview:timeLable];
+    [timeAndCommandsView addSubview:timeLable];
     timeLable.textColor = [UIColor colorWithRGBA:0x999999FF];
     self.createdAtLabel = timeLable;
     
@@ -153,82 +145,118 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     UIButton *commandButton = [UIButton new];
     UIImage *commandButtonImage = [IonIcons imageWithIcon:ion_navicon_round iconColor:[UIColor grayColor] iconSize:15 imageSize:CGSizeMake(45.0f, 40.0f)];
     [commandButton setImage:commandButtonImage forState:UIControlStateNormal];
-    [timeAndCommandsContainer addSubview:commandButton];
+    [timeAndCommandsView addSubview:commandButton];
     self.commandButton = commandButton;
     [commandButton addTarget:self action:@selector(switchCommandsToolbar) forControlEvents:UIControlEventTouchUpInside];
     
+    [self makeConstraintsWithReuseIdentifier:reuseIdentifier];
+        
+    return self;
+}
+
+- (void)makeConstraintsWithReuseIdentifier:(NSString *)reuseIdentifier
+{
     // 约束
-    [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.userAvatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).with.offset(15);
         make.top.equalTo(self.contentView).with.offset(15);
         make.width.equalTo(@30);
         make.height.equalTo(@30);
     }];
     
-    [userButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(avatarView.mas_right).with.offset(15);
+    [self.userButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userAvatarImageView.mas_right).with.offset(15);
         make.top.equalTo(self.contentView).with.offset(15);
         make.height.equalTo(@18);
     }];
     
-    [teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(userButton);
-        make.top.equalTo(userButton.mas_bottom).with.offset(5);
+    [self.teamButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userButton);
+        make.top.equalTo(self.userButton.mas_bottom).with.offset(5);
         make.height.equalTo(@14);
     }];
     
-    [feedContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(teamButton.mas_bottom);
-        make.left.equalTo(userButton);
+    [self.feedContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.teamButton.mas_bottom);
+        make.left.equalTo(self.userButton);
         make.right.equalTo(self.contentView).offset(-15);
     }];
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         [self.myTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.and.bottom.equalTo(feedContentView);
-            make.top.equalTo(feedContentView).with.offset(6);
+            make.left.right.and.bottom.equalTo(self.feedContentView);
+            make.top.equalTo(self.feedContentView).with.offset(6);
         }];
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         [self.punchLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(userButton.mas_right).offset(5);
-            make.top.equalTo(userButton);
+            make.left.equalTo(self.userButton.mas_right).offset(5);
+            make.top.equalTo(self.userButton);
         }];
     } else if ([reuseIdentifier isEqualToString:imageCellReuseIdentifier]) {
         [self.feedImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.equalTo(feedContentView);
-            make.top.equalTo(feedContentView).offset(10);
+            make.left.bottom.equalTo(self.feedContentView);
+            make.top.equalTo(self.feedContentView).offset(10);
         }];
     } else if ([reuseIdentifier isEqualToString:shareCellReuseIdentifier]) {
         [self.shareView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.right.equalTo(feedContentView);
-            make.top.equalTo(feedContentView).offset(10);
+            make.left.bottom.right.equalTo(self.feedContentView);
+            make.top.equalTo(self.feedContentView).offset(10);
         }];
         
         [self.shareTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.shareView).offset(8);
-            make.right.equalTo(self.shareView).offset(-8);
-            make.top.equalTo(self.shareView).offset(5);
-            make.bottom.equalTo(self.shareView).offset(-5);
+            make.edges.equalTo(self.shareView).insets(UIEdgeInsetsMake(5, 8, 5, 8));
         }];
     }
     
-    [timeAndCommandsContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(feedContentView.mas_bottom).priorityHigh();
-        make.left.equalTo(userButton);
+    [self.timeAndCommandsView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.feedContentView.mas_bottom).priorityHigh();
+        make.left.equalTo(self.userButton);
         make.right.bottom.equalTo(self.contentView);
     }];
     
-    [timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.centerY.equalTo(timeAndCommandsContainer);
+    [self.createdAtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.centerY.equalTo(self.timeAndCommandsView);
     }];
     
-    [commandButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.bottom.equalTo(timeAndCommandsContainer);
+    [self.commandButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.bottom.equalTo(self.timeAndCommandsView);
     }];
-        
-    return self;
 }
 
+/**
+ *  获取某feed对应的resuseIdentifier
+ *
+ *  @param feed <#feed description#>
+ *
+ *  @return <#return value description#>
+ */
++ (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed
+{
+    if ([feed.kind isEqualToString:@"text"]) {
+        return textCellReuseIdentifier;
+    } else if ([feed.kind isEqualToString:@"image"]) {
+        return imageCellReuseIdentifier;
+    } else if ([feed.kind isEqualToString:@"punch"]) {
+        return punchCellReuseIdentifier;
+    } else if ([feed.kind isEqualToString:@"location"]){
+        return locationCellReuseIdentifier;
+    } else {
+        return shareCellReuseIdentifier;
+    }
+}
+
++ (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView
+{
+    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:textCellReuseIdentifier];
+    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:imageCellReuseIdentifier];
+    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:locationCellReuseIdentifier];
+    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:punchCellReuseIdentifier];
+    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:shareCellReuseIdentifier];
+}
+
+/**
+ *  设置UILable的preferredMaxLayoutWidth
+ */
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -259,15 +287,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     self.teamButton.tag = feed.teamIdValue;
     
     // 用户头像
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:feed.user.avatar]];
-    __weak FeedTableViewCell *cell = self;
-    [self.userAvatarImageView setImageWithURLRequest:request placeholderImage:nil
-                                             success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                 cell.userAvatarImageView.image = image;
-                                             }
-                                             failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                 NSLog(@"%@", error);
-                                             }];
+    [self.userAvatarImageView setImageWithURL:[NSURL URLWithString:feed.user.avatar]];
     self.userAvatarImageView.tag = feed.userIdValue;
     
     // 时间
@@ -297,17 +317,32 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     }
 }
 
+/**
+ *  用户按钮点击事件
+ *
+ *  @param sender <#sender description#>
+ */
 - (void)userButtonClicked:(UIButton *)sender
 {
     [self.delegate redirectToUserProfile:[NSNumber numberWithLong:sender.tag]];
 }
 
+/**
+ *  用户头像点击事件
+ *
+ *  @param gestureRecognizer <#gestureRecognizer description#>
+ */
 - (void)userAvatarClicked:(UITapGestureRecognizer *)gestureRecognizer
 {
     [self hideCommandsToolbar];
     [self.delegate redirectToUserProfile:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
 }
 
+/**
+ *  分享view点击事件
+ *
+ *  @param gestureRecognizer <#gestureRecognizer description#>
+ */
 - (void)shareViewClicked:(UITapGestureRecognizer *)gestureRecognizer
 {
     [self.delegate redirectToExternalLinkView:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
@@ -333,6 +368,13 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [self.commandsToolbar removeFromSuperview];
 }
 
+/**
+ *  计算单元格高度
+ *
+ *  @param feed <#feed description#>
+ *
+ *  @return 单元格高度
+ */
 + (CGFloat)calculateCellHeightWithFeed:(TMFeed *)feed
 {
     FeedTableViewCell *sizingCell;
