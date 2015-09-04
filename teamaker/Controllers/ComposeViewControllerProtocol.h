@@ -14,10 +14,11 @@
 - (void)preparePublish:(id)sender;
 - (void)publish:(UIButton *)sender;
 - (void)cancelPublish:(UIButton *)sender;
-- (void)resetLayout;
+
 
 @optional
 - (void)prepareLayout;
+- (void)resetLayout;
 
 @end
 

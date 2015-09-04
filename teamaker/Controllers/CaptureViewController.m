@@ -191,6 +191,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     [self.navigationController setNavigationBarHidden:YES];
     self.hasCapturedQRCode = NO;
 }
@@ -198,6 +199,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     [self.navigationController setNavigationBarHidden:NO];
 }
 
@@ -510,6 +512,10 @@
 - (void)resetLayout
 {
     [self hideButtons];
+    
+    if (self.navigationController.viewControllers.count == 2) {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 #pragma mark - AV output delegate
@@ -529,7 +535,11 @@
                 self.hasCapturedQRCode = YES;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    UIViewController *controller = [[ExternalLinkViewController alloc] initWithURL:metaString];
+                    UIViewController *controller = [[ExternalLinkViewController alloc] initWithURL:metaString feedCreationCompletion:^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+                    }];
+                    
                     [self.navigationController pushViewController:controller animated:YES];
                 });
             }
@@ -712,13 +722,10 @@
     if ([device hasFlash] && [device isFlashModeSupported:flashMode])
     {
         NSError *error = nil;
-        if ([device lockForConfiguration:&error])
-        {
+        if ([device lockForConfiguration:&error]) {
             [device setFlashMode:flashMode];
             [device unlockForConfiguration];
-        }
-        else
-        {
+        } else {
             NSLog(@"%@", error);
         }
     }

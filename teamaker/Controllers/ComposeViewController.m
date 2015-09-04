@@ -207,26 +207,48 @@
         }
     }
 
-    UIViewController *currentController = self.viewControllers[page];
+    UIViewController *currentController = [self getComposeViewControllerAtPage:page];
     if ([currentController respondsToSelector:@selector(prepareLayout)]) {
         [currentController performSelector:@selector(prepareLayout) withObject:nil];
     }
 }
 
+/**
+ *  重置compose view controller界面
+ */
 - (void)resetSubviewsLayout
 {
-    UIViewController *controller = self.viewControllers[self.pageControl.currentPage];
+    UIViewController *controller = [self getComposeViewControllerAtPage:self.pageControl.currentPage];
     if ([controller respondsToSelector:@selector(resetLayout)]) {
         [controller performSelector:@selector(resetLayout) withObject:nil];
     }
 }
 
+/**
+ *  准备compose view controller界面
+ */
 - (void)prepareSubviewsLayout
 {
-    UIViewController *controller = self.viewControllers[self.pageControl.currentPage];
+    UIViewController *controller = [self getComposeViewControllerAtPage:self.pageControl.currentPage];
     if ([controller respondsToSelector:@selector(prepareLayout)]) {
         [controller performSelector:@selector(prepareLayout) withObject:nil];
     }
+}
+
+/**
+ *  获取某页的compose view controller
+ *
+ *  @return
+ */
+- (UIViewController *)getComposeViewControllerAtPage:(NSInteger)page
+{
+    UIViewController *controller = self.viewControllers[page];
+    
+    if ([controller isKindOfClass:[UINavigationController class]]) {
+        controller = [[(UINavigationController *)controller viewControllers] firstObject];
+    }
+    
+    return controller;
 }
 
 - (void)showComposePager

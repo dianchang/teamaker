@@ -229,7 +229,10 @@
 - (void)redirectToExternalLinkView:(NSNumber *)feedId
 {
     TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
-    ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:@"http://www.baidu.com"];
+    ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:@"http://www.baidu.com" feedCreationCompletion:^{
+        [self insertLatestFeed];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

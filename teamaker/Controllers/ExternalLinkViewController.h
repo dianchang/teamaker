@@ -10,6 +10,6 @@
 
 @interface ExternalLinkViewController : UIViewController
 
-- (instancetype)initWithURL:(NSString *)url;
+- (instancetype)initWithURL:(NSString *)url feedCreationCompletion:(void (^)(void))feedCreationCompletionBlock;
 
 @end

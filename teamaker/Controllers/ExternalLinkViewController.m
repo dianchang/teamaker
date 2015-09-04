@@ -24,18 +24,19 @@
 @property (strong, nonatomic) UIView *backdropView;
 @property (strong, nonatomic) NSString *url;
 @property (strong, nonatomic) NSString *pageTitle;
+@property (strong, nonatomic) void (^feedCreationCompletionBlock)(void);
 
 @end
 
-
 @implementation ExternalLinkViewController
 
-- (instancetype)initWithURL:(NSString *)url
+- (instancetype)initWithURL:(NSString *)url feedCreationCompletion:(void (^)(void))feedCreationCompletionBlock
 {
     self = [super init];
     
     if (self) {
         self.url = url;
+        self.feedCreationCompletionBlock = feedCreationCompletionBlock;
     }
     
     return self;
@@ -69,8 +70,6 @@
 
 - (void)preparePublish:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
-    
     // 背景
     UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
     self.backdropView = backdropView;
@@ -111,18 +110,14 @@
 - (void)publish:(UIButton *)sender
 {
     [TMFeed createShareFeed:self.url title:self.pageTitle teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
-        [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+
+        if (self.feedCreationCompletionBlock) {
+            self.feedCreationCompletionBlock();
+        }
     }];
 }
 
 - (void)cancelPublish:(UIButton *)sender
-{
-    [self hideTeamButtons];
-}
-
-- (void)resetLayout
 {
     [self hideTeamButtons];
 }
@@ -141,7 +136,6 @@
         [self.backdropView removeFromSuperview];
         self.backdropView = nil;
         self.teamButtons = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     }];
 }
 
