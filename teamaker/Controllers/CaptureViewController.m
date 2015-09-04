@@ -19,8 +19,9 @@
 #import "IonIcons.h"
 #import "CameraPreviewView.h"
 #import <AVFoundation/AVFoundation.h>
+#import "ExternalLinkViewController.h"
 
-@interface CaptureViewController () <ComposeViewControllerProtocol>
+@interface CaptureViewController () <ComposeViewControllerProtocol, AVCaptureMetadataOutputObjectsDelegate>
 
 @property (strong, nonatomic) NSArray *teams;
 
@@ -38,16 +39,18 @@
 @property (strong, nonatomic) TeamButtons *teamButtons;
 
 // AV Foundation
+@property (nonatomic) BOOL deviceAuthorized;
 @property (strong, nonatomic) AVCaptureSession *session;
 @property (strong, nonatomic) dispatch_queue_t sessionQueue;
-@property (nonatomic) BOOL deviceAuthorized;
 @property (strong, nonatomic) AVCaptureDeviceInput *videoDeviceInput;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
-@property (strong, nonatomic) NSData *imageData;
+@property (strong, nonatomic) NSData *stillImageData;
+@property (strong, nonatomic) AVCaptureMetadataOutput *metadataOutput;
 
 // 状态
 @property (nonatomic) AVCaptureDevicePosition currentDevicePosition;
 @property (nonatomic) BOOL scanningQRCode;
+@property (nonatomic) BOOL hasCapturedQRCode;
 
 @end
 
@@ -185,6 +188,19 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMCameraShouldStopNotification object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+    self.hasCapturedQRCode = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
 /**
  *  创建二维码扫描view
  *
@@ -283,15 +299,15 @@
         // Capture a still image.
         [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
             
-            self.imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            self.stillImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
             
             // 若为前置摄像头，则进行翻转
             if (self.currentDevicePosition == AVCaptureDevicePositionFront) {
-                UIImage *stillImage = [UIImage imageWithData:self.imageData];
+                UIImage *stillImage = [UIImage imageWithData:self.stillImageData];
                 
                 UIImage *rotateStillImage = [[UIImage alloc] initWithCGImage:stillImage.CGImage scale:1.0 orientation:UIImageOrientationLeftMirrored];
                 
-                self.imageData = UIImageJPEGRepresentation(rotateStillImage, 1);
+                self.stillImageData = UIImageJPEGRepresentation(rotateStillImage, 1);
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -324,7 +340,7 @@
 {
     NSNumber *teamId = [NSNumber numberWithLong:sender.tag];
     
-    [TMFeed createImageFeed:self.imageData teamId:teamId completion:^(BOOL contextDidSave, NSError *error) {
+    [TMFeed createImageFeed:self.stillImageData teamId:teamId completion:^(BOOL contextDidSave, NSError *error) {
         [self hideButtons];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
@@ -414,6 +430,41 @@
 }
 
 /**
+ *  使能二维码识别输出
+ */
+- (void)enableQRCodeOutput
+{
+    // 二维码识别输出
+    dispatch_async(self.sessionQueue, ^{
+        [self.session beginConfiguration];
+        
+        AVCaptureMetadataOutput *metaDataOutput = [AVCaptureMetadataOutput new];
+        self.metadataOutput = metaDataOutput;
+
+        if ([self.session canAddOutput:self.metadataOutput]) {
+            [self.session addOutput:self.metadataOutput];
+            
+            [metaDataOutput setMetadataObjectsDelegate:self queue:self.sessionQueue];
+            [metaDataOutput setMetadataObjectTypes:[NSArray arrayWithObject:AVMetadataObjectTypeQRCode]];
+        }
+        
+        [self.session commitConfiguration];
+    });
+}
+
+/**
+ *  禁止二维码识别输出
+ */
+- (void)disableQRCodeOutput
+{
+    dispatch_async(self.sessionQueue, ^{
+        [self.session beginConfiguration];
+        [self.session removeOutput:self.metadataOutput];
+        [self.session commitConfiguration];
+    });
+}
+
+/**
  *  扫描二维码
  */
 - (void)switchMode
@@ -427,6 +478,8 @@
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animation.duration / 2 * NSEC_PER_SEC));
     
     if (self.scanningQRCode) {
+        [self disableQRCodeOutput];
+        
         animation.subtype = kCATransitionFromLeft;
         [self.previewView.layer addAnimation:animation forKey:nil];
         
@@ -437,6 +490,8 @@
         
         self.scanningQRCode = NO;
     } else {
+        [self enableQRCodeOutput];
+        
         animation.subtype = kCATransitionFromRight;
         [self.previewView.layer addAnimation:animation forKey:nil];
         
@@ -457,6 +512,31 @@
     [self hideButtons];
 }
 
+#pragma mark - AV output delegate
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
+{
+    if (metadataObjects != nil && [metadataObjects count] > 0) {
+        AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects firstObject];
+        if ([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode]) {
+            if (self.hasCapturedQRCode) {
+                return;
+            }
+            
+            NSString *metaString = [metadataObj stringValue];
+
+            if ([metaString hasPrefix:@"http://"] || [metaString hasPrefix:@"https://"]) {
+                self.hasCapturedQRCode = YES;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIViewController *controller = [[ExternalLinkViewController alloc] initWithURL:metaString];
+                    [self.navigationController pushViewController:controller animated:YES];
+                });
+            }
+        }
+    }
+}
+
 #pragma mark - private methods
 
 // 显示按钮组
@@ -471,7 +551,7 @@
     }
     
     // 显示拍摄图片
-    self.stillImageView.image = [UIImage imageWithData:self.imageData];
+    self.stillImageView.image = [UIImage imageWithData:self.stillImageData];
     self.stillImageView.hidden = NO;
     
     [UIView animateWithDuration:.05 animations:^{

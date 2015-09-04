@@ -64,6 +64,7 @@
 		05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */; };
 		05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */; };
 		05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */; };
+		05D8B4A51B99621C008E4E8E /* ExternalLinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D8B4A41B99621C008E4E8E /* ExternalLinkViewController.m */; };
 		714A13743EB07CC885180FEC /* libPods-teamaker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +167,8 @@
 		05CEB7D61B8DA488003DF51A /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Helper.h"; path = "Categories/UIColor+Helper.h"; sourceTree = "<group>"; };
 		05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Helper.m"; path = "Categories/UIColor+Helper.m"; sourceTree = "<group>"; };
 		05D43EB11B8EC57300974B74 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		05D8B4A31B99621C008E4E8E /* ExternalLinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalLinkViewController.h; sourceTree = "<group>"; };
+		05D8B4A41B99621C008E4E8E /* ExternalLinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalLinkViewController.m; sourceTree = "<group>"; };
 		533495A1F40478DC4EE80904 /* Pods-teamaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.debug.xcconfig"; sourceTree = "<group>"; };
 		6F91AC048B4F28D93ED6CF6D /* Pods-teamaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teamaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-teamaker/Pods-teamaker.release.xcconfig"; sourceTree = "<group>"; };
 		D6F0329BE3673D2BF2ED7A17 /* libPods-teamaker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-teamaker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -347,6 +350,8 @@
 				0537177E1B941BA500A92A7D /* PunchViewController.m */,
 				0537177F1B941BA500A92A7D /* TextViewController.h */,
 				053717801B941BA500A92A7D /* TextViewController.m */,
+				05D8B4A31B99621C008E4E8E /* ExternalLinkViewController.h */,
+				05D8B4A41B99621C008E4E8E /* ExternalLinkViewController.m */,
 			);
 			name = Compose;
 			sourceTree = "<group>";
@@ -608,6 +613,7 @@
 				050BC36B1B799D0E00A35EFD /* main.m in Sources */,
 				053717701B941B8000A92A7D /* MyDetailsViewController.m in Sources */,
 				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
+				05D8B4A51B99621C008E4E8E /* ExternalLinkViewController.m in Sources */,
 				051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */,
 				053717631B941B6000A92A7D /* TeamDetailsViewController.m in Sources */,
 				053717671B941B6B00A92A7D /* FeedViewController.m in Sources */,

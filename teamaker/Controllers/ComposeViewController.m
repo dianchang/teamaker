@@ -132,9 +132,11 @@
         case 1:
             controller = [[PunchViewController alloc] init];
             break;
-        case 2:
-            controller = [[CaptureViewController alloc] init];
+        case 2: {
+            CaptureViewController *captureViewController = [[CaptureViewController alloc] init];
+            controller = [[UINavigationController alloc] initWithRootViewController:captureViewController];
             break;
+        }
     }
     
     [self addChildViewController:controller];

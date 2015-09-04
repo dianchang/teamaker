@@ -179,7 +179,7 @@
     
     switch (page) {
         case 0: {
-            UIViewController * feedViewController = [[FeedViewController alloc] init];
+            UIViewController *feedViewController = [[FeedViewController alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController:feedViewController];
             break;
         }
