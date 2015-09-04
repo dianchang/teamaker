@@ -9,13 +9,21 @@
 #import "ExternalLinkViewController.h"
 #import "TeamButtons.h"
 #import "Masonry.h"
+#import "TMTeam.h"
+#import "TMFeed.h"
 #import "ComposeViewControllerProtocol.h"
+#import "UIColor+Helper.h"
+#import <MagicalRecord/MagicalRecord.h>
+#import "Constants.h"
 
 @interface ExternalLinkViewController() <ComposeViewControllerProtocol, UIWebViewDelegate>
 
+@property (strong, nonatomic) NSArray *teams;
 @property (strong, nonatomic) UIWebView *webView;
-@property (strong, nonatomic) UIActivityIndicatorView *loadingSpinner;
+@property (strong, nonatomic) TeamButtons *teamButtons;
+@property (strong, nonatomic) UIView *backdropView;
 @property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) NSString *pageTitle;
 
 @end
 
@@ -40,21 +48,13 @@
 
     UIWebView *webView = [UIWebView new];
     webView.delegate = self;
+
     [self.view addSubview:webView];
     self.webView = webView;
     
-    UIActivityIndicatorView *loadingSpinner = [UIActivityIndicatorView new];
-    loadingSpinner.color = [UIColor grayColor];
-    [webView addSubview:loadingSpinner];
-    self.loadingSpinner = loadingSpinner;
-    
     [webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    [loadingSpinner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(webView);
-        make.top.equalTo(webView).offset(60);
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.view).offset(0);
     }];
 }
 
@@ -65,32 +65,99 @@
     self.navigationItem.rightBarButtonItem = myProfileButtonItem;
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
-    [self.loadingSpinner startAnimating];
 }
 
 - (void)preparePublish:(id)sender
 {
-
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
+    
+    // 背景
+    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backdropView = backdropView;
+    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                             initWithTarget:self action:@selector(cancelPublish:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    [backdropView addGestureRecognizer:tapRecognizer];
+    [self.view addSubview:backdropView];
+    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    // 团队按钮
+    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
+    [self.view addSubview:teamButtons];
+    self.teamButtons = teamButtons;
+    teamButtons.delegate = self;
+    
+    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)publish:(UIButton *)sender
 {
-
+    [TMFeed createShareFeed:self.url title:self.pageTitle teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+    }];
 }
 
 - (void)cancelPublish:(UIButton *)sender
 {
-
+    [self hideTeamButtons];
 }
 
 - (void)resetLayout
 {
+    [self hideTeamButtons];
+}
+
+- (void)hideTeamButtons
+{
+    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
     
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+        self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+    } completion:^(BOOL finished) {
+        [self.backdropView removeFromSuperview];
+        self.backdropView = nil;
+        self.teamButtons = nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
+    }];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [self.loadingSpinner stopAnimating];
+    self.pageTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+}
+
+#pragma mark - getters and setters
+
+- (NSArray *)teams
+{
+    if (!_teams) {
+        _teams = [TMTeam MR_findAll];
+    }
+    return _teams;
 }
 
 @end

@@ -24,6 +24,7 @@
 #import "CreateTeamViewController.h"
 #import "JoinTeamViewController.h"
 #import "Constants.h"
+#import "ExternalLinkViewController.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate, FeedTableViewCellProtocol>
 
@@ -225,6 +226,13 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)redirectToExternalLinkView:(NSNumber *)feedId
+{
+    TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
+    ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:@"http://www.baidu.com"];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 // 星标feed
 - (void)starFeed:(TMFeed *)feed
 {
@@ -294,6 +302,8 @@
     } else if ([feed.kind isEqualToString:@"image"]) {
         cellHeight = 280.0;
     } else if ([feed.kind isEqualToString:@"text"]) {
+        cellHeight = 150.0;
+    } else if ([feed.kind isEqualToString:@"share"]) {
         cellHeight = 150.0;
     }
     

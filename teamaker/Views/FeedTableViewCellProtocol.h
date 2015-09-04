@@ -18,6 +18,9 @@
 // 跳转到团队主页
 - (void)redirectToTeamProfile:(NSNumber *)teamId;
 
+// 跳转到分享网页
+- (void)redirectToExternalLinkView:(NSNumber *)feedId;
+
 // 打星标
 - (void)starFeed:(TMFeed *)feed;
 

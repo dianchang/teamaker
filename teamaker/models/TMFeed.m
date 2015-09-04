@@ -87,4 +87,32 @@
     }];
 }
 
+/**
+ *  存储分享类feed
+ *
+ *  @param url             <#url description#>
+ *  @param title           <#title description#>
+ *  @param teamId          <#teamId description#>
+ *  @param completionBlock <#completionBlock description#>
+ */
++ (void)createShareFeed:(NSString *)url title:(NSString *)title teamId:(NSNumber *)teamId completion:(void(^)(BOOL contextDidSave, NSError *error))completionBlock
+{
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        TMUser *loggedInUser = [TMUser getLoggedInUserInContext:localContext];
+        TMFeed *feed = [TMFeed MR_createEntityInContext:localContext];
+        feed.kind = @"share";
+        feed.userId = loggedInUser.id;
+        feed.user = loggedInUser;
+        feed.teamId = teamId;
+        feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:localContext];
+        feed.shareUrl = url;
+        feed.shareTitle = title;
+        feed.createdAt = [NSDate date];
+    } completion:^(BOOL contextDidSave, NSError *error) {
+        if (completionBlock) {
+            completionBlock(contextDidSave, error);
+        }
+    }];
+}
+
 @end

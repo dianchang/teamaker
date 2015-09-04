@@ -5,13 +5,14 @@
 
 extern const struct TMFeedAttributes {
 	__unsafe_unretained NSString *createdAt;
-	__unsafe_unretained NSString *d;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *image;
 	__unsafe_unretained NSString *imageUrl;
 	__unsafe_unretained NSString *kind;
 	__unsafe_unretained NSString *location;
 	__unsafe_unretained NSString *punch;
+	__unsafe_unretained NSString *shareImageUrl;
+	__unsafe_unretained NSString *shareTitle;
 	__unsafe_unretained NSString *shareUrl;
 	__unsafe_unretained NSString *teamId;
 	__unsafe_unretained NSString *text;
@@ -38,14 +39,6 @@ extern const struct TMFeedRelationships {
 @property (nonatomic, strong) NSDate* createdAt;
 
 //- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* d;
-
-@property (atomic) int16_t dValue;
-- (int16_t)dValue;
-- (void)setDValue:(int16_t)value_;
-
-//- (BOOL)validateD:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* id;
 
@@ -75,11 +68,15 @@ extern const struct TMFeedRelationships {
 
 //- (BOOL)validatePunch:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) NSNumber* shareUrl;
+@property (nonatomic, strong) NSString* shareImageUrl;
 
-@property (atomic) int32_t shareUrlValue;
-- (int32_t)shareUrlValue;
-- (void)setShareUrlValue:(int32_t)value_;
+//- (BOOL)validateShareImageUrl:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* shareTitle;
+
+//- (BOOL)validateShareTitle:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* shareUrl;
 
 //- (BOOL)validateShareUrl:(id*)value_ error:(NSError**)error_;
 
@@ -118,12 +115,6 @@ extern const struct TMFeedRelationships {
 - (NSDate*)primitiveCreatedAt;
 - (void)setPrimitiveCreatedAt:(NSDate*)value;
 
-- (NSNumber*)primitiveD;
-- (void)setPrimitiveD:(NSNumber*)value;
-
-- (int16_t)primitiveDValue;
-- (void)setPrimitiveDValue:(int16_t)value_;
-
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
 
@@ -145,11 +136,14 @@ extern const struct TMFeedRelationships {
 - (NSString*)primitivePunch;
 - (void)setPrimitivePunch:(NSString*)value;
 
-- (NSNumber*)primitiveShareUrl;
-- (void)setPrimitiveShareUrl:(NSNumber*)value;
+- (NSString*)primitiveShareImageUrl;
+- (void)setPrimitiveShareImageUrl:(NSString*)value;
 
-- (int32_t)primitiveShareUrlValue;
-- (void)setPrimitiveShareUrlValue:(int32_t)value_;
+- (NSString*)primitiveShareTitle;
+- (void)setPrimitiveShareTitle:(NSString*)value;
+
+- (NSString*)primitiveShareUrl;
+- (void)setPrimitiveShareUrl:(NSString*)value;
 
 - (NSNumber*)primitiveTeamId;
 - (void)setPrimitiveTeamId:(NSNumber*)value;

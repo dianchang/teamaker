@@ -20,6 +20,8 @@
 @property (strong, nonatomic) UILabel *myTextLabel;
 @property (strong, nonatomic) UILabel *punchLabel;
 @property (strong, nonatomic) UIImageView *feedImageView;
+@property (strong, nonatomic) UIView *shareView;
+@property (strong, nonatomic) UILabel *shareTitleLabel;
 
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed;
 + (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView;

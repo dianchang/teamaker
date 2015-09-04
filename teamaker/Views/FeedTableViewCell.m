@@ -118,6 +118,24 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         UIImageView *imageView = [UIImageView new];
         self.feedImageView = imageView;
         [feedContentView addSubview:imageView];
+    } else if ([reuseIdentifier isEqualToString:shareCellReuseIdentifier]) {
+        // 分享
+        UIView *shareView = [UIView new];
+        self.shareView = shareView;
+        shareView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
+        [feedContentView addSubview:shareView];
+        
+        UITapGestureRecognizer *gestureForShare = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareViewClicked:)];
+        gestureForShare.numberOfTapsRequired = 1;
+        shareView.userInteractionEnabled = YES;
+        [shareView addGestureRecognizer:gestureForShare];
+        
+        UILabel *shareTitleLabel = [UILabel new];
+        shareTitleLabel.numberOfLines = 0;
+        shareTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        shareTitleLabel.font = [UIFont systemFontOfSize:14];
+        [shareView addSubview:shareTitleLabel];
+        self.shareTitleLabel = shareTitleLabel;
     }
     
     /* 时间与命令容器 */
@@ -180,6 +198,18 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
             make.left.bottom.equalTo(feedContentView);
             make.top.equalTo(feedContentView).offset(10);
         }];
+    } else if ([reuseIdentifier isEqualToString:shareCellReuseIdentifier]) {
+        [self.shareView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(feedContentView);
+            make.top.equalTo(feedContentView).offset(10);
+        }];
+        
+        [self.shareTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.shareView).offset(8);
+            make.right.equalTo(self.shareView).offset(-8);
+            make.top.equalTo(self.shareView).offset(5);
+            make.bottom.equalTo(self.shareView).offset(-5);
+        }];
     }
     
     [timeAndCommandsContainer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -207,6 +237,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [self.contentView layoutIfNeeded];
     
     self.myTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.myTextLabel.frame);
+    self.shareTitleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.shareTitleLabel.frame);
 }
 
 /**
@@ -260,6 +291,9 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
             make.height.equalTo([NSNumber numberWithFloat:image.size.height * imageWidth / image.size.width]);
         }];
         self.feedImageView.tag = feed.idValue;
+    } else if ([reuseIdentifier isEqualToString:shareCellReuseIdentifier]) {
+        self.shareView.tag = feed.idValue;
+        self.shareTitleLabel.text = feed.shareTitle;
     }
 }
 
@@ -272,6 +306,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 {
     [self hideCommandsToolbar];
     [self.delegate redirectToUserProfile:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
+}
+
+- (void)shareViewClicked:(UITapGestureRecognizer *)gestureRecognizer
+{
+    [self.delegate redirectToExternalLinkView:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
 }
 
 // 弹出命令工具栏
@@ -300,12 +339,14 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     static FeedTableViewCell *imageCell;
     static FeedTableViewCell *punchCell;
     static FeedTableViewCell *textCell;
+    static FeedTableViewCell *shareCell;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         imageCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:imageCellReuseIdentifier];
         punchCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:punchCellReuseIdentifier];
         textCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textCellReuseIdentifier];
+        shareCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:shareCellReuseIdentifier];
     });
     
     NSString *reuseIdentifier = [self getResuseIdentifierByFeed:feed];
@@ -314,8 +355,10 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         sizingCell = imageCell;
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         sizingCell = punchCell;
-    } else {
+    } else if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]){
         sizingCell = textCell;
+    } else {
+        sizingCell = shareCell;
     }
     
     [sizingCell updateCellWithFeed:feed];

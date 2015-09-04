@@ -2,14 +2,15 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="TMFeed" representedClassName="TMFeed" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="d" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="kind" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="punch" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shareUrl" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shareImageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shareTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shareUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="teamId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -55,7 +56,7 @@
         <relationship name="teamsInfos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMTeamUserInfo" inverseName="user" inverseEntity="TMTeamUserInfo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TMFeed" positionX="63" positionY="-2307" width="128" height="255"/>
+        <element name="TMFeed" positionX="63" positionY="-2307" width="128" height="270"/>
         <element name="TMPunch" positionX="-675" positionY="-27" width="128" height="90"/>
         <element name="TMTeam" positionX="304" positionY="-2109" width="128" height="135"/>
         <element name="TMTeamUserInfo" positionX="63" positionY="-2061" width="128" height="165"/>
