@@ -10,6 +10,7 @@
 #import "TMTeam.h"
 #import "TMPunch.h"
 #import "TMUser.h"
+#import "TMFeed.h"
 #import "TMTeamUserInfo.h"
 #import <MagicalRecord/MagicalRecord.h>
 
@@ -29,6 +30,8 @@
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"TMModel"];
     
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+    
+//    [TMFeed MR_truncateAll];
     
     __block TMUser *user1 = nil;
     

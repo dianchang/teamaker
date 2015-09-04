@@ -21,15 +21,9 @@
 + (void)createTextFeed:(NSString *)text teamId:(NSNumber *)teamId completion:(void(^)(BOOL contextDidSave, NSError *error))completionBlock
 {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        TMUser *loggedInUser = [TMUser getLoggedInUserInContext:localContext];
-        TMFeed *feed = [TMFeed MR_createEntityInContext:localContext];
+        TMFeed *feed = [TMFeed createFeedWithTeamId:teamId inContext:localContext];
         feed.kind = @"text";
-        feed.userId = loggedInUser.id;
-        feed.user = loggedInUser;
-        feed.teamId = teamId;
-        feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:localContext];
         feed.text = text;
-        feed.createdAt = [NSDate date];
     } completion:^(BOOL contextDidSave, NSError *error) {
         completionBlock(contextDidSave, error);
     }];
@@ -45,15 +39,9 @@
 + (void)createPunchFeed:(NSString *)punch teamId:(NSNumber *)teamId completion:(void(^)(BOOL contextDidSave, NSError *error))completionBlock
 {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        TMUser *loggedInUser = [TMUser getLoggedInUserInContext:localContext];
-        TMFeed *feed = [TMFeed MR_createEntityInContext:localContext];
+        TMFeed *feed = [TMFeed createFeedWithTeamId:teamId inContext:localContext];
         feed.kind = @"punch";
-        feed.userId = loggedInUser.id;
-        feed.user = loggedInUser;
-        feed.teamId = teamId;
-        feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:localContext];
         feed.punch = punch;
-        feed.createdAt = [NSDate date];
     } completion:^(BOOL contextDidSave, NSError *error) {
         if (completionBlock) {
             completionBlock(contextDidSave, error);
@@ -71,15 +59,8 @@
 + (void)createImageFeed:(NSData *)imageData teamId:(NSNumber *)teamId completion:(void(^)(BOOL contextDidSave, NSError *error))completionBlock
 {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        TMUser *loggedInUser = [TMUser getLoggedInUserInContext:localContext];
-        TMFeed *feed = [TMFeed MR_createEntityInContext:localContext];
-        feed.kind = @"image";
-        feed.userId = loggedInUser.id;
-        feed.user = loggedInUser;
-        feed.teamId = teamId;
-        feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:localContext];
+        TMFeed *feed = [TMFeed createFeedWithTeamId:teamId inContext:localContext];
         feed.image = imageData;
-        feed.createdAt = [NSDate date];
     } completion:^(BOOL contextDidSave, NSError *error) {
         if (completionBlock) {
             completionBlock(contextDidSave, error);
@@ -98,21 +79,55 @@
 + (void)createShareFeed:(NSString *)url title:(NSString *)title teamId:(NSNumber *)teamId completion:(void(^)(BOOL contextDidSave, NSError *error))completionBlock
 {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        TMUser *loggedInUser = [TMUser getLoggedInUserInContext:localContext];
-        TMFeed *feed = [TMFeed MR_createEntityInContext:localContext];
+        TMFeed *feed = [TMFeed createFeedWithTeamId:teamId inContext:localContext];
         feed.kind = @"share";
-        feed.userId = loggedInUser.id;
-        feed.user = loggedInUser;
-        feed.teamId = teamId;
-        feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:localContext];
         feed.shareUrl = url;
         feed.shareTitle = title;
-        feed.createdAt = [NSDate date];
     } completion:^(BOOL contextDidSave, NSError *error) {
         if (completionBlock) {
             completionBlock(contextDidSave, error);
         }
     }];
+}
+
+/**
+ *  创建feed
+ *
+ *  @param teamId  <#teamId description#>
+ *  @param context <#context description#>
+ *
+ *  @return <#return value description#>
+ */
++ (TMFeed *)createFeedWithTeamId:(NSNumber *)teamId inContext:(NSManagedObjectContext *)context
+{
+    TMUser *loggedInUser = [TMUser getLoggedInUserInContext:context];
+    TMFeed *feed = [TMFeed MR_createEntityInContext:context];
+    feed.idValue = [TMFeed getMaxIdValue] + 1;
+    feed.userId = loggedInUser.id;
+    feed.user = loggedInUser;
+    feed.teamId = teamId;
+    feed.team = [TMTeam MR_findFirstByAttribute:@"id" withValue:teamId inContext:context];
+    feed.createdAt = [NSDate date];
+    
+    return feed;
+}
+
+/**
+ *  获取最大的id值
+ *
+ *  @return <#return value description#>
+ */
++ (NSInteger)getMaxIdValue
+{
+    NSFetchRequest *request = [TMFeed MR_requestAllSortedBy:@"id" ascending:NO withPredicate:nil];
+    request.fetchLimit = 1;
+    TMFeed *feed = [[TMFeed MR_executeFetchRequest:request] firstObject];
+    
+    if (feed) {
+        return feed.idValue;
+    } else {
+        return 0;
+    }
 }
 
 @end
