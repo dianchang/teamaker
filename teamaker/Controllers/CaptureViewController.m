@@ -274,6 +274,8 @@
 // 预备发布
 - (void)preparePublish:(UIButton *)sender
 {
+    NSLog(@"%d", [[self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo] isVideoOrientationSupported]);
+    
     dispatch_async([self sessionQueue], ^{
         // Flash set to Auto for Still Capture
         [self setFlashMode:AVCaptureFlashModeAuto forDevice:[[self videoDeviceInput] device]];
@@ -282,6 +284,15 @@
         [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
             
             self.imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            
+            // 若为前置摄像头，则进行翻转
+            if (self.currentDevicePosition == AVCaptureDevicePositionFront) {
+                UIImage *stillImage = [UIImage imageWithData:self.imageData];
+                
+                UIImage *rotateStillImage = [[UIImage alloc] initWithCGImage:stillImage.CGImage scale:1.0 orientation:UIImageOrientationLeftMirrored];
+                
+                self.imageData = UIImageJPEGRepresentation(rotateStillImage, 1);
+            }
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showButtons];

@@ -98,6 +98,8 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         UILabel *textLabel = [UILabel new];
         textLabel.numberOfLines = 0;
         textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        textLabel.numberOfLines = 0;
+        textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         textLabel.font = [UIFont systemFontOfSize:14];
         [feedContentView addSubview:textLabel];
         self.myTextLabel = textLabel;

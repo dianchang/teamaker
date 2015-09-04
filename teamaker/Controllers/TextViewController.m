@@ -52,9 +52,10 @@ static int const sendButtonHeight = 50;
     
     // 约束
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view).with.offset(10);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
         make.bottom.equalTo(sendButton.mas_top);
-        make.top.equalTo(self.view).with.offset(20);
+        make.top.equalTo(self.view).offset(20);
     }];
     
     [sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
