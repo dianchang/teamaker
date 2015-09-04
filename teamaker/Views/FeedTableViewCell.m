@@ -17,10 +17,11 @@
 #import "NSDate+FriendlyInterval.h"
 #import "UIColor+Helper.h"
 
-static NSString *const textCellReuseIdentifier = @"TextCell";
-static NSString *const imageCellReuseIdentifier = @"ImageCell";
-static NSString *const punchCellReuseIdentifier = @"PunchCell";
-static NSString *const locationCellReuseIdentifier = @"LocationCell";
+static NSString * const shareCellReuseIdentifier = @"shareCell";
+static NSString * const textCellReuseIdentifier = @"TextCell";
+static NSString * const imageCellReuseIdentifier = @"ImageCell";
+static NSString * const punchCellReuseIdentifier = @"PunchCell";
+static NSString * const locationCellReuseIdentifier = @"LocationCell";
 
 @interface FeedTableViewCell()
 
@@ -40,8 +41,10 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         return imageCellReuseIdentifier;
     } else if ([feed.kind isEqualToString:@"punch"]) {
         return punchCellReuseIdentifier;
-    } else {
+    } else if ([feed.kind isEqualToString:@"location"]){
         return locationCellReuseIdentifier;
+    } else {
+        return shareCellReuseIdentifier;
     }
 }
 
@@ -51,6 +54,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:imageCellReuseIdentifier];
     [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:locationCellReuseIdentifier];
     [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:punchCellReuseIdentifier];
+    [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:shareCellReuseIdentifier];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -205,6 +209,11 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     self.myTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.myTextLabel.frame);
 }
 
+/**
+ *  更新cell的数据
+ *
+ *  @param feed <#feed description#>
+ */
 - (void)updateCellWithFeed:(TMFeed *)feed
 {
     self.feed = feed;
@@ -263,11 +272,6 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 {
     [self hideCommandsToolbar];
     [self.delegate redirectToUserProfile:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
-}
-
-- (void)teamButtonClicked:(UIButton *)sender
-{
-    [self.delegate redirectToTeamProfile:[NSNumber numberWithLong:sender.tag]];
 }
 
 // 弹出命令工具栏

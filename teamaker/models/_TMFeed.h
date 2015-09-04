@@ -12,6 +12,7 @@ extern const struct TMFeedAttributes {
 	__unsafe_unretained NSString *kind;
 	__unsafe_unretained NSString *location;
 	__unsafe_unretained NSString *punch;
+	__unsafe_unretained NSString *shareUrl;
 	__unsafe_unretained NSString *teamId;
 	__unsafe_unretained NSString *text;
 	__unsafe_unretained NSString *userId;
@@ -74,6 +75,14 @@ extern const struct TMFeedRelationships {
 
 //- (BOOL)validatePunch:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* shareUrl;
+
+@property (atomic) int32_t shareUrlValue;
+- (int32_t)shareUrlValue;
+- (void)setShareUrlValue:(int32_t)value_;
+
+//- (BOOL)validateShareUrl:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSNumber* teamId;
 
 @property (atomic) int32_t teamIdValue;
@@ -135,6 +144,12 @@ extern const struct TMFeedRelationships {
 
 - (NSString*)primitivePunch;
 - (void)setPrimitivePunch:(NSString*)value;
+
+- (NSNumber*)primitiveShareUrl;
+- (void)setPrimitiveShareUrl:(NSNumber*)value;
+
+- (int32_t)primitiveShareUrlValue;
+- (void)setPrimitiveShareUrlValue:(int32_t)value_;
 
 - (NSNumber*)primitiveTeamId;
 - (void)setPrimitiveTeamId:(NSNumber*)value;

@@ -12,6 +12,7 @@ const struct TMFeedAttributes TMFeedAttributes = {
 	.kind = @"kind",
 	.location = @"location",
 	.punch = @"punch",
+	.shareUrl = @"shareUrl",
 	.teamId = @"teamId",
 	.text = @"text",
 	.userId = @"userId",
@@ -55,6 +56,11 @@ const struct TMFeedRelationships TMFeedRelationships = {
 	}
 	if ([key isEqualToString:@"idValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"id"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"shareUrlValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"shareUrl"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -123,6 +129,26 @@ const struct TMFeedRelationships TMFeedRelationships = {
 @dynamic location;
 
 @dynamic punch;
+
+@dynamic shareUrl;
+
+- (int32_t)shareUrlValue {
+	NSNumber *result = [self shareUrl];
+	return [result intValue];
+}
+
+- (void)setShareUrlValue:(int32_t)value_ {
+	[self setShareUrl:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveShareUrlValue {
+	NSNumber *result = [self primitiveShareUrl];
+	return [result intValue];
+}
+
+- (void)setPrimitiveShareUrlValue:(int32_t)value_ {
+	[self setPrimitiveShareUrl:[NSNumber numberWithInt:value_]];
+}
 
 @dynamic teamId;
 
