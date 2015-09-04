@@ -60,6 +60,7 @@
 {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
         TMFeed *feed = [TMFeed createFeedWithTeamId:teamId inContext:localContext];
+        feed.kind = @"image";
         feed.image = imageData;
     } completion:^(BOOL contextDidSave, NSError *error) {
         if (completionBlock) {

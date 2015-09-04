@@ -308,6 +308,8 @@
         cellHeight = 150.0;
     } else if ([feed.kind isEqualToString:@"share"]) {
         cellHeight = 150.0;
+    } else {
+        
     }
     
     return cellHeight;
