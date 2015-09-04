@@ -98,8 +98,6 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         UILabel *textLabel = [UILabel new];
         textLabel.numberOfLines = 0;
         textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        textLabel.numberOfLines = 0;
-        textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         textLabel.font = [UIFont systemFontOfSize:14];
         [feedContentView addSubview:textLabel];
         self.myTextLabel = textLabel;
@@ -161,12 +159,12 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     [feedContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(teamButton.mas_bottom);
         make.left.equalTo(userButton);
-        make.right.equalTo(self.contentView);
+        make.right.equalTo(self.contentView).offset(-15);
     }];
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         [self.myTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.equalTo(feedContentView);
+            make.left.right.and.bottom.equalTo(feedContentView);
             make.top.equalTo(feedContentView).with.offset(6);
         }];
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
@@ -197,6 +195,16 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     }];
         
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    [self.contentView setNeedsLayout];
+    [self.contentView layoutIfNeeded];
+    
+    self.myTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.myTextLabel.frame);
 }
 
 - (void)updateCellWithFeed:(TMFeed *)feed
@@ -309,8 +317,10 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     }
     
     [sizingCell updateCellWithFeed:feed];
+    
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
+    
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
     return size.height;
