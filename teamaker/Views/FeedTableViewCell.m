@@ -24,7 +24,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
 
 @interface FeedTableViewCell()
 
-@property (strong, nonatomic) UILabel *commandButton;
+@property (strong, nonatomic) UIButton *commandButton;
 @property (strong, nonatomic) UIView* commandsToolbar;
 @property (strong, nonatomic) TMFeed *feed;
 
@@ -128,13 +128,12 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     self.createdAtLabel = timeLable;
     
     // 操作
-    UILabel *commandButton = [IonIcons labelWithIcon:ion_navicon_round size:14.0f color:[UIColor grayColor]];
-    commandButton.userInteractionEnabled = YES;
-    self.commandButton = commandButton;
+    UIButton *commandButton = [UIButton new];
+    UIImage *commandButtonImage = [IonIcons imageWithIcon:ion_navicon_round iconColor:[UIColor grayColor] iconSize:15 imageSize:CGSizeMake(45.0f, 40.0f)];
+    [commandButton setImage:commandButtonImage forState:UIControlStateNormal];
     [timeAndCommandsContainer addSubview:commandButton];
-    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(switchCommandsToolbar)];
-    gr.numberOfTapsRequired = 1;
-    [commandButton addGestureRecognizer:gr];
+    self.commandButton = commandButton;
+    [commandButton addTarget:self action:@selector(switchCommandsToolbar) forControlEvents:UIControlEventTouchUpInside];
     
     // 约束
     [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -180,18 +179,17 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
     }
     
     [timeAndCommandsContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(feedContentView.mas_bottom).offset(10).priorityHigh();
+        make.top.equalTo(feedContentView.mas_bottom).priorityHigh();
         make.left.equalTo(userButton);
-        make.right.equalTo(self.contentView).offset(-15);
-        make.bottom.equalTo(self.contentView).offset(-15);
+        make.right.bottom.equalTo(self.contentView);
     }];
     
     [timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.and.bottom.equalTo(timeAndCommandsContainer);
+        make.left.centerY.equalTo(timeAndCommandsContainer);
     }];
     
     [commandButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.equalTo(timeAndCommandsContainer);
+        make.top.right.bottom.equalTo(timeAndCommandsContainer);
     }];
         
     return self;
@@ -281,7 +279,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         [self.contentView addSubview:self.commandsToolbar];
         [self.commandsToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.commandButton);
-            make.right.equalTo(self.commandButton.mas_left).offset(-5);
+            make.right.equalTo(self.commandButton.mas_left).offset(8);
         }];
     }
 }
@@ -346,7 +344,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         
         // 分隔符
         UIView *firstDivider = [UIView new];
-        firstDivider.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+        firstDivider.backgroundColor = [UIColor colorWithRGBA:0x555555FF];
         [_commandsToolbar addSubview:firstDivider];
         
         // 赞
@@ -359,7 +357,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         
         // 分隔符
         UIView *secondDivider = [UIView new];
-        secondDivider.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+        secondDivider.backgroundColor = [UIColor colorWithRGBA:0x555555FF];
         [_commandsToolbar addSubview:secondDivider];
         
         // 评论
@@ -374,7 +372,7 @@ static NSString *const locationCellReuseIdentifier = @"LocationCell";
         [starButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.and.bottom.equalTo(_commandsToolbar);
             make.width.equalTo(@60);
-            make.height.equalTo(@30);
+            make.height.equalTo(@35);
         }];
         
         [firstDivider mas_makeConstraints:^(MASConstraintMaker *make) {
