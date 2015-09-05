@@ -16,13 +16,13 @@
 #import "UserProfileViewController.h"
 #import "TeamProfileViewController.h"
 #import "TeamDetailsViewController.h"
+#import "ExternalLinkViewController.h"
+#import "Constants.h"
 
-@interface TeamProfileViewController () <UITableViewDataSource, UITableViewDelegate, FeedTableViewCellProtocol>
+@interface TeamProfileViewController ()
 
 @property (strong, nonatomic) NSNumber *teamId;
 @property (strong, nonatomic) TMTeam *team;
-@property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *feeds;
 
 @end
 
@@ -42,27 +42,14 @@
 
 - (void)loadView
 {
-    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    UIView *contentView = [[UIView alloc] initWithFrame:applicationFrame];
-    self.view = contentView;
-    self.view.backgroundColor = [UIColor whiteColor];
+    [super loadView];
     
+    // team详细页
     UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(redirectToTeamDetails)];
     self.navigationItem.rightBarButtonItem = myProfileButtonItem;
     
-    UITableView *tableView = [UITableView new];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [tableView setTableHeaderView:[self createHeaderView]];
-    [self.view addSubview:tableView];
-    self.tableView = tableView;
-    
-    // 注册reuseIdentifier
-    [FeedTableViewCell registerClassForCellReuseIdentifierOnTableView:tableView];
-    
-    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
+    // 添加头
+    [self.tableView setTableHeaderView:[self createHeaderView]];
 }
 
 - (UIView *)createHeaderView
@@ -106,24 +93,6 @@
     self.navigationItem.title = self.team.name;
 }
 
-- (TMTeam *)team
-{
-    if(!_team) {
-        _team = [TMTeam MR_findFirstByAttribute:@"id" withValue:self.teamId];
-    }
-    
-    return _team;
-}
-
-- (NSArray *)feeds
-{
-    if (!_feeds) {
-        _feeds = [self.team.feeds allObjects];
-    }
-    
-    return _feeds;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = self.team.name;
@@ -147,47 +116,38 @@
     [self.tableView setTableHeaderView:headerView];
 }
 
-# pragma mark - tableview datasource and delegate
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self.feeds count];
-}
+#pragma mark - FeedTableViewCellProtocol
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)redirectToExternalLinkView:(NSNumber *)feedId
 {
-    TMFeed *feed = self.feeds[indexPath.row];
-    NSString *cellIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
-    FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    cell.delegate = self;
-    [cell updateCellWithFeed:feed];
-    return cell;
-}
-
-// 跳转用户主页
-- (void)redirectToUserProfile:(NSNumber *)userId
-{
-    UserProfileViewController *controller = [[UserProfileViewController alloc] initWithUserId:userId];
+    TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
+    ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:feed.shareUrl feedCreationCompletion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-// 跳转团队主页
-- (void)redirectToTeamProfile:(NSNumber *)teamId
-{
-    TeamProfileViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:teamId];
-    [self.navigationController pushViewController:controller animated:YES];
-}
+# pragma mark - getters and setters
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+@synthesize feeds = _feeds;
+
+- (NSArray *)feeds
 {
-    TMFeed *feed = self.feeds[indexPath.row];
-    NSString *cellIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
-    FeedTableViewCell *sizingCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    [sizingCell updateCellWithFeed:feed];
-    [sizingCell setNeedsLayout];
-    [sizingCell layoutIfNeeded];
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    if (!_feeds) {
+        _feeds = [[self.team.feeds allObjects] mutableCopy];
+    }
     
-    return size.height + 1.0f;
+    return _feeds;
+}
+
+- (TMTeam *)team
+{
+    if(!_team) {
+        _team = [TMTeam MR_findFirstByAttribute:@"id" withValue:self.teamId];
+    }
+    
+    return _team;
 }
 
 @end

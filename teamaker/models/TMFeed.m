@@ -118,7 +118,7 @@
  *
  *  @return <#return value description#>
  */
-+ (NSInteger)getMaxIdValue
++ (int)getMaxIdValue
 {
     NSFetchRequest *request = [TMFeed MR_requestAllSortedBy:@"id" ascending:NO withPredicate:nil];
     request.fetchLimit = 1;

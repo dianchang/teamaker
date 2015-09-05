@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseFeedViewController.h"
 
-@interface TeamProfileViewController : UIViewController
+@interface TeamProfileViewController : BaseFeedViewController
 
 - (instancetype)initWithTeamId:(NSNumber *)teamId;
 

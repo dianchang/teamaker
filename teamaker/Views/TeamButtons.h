@@ -13,7 +13,6 @@
 
 @property (strong, nonatomic) id <ComposeViewControllerProtocol> delegate;
 
-
 - (instancetype)initWithTeams:(NSArray *)teams;
 
 @end

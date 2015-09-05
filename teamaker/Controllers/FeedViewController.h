@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseFeedViewController.h"
 
-@interface FeedViewController : UIViewController
+@interface FeedViewController : BaseFeedViewController
 
 @end

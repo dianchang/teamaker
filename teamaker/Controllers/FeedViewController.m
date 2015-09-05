@@ -6,45 +6,34 @@
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "FeedViewController.h"
 #import <MagicalRecord/MagicalRecord.h>
-#import "Masonry.h"
-#import "AFNetworking.h"
-#import "IonIcons.h"
-#import "TMFeed.h"
 #import "MyProfileViewController.h"
-#import "UIColor+Helper.h"
-#import "UIImageView+AFNetworking.h"
-#import "FeedTableViewCellProtocol.h"
-#import "FeedTableViewCell.h"
-#import "UserProfileViewController.h"
-#import "TeamProfileViewController.h"
 #import "JoinTeamMenu.h"
 #import "CreateTeamViewController.h"
 #import "JoinTeamViewController.h"
 #import "Constants.h"
+#import "IonIcons.h"
+#import "Masonry.h"
+#import "JoinTeamMenu.h"
+#import "JoinTeamViewController.h"
+#import "UIColor+Helper.h"
 #import "ExternalLinkViewController.h"
 
-@interface FeedViewController () <UITableViewDataSource, UITableViewDelegate, FeedTableViewCellProtocol>
+@interface FeedViewController ()
 
-@property (weak, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (strong, nonatomic) NSMutableArray *feeds;
 @property (strong, nonatomic) UIView *backdropView;
 @property (strong, nonatomic) JoinTeamMenu *joinTeamMenu;
 
 @end
 
-//#define avatarViewTag
-
 @implementation FeedViewController
+
+@synthesize feeds = _feeds;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
-//    [self.refreshControl beginRefreshing];
-    [self loadFeeds];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(insertLatestFeed) name:TMFeedViewShouldReloadDataNotification object:nil];
 }
 
@@ -61,7 +50,7 @@
 
 - (void)loadView
 {
-    self.view = [[UIView alloc] init];
+    [super loadView];
     
     // 导航栏
     self.navigationItem.title = @"圈子";
@@ -75,27 +64,6 @@
     UIImage *plusIcon = [IonIcons imageWithIcon:ion_android_add size:28 color:[UIColor lightGrayColor]];
     UIBarButtonItem *joinTeamButtonItem = [[UIBarButtonItem alloc] initWithImage:plusIcon style:UIBarButtonItemStylePlain target:self action:@selector(switchJoinTeamMenu)];
     self.navigationItem.rightBarButtonItem = joinTeamButtonItem;
-
-    // 表格
-    UITableViewController *tableViewController = [[UITableViewController alloc] init];
-    UITableView *tableView = [[UITableView alloc] init];
-    tableViewController.view = tableView;
-    [self addChildViewController:tableViewController];
-    [self.view addSubview:tableView];
-    self.tableView = tableView;
-    tableView.allowsSelection = NO;
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
-//    self.refreshControl = [[UIRefreshControl alloc] init];
-//    [self.refreshControl addTarget:self action:@selector(loadFeeds) forControlEvents:UIControlEventValueChanged];
-//    tableViewController.refreshControl = self.refreshControl;
-
-    [tableViewController didMoveToParentViewController:self];
-    
-    // 注册reuseIdentifier
-    [FeedTableViewCell registerClassForCellReuseIdentifierOnTableView:tableView];
     
     // 下翻按钮
     UIButton *pageDown = [[UIButton alloc] init];
@@ -106,7 +74,7 @@
     [self.view addSubview:pageDown];
     
     // 约束
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.and.top.equalTo(self.view);
         make.bottom.equalTo(pageDown.mas_top);
     }];
@@ -115,15 +83,6 @@
         make.left.right.and.bottom.equalTo(self.view);
         make.height.equalTo(@50);
     }];
-}
-
-- (NSMutableArray *)feeds
-{
-    if (!_feeds) {
-        _feeds = [[NSMutableArray alloc] init];
-    }
-    
-    return _feeds;
 }
 
 // 跳转到我的主页
@@ -189,13 +148,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageDownNotification object:self];
 }
 
-// 获取feeds
-- (void)loadFeeds
-{
-    self.feeds = (NSMutableArray *)[TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO];
-    [self.tableView reloadData];
-}
-
 /**
  *  插入最新的feed
  */
@@ -212,20 +164,6 @@
 
 #pragma mark - FeedTableViewCellProtocol
 
-// 跳转用户主页
-- (void)redirectToUserProfile:(NSNumber *)userId
-{
-    UserProfileViewController *controller = [[UserProfileViewController alloc] initWithUserId:userId];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
-// 跳转团队主页
-- (void)redirectToTeamProfile:(NSNumber *)teamId
-{
-    TeamProfileViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:teamId];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
 - (void)redirectToExternalLinkView:(NSNumber *)feedId
 {
     TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
@@ -234,85 +172,6 @@
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-// 星标feed
-- (void)starFeed:(TMFeed *)feed
-{
-    
-}
-
-// 赞feed
-- (void)likeFeed:(TMFeed *)feed
-{
-
-}
-
-// 评论feed
-- (void)commentFeed:(TMFeed *)feed
-{
-    
-}
-
-# pragma mark - tableview dataSource and delegate
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self.feeds count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    TMFeed *feed = self.feeds[indexPath.row];
-    NSString *cellIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
-    FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    cell.delegate = self;
-    [cell updateCellWithFeed:feed];
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSMutableDictionary *cachedHeight;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        cachedHeight = [NSMutableDictionary new];
-    });
-    
-    TMFeed *feed = self.feeds[indexPath.row];
-    
-    NSNumber *cellHeight = [cachedHeight objectForKey:[feed.objectID description]];
-    
-    if (cellHeight) {
-        return [cellHeight floatValue];
-    }
-    
-    CGFloat height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
-    height += 1.0;
-    
-    [cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.objectID description]];
-
-    return height;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    TMFeed *feed = self.feeds[indexPath.row];
-    CGFloat cellHeight;
-    
-    if ([feed.kind isEqualToString:@"punch"]) {
-        cellHeight = 90.0;
-    } else if ([feed.kind isEqualToString:@"image"]) {
-        cellHeight = 280.0;
-    } else if ([feed.kind isEqualToString:@"text"]) {
-        cellHeight = 150.0;
-    } else if ([feed.kind isEqualToString:@"share"]) {
-        cellHeight = 150.0;
-    } else {
-        
-    }
-    
-    return cellHeight;
 }
 
 #pragma mark - getters and setters
@@ -347,6 +206,15 @@
     }
     
     return _joinTeamMenu;
+}
+
+- (NSMutableArray *)feeds
+{
+    if (!_feeds) {
+        _feeds = [[self.loggedInUser.feeds allObjects] mutableCopy];
+    }
+    
+    return _feeds;
 }
 
 @end
