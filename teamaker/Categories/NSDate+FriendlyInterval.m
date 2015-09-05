@@ -13,7 +13,7 @@
 - (NSString *)friendlyInterval
 {
     NSString *friendlyFormat;
-    NSTimeInterval interval = [self timeIntervalSinceNow];
+    NSTimeInterval interval = -[self timeIntervalSinceNow];
     
     if (interval < 60) {
         friendlyFormat = @"刚刚";
