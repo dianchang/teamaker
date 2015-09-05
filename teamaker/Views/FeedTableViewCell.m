@@ -31,7 +31,6 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 @property (strong, nonatomic) UIView *shareView;
 @property (strong, nonatomic) UILabel *shareTitleLabel;
 
-
 @end
 
 @implementation FeedTableViewCell
@@ -114,12 +113,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         self.shareView = shareView;
         shareView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
         [feedContentView addSubview:shareView];
-        
         UITapGestureRecognizer *gestureForShare = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareViewClicked:)];
         gestureForShare.numberOfTapsRequired = 1;
         shareView.userInteractionEnabled = YES;
         [shareView addGestureRecognizer:gestureForShare];
-        
+
         // 分享标题
         UILabel *shareTitleLabel = [UILabel new];
         shareTitleLabel.numberOfLines = 0;
@@ -345,7 +343,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
  */
 - (void)shareViewClicked:(UITapGestureRecognizer *)gestureRecognizer
 {
-    [self.delegate redirectToExternalLinkView:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
+    gestureRecognizer.view.backgroundColor = [UIColor colorWithRGBA:0xDDDDDDFF];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.delegate redirectToExternalLinkView:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
+        gestureRecognizer.view.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
+    });
 }
 
 // 弹出命令工具栏
