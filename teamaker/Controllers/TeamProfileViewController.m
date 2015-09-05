@@ -130,15 +130,15 @@
 
 # pragma mark - getters and setters
 
-@synthesize feeds = _feeds;
-
-- (NSArray *)feeds
+- (NSMutableArray *)feeds
 {
-    if (!_feeds) {
-        _feeds = [[self.team.feeds allObjects] mutableCopy];
-    }
+    NSMutableArray *feeds = [super feeds];
     
-    return _feeds;
+    if (!feeds) {
+        feeds = [[self.team.feeds allObjects] mutableCopy];
+    }
+
+    return feeds;
 }
 
 - (TMTeam *)team

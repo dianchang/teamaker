@@ -29,8 +29,6 @@
 
 @implementation FeedViewController
 
-@synthesize feeds = _feeds;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -210,11 +208,12 @@
 
 - (NSMutableArray *)feeds
 {
-    if (!_feeds) {
-        _feeds = [[self.loggedInUser.feeds allObjects] mutableCopy];
+    NSMutableArray *feeds = [super feeds];
+    if (!feeds) {
+        feeds = [[self.loggedInUser.feeds allObjects] mutableCopy];
     }
     
-    return _feeds;
+    return feeds;
 }
 
 @end
