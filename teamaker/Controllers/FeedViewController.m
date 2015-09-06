@@ -15,6 +15,7 @@
 #import "Constants.h"
 #import "IonIcons.h"
 #import "Masonry.h"
+#import "TMFeed.h"
 #import "JoinTeamMenu.h"
 #import "JoinTeamViewController.h"
 #import "UIColor+Helper.h"
@@ -151,7 +152,7 @@
  */
 - (void)insertLatestFeed
 {
-    self.feeds = (NSMutableArray *)[TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO];
+    self.feeds = [[TMFeed findByUserId:self.loggedInUser.id] mutableCopy];
     
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
     
@@ -210,7 +211,7 @@
 {
     NSMutableArray *feeds = [super feeds];
     if (!feeds) {
-        feeds = [[self.loggedInUser.feeds allObjects] mutableCopy];
+        feeds = [[TMFeed findByUserId:self.loggedInUser.id] mutableCopy];
     }
     
     return feeds;

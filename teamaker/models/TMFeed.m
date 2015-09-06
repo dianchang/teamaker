@@ -131,4 +131,28 @@
     }
 }
 
+/**
+ *  获取某user的feeds
+ *
+ *  @param userId <#userId description#>
+ *
+ *  @return <#return value description#>
+ */
++ (NSArray *)findByUserId:(NSNumber *)userId
+{
+    return [self MR_findByAttribute:@"userId" withValue:userId andOrderBy:@"createdAt" ascending:NO];
+}
+
+/**
+ *  获取某team的feeds
+ *
+ *  @param teamId <#teamId description#>
+ *
+ *  @return <#return value description#>
+ */
++ (NSArray *)findByTeamId:(NSNumber *)teamId
+{
+    return [self MR_findByAttribute:@"teamId" withValue:teamId andOrderBy:@"createdAt" ascending:NO];
+}
+
 @end

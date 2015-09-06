@@ -8,6 +8,7 @@
 
 #import "TeamProfileViewController.h"
 #import "TMTeam.h"
+#import "TMFeed.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "UIImageView+AFNetworking.h"
 #import "Masonry.h"
@@ -135,7 +136,7 @@
     NSMutableArray *feeds = [super feeds];
     
     if (!feeds) {
-        feeds = [[self.team.feeds allObjects] mutableCopy];
+        feeds = [[TMFeed findByTeamId:self.teamId] mutableCopy];
     }
 
     return feeds;

@@ -10,4 +10,8 @@
 
 + (void)createShareFeed:(NSString *)url title:(NSString *)title teamId:(NSNumber *)teamId completion:(void(^)(BOOL contextDidSave, NSError *error))completionBlock;
 
++ (NSArray *)findByUserId:(NSNumber *)userId;
+
++ (NSArray *)findByTeamId:(NSNumber *)teamId;
+
 @end
