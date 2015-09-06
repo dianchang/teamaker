@@ -136,10 +136,10 @@
     NSMutableArray *feeds = [super feeds];
     
     if (!feeds) {
-        feeds = [[TMFeed findByTeamId:self.teamId] mutableCopy];
+        self.feeds = [[TMFeed findByTeamId:self.teamId] mutableCopy];
     }
 
-    return feeds;
+    return [super feeds];
 }
 
 - (TMTeam *)team

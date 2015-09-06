@@ -25,8 +25,6 @@
 @interface BaseFeedViewController ()
 @end
 
-//#define avatarViewTag
-
 @implementation BaseFeedViewController
 
 - (void)loadView
@@ -116,7 +114,6 @@
     });
     
     TMFeed *feed = self.feeds[indexPath.row];
-    
     NSNumber *cellHeight = [cachedHeight objectForKey:[feed.id stringValue]];
     
     if (cellHeight) {
@@ -125,8 +122,6 @@
     
     CGFloat height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
     height += 1.0;
-    
-    NSLog(@"2");
     
     [cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
     

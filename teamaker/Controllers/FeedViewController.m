@@ -211,10 +211,10 @@
 {
     NSMutableArray *feeds = [super feeds];
     if (!feeds) {
-        feeds = [[TMFeed findByUserId:self.loggedInUser.id] mutableCopy];
+        self.feeds = [[TMFeed findByUserId:self.loggedInUser.id] mutableCopy];
     }
     
-    return feeds;
+    return [super feeds];
 }
 
 @end
