@@ -31,6 +31,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 @property (strong, nonatomic) UIImageView *feedImageView;
 @property (strong, nonatomic) UIView *feedImagePreviewBackdropView;
 @property (strong, nonatomic) UIImageView *feedImagePreviewImageView;
+@property (nonatomic) CGRect feedImagePreviewImageViewOriginalFrame;
 
 @property (strong, nonatomic) UIView *shareView;
 @property (strong, nonatomic) UILabel *shareTitleLabel;
@@ -358,9 +359,8 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     });
 }
 
-
 /**
- *  图片点击事件
+ *  feed图片点击事件
  */
 - (void)imageViewTapped:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -376,6 +376,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     UIImageView *oldImageView = (UIImageView *)gestureRecognizer.view;
     UIImage *image = oldImageView.image;
     CGRect oldFrame = [oldImageView.superview convertRect:oldImageView.frame toView:window];
+    self.feedImagePreviewImageViewOriginalFrame = oldFrame;
     UIImageView *newImageView = [[UIImageView alloc] initWithImage:image];
     self.feedImagePreviewImageView = newImageView;
     newImageView.frame = oldFrame;
@@ -407,13 +408,13 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
  */
 - (void)feedImagePreviewBackdropViewTapped:(UIGestureRecognizer* )gestureRecognizer
 {
-    UIWindow *window=[UIApplication sharedApplication].keyWindow;
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    });
     
     [UIView animateWithDuration:.4 animations:^{
         self.feedImagePreviewBackdropView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
-        self.feedImagePreviewImageView.frame = [self.feedImageView.superview convertRect:self.feedImageView.frame toView:window];
+        self.feedImagePreviewImageView.frame = self.feedImagePreviewImageViewOriginalFrame;
     } completion:^(BOOL finished) {
         [self.feedImagePreviewBackdropView removeFromSuperview];
         self.feedImagePreviewBackdropView = nil;
