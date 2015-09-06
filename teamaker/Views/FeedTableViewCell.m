@@ -27,7 +27,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 
 @property (strong, nonatomic) UILabel *myTextLabel;
 @property (strong, nonatomic) UILabel *punchLabel;
+
 @property (strong, nonatomic) UIImageView *feedImageView;
+@property (strong, nonatomic) UIView *feedImagePreviewBackdropView;
+@property (strong, nonatomic) UIImageView *feedImagePreviewImageView;
+
 @property (strong, nonatomic) UIView *shareView;
 @property (strong, nonatomic) UILabel *shareTitleLabel;
 
@@ -106,6 +110,10 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         // 图片
         UIImageView *imageView = [UIImageView new];
         self.feedImageView = imageView;
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *gestureForImageView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTapped:)];
+        gestureForImageView.numberOfTapsRequired = 1;
+        [imageView addGestureRecognizer:gestureForImageView];
         [feedContentView addSubview:imageView];
     } else if ([reuseIdentifier isEqualToString:shareCellReuseIdentifier]) {
         // 分享
@@ -348,6 +356,69 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         [self.delegate redirectToExternalLinkView:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
         gestureRecognizer.view.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
     });
+}
+
+
+/**
+ *  图片点击事件
+ */
+- (void)imageViewTapped:(UIGestureRecognizer *)gestureRecognizer
+{
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    UIView *backgroundView = [UIView new];
+    backgroundView.backgroundColor = [UIColor blackColor];
+    self.feedImagePreviewBackdropView = backgroundView;
+    [window addSubview:backgroundView];
+    UITapGestureRecognizer *gestureForBackgroundView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(feedImagePreviewBackdropViewTapped:)];
+    gestureForBackgroundView.numberOfTapsRequired = 1;
+    [backgroundView addGestureRecognizer:gestureForBackgroundView];
+    
+    UIImageView *oldImageView = (UIImageView *)gestureRecognizer.view;
+    UIImage *image = oldImageView.image;
+    CGRect oldFrame = [oldImageView.superview convertRect:oldImageView.frame toView:window];
+    UIImageView *newImageView = [[UIImageView alloc] initWithImage:image];
+    self.feedImagePreviewImageView = newImageView;
+    newImageView.frame = oldFrame;
+    [backgroundView addSubview:newImageView];
+    
+    // 约束
+    [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(window);
+    }];
+    
+    [window setNeedsLayout];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+    [UIView animateWithDuration:.4 animations:^{
+        CGRect newFrame;
+        newFrame.size.width = MIN(window.frame.size.width, image.size.width);
+        newFrame.size.height = MIN(window.frame.size.height, image.size.height);
+        newFrame.origin.x = (window.frame.size.width - newFrame.size.width) / 2.0;
+        newFrame.origin.y = (window.frame.size.height - newFrame.size.height) / 2.0;
+        newImageView.frame = newFrame;
+    }];
+}
+
+/**
+ *  点击backdropView后消失
+ *
+ *  @param gestureRecognizer <#gestureRecognizer description#>
+ */
+- (void)feedImagePreviewBackdropViewTapped:(UIGestureRecognizer* )gestureRecognizer
+{
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
+    [UIView animateWithDuration:.4 animations:^{
+        self.feedImagePreviewBackdropView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
+        self.feedImagePreviewImageView.frame = [self.feedImageView.superview convertRect:self.feedImageView.frame toView:window];
+    } completion:^(BOOL finished) {
+        [self.feedImagePreviewBackdropView removeFromSuperview];
+        self.feedImagePreviewBackdropView = nil;
+        self.feedImagePreviewImageView = nil;
+    }];
 }
 
 // 弹出命令工具栏
