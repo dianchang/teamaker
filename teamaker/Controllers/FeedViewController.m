@@ -65,10 +65,11 @@
     self.navigationItem.rightBarButtonItem = joinTeamButtonItem;
     
     // 下翻按钮
-    UIButton *pageDown = [[UIButton alloc] init];
-    [pageDown setTitle:@"⌵" forState:UIControlStateNormal];
-    [pageDown setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    pageDown.backgroundColor = [UIColor grayColor];
+    UIButton *pageDown = [UIButton new];
+    [pageDown setTitle:ion_ios_arrow_down forState:UIControlStateNormal];
+    pageDown.titleLabel.textColor = [UIColor colorWithRGBA:0xBBBBBBFF];
+    pageDown.titleLabel.font = [IonIcons fontWithSize:28.0f];
+    [pageDown setBackgroundColor:[UIColor lightGrayColor]];
     [pageDown addTarget:self action:@selector(pageDown:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:pageDown];
     
