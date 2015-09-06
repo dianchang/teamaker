@@ -117,7 +117,7 @@
     
     TMFeed *feed = self.feeds[indexPath.row];
     
-    NSNumber *cellHeight = [cachedHeight objectForKey:[feed.objectID description]];
+    NSNumber *cellHeight = [cachedHeight objectForKey:[feed.id stringValue]];
     
     if (cellHeight) {
         return [cellHeight floatValue];
@@ -126,7 +126,9 @@
     CGFloat height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
     height += 1.0;
     
-    [cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.objectID description]];
+    NSLog(@"2");
+    
+    [cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
     
     return height;
 }
