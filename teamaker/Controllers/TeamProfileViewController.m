@@ -56,6 +56,7 @@
 - (UIView *)createHeaderView
 {
     UIView *headerView = [UIView new];
+    headerView.backgroundColor = [UIColor whiteColor];
     
     // 头像
     UIImageView *avatarView = [UIImageView new];
