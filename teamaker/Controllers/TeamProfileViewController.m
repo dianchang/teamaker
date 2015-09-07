@@ -9,6 +9,7 @@
 #import "TeamProfileViewController.h"
 #import "TMTeam.h"
 #import "TMFeed.h"
+#import "Ionicons.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "UIImageView+AFNetworking.h"
 #import "Masonry.h"
@@ -44,10 +45,6 @@
 - (void)loadView
 {
     [super loadView];
-    
-    // team详细页
-    UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(redirectToTeamDetails)];
-    self.navigationItem.rightBarButtonItem = myProfileButtonItem;
     
     // 添加头
     [self.tableView setTableHeaderView:[self createHeaderView]];
@@ -98,6 +95,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = self.team.name;
+    
+    // 右边按钮
+    UIImage *personIcon = [IonIcons imageWithIcon:ion_person_stalker size:28 color:[UIColor lightGrayColor]];
+    UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithImage:personIcon style:UIBarButtonItemStylePlain target:self action:@selector(redirectToTeamDetails)];
+    self.navigationItem.rightBarButtonItem = myProfileButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated
