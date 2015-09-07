@@ -5,8 +5,11 @@
 
 const struct TMTeamUserInfoAttributes TMTeamUserInfoAttributes = {
 	.avatar = @"avatar",
+	.createdAt = @"createdAt",
 	.desc = @"desc",
 	.id = @"id",
+	.membersCountInvitedViaContact = @"membersCountInvitedViaContact",
+	.membersCountInvitedViaEmail = @"membersCountInvitedViaEmail",
 	.name = @"name",
 	.teamId = @"teamId",
 	.userId = @"userId",
@@ -48,6 +51,16 @@ const struct TMTeamUserInfoRelationships TMTeamUserInfoRelationships = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"membersCountInvitedViaContactValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"membersCountInvitedViaContact"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"membersCountInvitedViaEmailValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"membersCountInvitedViaEmail"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"teamIdValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"teamId"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -63,6 +76,8 @@ const struct TMTeamUserInfoRelationships TMTeamUserInfoRelationships = {
 }
 
 @dynamic avatar;
+
+@dynamic createdAt;
 
 @dynamic desc;
 
@@ -84,6 +99,46 @@ const struct TMTeamUserInfoRelationships TMTeamUserInfoRelationships = {
 
 - (void)setPrimitiveIdValue:(int32_t)value_ {
 	[self setPrimitiveId:[NSNumber numberWithInt:value_]];
+}
+
+@dynamic membersCountInvitedViaContact;
+
+- (int32_t)membersCountInvitedViaContactValue {
+	NSNumber *result = [self membersCountInvitedViaContact];
+	return [result intValue];
+}
+
+- (void)setMembersCountInvitedViaContactValue:(int32_t)value_ {
+	[self setMembersCountInvitedViaContact:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveMembersCountInvitedViaContactValue {
+	NSNumber *result = [self primitiveMembersCountInvitedViaContact];
+	return [result intValue];
+}
+
+- (void)setPrimitiveMembersCountInvitedViaContactValue:(int32_t)value_ {
+	[self setPrimitiveMembersCountInvitedViaContact:[NSNumber numberWithInt:value_]];
+}
+
+@dynamic membersCountInvitedViaEmail;
+
+- (int32_t)membersCountInvitedViaEmailValue {
+	NSNumber *result = [self membersCountInvitedViaEmail];
+	return [result intValue];
+}
+
+- (void)setMembersCountInvitedViaEmailValue:(int32_t)value_ {
+	[self setMembersCountInvitedViaEmail:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveMembersCountInvitedViaEmailValue {
+	NSNumber *result = [self primitiveMembersCountInvitedViaEmail];
+	return [result intValue];
+}
+
+- (void)setPrimitiveMembersCountInvitedViaEmailValue:(int32_t)value_ {
+	[self setPrimitiveMembersCountInvitedViaEmail:[NSNumber numberWithInt:value_]];
 }
 
 @dynamic name;

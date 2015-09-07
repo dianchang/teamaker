@@ -32,8 +32,11 @@
     </entity>
     <entity name="TMTeamUserInfo" representedClassName="TMTeamUserInfo" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="membersCountInvitedViaContact" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="membersCountInvitedViaEmail" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="teamId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -59,7 +62,7 @@
         <element name="TMFeed" positionX="63" positionY="-2307" width="128" height="270"/>
         <element name="TMPunch" positionX="-675" positionY="-27" width="128" height="90"/>
         <element name="TMTeam" positionX="304" positionY="-2109" width="128" height="135"/>
-        <element name="TMTeamUserInfo" positionX="63" positionY="-2061" width="128" height="165"/>
+        <element name="TMTeamUserInfo" positionX="63" positionY="-2061" width="128" height="210"/>
         <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="240"/>
     </elements>
 </model>

@@ -51,6 +51,7 @@
 		0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3E1B90CC0B00A670B4 /* PunchTableViewCell.m */; };
 		0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC401B90CC0B00A670B4 /* TeamButtons.m */; };
 		0573DC461B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC421B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m */; };
+		057708361B9D3E710001CA87 /* AddTeamMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 057708351B9D3E710001CA87 /* AddTeamMemberViewController.m */; };
 		05937ADC1B96B64100CAC2A1 /* CameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05937ADB1B96B64100CAC2A1 /* CameraPreviewView.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
 		05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */; };
@@ -142,6 +143,8 @@
 		0573DC401B90CC0B00A670B4 /* TeamButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamButtons.m; sourceTree = "<group>"; };
 		0573DC411B90CC0B00A670B4 /* TeamMemberCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamMemberCollectionViewCell.h; sourceTree = "<group>"; };
 		0573DC421B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamMemberCollectionViewCell.m; sourceTree = "<group>"; };
+		057708341B9D3E710001CA87 /* AddTeamMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTeamMemberViewController.h; sourceTree = "<group>"; };
+		057708351B9D3E710001CA87 /* AddTeamMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTeamMemberViewController.m; sourceTree = "<group>"; };
 		05937ADA1B96B64100CAC2A1 /* CameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPreviewView.h; sourceTree = "<group>"; };
 		05937ADB1B96B64100CAC2A1 /* CameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraPreviewView.m; sourceTree = "<group>"; };
 		05A0736F1B8AC657005C5CE3 /* TMModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMModel.xcdatamodel; sourceTree = "<group>"; };
@@ -302,8 +305,6 @@
 			children = (
 				051214CF1B8F2D350050EB6C /* _TMTeamUserInfo.h */,
 				051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */,
-				051214D11B8F2D350050EB6C /* TMTeamUserInfo.h */,
-				051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */,
 				05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */,
 				05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */,
 				05BD7A181B8C1C3F00329BF0 /* _TMPunch.h */,
@@ -318,6 +319,8 @@
 				05BD7A211B8C1C3F00329BF0 /* TMPunch.m */,
 				05BD7A221B8C1C3F00329BF0 /* TMTeam.h */,
 				05BD7A231B8C1C3F00329BF0 /* TMTeam.m */,
+				051214D11B8F2D350050EB6C /* TMTeamUserInfo.h */,
+				051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */,
 				05BD7A241B8C1C3F00329BF0 /* TMUser.h */,
 				05BD7A251B8C1C3F00329BF0 /* TMUser.m */,
 			);
@@ -396,6 +399,8 @@
 				0537178E1B941C3300A92A7D /* CreateTeamViewController.m */,
 				053717901B941C4C00A92A7D /* JoinTeamViewController.h */,
 				053717911B941C4C00A92A7D /* JoinTeamViewController.m */,
+				057708341B9D3E710001CA87 /* AddTeamMemberViewController.h */,
+				057708351B9D3E710001CA87 /* AddTeamMemberViewController.m */,
 			);
 			name = Team;
 			sourceTree = "<group>";
@@ -594,6 +599,7 @@
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
 				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
 				053717861B941BA500A92A7D /* TextViewController.m in Sources */,
+				057708361B9D3E710001CA87 /* AddTeamMemberViewController.m in Sources */,
 				053717811B941BA500A92A7D /* CaptureViewController.m in Sources */,
 				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
 				053717641B941B6000A92A7D /* TeamProfileViewController.m in Sources */,

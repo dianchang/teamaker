@@ -5,8 +5,11 @@
 
 extern const struct TMTeamUserInfoAttributes {
 	__unsafe_unretained NSString *avatar;
+	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *desc;
 	__unsafe_unretained NSString *id;
+	__unsafe_unretained NSString *membersCountInvitedViaContact;
+	__unsafe_unretained NSString *membersCountInvitedViaEmail;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *teamId;
 	__unsafe_unretained NSString *userId;
@@ -33,6 +36,10 @@ extern const struct TMTeamUserInfoRelationships {
 
 //- (BOOL)validateAvatar:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSDate* createdAt;
+
+//- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* desc;
 
 //- (BOOL)validateDesc:(id*)value_ error:(NSError**)error_;
@@ -44,6 +51,22 @@ extern const struct TMTeamUserInfoRelationships {
 - (void)setIdValue:(int32_t)value_;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* membersCountInvitedViaContact;
+
+@property (atomic) int32_t membersCountInvitedViaContactValue;
+- (int32_t)membersCountInvitedViaContactValue;
+- (void)setMembersCountInvitedViaContactValue:(int32_t)value_;
+
+//- (BOOL)validateMembersCountInvitedViaContact:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* membersCountInvitedViaEmail;
+
+@property (atomic) int32_t membersCountInvitedViaEmailValue;
+- (int32_t)membersCountInvitedViaEmailValue;
+- (void)setMembersCountInvitedViaEmailValue:(int32_t)value_;
+
+//- (BOOL)validateMembersCountInvitedViaEmail:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* name;
 
@@ -80,6 +103,9 @@ extern const struct TMTeamUserInfoRelationships {
 - (NSString*)primitiveAvatar;
 - (void)setPrimitiveAvatar:(NSString*)value;
 
+- (NSDate*)primitiveCreatedAt;
+- (void)setPrimitiveCreatedAt:(NSDate*)value;
+
 - (NSString*)primitiveDesc;
 - (void)setPrimitiveDesc:(NSString*)value;
 
@@ -88,6 +114,18 @@ extern const struct TMTeamUserInfoRelationships {
 
 - (int32_t)primitiveIdValue;
 - (void)setPrimitiveIdValue:(int32_t)value_;
+
+- (NSNumber*)primitiveMembersCountInvitedViaContact;
+- (void)setPrimitiveMembersCountInvitedViaContact:(NSNumber*)value;
+
+- (int32_t)primitiveMembersCountInvitedViaContactValue;
+- (void)setPrimitiveMembersCountInvitedViaContactValue:(int32_t)value_;
+
+- (NSNumber*)primitiveMembersCountInvitedViaEmail;
+- (void)setPrimitiveMembersCountInvitedViaEmail:(NSNumber*)value;
+
+- (int32_t)primitiveMembersCountInvitedViaEmailValue;
+- (void)setPrimitiveMembersCountInvitedViaEmailValue:(int32_t)value_;
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
