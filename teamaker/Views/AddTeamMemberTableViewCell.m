@@ -40,6 +40,12 @@
     [self.contentView addSubview:nameLabel];
     self.nameLabel = nameLabel;
     
+    // checkbox
+    M13Checkbox *checkbox = [[M13Checkbox alloc] initWithTitle:@"EMPTY"];
+    checkbox.strokeColor = [UIColor grayColor];
+    self.checkbox = checkbox;
+    [self.contentView addSubview:checkbox];
+    
     // 约束
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
@@ -52,6 +58,13 @@
         make.centerY.equalTo(self.contentView);
         make.left.equalTo(imageView.mas_right).offset(10);
     }];
+    
+    [checkbox mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView);
+        make.right.equalTo(self.contentView).offset(-15);
+    }];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return self;
 }

@@ -64,7 +64,7 @@
         }];
     }
     
-    __block TMTeam *team1, *team2;
+    __block TMTeam *team1, *team2, *team3;
     
     if ([[TMTeam MR_numberOfEntities] isEqualToNumber:@0]) {
         NSLog(@"Creating teams");
@@ -79,6 +79,11 @@
             team2.id = @2;
             team2.name = @"拉勾";
             team2.avatar = @"http://www.blogbar.cc/static/image/apple-touch-icon-precomposed-152.png";
+            
+            team3 = [TMTeam MR_createEntityInContext:localContext];
+            team3.id = @3;
+            team3.name = @"测试";
+            team3.avatar = @"http://www.blogbar.cc/static/image/apple-touch-icon-precomposed-152.png";
         }];
     }
 

@@ -55,6 +55,7 @@
 		0577083B1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0577083A1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m */; };
 		05937ADC1B96B64100CAC2A1 /* CameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05937ADB1B96B64100CAC2A1 /* CameraPreviewView.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
+		05B11D1D1B9DDADC00F797D8 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B11D1C1B9DDADC00F797D8 /* M13Checkbox.m */; };
 		05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */; };
 		05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */; };
 		05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A1B1B8C1C3F00329BF0 /* _TMTeam.m */; };
@@ -151,6 +152,8 @@
 		05937ADA1B96B64100CAC2A1 /* CameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPreviewView.h; sourceTree = "<group>"; };
 		05937ADB1B96B64100CAC2A1 /* CameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraPreviewView.m; sourceTree = "<group>"; };
 		05A0736F1B8AC657005C5CE3 /* TMModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMModel.xcdatamodel; sourceTree = "<group>"; };
+		05B11D1B1B9DDADC00F797D8 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
+		05B11D1C1B9DDADC00F797D8 /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMFeed.h; path = Models/_TMFeed.h; sourceTree = "<group>"; };
 		05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMFeed.m; path = Models/_TMFeed.m; sourceTree = "<group>"; };
 		05BD7A181B8C1C3F00329BF0 /* _TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMPunch.h; path = Models/_TMPunch.h; sourceTree = "<group>"; };
@@ -226,6 +229,7 @@
 		050BC3671B799D0E00A35EFD /* teamaker */ = {
 			isa = PBXGroup;
 			children = (
+				05B11D1A1B9DDA8A00F797D8 /* Additions */,
 				057708371B9DA65A0001CA87 /* Utils */,
 				05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */,
 				05CE04FC1B883F0700A7C718 /* Libraries */,
@@ -416,6 +420,15 @@
 				057708351B9D3E710001CA87 /* AddTeamMemberViewController.m */,
 			);
 			name = Team;
+			sourceTree = "<group>";
+		};
+		05B11D1A1B9DDA8A00F797D8 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				05B11D1B1B9DDADC00F797D8 /* M13Checkbox.h */,
+				05B11D1C1B9DDADC00F797D8 /* M13Checkbox.m */,
+			);
+			path = Additions;
 			sourceTree = "<group>";
 		};
 		05CE04FC1B883F0700A7C718 /* Libraries */ = {
@@ -631,6 +644,7 @@
 				05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */,
 				05EA055B1B9AA1C5005429CC /* BaseFeedViewController.m in Sources */,
 				0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */,
+				05B11D1D1B9DDADC00F797D8 /* M13Checkbox.m in Sources */,
 				0537175E1B94041E00A92A7D /* JoinTeamMenu.m in Sources */,
 				05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */,
 				05937ADC1B96B64100CAC2A1 /* CameraPreviewView.m in Sources */,

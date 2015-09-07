@@ -15,6 +15,8 @@
 #import "TMTeamUserInfo.h"
 #import "UIColor+Helper.h"
 #import "AddTeamMemberTableViewCell.h"
+#import "TeamProfileViewController.h"
+#import "CreateTeamViewController.h"
 
 @interface AddTeamMemberViewController() <UITableViewDelegate, UITableViewDataSource>
 
@@ -118,6 +120,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 1) {
+        AddTeamMemberTableViewCell *cell = (AddTeamMemberTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        [cell.checkbox toggleCheckState];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -197,8 +204,18 @@
 
 # pragma mark - private methods
 
+/**
+ *  完成成员添加
+ */
 - (void)finishAddingTeamMember
 {
+    // TODO
+    // 将自己添加为该团队的一员
+    
+    UINavigationController *navController = self.navigationController;
+    [navController popToRootViewControllerAnimated:NO];
+    TeamProfileViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:self.teamId];
+    [navController pushViewController:controller animated:YES];
 }
 
 # pragma mark - getters and setters

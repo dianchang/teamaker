@@ -149,6 +149,10 @@
 {
     if(!_team) {
         _team = [TMTeam MR_findFirstByAttribute:@"id" withValue:self.teamId];
+        NSLog(@"%@", [self.teamId stringValue]);
+        if ([self.teamId isKindOfClass:[NSNumber class]]) {
+            NSLog(@"XX");
+        }
     }
     
     return _team;
