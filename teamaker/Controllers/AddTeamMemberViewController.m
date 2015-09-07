@@ -14,6 +14,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "TMTeamUserInfo.h"
 #import "UIColor+Helper.h"
+#import "AddTeamMemberTableViewCell.h"
 
 @interface AddTeamMemberViewController() <UITableViewDelegate, UITableViewDataSource>
 
@@ -52,6 +53,8 @@
     tableView.backgroundColor = [UIColor TMBackgroundColorGray];
     [self.view addSubview:tableView];
     
+    [tableView registerClass:[AddTeamMemberTableViewCell class] forCellReuseIdentifier:[AddTeamMemberTableViewCell getReuseIdentifier]];
+    
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -67,8 +70,6 @@
 }
 
 # pragma mark - tableview delegate
-
-//static NSString * const cellIdentifier = @"identifier";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -98,7 +99,8 @@
         }
     } else if (indexPath.section == 1) {
         TMTeamUserInfo *userInfo = self.teammates[indexPath.row];
-        [self configMemberTableViewCell:cell userInfo:userInfo];
+        cell = [tableView dequeueReusableCellWithIdentifier:[AddTeamMemberTableViewCell getReuseIdentifier]];
+        [(AddTeamMemberTableViewCell *)cell updateCellWithUserInfo:userInfo];
     }
     
     return cell;
@@ -116,6 +118,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
 }
 
 /**
@@ -168,39 +180,6 @@
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-}
-
-/**
- *  配置用户cell
- *
- *  @param cell     <#cell description#>
- *  @param userInfo <#userInfo description#>
- */
-- (void)configMemberTableViewCell:(UITableViewCell *)cell userInfo:(TMTeamUserInfo *)userInfo
-{
-    UIImageView *imageView = [UIImageView new];
-    [imageView setImageWithURL:[NSURL URLWithString:userInfo.avatar]];
-    imageView.layer.cornerRadius = 20;
-    imageView.layer.masksToBounds = YES;
-    [cell.contentView addSubview:imageView];
-    
-    UILabel *nameLabel = [UILabel new];
-    nameLabel.text = userInfo.name;
-    nameLabel.font = [UIFont boldSystemFontOfSize:16];
-    [cell.contentView addSubview:nameLabel];
-    
-    // 约束
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(cell.contentView);
-        make.width.equalTo(@40);
-        make.height.equalTo(@40);
-        make.left.equalTo(cell.contentView).offset(15);
-    }];
-    
-    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(cell.contentView);
-        make.left.equalTo(imageView.mas_right).offset(10);
-    }];
 }
 
 # pragma mark - private methods
