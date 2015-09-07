@@ -1,5 +1,7 @@
 #import "_TMTeamUserInfo.h"
 
 @interface TMTeamUserInfo : _TMTeamUserInfo {}
-// Custom logic goes here.
+
++ (TMTeamUserInfo *)findByTeamId:(NSNumber *)teamId userId:(NSNumber *)userId;
+
 @end

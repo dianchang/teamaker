@@ -34,7 +34,7 @@
 //    [TMFeed MR_truncateAll];
 //    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
-    __block TMUser *user1 = nil;
+    __block TMUser *user1, *user2;
     
     if ([[TMUser MR_numberOfEntities] isEqualToNumber:@0]) {
         NSLog(@"Creating users.");
@@ -50,6 +50,17 @@
             user1.phone = @"15810246752";
             user1.motto = @"呵呵";
             user1.avatar = @"http://img3.douban.com/icon/up45197381-5.jpg";
+            
+            user2 = [TMUser MR_createEntityInContext:localContext];
+            user2.id = @2;
+            user2.name = @"哈丁";
+            user2.sex = @"男";
+            user2.email = @"hardin@qq.com";
+            user2.wechat = @"hardin";
+            user2.province = @"北京";
+            user2.phone = @"15810246752";
+            user2.motto = @"呵呵";
+            user2.avatar = @"http://www.1jingdian.com/uploads/collectionCovers/default.png";
         }];
     }
     
@@ -76,6 +87,7 @@
         
         [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
             TMUser *_user1 = [user1 MR_inContext:localContext];
+            TMUser *_user2 = [user2 MR_inContext:localContext];
             TMTeam *_team1 = [team1 MR_inContext:localContext];
             TMTeam *_team2 = [team2 MR_inContext:localContext];
             
@@ -86,18 +98,30 @@
             info1.user = _user1;
             info1.teamId = _team1.id;
             info1.team = _team1;
-            info1.membersCountInvitedViaContact = @0;
-            info1.membersCountInvitedViaEmail = @0;
             
             TMTeamUserInfo* info2 = [TMTeamUserInfo MR_createEntityInContext:localContext];
-            info2.name = _user1.name;
-            info2.avatar = _user1.avatar;
-            info2.userId = _user1.id;
-            info2.user = _user1;
-            info2.teamId = _team2.id;
-            info2.team = _team2;
-            info2.membersCountInvitedViaContact = @0;
-            info2.membersCountInvitedViaEmail = @0;
+            info2.name = _user2.name;
+            info2.avatar = _user2.avatar;
+            info2.userId = _user2.id;
+            info2.user = _user2;
+            info2.teamId = _team1.id;
+            info2.team = _team1;
+            
+            TMTeamUserInfo* info3 = [TMTeamUserInfo MR_createEntityInContext:localContext];
+            info3.name = _user1.name;
+            info3.avatar = _user1.avatar;
+            info3.userId = _user1.id;
+            info3.user = _user1;
+            info3.teamId = _team2.id;
+            info3.team = _team2;
+            
+            TMTeamUserInfo* info4 = [TMTeamUserInfo MR_createEntityInContext:localContext];
+            info4.name = _user2.name;
+            info4.avatar = _user2.avatar;
+            info4.userId = _user2.id;
+            info4.user = _user2;
+            info4.teamId = _team2.id;
+            info4.team = _team2;
         }];
     }
 

@@ -463,8 +463,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 - (TMTeamUserInfo *)teamUserInfo
 {
     if (!_teamUserInfo) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userId == %@) AND (teamId == %@)", self.loggedInUser.id, self.teamId];
-        _teamUserInfo = [TMTeamUserInfo MR_findFirstWithPredicate:predicate];
+        _teamUserInfo = [TMTeamUserInfo findByTeamId:self.teamId userId:self.loggedInUser.id];
     }
     
     return _teamUserInfo;

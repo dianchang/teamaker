@@ -20,7 +20,8 @@
 @property (strong, nonatomic) TMUser *loggedInUser;
 @property (strong, nonatomic) NSNumber *teamId;
 @property (strong, nonatomic) TMTeam *team;
-@property (strong, nonatomic) NSArray *teamUserInfos;
+@property (strong, nonatomic) NSArray *teammates;
+@property (strong, nonatomic) TMTeamUserInfo *myUserInfo;
 
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -63,16 +64,24 @@
     // 完成按钮
     UIBarButtonItem *continueButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAddingTeamMember)];
     self.navigationItem.rightBarButtonItem = continueButtonItem;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 # pragma mark - tableview delegate
 
 //static NSString * const cellIdentifier = @"identifier";
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3 + self.teamUserInfos.count;
+    if (section == 0) {
+        return 3;
+    } else {
+        return self.teammates.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,12 +92,12 @@
         if (indexPath.row == 0) {
             [self configStaticTableViewCell:cell imageUrl:@"http://www.1jingdian.com/uploads/collectionCovers/default.png" key:@"通过微信" value:nil];
         } else if (indexPath.row == 1) {
-            [self configStaticTableViewCell:cell imageUrl:@"http://www.1jingdian.com/uploads/collectionCovers/default.png" key:@"通过手机联系人" value:@"已添加 1 人"];
+            [self configStaticTableViewCell:cell imageUrl:@"http://www.1jingdian.com/uploads/collectionCovers/default.png" key:@"通过手机联系人" value:[[NSString alloc] initWithFormat:@"已添加 %d 人", self.myUserInfo.membersCountInvitedViaContactValue]];
         } else if (indexPath.row == 2) {
-            [self configStaticTableViewCell:cell imageUrl:@"http://www.1jingdian.com/uploads/collectionCovers/default.png" key:@"通过工作邮箱" value:@"已添加 2 人"];
+            [self configStaticTableViewCell:cell imageUrl:@"http://www.1jingdian.com/uploads/collectionCovers/default.png" key:@"通过工作邮箱" value:[[NSString alloc] initWithFormat:@"已添加 %d 人", self.myUserInfo.membersCountInvitedViaEmailValue]];
         }
     } else if (indexPath.section == 1) {
-        TMTeamUserInfo *userInfo = self.teamUserInfos[indexPath.row];
+        TMTeamUserInfo *userInfo = self.teammates[indexPath.row];
         [self configMemberTableViewCell:cell userInfo:userInfo];
     }
     
@@ -102,6 +111,11 @@
     } else {
         return 60.0;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 /**
@@ -122,34 +136,36 @@
     
     UILabel *keyLabel = [UILabel new];
     keyLabel.text = key;
-    keyLabel.textColor = [UIColor grayColor];
-    keyLabel.font = [UIFont systemFontOfSize:14];
+    keyLabel.font = [UIFont boldSystemFontOfSize:16];
     [cell.contentView addSubview:keyLabel];
     
     UILabel *valueLable;
-    
     if (value) {
         valueLable = [UILabel new];
         valueLable.text = value;
+        valueLable.font = [UIFont systemFontOfSize:13];
+        valueLable.textColor = [UIColor grayColor];
         [cell.contentView addSubview:valueLable];
     }
     
     // 约束
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell.contentView);
-        make.width.equalTo(@50);
-        make.height.equalTo(@50);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
         make.left.equalTo(cell.contentView).offset(15);
     }];
     
     [keyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell.contentView);
-        make.left.equalTo(imageView.mas_right).offset(15);
+        make.left.equalTo(imageView.mas_right).offset(10);
     }];
     
-    [valueLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.right.equalTo(cell.contentView);
-    }];
+    if (value) {
+        [valueLable mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.right.equalTo(cell.contentView);
+        }];
+    }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
@@ -164,27 +180,26 @@
 {
     UIImageView *imageView = [UIImageView new];
     [imageView setImageWithURL:[NSURL URLWithString:userInfo.avatar]];
-    imageView.layer.cornerRadius = 25;
+    imageView.layer.cornerRadius = 20;
     imageView.layer.masksToBounds = YES;
     [cell.contentView addSubview:imageView];
     
     UILabel *nameLabel = [UILabel new];
     nameLabel.text = userInfo.name;
-    nameLabel.textColor = [UIColor grayColor];
-    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.font = [UIFont boldSystemFontOfSize:16];
     [cell.contentView addSubview:nameLabel];
     
     // 约束
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell.contentView);
-        make.width.equalTo(@50);
-        make.height.equalTo(@50);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
         make.left.equalTo(cell.contentView).offset(15);
     }];
     
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell.contentView);
-        make.left.equalTo(imageView.mas_right).offset(15);
+        make.left.equalTo(imageView.mas_right).offset(10);
     }];
 }
 
@@ -214,13 +229,41 @@
     return _loggedInUser;
 }
 
-- (NSArray *)teamUserInfos
+- (NSArray *)teammates
 {
-    if (!_teamUserInfos) {
-        _teamUserInfos = [TMTeamUserInfo MR_findByAttribute:@"teamId" withValue:self.teamId andOrderBy:@"createdAt" ascending:NO];
+    if (!_teammates) {
+        NSMutableArray *myTeamsIdList = [NSMutableArray new];
+        NSArray *teammateUserInfos = [NSArray new];
+        NSMutableArray *uniqueTeammateUserInfos = [NSMutableArray new];
+        
+        for (TMTeamUserInfo *teamInfo in self.loggedInUser.teamsInfos) {
+            [myTeamsIdList addObject:teamInfo.teamId];
+        }
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(teamId IN %@) AND (userId != %@)", myTeamsIdList, self.loggedInUser.id];
+        teammateUserInfos = [TMTeamUserInfo MR_findAllWithPredicate:predicate];
+
+        NSMutableDictionary *existingUsers = [NSMutableDictionary new];
+        for (TMTeamUserInfo *teammateUserInfo in teammateUserInfos) {
+            if (![existingUsers objectForKey:[teammateUserInfo.userId stringValue]]) {
+                [existingUsers setObject:teammateUserInfo forKey:[teammateUserInfo.userId stringValue]];
+                [uniqueTeammateUserInfos addObject:teammateUserInfo];
+            }
+        }
+
+        _teammates = uniqueTeammateUserInfos;
     }
     
-    return _teamUserInfos;
+    return _teammates;
+}
+                                                                                                                                                 
+- (TMTeamUserInfo *)myUserInfo
+{
+    if (_myUserInfo) {
+        _myUserInfo = [TMTeamUserInfo findByTeamId:self.teamId userId:self.loggedInUser.id];
+    }
+    
+    return _myUserInfo;
 }
 
 @end
