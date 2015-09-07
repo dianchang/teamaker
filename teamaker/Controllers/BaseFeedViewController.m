@@ -39,7 +39,9 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     tableView.allowsSelection = NO;
+    tableView.separatorColor = [UIColor clearColor];
     tableView.dataSource = self;
+    tableView.backgroundColor = [UIColor TMBackgroundColorGray];
     tableView.delegate = self;
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -91,56 +93,96 @@
 # pragma mark - tableview dataSource and delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.feeds count];
+    return self.feeds.count * 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TMFeed *feed = self.feeds[indexPath.row];
-    NSString *cellIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
-    FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    cell.delegate = self;
-    [cell updateCellWithFeed:feed];
-    return cell;
+    if (indexPath.row % 2 == 0) {
+        TMFeed *feed = self.feeds[indexPath.row / 2];
+        NSString *cellIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
+        FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        cell.delegate = self;
+        [cell updateCellWithFeed:feed];
+        
+        return cell;
+    } else {
+        UITableViewCell *cell = [UITableViewCell new];
+        
+        UIView *gapView = [UIView new];
+        gapView.backgroundColor = [UIColor TMBackgroundColorGray];
+        
+        UIView *topBorderView = [UIView new];
+        topBorderView.backgroundColor = [UIColor colorWithRGBA:0xD8D8D8FF];
+        [gapView addSubview:topBorderView];
+                                   
+        [cell.contentView addSubview:gapView];
+        
+        [gapView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(cell.contentView);
+        }];
+        
+        [topBorderView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.and.right.equalTo(gapView);
+            make.height.equalTo(@1);
+        }];
+        
+        return cell;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSMutableDictionary *cachedHeight;
+    CGFloat height;
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        cachedHeight = [NSMutableDictionary new];
-    });
-    
-    TMFeed *feed = self.feeds[indexPath.row];
-    NSNumber *cellHeight = [cachedHeight objectForKey:[feed.id stringValue]];
-    
-    if (cellHeight) {
-        return [cellHeight floatValue];
+    if (indexPath.row % 2 == 0) {
+        static NSMutableDictionary *cachedHeight;
+        
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            cachedHeight = [NSMutableDictionary new];
+        });
+        
+        TMFeed *feed = self.feeds[indexPath.row / 2];
+        NSNumber *cellHeight = [cachedHeight objectForKey:[feed.id stringValue]];
+        
+        if (cellHeight) {
+            return [cellHeight floatValue];
+        }
+        
+        height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
+        height += 1.0;
+        
+        [cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
+    } else if (indexPath.row == self.feeds.count * 2 - 1) {
+        height = 40.0;
+    } else {
+        height = 15.0;
     }
-    
-    CGFloat height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
-    height += 1.0;
-    
-    [cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
     
     return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TMFeed *feed = self.feeds[indexPath.row];
     CGFloat cellHeight;
     
-    if ([feed.kind isEqualToString:@"punch"]) {
-        cellHeight = 90.0;
-    } else if ([feed.kind isEqualToString:@"image"]) {
-        cellHeight = 280.0;
-    } else if ([feed.kind isEqualToString:@"text"]) {
-        cellHeight = 150.0;
-    } else if ([feed.kind isEqualToString:@"share"]) {
-        cellHeight = 150.0;
+    if (indexPath.row % 2 == 0) {
+        TMFeed *feed = self.feeds[indexPath.row / 2];
+        
+        if ([feed.kind isEqualToString:@"punch"]) {
+            cellHeight = 90.0;
+        } else if ([feed.kind isEqualToString:@"image"]) {
+            cellHeight = 280.0;
+        } else if ([feed.kind isEqualToString:@"text"]) {
+            cellHeight = 150.0;
+        } else if ([feed.kind isEqualToString:@"share"]) {
+            cellHeight = 150.0;
+        }
+    } else if (indexPath.row == self.feeds.count * 2 - 1) {
+        cellHeight = 40.0;
+    } else {
+        cellHeight = 20.0;
     }
     
     return cellHeight;
