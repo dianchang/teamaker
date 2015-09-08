@@ -90,9 +90,56 @@ static int const buttonHeight = 60;
     [self.delegate cancelPublish:sender];
 }
 
-- (NSInteger)getButtonsHeight
+- (void)showWithDuration:(NSTimeInterval)duration animation:(void (^)(void))animationBlock completion:(void (^)(void))completionBlock
 {
-    return buttonHeight * (self.teams.count + 1) + 1 * self.teams.count;
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    
+    [window addSubview:self];
+    
+    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(window);
+        make.top.equalTo(window.mas_bottom);
+    }];
+    
+    [window layoutIfNeeded];
+    
+    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(window);
+    }];
+    
+    [UIView animateWithDuration:duration animations:^{
+        if (animationBlock) {
+            animationBlock();
+        }
+        
+        [window layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        if (completionBlock) {
+            completionBlock();
+        }
+    }];
+}
+
+- (void)hideWithDuration:(NSTimeInterval)duration animation:(void (^)(void))animationBlock completion:(void (^)(void))completionBlock
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    
+    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(window);
+        make.top.equalTo(window.mas_bottom);
+    }];
+    
+    [UIView animateWithDuration:duration animations:^{
+        if (animationBlock) {
+            animationBlock();
+        }
+        
+        [window layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        if (completionBlock) {
+            completionBlock();
+        }
+    }];
 }
 
 @end
