@@ -15,6 +15,7 @@
 #import "UIColor+Helper.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "Constants.h"
+#import "Ionicons.h"
 
 @interface ExternalLinkViewController() <ComposeViewControllerProtocol, UIWebViewDelegate>
 
@@ -62,8 +63,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(preparePublish:)];
-    self.navigationItem.rightBarButtonItem = myProfileButtonItem;
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    activityIndicator.color = [UIColor lightGrayColor];
+    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+    self.navigationItem.rightBarButtonItem = barButton;
+    [activityIndicator startAnimating];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
 }
@@ -76,7 +80,8 @@
 - (void)publish:(UIButton *)sender
 {
     [TMFeed createShareFeed:self.url title:self.pageTitle teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
-
+        [self hideTeamButtons];
+        
         if (self.feedCreationCompletionBlock) {
             self.feedCreationCompletionBlock();
         }
@@ -96,6 +101,9 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     self.pageTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    UIImage *shareIcon = [IonIcons imageWithIcon:ion_share size:28 color:[UIColor grayColor]];
+    UIBarButtonItem *shareButtonItem = [[UIBarButtonItem alloc] initWithImage:shareIcon style:UIBarButtonItemStylePlain target:self action:@selector(preparePublish:)];
+    self.navigationItem.rightBarButtonItem = shareButtonItem;
 }
 
 #pragma mark - getters and setters
