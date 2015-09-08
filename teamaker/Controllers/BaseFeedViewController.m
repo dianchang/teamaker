@@ -182,7 +182,7 @@
     } else if (indexPath.row == self.feeds.count * 2 - 1) {
         cellHeight = 40.0;
     } else {
-        cellHeight = 20.0;
+        cellHeight = 15.0;
     }
     
     return cellHeight;

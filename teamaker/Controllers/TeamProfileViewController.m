@@ -25,6 +25,7 @@
 
 @property (strong, nonatomic) NSNumber *teamId;
 @property (strong, nonatomic) TMTeam *team;
+@property (strong, nonatomic) UIImageView *avatarView;
 
 @end
 
@@ -48,6 +49,46 @@
     
     // 添加头
     [self.tableView setTableHeaderView:[self createHeaderView]];
+    
+    // 头像
+    UIImageView *avatarView = [UIImageView new];
+    [avatarView setImageWithURL:[NSURL URLWithString:self.team.avatar]];
+    avatarView.layer.cornerRadius = 4;
+    avatarView.layer.masksToBounds = YES;
+    self.avatarView = avatarView;
+    self.avatarView.alpha = 0;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.avatarView.alpha = 0;
+    } completion: ^(BOOL finished) {
+        [self.avatarView removeFromSuperview];
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationItem.title = @"";
+    
+    [self.navigationController.view addSubview:self.avatarView];
+    
+    // 约束
+    [self.avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.navigationController.view);
+        make.width.equalTo(@60);
+        make.height.equalTo(@60).priorityHigh();
+        make.top.equalTo(self.navigationController.view).offset(30);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.avatarView.alpha = 1;
+    } completion: ^(BOOL finished) {
+    }];
 }
 
 - (UIView *)createHeaderView
@@ -55,30 +96,15 @@
     UIView *headerView = [UIView new];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    // 头像
-    UIImageView *avatarView = [UIImageView new];
-    [avatarView setImageWithURL:[NSURL URLWithString:self.team.avatar]];
-    avatarView.layer.cornerRadius = 4;
-    avatarView.layer.masksToBounds = YES;
-    [headerView addSubview:avatarView];
-    
     // 用户名
     UILabel *userLable = [UILabel new];
     userLable.text = self.team.name;
     userLable.font = [UIFont systemFontOfSize:16];
     [headerView addSubview:userLable];
-    
-    // 约束
-    [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(headerView);
-        make.width.equalTo(@60);
-        make.height.equalTo(@60).priorityHigh();
-        make.top.equalTo(headerView).offset(20).priorityHigh();
-    }];
-    
+
     [userLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(headerView);
-        make.top.equalTo(avatarView.mas_bottom).offset(10);
+        make.top.equalTo(headerView).offset(38);
         make.bottom.equalTo(headerView).offset(-30);
     }];
     
@@ -100,12 +126,6 @@
     UIImage *personIcon = [IonIcons imageWithIcon:ion_person_stalker size:28 color:[UIColor lightGrayColor]];
     UIBarButtonItem *myProfileButtonItem = [[UIBarButtonItem alloc] initWithImage:personIcon style:UIBarButtonItemStylePlain target:self action:@selector(redirectToTeamDetails)];
     self.navigationItem.rightBarButtonItem = myProfileButtonItem;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.navigationItem.title = @"";
 }
 
 - (void)viewDidLayoutSubviews

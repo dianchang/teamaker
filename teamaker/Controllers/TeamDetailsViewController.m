@@ -417,7 +417,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    size.width = 100;
+    size.width = 80;
     size.height += 10;
 
     return size;

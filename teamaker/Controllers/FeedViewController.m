@@ -155,7 +155,10 @@
 {
     self.feeds = [[TMFeed findByUserId:self.loggedInUser.id] mutableCopy];
     
-    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    // Just don't know why the below code will crash.
+//    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    
+    [self.tableView reloadData];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];

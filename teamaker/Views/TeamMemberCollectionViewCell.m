@@ -20,7 +20,7 @@
     // 用户头像
     UIImageView *avatarView = [UIImageView new];
     self.userAvatarView = avatarView;
-    self.userAvatarView.layer.cornerRadius = 30;
+    self.userAvatarView.layer.cornerRadius = 25;
     self.userAvatarView.layer.masksToBounds = YES;
     [self.contentView addSubview:avatarView];
     
@@ -34,8 +34,8 @@
     [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView);
         make.centerX.equalTo(self.contentView);
-        make.width.equalTo(@60);
-        make.height.equalTo(@60);
+        make.width.equalTo(@50);
+        make.height.equalTo(@50);
     }];
     
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
