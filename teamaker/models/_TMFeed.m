@@ -14,6 +14,7 @@ const struct TMFeedAttributes TMFeedAttributes = {
 	.shareImageUrl = @"shareImageUrl",
 	.shareTitle = @"shareTitle",
 	.shareUrl = @"shareUrl",
+	.starred = @"starred",
 	.teamId = @"teamId",
 	.text = @"text",
 	.userId = @"userId",
@@ -52,6 +53,11 @@ const struct TMFeedRelationships TMFeedRelationships = {
 
 	if ([key isEqualToString:@"idValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"id"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"starredValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"starred"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -106,6 +112,26 @@ const struct TMFeedRelationships TMFeedRelationships = {
 @dynamic shareTitle;
 
 @dynamic shareUrl;
+
+@dynamic starred;
+
+- (BOOL)starredValue {
+	NSNumber *result = [self starred];
+	return [result boolValue];
+}
+
+- (void)setStarredValue:(BOOL)value_ {
+	[self setStarred:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveStarredValue {
+	NSNumber *result = [self primitiveStarred];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveStarredValue:(BOOL)value_ {
+	[self setPrimitiveStarred:[NSNumber numberWithBool:value_]];
+}
 
 @dynamic teamId;
 

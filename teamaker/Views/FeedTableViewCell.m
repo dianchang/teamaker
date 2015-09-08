@@ -15,6 +15,7 @@
 #import "TMUser.h"
 #import "IonIcons.h"
 #import "NSDate+FriendlyInterval.h"
+#import <MagicalRecord/MagicalRecord.h>
 #import "UIColor+Helper.h"
 
 static NSString * const shareCellReuseIdentifier = @"shareCell";
@@ -148,6 +149,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     timeLable.textColor = [UIColor colorWithRGBA:0x999999FF];
     self.createdAtLabel = timeLable;
     
+    // 星标
+    UILabel *starLabel = [IonIcons labelWithIcon:ion_android_star size:16 color:[UIColor colorWithRGBA:0x999999FF]];
+    [timeAndCommandsView addSubview:starLabel];
+    self.starLabel = starLabel;
+    
     // 操作
     UIButton *commandButton = [UIButton new];
     UIImage *commandButtonImage = [IonIcons imageWithIcon:ion_navicon_round iconColor:[UIColor grayColor] iconSize:15 imageSize:CGSizeMake(45.0f, 40.0f)];
@@ -225,6 +231,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         make.left.centerY.equalTo(self.timeAndCommandsView);
     }];
     
+    [self.starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.timeAndCommandsView);
+        make.left.equalTo(self.createdAtLabel.mas_right).offset(15);
+    }];
+    
     [self.commandButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(self.timeAndCommandsView);
     }];
@@ -259,6 +270,51 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:locationCellReuseIdentifier];
     [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:punchCellReuseIdentifier];
     [tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:shareCellReuseIdentifier];
+}
+
+/**
+ *  计算单元格高度
+ *
+ *  @param feed <#feed description#>
+ *
+ *  @return 单元格高度
+ */
++ (CGFloat)calculateCellHeightWithFeed:(TMFeed *)feed
+{
+    FeedTableViewCell *sizingCell;
+    static FeedTableViewCell *imageCell;
+    static FeedTableViewCell *punchCell;
+    static FeedTableViewCell *textCell;
+    static FeedTableViewCell *shareCell;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        imageCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:imageCellReuseIdentifier];
+        punchCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:punchCellReuseIdentifier];
+        textCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textCellReuseIdentifier];
+        shareCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:shareCellReuseIdentifier];
+    });
+    
+    NSString *reuseIdentifier = [self getResuseIdentifierByFeed:feed];
+    
+    if ([reuseIdentifier isEqualToString:imageCellReuseIdentifier]) {
+        sizingCell = imageCell;
+    } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
+        sizingCell = punchCell;
+    } else if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]){
+        sizingCell = textCell;
+    } else {
+        sizingCell = shareCell;
+    }
+    
+    [sizingCell updateCellWithFeed:feed];
+    
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    
+    return size.height;
 }
 
 /**
@@ -299,6 +355,9 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     // 时间
     self.createdAtLabel.text = [feed.createdAt friendlyInterval];
+    
+    // 星标
+    self.starLabel.hidden = !feed.starred;
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         // 文字
@@ -422,6 +481,14 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     }];
 }
 
+// 重置布局
+- (void)resetLayout
+{
+    [self hideCommandsToolbar];
+}
+
+#pragma mark - commands toolbar
+
 // 弹出命令工具栏
 - (void)switchCommandsToolbar
 {
@@ -442,53 +509,6 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [self.commandsToolbar removeFromSuperview];
 }
 
-/**
- *  计算单元格高度
- *
- *  @param feed <#feed description#>
- *
- *  @return 单元格高度
- */
-+ (CGFloat)calculateCellHeightWithFeed:(TMFeed *)feed
-{
-    FeedTableViewCell *sizingCell;
-    static FeedTableViewCell *imageCell;
-    static FeedTableViewCell *punchCell;
-    static FeedTableViewCell *textCell;
-    static FeedTableViewCell *shareCell;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        imageCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:imageCellReuseIdentifier];
-        punchCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:punchCellReuseIdentifier];
-        textCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textCellReuseIdentifier];
-        shareCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:shareCellReuseIdentifier];
-    });
-    
-    NSString *reuseIdentifier = [self getResuseIdentifierByFeed:feed];
-    
-    if ([reuseIdentifier isEqualToString:imageCellReuseIdentifier]) {
-        sizingCell = imageCell;
-    } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
-        sizingCell = punchCell;
-    } else if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]){
-        sizingCell = textCell;
-    } else {
-        sizingCell = shareCell;
-    }
-    
-    [sizingCell updateCellWithFeed:feed];
-    
-    [sizingCell setNeedsLayout];
-    [sizingCell layoutIfNeeded];
-    
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    return size.height;
-}
-
-#pragma mark - getters & setters
-
 - (UIView *)commandsToolbar
 {
     if (!_commandsToolbar) {
@@ -499,9 +519,9 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         
         // 星标
         UIButton *starButton = [UIButton new];
-        [starButton setTitle:@"星标" forState:UIControlStateNormal];
+        [starButton setTitle:ion_android_star forState:UIControlStateNormal];
         [starButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        starButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        starButton.titleLabel.font = [IonIcons fontWithSize:16];
         [starButton addTarget:self action:@selector(starFeed) forControlEvents:UIControlEventTouchUpInside];
         [_commandsToolbar addSubview:starButton];
         
@@ -512,9 +532,9 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         
         // 赞
         UIButton *likeButton = [UIButton new];
-        [likeButton setTitle:@"赞" forState:UIControlStateNormal];
+        [likeButton setTitle:ion_ios_heart forState:UIControlStateNormal];
         [likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        likeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        likeButton.titleLabel.font = [IonIcons fontWithSize:14];
         [likeButton addTarget:self action:@selector(likeFeed) forControlEvents:UIControlEventTouchUpInside];
         [_commandsToolbar addSubview:likeButton];
         
@@ -525,9 +545,9 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         
         // 评论
         UIButton *commentButton = [UIButton new];
-        [commentButton setTitle:@"评论" forState:UIControlStateNormal];
+        [commentButton setTitle:ion_ios_chatbubble forState:UIControlStateNormal];
         [commentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        commentButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        commentButton.titleLabel.font = [IonIcons fontWithSize:16];
         [commentButton addTarget:self action:@selector(commentFeed) forControlEvents:UIControlEventTouchUpInside];
         [_commandsToolbar addSubview:commentButton];
         
@@ -535,7 +555,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         [starButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.and.bottom.equalTo(_commandsToolbar);
             make.width.equalTo(@60);
-            make.height.equalTo(@35);
+            make.height.equalTo(@30);
         }];
         
         [firstDivider mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -567,12 +587,17 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     return _commandsToolbar;
 }
-
 // 打星标
 - (void)starFeed
 {
-    [self.delegate starFeed:self.feed];
-    [self hideCommandsToolbar];
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        TMFeed *feedInContext = [self.feed MR_inContext:localContext];
+        feedInContext.starredValue = !feedInContext.starredValue;
+    } completion:^(BOOL contextDidSave, NSError *error) {
+        self.starLabel.hidden = !self.starLabel.hidden;
+        //    [self.delegate starFeed:self.feed];
+        [self hideCommandsToolbar];
+    }];
 }
 
 // 赞
@@ -589,10 +614,6 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [self hideCommandsToolbar];
 }
 
-// 重置布局
-- (void)resetLayout
-{
-    [self hideCommandsToolbar];
-}
+
 
 @end
