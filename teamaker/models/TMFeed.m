@@ -155,4 +155,24 @@
     return [self MR_findByAttribute:@"teamId" withValue:teamId andOrderBy:@"createdAt" ascending:NO];
 }
 
+- (BOOL)isText
+{
+    return [self.kind isEqualToString:@"text"];
+}
+
+- (BOOL)isPunch
+{
+    return [self.kind isEqualToString:@"punch"];
+}
+
+- (BOOL)isShare
+{
+    return [self.kind isEqualToString:@"share"];
+}
+
+- (BOOL)isImage
+{
+    return [self.kind isEqualToString:@"image"];
+}
+
 @end

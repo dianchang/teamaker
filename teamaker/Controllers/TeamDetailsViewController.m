@@ -20,6 +20,7 @@
 #import "UIColor+Helper.h"
 #import "UserProfileViewController.h"
 #import "TeamStarredFeedsViewController.h"
+#import "UIImageView+Helper.h"
 
 @interface TeamDetailsViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -288,7 +289,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
         make.left.equalTo(cell.contentView).offset(15);
         make.width.equalTo(cell.contentView).multipliedBy(0.5).offset(-12.5);
         make.centerY.equalTo(cell.contentView);
-        make.height.equalTo(@50);
+        make.height.equalTo(@60);
     }];
     
     if (starredFeeds.count >= 2) {
@@ -303,7 +304,51 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 - (UIView *)createStarredFeedView:(TMFeed *)feed
 {
     UIView *starredFeedView = [UIView new];
-    starredFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
+    
+    // 背景
+    UIImageView *backgroundView = [[UIImageView alloc] initWithColor:[UIColor colorWithRGBA:0xEEEEEEFF]];
+    [starredFeedView addSubview:backgroundView];
+    
+    // 内容
+    if ([feed isText] || [feed isPunch] || [feed isShare]) {
+        // 文字
+        NSString *text;
+        
+        if ([feed isText]) {
+            text = feed.text;
+        } else if ([feed isPunch]) {
+            text = feed.punch;
+        } else {
+            text = feed.shareTitle;
+        }
+        
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.lineSpacing = 2;
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:text];
+        [attrString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attrString.length)];
+        
+        UILabel *textLabel = [UILabel new];
+        textLabel.numberOfLines = 3;
+        textLabel.font = [UIFont systemFontOfSize:12];
+        textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        textLabel.attributedText = attrString;
+        textLabel.textColor = [UIColor grayColor];
+        [backgroundView addSubview:textLabel];
+        
+        [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(backgroundView).offset(6);
+            make.left.equalTo(backgroundView).offset(10);
+            make.right.equalTo(backgroundView).offset(-10);
+        }];
+    } else {
+        // 图片
+        
+    }
+    
+    // 约束
+    [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(starredFeedView);
+    }];
     
     return starredFeedView;
 }
@@ -393,7 +438,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 70;
+        return 74;
     } else {
         return 40;
     }

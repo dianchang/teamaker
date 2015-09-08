@@ -14,4 +14,9 @@
 
 + (NSArray *)findByTeamId:(NSNumber *)teamId;
 
+- (BOOL)isText;
+- (BOOL)isImage;
+- (BOOL)isPunch;
+- (BOOL)isShare;
+
 @end
