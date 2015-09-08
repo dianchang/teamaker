@@ -521,7 +521,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         UIButton *starButton = [UIButton new];
         [starButton setTitle:ion_android_star forState:UIControlStateNormal];
         [starButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        starButton.titleLabel.font = [IonIcons fontWithSize:16];
+        starButton.titleLabel.font = [IonIcons fontWithSize:19];
         [starButton addTarget:self action:@selector(starFeed) forControlEvents:UIControlEventTouchUpInside];
         [_commandsToolbar addSubview:starButton];
         
@@ -534,7 +534,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         UIButton *likeButton = [UIButton new];
         [likeButton setTitle:ion_ios_heart forState:UIControlStateNormal];
         [likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        likeButton.titleLabel.font = [IonIcons fontWithSize:14];
+        likeButton.titleLabel.font = [IonIcons fontWithSize:16];
         [likeButton addTarget:self action:@selector(likeFeed) forControlEvents:UIControlEventTouchUpInside];
         [_commandsToolbar addSubview:likeButton];
         
@@ -547,7 +547,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         UIButton *commentButton = [UIButton new];
         [commentButton setTitle:ion_ios_chatbubble forState:UIControlStateNormal];
         [commentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        commentButton.titleLabel.font = [IonIcons fontWithSize:16];
+        commentButton.titleLabel.font = [IonIcons fontWithSize:19];
         [commentButton addTarget:self action:@selector(commentFeed) forControlEvents:UIControlEventTouchUpInside];
         [_commandsToolbar addSubview:commentButton];
         
