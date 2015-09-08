@@ -40,6 +40,7 @@
     self.tableView = tableView;
     tableView.allowsSelection = NO;
     tableView.separatorColor = [UIColor TMBackgroundColorGray];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.dataSource = self;
     tableView.backgroundColor = [UIColor TMBackgroundColorGray];
     tableView.delegate = self;

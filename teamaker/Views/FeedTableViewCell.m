@@ -554,7 +554,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         // 约束
         [starButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.and.bottom.equalTo(_commandsToolbar);
-            make.width.equalTo(@60);
+            make.width.equalTo(@65);
             make.height.equalTo(@35);
         }];
         
