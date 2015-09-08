@@ -73,23 +73,6 @@ static NSString *cellIdentifier = @"PunchCell";
     [[UIMenuController sharedMenuController] update];
 }
 
-- (NSArray *)punchs
-{
-    if (!_punchs) {
-        _punchs = [TMPunch MR_findAllSortedBy:@"order" ascending:YES];
-    }
-    
-    return _punchs;
-}
-
-- (NSArray *)teams
-{
-    if (!_teams) {
-        _teams = [TMTeam MR_findAll];
-    }
-    return _teams;
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView.contentOffset.y < -50) {
@@ -107,7 +90,7 @@ static NSString *cellIdentifier = @"PunchCell";
 
 - (void)cancelPublish:(UIButton *)sender
 {
-    [self hideButtons];
+    [self hideTeamButtons];
 }
 
 - (void)publish:(UIButton *)sender
@@ -137,63 +120,22 @@ static NSString *cellIdentifier = @"PunchCell";
 
 - (void)preparePublish:(id)sender
 {
-    // 背景
-    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
-    self.backdropView = backdropView;
-    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                             initWithTarget:self action:@selector(cancelPublish:)];
-    tapRecognizer.numberOfTapsRequired = 1;
-    [backdropView addGestureRecognizer:tapRecognizer];
-    [self.view addSubview:backdropView];
-    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    // 团队按钮
-    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
-    [self.backdropView addSubview:teamButtons];
-    self.teamButtons = teamButtons;
-    teamButtons.delegate = self;
-    
-    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_bottom);
-    }];
-    
-    [self.view layoutIfNeeded];
-    
-    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.bottom.equalTo(self.view);
-    }];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
-        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
-    }];
+    [self.teamButtons showWithDuration:.3 animation:nil completion:nil];
 }
 
 - (void)resetLayout
-{
-    [self hideButtons];
+{    
+    [self hideTeamButtons];
 }
 
 // 隐藏团队按钮
-- (void)hideButtons
-{    
-    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_bottom);
-    }];
+- (void)hideTeamButtons
+{
+    if (!self.teamButtons.superview) {
+        return;
+    }
     
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
-        self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
-    } completion:^(BOOL finished) {
-        [self.backdropView removeFromSuperview];
-        self.backdropView = nil;
-        self.teamButtons = nil;
+    [self.teamButtons hideWithDuration:.3 animation:nil completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     }];
 }
@@ -261,6 +203,35 @@ static NSString *cellIdentifier = @"PunchCell";
 // 仅用于消除 XCode 的 warning
 - (void)deletePunch:(id)sender
 {
+}
+
+#pragma mark - getters and setters
+
+- (NSArray *)punchs
+{
+    if (!_punchs) {
+        _punchs = [TMPunch MR_findAllSortedBy:@"order" ascending:YES];
+    }
+    
+    return _punchs;
+}
+
+- (NSArray *)teams
+{
+    if (!_teams) {
+        _teams = [TMTeam MR_findAll];
+    }
+    return _teams;
+}
+
+- (TeamButtons *)teamButtons
+{
+    if (!_teamButtons) {
+        _teamButtons = [[TeamButtons alloc] initWithTeams:self.teams backgroundFaded:YES];
+        _teamButtons.delegate = self;
+    }
+    
+    return _teamButtons;
 }
 
 @end

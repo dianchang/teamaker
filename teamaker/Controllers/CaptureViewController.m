@@ -324,7 +324,7 @@
  */
 - (void)cancelPublish:(UIButton *)sender
 {
-    [self hideButtons];
+    [self hideTeamButtons];
     
     dispatch_async(self.sessionQueue, ^{
         [self.session startRunning];
@@ -341,7 +341,7 @@
     NSNumber *teamId = [NSNumber numberWithLong:sender.tag];
     
     [TMFeed createImageFeed:self.stillImageData teamId:teamId completion:^(BOOL contextDidSave, NSError *error) {
-        [self hideButtons];
+        [self hideTeamButtons];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
         [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
@@ -509,7 +509,7 @@
  */
 - (void)resetLayout
 {
-    [self hideButtons];
+    [self hideTeamButtons];
     
     if (self.navigationController.viewControllers.count == 2) {
         [self.navigationController popViewControllerAnimated:NO];
@@ -586,8 +586,12 @@
 }
 
 // 隐藏按钮组
-- (void)hideButtons
+- (void)hideTeamButtons
 {
+    if (!self.teamButtons.superview) {
+        return;
+    }
+    
     [self.teamButtons hideWithDuration:.3 animation:^{
         [self.previewView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
@@ -769,7 +773,7 @@
 - (TeamButtons *)teamButtons
 {
     if (!_teamButtons) {
-        _teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
+        _teamButtons = [[TeamButtons alloc] initWithTeams:self.teams backgroundFaded:NO];
         _teamButtons.delegate = self;
     }
     

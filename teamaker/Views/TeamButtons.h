@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) id <ComposeViewControllerProtocol> delegate;
 
-- (instancetype)initWithTeams:(NSArray *)teams ;
+- (instancetype)initWithTeams:(NSArray *)teams backgroundFaded:(BOOL)backgroundFaded;
 - (void)showWithDuration:(NSTimeInterval)duration animation:(void (^)(void))animationBlock completion:(void (^)(void))completionBlock;
 - (void)hideWithDuration:(NSTimeInterval)duration animation:(void (^)(void))animationBlock completion:(void (^)(void))completionBlock;
 

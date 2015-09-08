@@ -39,8 +39,6 @@
 		053717731B941B8000A92A7D /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537176F1B941B8000A92A7D /* UserProfileViewController.m */; };
 		053717811B941BA500A92A7D /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717751B941BA500A92A7D /* CaptureViewController.m */; };
 		053717821B941BA500A92A7D /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717771B941BA500A92A7D /* ComposeViewController.m */; };
-		053717831B941BA500A92A7D /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537177A1B941BA500A92A7D /* LocationDetailsViewController.m */; };
-		053717841B941BA500A92A7D /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537177C1B941BA500A92A7D /* LocationViewController.m */; };
 		053717851B941BA500A92A7D /* PunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537177E1B941BA500A92A7D /* PunchViewController.m */; };
 		053717861B941BA500A92A7D /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717801B941BA500A92A7D /* TextViewController.m */; };
 		053717891B941BB400A92A7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717881B941BB400A92A7D /* ViewController.m */; };
@@ -119,10 +117,6 @@
 		053717761B941BA500A92A7D /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		053717771B941BA500A92A7D /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		053717781B941BA500A92A7D /* ComposeViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewControllerProtocol.h; sourceTree = "<group>"; };
-		053717791B941BA500A92A7D /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
-		0537177A1B941BA500A92A7D /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
-		0537177B1B941BA500A92A7D /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
-		0537177C1B941BA500A92A7D /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		0537177D1B941BA500A92A7D /* PunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchViewController.h; sourceTree = "<group>"; };
 		0537177E1B941BA500A92A7D /* PunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchViewController.m; sourceTree = "<group>"; };
 		0537177F1B941BA500A92A7D /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
@@ -365,10 +359,6 @@
 				053717781B941BA500A92A7D /* ComposeViewControllerProtocol.h */,
 				053717741B941BA500A92A7D /* CaptureViewController.h */,
 				053717751B941BA500A92A7D /* CaptureViewController.m */,
-				053717791B941BA500A92A7D /* LocationDetailsViewController.h */,
-				0537177A1B941BA500A92A7D /* LocationDetailsViewController.m */,
-				0537177B1B941BA500A92A7D /* LocationViewController.h */,
-				0537177C1B941BA500A92A7D /* LocationViewController.m */,
 				0537177D1B941BA500A92A7D /* PunchViewController.h */,
 				0537177E1B941BA500A92A7D /* PunchViewController.m */,
 				0537177F1B941BA500A92A7D /* TextViewController.h */,
@@ -630,12 +620,10 @@
 				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
 				053717641B941B6000A92A7D /* TeamProfileViewController.m in Sources */,
 				053717711B941B8000A92A7D /* MyProfileViewController.m in Sources */,
-				053717841B941BA500A92A7D /* LocationViewController.m in Sources */,
 				05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */,
 				053717891B941BB400A92A7D /* ViewController.m in Sources */,
 				0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */,
 				05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */,
-				053717831B941BA500A92A7D /* LocationDetailsViewController.m in Sources */,
 				05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */,
 				05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */,
 				053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */,

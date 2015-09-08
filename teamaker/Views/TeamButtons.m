@@ -15,6 +15,8 @@
 @interface TeamButtons()
 
 @property (strong, nonatomic) NSArray *teams;
+@property (nonatomic) BOOL backgroundFaded;
+@property (strong, nonatomic) UIView *backgroundView;
 
 @end
 
@@ -22,10 +24,11 @@
 
 static int const buttonHeight = 60;
 
-- (instancetype)initWithTeams:(NSArray *)teams
+- (instancetype)initWithTeams:(NSArray *)teams backgroundFaded:(BOOL)backgroundFaded
 {
     self = [super init];
     self.teams = teams;
+    self.backgroundFaded = backgroundFaded;
     self.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
     
     __block UIButton *prevButton;
@@ -94,9 +97,17 @@ static int const buttonHeight = 60;
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     
+    if (self.backgroundFaded) {
+        [window addSubview:self.backgroundView];
+        
+        [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(window);
+        }];
+    }
+    
     [window addSubview:self];
     
-    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(window);
         make.top.equalTo(window.mas_bottom);
     }];
@@ -110,6 +121,10 @@ static int const buttonHeight = 60;
     [UIView animateWithDuration:duration animations:^{
         if (animationBlock) {
             animationBlock();
+        }
+        
+        if (self.backgroundFaded) {
+            self.backgroundView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
         }
         
         [window layoutIfNeeded];
@@ -134,12 +149,37 @@ static int const buttonHeight = 60;
             animationBlock();
         }
         
+        if (self.backgroundFaded) {
+            self.backgroundView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+        }
+        
         [window layoutIfNeeded];
     } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+        [self.backgroundView removeFromSuperview];
+        
         if (completionBlock) {
             completionBlock();
         }
     }];
+}
+
+#pragma mark - getters and setters
+
+- (UIView *)backgroundView
+{
+    if (!_backgroundView) {
+        UIView *backgroundView = [UIView new];
+        backgroundView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                                 initWithTarget:self action:@selector(cancelPublish:)];
+        tapRecognizer.numberOfTapsRequired = 1;
+        [backgroundView addGestureRecognizer:tapRecognizer];
+        
+        _backgroundView = backgroundView;
+    }
+    
+    return _backgroundView;
 }
 
 @end

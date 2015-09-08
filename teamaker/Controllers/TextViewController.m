@@ -134,44 +134,9 @@ static int const sendButtonHeight = 50;
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     
-    // 背景
-    UIView *backdropView  = [[UIView alloc] initWithFrame:CGRectZero];
-    self.backdropView = backdropView;
-    backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                             initWithTarget:self action:@selector(cancelPublish:)];
-    tapRecognizer.numberOfTapsRequired = 1;
-    [backdropView addGestureRecognizer:tapRecognizer];
-    [self.view addSubview:backdropView];
-    [backdropView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    // 团队按钮
-    TeamButtons *teamButtons = [[TeamButtons alloc] initWithTeams:self.teams];
-    [self.view addSubview:teamButtons];
-    self.teamButtons = teamButtons;
-    teamButtons.delegate = self;
-    
-    [teamButtons mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_bottom);
-    }];
-    
-    [self.view layoutIfNeeded];
-    
-    [teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.bottom.equalTo(self.view);
-    }];
-    
     [self.textView resignFirstResponder];
     [self.textView setEditable:NO];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000066];
-        [self.view layoutIfNeeded];
-    }];
+    [self.teamButtons showWithDuration:.3 animation:nil completion:nil];
 }
 
 // 取消发送
@@ -195,21 +160,16 @@ static int const sendButtonHeight = 50;
 // 隐藏按钮
 - (void)hideTeamButtons
 {
-    [self.teamButtons mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_bottom);
-    }];
+    if (!self.teamButtons.superview) {
+        return;
+    }
     
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
-        self.backdropView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
-    } completion:^(BOOL finished) {
-        [self.backdropView removeFromSuperview];
-        self.backdropView = nil;
-        self.teamButtons = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
+    [self.teamButtons hideWithDuration:.3 animation:nil completion:^{
+         [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldShowPagerNotification object:nil];
     }];
 }
+
+#pragma mark - getters and setters
 
 - (NSArray *)teams
 {
@@ -217,6 +177,16 @@ static int const sendButtonHeight = 50;
         _teams = [TMTeam MR_findAll];
     }
     return _teams;
+}
+
+- (TeamButtons *)teamButtons
+{
+    if (!_teamButtons) {
+        _teamButtons = [[TeamButtons alloc] initWithTeams:self.teams backgroundFaded:YES];
+        _teamButtons.delegate = self;
+    }
+    
+    return _teamButtons;
 }
 
 @end
