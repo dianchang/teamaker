@@ -16,6 +16,7 @@
 #import "Masonry.h"
 #import "UIImageView+AFNetworking.h"
 #import "TeamMemberCollectionViewCell.h"
+#import "Ionicons.h"
 #import "UIColor+Helper.h"
 #import "UserProfileViewController.h"
 
@@ -351,15 +352,23 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     headerView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
     
     if (section == 0) {
-        UILabel *myLabel = [UILabel new];
-        myLabel.font = [UIFont boldSystemFontOfSize:12];
-        myLabel.textColor = [UIColor colorWithRGBA:0xAAAAAAFF];
-        myLabel.text = @"★ 星标内容";
-        [headerView addSubview:myLabel];
+        UILabel *iconLabel = [IonIcons labelWithIcon:ion_android_star size:14 color:[UIColor colorWithRGBA:0xAAAAAAFF]];
+        [headerView addSubview:iconLabel];
         
-        [myLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        UILabel *textLabel = [UILabel new];
+        textLabel.font = [UIFont systemFontOfSize:12];
+        textLabel.textColor = [UIColor colorWithRGBA:0xAAAAAAFF];
+        textLabel.text = @"星标内容";
+        [headerView addSubview:textLabel];
+        
+        [iconLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(headerView).offset(15);
             make.bottom.equalTo(headerView).offset(-8);
+        }];
+        
+        [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(iconLabel.mas_right).offset(3);
+            make.centerY.equalTo(iconLabel);
         }];
     }
     

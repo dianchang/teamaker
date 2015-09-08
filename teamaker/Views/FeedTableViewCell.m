@@ -231,13 +231,13 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         make.left.centerY.equalTo(self.timeAndCommandsView);
     }];
     
-    [self.starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.timeAndCommandsView);
-        make.left.equalTo(self.createdAtLabel.mas_right).offset(15);
-    }];
-    
     [self.commandButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(self.timeAndCommandsView);
+    }];
+    
+    [self.starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.timeAndCommandsView);
+        make.right.equalTo(self.commandButton.mas_left).offset(-5);
     }];
 }
 
@@ -613,7 +613,5 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [self.delegate commentFeed:self.feed];
     [self hideCommandsToolbar];
 }
-
-
 
 @end
