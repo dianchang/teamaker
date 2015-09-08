@@ -213,9 +213,11 @@
     // 将自己添加为该团队的一员
     
     UINavigationController *navController = self.navigationController;
-    [navController popToRootViewControllerAnimated:NO];
     TeamProfileViewController *controller = [[TeamProfileViewController alloc] initWithTeamId:self.teamId];
-    [navController pushViewController:controller animated:YES];
+    NSMutableArray *newViewControllers = [NSMutableArray array];
+    [newViewControllers addObject:[navController.viewControllers objectAtIndex:0]];
+    [newViewControllers addObject:controller];
+    [navController setViewControllers:newViewControllers animated:YES];
 }
 
 # pragma mark - getters and setters
