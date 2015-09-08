@@ -211,11 +211,11 @@
     return _joinTeamMenu;
 }
 
-- (NSMutableArray *)feeds
+- (NSArray *)feeds
 {
-    NSMutableArray *feeds = [super feeds];
+    NSArray *feeds = [super feeds];
     if (!feeds) {
-        self.feeds = [[TMFeed findByUserId:self.loggedInUser.id] mutableCopy];
+        self.feeds = [TMFeed findByUserId:self.loggedInUser.id];
     }
     
     return [super feeds];

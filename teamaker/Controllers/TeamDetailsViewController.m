@@ -19,6 +19,7 @@
 #import "Ionicons.h"
 #import "UIColor+Helper.h"
 #import "UserProfileViewController.h"
+#import "TeamStarredFeedsViewController.h"
 
 @interface TeamDetailsViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -419,6 +420,13 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            TeamStarredFeedsViewController *controller = [[TeamStarredFeedsViewController alloc] initWithTeamId:self.teamId];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+    }
 }
 
 #pragma mark - collection view delegate and data source
@@ -426,7 +434,6 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     TMTeamUserInfo *userInfo = self.userInfos[indexPath.row];
-    
     TeamMemberCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionViewReuseIdentifier forIndexPath:indexPath];
     [cell updateDataWithUser:userInfo.user];
     return cell;

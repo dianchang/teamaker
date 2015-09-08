@@ -1,4 +1,5 @@
 #import "TMTeam.h"
+#import "TMFeed.h"
 #import <MagicalRecord/MagicalRecord.h>
 
 @interface TMTeam ()
@@ -25,6 +26,17 @@
     } else {
         return 0;
     }
+}
+
+/**
+ *  获取星标feeds
+ *
+ *  @return <#return value description#>
+ */
+- (NSArray *)findStarredFeeds
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(teamId == %@) AND (starred == 1)", self.id];
+    return [TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO withPredicate:predicate];
 }
 
 @end

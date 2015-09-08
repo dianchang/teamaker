@@ -7,7 +7,7 @@
 //
 //  FeedView基类，需重载的方法：
 //  * feeds getter
-//  *
+//  * redirectToExternalLinkView:
 
 #import <UIKit/UIKit.h>
 #import "FeedTableViewCellProtocol.h"
@@ -17,7 +17,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (strong, nonatomic) NSMutableArray *feeds;
+@property (strong, nonatomic) NSArray *feeds;
 @property (strong, nonatomic) TMUser* loggedInUser;
 
 @end

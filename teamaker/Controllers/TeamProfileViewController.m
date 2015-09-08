@@ -147,19 +147,19 @@
     TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
     ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:feed.shareUrl feedCreationCompletion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 # pragma mark - getters and setters
 
-- (NSMutableArray *)feeds
+- (NSArray *)feeds
 {
-    NSMutableArray *feeds = [super feeds];
+    NSArray *feeds = [super feeds];
     
     if (!feeds) {
-        self.feeds = [[TMFeed findByTeamId:self.teamId] mutableCopy];
+        self.feeds = [TMFeed findByTeamId:self.teamId];
     }
 
     return [super feeds];

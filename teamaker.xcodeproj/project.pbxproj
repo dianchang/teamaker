@@ -45,6 +45,7 @@
 		0537178C1B941BF100A92A7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0537178A1B941BF100A92A7D /* Main.storyboard */; };
 		0537178F1B941C3300A92A7D /* CreateTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537178E1B941C3300A92A7D /* CreateTeamViewController.m */; };
 		053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717911B941C4C00A92A7D /* JoinTeamViewController.m */; };
+		055917481B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */; };
 		0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */; };
 		0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3E1B90CC0B00A670B4 /* PunchTableViewCell.m */; };
 		0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC401B90CC0B00A670B4 /* TeamButtons.m */; };
@@ -129,6 +130,8 @@
 		053717901B941C4C00A92A7D /* JoinTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamViewController.h; sourceTree = "<group>"; };
 		053717911B941C4C00A92A7D /* JoinTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamViewController.m; sourceTree = "<group>"; };
 		053717931B945A8B00A92A7D /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		055917461B9EE03C0036B6E9 /* TeamStarredFeedsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStarredFeedsViewController.h; sourceTree = "<group>"; };
+		055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStarredFeedsViewController.m; sourceTree = "<group>"; };
 		0573DC3A1B90CC0B00A670B4 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		0573DC3C1B90CC0B00A670B4 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
@@ -408,6 +411,8 @@
 				053717911B941C4C00A92A7D /* JoinTeamViewController.m */,
 				057708341B9D3E710001CA87 /* AddTeamMemberViewController.h */,
 				057708351B9D3E710001CA87 /* AddTeamMemberViewController.m */,
+				055917461B9EE03C0036B6E9 /* TeamStarredFeedsViewController.h */,
+				055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */,
 			);
 			name = Team;
 			sourceTree = "<group>";
@@ -644,6 +649,7 @@
 				051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */,
 				053717631B941B6000A92A7D /* TeamDetailsViewController.m in Sources */,
 				0577083B1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m in Sources */,
+				055917481B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m in Sources */,
 				053717671B941B6B00A92A7D /* FeedViewController.m in Sources */,
 				051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */,
 				05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */,
