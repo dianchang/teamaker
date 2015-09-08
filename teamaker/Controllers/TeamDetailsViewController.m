@@ -86,6 +86,8 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 {
     [super viewWillAppear:animated];
     
+    self.navigationItem.title = @"";
+    
     [self.navigationController.view addSubview:self.avatarView];
     
     // 约束
@@ -98,13 +100,14 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     
     [UIView animateWithDuration:0.2 animations:^{
         self.avatarView.alpha = 1;
-    } completion: ^(BOOL finished) {
     }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    self.navigationItem.title = self.team.name;
     
     [UIView animateWithDuration:0.2 animations:^{
         self.avatarView.alpha = 0;
@@ -142,7 +145,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(headerView);
         make.bottom.equalTo(headerView).offset(-15);
-        make.top.equalTo(userLable.mas_bottom).offset(20);
+        make.top.equalTo(userLable.mas_bottom).offset(40);
     }];
     
     return headerView;

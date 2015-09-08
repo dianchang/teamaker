@@ -84,6 +84,8 @@
 {
     [super viewWillDisappear:animated];
     
+    self.navigationItem.title = self.team.name;
+    
     [UIView animateWithDuration:0.2 animations:^{
         self.avatarView.alpha = 0;
     } completion: ^(BOOL finished) {
