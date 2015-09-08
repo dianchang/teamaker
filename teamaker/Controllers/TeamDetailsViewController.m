@@ -26,7 +26,7 @@
 @property (strong, nonatomic) NSNumber *teamId;
 @property (strong, nonatomic) TMTeam *team;
 @property (strong, nonatomic) NSArray *userInfos;
-@property (strong, nonatomic) NSArray *starFeeds;
+@property (strong, nonatomic) NSArray *starredFeeds;
 @property (strong, nonatomic) TMUser *loggedInUser;
 @property (strong, nonatomic) TMTeamUserInfo *teamUserInfo;
 @property (strong, nonatomic) UIImageView *avatarView;
@@ -216,7 +216,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     
     switch (indexPath.section) {
         case 0: {
-            [self configTableViewCell:cell ForStarFeeds:self.starFeeds];
+            [self configTableViewCell:cell ForStarredFeeds:self.starredFeeds];
             break;
         }
             
@@ -269,32 +269,43 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     return cell;
 }
 
-- (void)configTableViewCell:(UITableViewCell *)cell ForStarFeeds:(NSArray *)starFeeds
+- (void)configTableViewCell:(UITableViewCell *)cell ForStarredFeeds:(NSArray *)starredFeeds
 {
-    if (starFeeds.count == 0) {
+    if (starredFeeds.count == 0) {
+        return;
     }
     
-    UIView *firstStarFeedView = [UIView new];
-    firstStarFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
-    [cell.contentView addSubview:firstStarFeedView];
+    UIView *firstStarredFeedView = [self createStarredFeedView:[starredFeeds objectAtIndex:0]];
+    [cell.contentView addSubview:firstStarredFeedView];
     
-    UIView *secondStarFeedView = [UIView new];
-    secondStarFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
-    [cell.contentView addSubview:secondStarFeedView];
+    UIView *secondStarFeedView;
+    if (starredFeeds.count >= 2) {
+        secondStarFeedView = [self createStarredFeedView:[starredFeeds objectAtIndex:1]];
+        [cell.contentView addSubview:secondStarFeedView];
+    }
     
-    [firstStarFeedView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [firstStarredFeedView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.contentView).offset(15);
-        make.width.equalTo(secondStarFeedView);
-        make.right.equalTo(secondStarFeedView.mas_left).offset(-10);
+        make.width.equalTo(cell.contentView).multipliedBy(0.5).offset(-12.5);
         make.centerY.equalTo(cell.contentView);
         make.height.equalTo(@50);
     }];
     
-    [secondStarFeedView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(cell.contentView);
-        make.centerY.equalTo(cell.contentView);
-        make.height.equalTo(@50);
-    }];
+    if (starredFeeds.count >= 2) {
+        [secondStarFeedView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(cell.contentView);
+            make.centerY.equalTo(cell.contentView);
+            make.size.equalTo(firstStarredFeedView);
+        }];
+    }
+}
+
+- (UIView *)createStarredFeedView:(TMFeed *)feed
+{
+    UIView *starredFeedView = [UIView new];
+    starredFeedView.backgroundColor = [UIColor colorWithRGBA:0xBBBBBBFF];
+    
+    return starredFeedView;
 }
 
 - (void)configTableViewCell:(UITableViewCell *)cell key:(NSString *)key value:(NSString *)value
@@ -513,13 +524,13 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     return _teamUserInfo;
 }
 
-- (NSArray *)starFeeds
+- (NSArray *)starredFeeds
 {
-    if (!_starFeeds) {
-        _starFeeds = [self.team.feeds allObjects];
+    if (!_starredFeeds) {
+        _starredFeeds = [self.team findStarredFeeds];
     }
     
-    return _starFeeds;
+    return _starredFeeds;
 }
 
 @end
