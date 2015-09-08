@@ -287,7 +287,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     
     [firstStarredFeedView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.contentView).offset(15);
-        make.width.equalTo(cell.contentView).multipliedBy(0.5).offset(-12.5);
+        make.width.equalTo(cell.contentView).multipliedBy(0.5).offset(-11.5);
         make.centerY.equalTo(cell.contentView);
         make.height.equalTo(@60);
     }];
