@@ -15,6 +15,7 @@
         <attribute name="teamId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="likers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMUserLikeFeed" inverseName="feed" inverseEntity="TMUserLikeFeed" syncable="YES"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMTeam" inverseName="feeds" inverseEntity="TMTeam" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUser" inverseName="feeds" inverseEntity="TMUser" syncable="YES"/>
     </entity>
@@ -57,13 +58,23 @@
         <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wechat" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="user" inverseEntity="TMFeed" syncable="YES"/>
+        <relationship name="likedFeeds" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUserLikeFeed" inverseName="user" inverseEntity="TMUserLikeFeed" syncable="YES"/>
         <relationship name="teamsInfos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMTeamUserInfo" inverseName="user" inverseEntity="TMTeamUserInfo" syncable="YES"/>
     </entity>
+    <entity name="TMUserLikeFeed" representedClassName="TMUserLikeFeed" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="teamId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="likers" inverseEntity="TMFeed" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUser" inverseName="likedFeeds" inverseEntity="TMUser" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="TMFeed" positionX="63" positionY="-2307" width="128" height="285"/>
+        <element name="TMFeed" positionX="63" positionY="-2307" width="128" height="300"/>
         <element name="TMPunch" positionX="-675" positionY="-27" width="128" height="90"/>
         <element name="TMTeam" positionX="304" positionY="-2109" width="128" height="135"/>
         <element name="TMTeamUserInfo" positionX="63" positionY="-2061" width="128" height="210"/>
-        <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="240"/>
+        <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="255"/>
+        <element name="TMUserLikeFeed" positionX="-477" positionY="-2160" width="128" height="135"/>
     </elements>
 </model>

@@ -47,6 +47,8 @@
 		053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717911B941C4C00A92A7D /* JoinTeamViewController.m */; };
 		055917481B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */; };
 		0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0559174D1B9EEE630036B6E9 /* UIImageView+Helper.m */; };
+		055917531B9F0CE30036B6E9 /* _TMUserLikeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917501B9F0CE30036B6E9 /* _TMUserLikeFeed.m */; };
+		055917541B9F0CE30036B6E9 /* TMUserLikeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917521B9F0CE30036B6E9 /* TMUserLikeFeed.m */; };
 		0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */; };
 		0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3E1B90CC0B00A670B4 /* PunchTableViewCell.m */; };
 		0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC401B90CC0B00A670B4 /* TeamButtons.m */; };
@@ -135,6 +137,10 @@
 		055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStarredFeedsViewController.m; sourceTree = "<group>"; };
 		0559174C1B9EEE630036B6E9 /* UIImageView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Helper.h"; path = "Categories/UIImageView+Helper.h"; sourceTree = "<group>"; };
 		0559174D1B9EEE630036B6E9 /* UIImageView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Helper.m"; path = "Categories/UIImageView+Helper.m"; sourceTree = "<group>"; };
+		0559174F1B9F0CD60036B6E9 /* _TMUserLikeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMUserLikeFeed.h; path = Models/_TMUserLikeFeed.h; sourceTree = "<group>"; };
+		055917501B9F0CE30036B6E9 /* _TMUserLikeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMUserLikeFeed.m; path = Models/_TMUserLikeFeed.m; sourceTree = "<group>"; };
+		055917511B9F0CE30036B6E9 /* TMUserLikeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMUserLikeFeed.h; path = Models/TMUserLikeFeed.h; sourceTree = "<group>"; };
+		055917521B9F0CE30036B6E9 /* TMUserLikeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMUserLikeFeed.m; path = Models/TMUserLikeFeed.m; sourceTree = "<group>"; };
 		0573DC3A1B90CC0B00A670B4 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		0573DC3C1B90CC0B00A670B4 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
@@ -314,6 +320,10 @@
 		0530824F1B84AD07008C6C16 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				055917501B9F0CE30036B6E9 /* _TMUserLikeFeed.m */,
+				055917511B9F0CE30036B6E9 /* TMUserLikeFeed.h */,
+				055917521B9F0CE30036B6E9 /* TMUserLikeFeed.m */,
+				0559174F1B9F0CD60036B6E9 /* _TMUserLikeFeed.h */,
 				051214CF1B8F2D350050EB6C /* _TMTeamUserInfo.h */,
 				051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */,
 				05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */,
@@ -631,6 +641,7 @@
 				053717641B941B6000A92A7D /* TeamProfileViewController.m in Sources */,
 				053717711B941B8000A92A7D /* MyProfileViewController.m in Sources */,
 				0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */,
+				055917541B9F0CE30036B6E9 /* TMUserLikeFeed.m in Sources */,
 				05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */,
 				053717891B941BB400A92A7D /* ViewController.m in Sources */,
 				0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */,
@@ -656,6 +667,7 @@
 				053717631B941B6000A92A7D /* TeamDetailsViewController.m in Sources */,
 				0577083B1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m in Sources */,
 				055917481B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m in Sources */,
+				055917531B9F0CE30036B6E9 /* _TMUserLikeFeed.m in Sources */,
 				053717671B941B6B00A92A7D /* FeedViewController.m in Sources */,
 				051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */,
 				05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */,

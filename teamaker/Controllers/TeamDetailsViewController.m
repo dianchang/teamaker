@@ -342,7 +342,10 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
         }];
     } else {
         // 图片
-        
+        UIImage *feedImage = [UIImage imageWithData:feed.image];
+        backgroundView.image = feedImage;
+        backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+        backgroundView.clipsToBounds = YES;
     }
     
     // 约束

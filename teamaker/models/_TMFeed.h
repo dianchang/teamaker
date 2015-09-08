@@ -21,10 +21,12 @@ extern const struct TMFeedAttributes {
 } TMFeedAttributes;
 
 extern const struct TMFeedRelationships {
+	__unsafe_unretained NSString *likers;
 	__unsafe_unretained NSString *team;
 	__unsafe_unretained NSString *user;
 } TMFeedRelationships;
 
+@class TMUserLikeFeed;
 @class TMTeam;
 @class TMUser;
 
@@ -109,6 +111,10 @@ extern const struct TMFeedRelationships {
 
 //- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSSet *likers;
+
+- (NSMutableSet*)likersSet;
+
 @property (nonatomic, strong) TMTeam *team;
 
 //- (BOOL)validateTeam:(id*)value_ error:(NSError**)error_;
@@ -116,6 +122,14 @@ extern const struct TMFeedRelationships {
 @property (nonatomic, strong) TMUser *user;
 
 //- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
+
+@end
+
+@interface _TMFeed (LikersCoreDataGeneratedAccessors)
+- (void)addLikers:(NSSet*)value_;
+- (void)removeLikers:(NSSet*)value_;
+- (void)addLikersObject:(TMUserLikeFeed*)value_;
+- (void)removeLikersObject:(TMUserLikeFeed*)value_;
 
 @end
 
@@ -174,6 +188,9 @@ extern const struct TMFeedRelationships {
 
 - (int32_t)primitiveUserIdValue;
 - (void)setPrimitiveUserIdValue:(int32_t)value_;
+
+- (NSMutableSet*)primitiveLikers;
+- (void)setPrimitiveLikers:(NSMutableSet*)value;
 
 - (TMTeam*)primitiveTeam;
 - (void)setPrimitiveTeam:(TMTeam*)value;

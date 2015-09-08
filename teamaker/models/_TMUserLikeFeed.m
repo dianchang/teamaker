@@ -1,52 +1,41 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to TMFeed.m instead.
+// Make changes to TMUserLikeFeed.m instead.
 
-#import "_TMFeed.h"
+#import "_TMUserLikeFeed.h"
 
-const struct TMFeedAttributes TMFeedAttributes = {
+const struct TMUserLikeFeedAttributes TMUserLikeFeedAttributes = {
 	.createdAt = @"createdAt",
 	.id = @"id",
-	.image = @"image",
-	.imageUrl = @"imageUrl",
-	.kind = @"kind",
-	.location = @"location",
-	.punch = @"punch",
-	.shareImageUrl = @"shareImageUrl",
-	.shareTitle = @"shareTitle",
-	.shareUrl = @"shareUrl",
-	.starred = @"starred",
 	.teamId = @"teamId",
-	.text = @"text",
 	.userId = @"userId",
 };
 
-const struct TMFeedRelationships TMFeedRelationships = {
-	.likers = @"likers",
-	.team = @"team",
+const struct TMUserLikeFeedRelationships TMUserLikeFeedRelationships = {
+	.feed = @"feed",
 	.user = @"user",
 };
 
-@implementation TMFeedID
+@implementation TMUserLikeFeedID
 @end
 
-@implementation _TMFeed
+@implementation _TMUserLikeFeed
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"TMFeed" inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"TMUserLikeFeed" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return @"TMFeed";
+	return @"TMUserLikeFeed";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"TMFeed" inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"TMUserLikeFeed" inManagedObjectContext:moc_];
 }
 
-- (TMFeedID*)objectID {
-	return (TMFeedID*)[super objectID];
+- (TMUserLikeFeedID*)objectID {
+	return (TMUserLikeFeedID*)[super objectID];
 }
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
@@ -54,11 +43,6 @@ const struct TMFeedRelationships TMFeedRelationships = {
 
 	if ([key isEqualToString:@"idValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"id"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"starredValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"starred"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -98,42 +82,6 @@ const struct TMFeedRelationships TMFeedRelationships = {
 	[self setPrimitiveId:[NSNumber numberWithInt:value_]];
 }
 
-@dynamic image;
-
-@dynamic imageUrl;
-
-@dynamic kind;
-
-@dynamic location;
-
-@dynamic punch;
-
-@dynamic shareImageUrl;
-
-@dynamic shareTitle;
-
-@dynamic shareUrl;
-
-@dynamic starred;
-
-- (BOOL)starredValue {
-	NSNumber *result = [self starred];
-	return [result boolValue];
-}
-
-- (void)setStarredValue:(BOOL)value_ {
-	[self setStarred:[NSNumber numberWithBool:value_]];
-}
-
-- (BOOL)primitiveStarredValue {
-	NSNumber *result = [self primitiveStarred];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveStarredValue:(BOOL)value_ {
-	[self setPrimitiveStarred:[NSNumber numberWithBool:value_]];
-}
-
 @dynamic teamId;
 
 - (int32_t)teamIdValue {
@@ -153,8 +101,6 @@ const struct TMFeedRelationships TMFeedRelationships = {
 - (void)setPrimitiveTeamIdValue:(int32_t)value_ {
 	[self setPrimitiveTeamId:[NSNumber numberWithInt:value_]];
 }
-
-@dynamic text;
 
 @dynamic userId;
 
@@ -176,18 +122,7 @@ const struct TMFeedRelationships TMFeedRelationships = {
 	[self setPrimitiveUserId:[NSNumber numberWithInt:value_]];
 }
 
-@dynamic likers;
-
-- (NSMutableSet*)likersSet {
-	[self willAccessValueForKey:@"likers"];
-
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"likers"];
-
-	[self didAccessValueForKey:@"likers"];
-	return result;
-}
-
-@dynamic team;
+@dynamic feed;
 
 @dynamic user;
 
