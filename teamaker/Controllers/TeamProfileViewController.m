@@ -59,17 +59,6 @@
     self.avatarView.alpha = 0;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        self.avatarView.alpha = 0;
-    } completion: ^(BOOL finished) {
-        [self.avatarView removeFromSuperview];
-    }];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -88,6 +77,17 @@
     [UIView animateWithDuration:0.2 animations:^{
         self.avatarView.alpha = 1;
     } completion: ^(BOOL finished) {
+    }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.avatarView.alpha = 0;
+    } completion: ^(BOOL finished) {
+        [self.avatarView removeFromSuperview];
     }];
 }
 

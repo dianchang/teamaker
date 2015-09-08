@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSArray *starFeeds;
 @property (strong, nonatomic) TMUser *loggedInUser;
 @property (strong, nonatomic) TMTeamUserInfo *teamUserInfo;
+@property (strong, nonatomic) UIImageView *avatarView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 
@@ -69,19 +70,51 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-}
-
-- (UIView *)createHeaderView
-{
-    UIView *headerView = [UIView new];
-    headerView.backgroundColor = [UIColor whiteColor];
     
     // 头像
     UIImageView *avatarView = [UIImageView new];
     [avatarView setImageWithURL:[NSURL URLWithString:self.team.avatar]];
     avatarView.layer.cornerRadius = 4;
     avatarView.layer.masksToBounds = YES;
-    [headerView addSubview:avatarView];
+    self.avatarView = avatarView;
+    avatarView.alpha = 0;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.view addSubview:self.avatarView];
+    
+    // 约束
+    [self.avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.navigationController.view);
+        make.width.equalTo(@60);
+        make.height.equalTo(@60).priorityHigh();
+        make.top.equalTo(self.navigationController.view).offset(30);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.avatarView.alpha = 1;
+    } completion: ^(BOOL finished) {
+    }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.avatarView.alpha = 0;
+    } completion: ^(BOOL finished) {
+        [self.avatarView removeFromSuperview];
+    }];
+}
+
+- (UIView *)createHeaderView
+{
+    UIView *headerView = [UIView new];
+    headerView.backgroundColor = [UIColor whiteColor];
     
     // 团队名
     UILabel *userLable = [UILabel new];
@@ -99,17 +132,9 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     [collectionView registerClass:[TeamMemberCollectionViewCell class] forCellWithReuseIdentifier:collectionViewReuseIdentifier];
     [headerView addSubview:collectionView];
     
-    // 约束
-    [avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(headerView);
-        make.width.equalTo(@60);
-        make.height.equalTo(@60);
-        make.top.equalTo(headerView).offset(20).priorityHigh();
-    }];
-    
     [userLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(headerView);
-        make.top.equalTo(avatarView.mas_bottom).offset(8);
+        make.top.equalTo(headerView).offset(38);
     }];
     
     [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -39,7 +39,7 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     tableView.allowsSelection = NO;
-    tableView.separatorColor = [UIColor clearColor];
+    tableView.separatorColor = [UIColor TMBackgroundColorGray];
     tableView.dataSource = self;
     tableView.backgroundColor = [UIColor TMBackgroundColorGray];
     tableView.delegate = self;
@@ -124,7 +124,7 @@
         
         [topBorderView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.and.right.equalTo(gapView);
-            make.height.equalTo(@1);
+            make.height.equalTo(@0.5);
         }];
         
         return cell;
