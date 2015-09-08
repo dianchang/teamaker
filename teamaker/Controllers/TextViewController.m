@@ -132,6 +132,10 @@ static int const sendButtonHeight = 50;
 
 - (void)preparePublish:(UIButton *)sender
 {
+    if (!self.textView.text.length) {
+        return;
+    }
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     
     [self.textView resignFirstResponder];
