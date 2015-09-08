@@ -92,13 +92,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.navigationItem.title = @"创建圈子";
     
     // 继续按钮
     UIBarButtonItem *continueButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"继续" style:UIBarButtonItemStylePlain target:self action:@selector(redirectToAddTeamMemberView)];
     self.navigationItem.rightBarButtonItem = continueButtonItem;
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [self.teamNameTextField becomeFirstResponder];
 }
 
