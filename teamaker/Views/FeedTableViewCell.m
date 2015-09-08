@@ -148,7 +148,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [timeAndCommandsView addSubview:timeLable];
     timeLable.textColor = [UIColor colorWithRGBA:0x999999FF];
     self.createdAtLabel = timeLable;
-    
+
     // 星标
     UILabel *starLabel = [IonIcons labelWithIcon:ion_android_star size:16 color:[UIColor colorWithRGBA:0x999999FF]];
     [timeAndCommandsView addSubview:starLabel];
@@ -161,6 +161,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [timeAndCommandsView addSubview:commandButton];
     self.commandButton = commandButton;
     [commandButton addTarget:self action:@selector(switchCommandsToolbar) forControlEvents:UIControlEventTouchUpInside];
+
+    if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
+        starLabel.hidden = YES;
+        commandButton.hidden = YES;
+    }
     
     [self makeConstraintsWithReuseIdentifier:reuseIdentifier];
         
@@ -357,7 +362,9 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     self.createdAtLabel.text = [feed.createdAt friendlyInterval];
     
     // 星标
-    self.starLabel.hidden = !feed.starred;
+    if (![feed isPunch]) {
+        self.starLabel.hidden = !feed.starred;
+    }
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         // 文字
