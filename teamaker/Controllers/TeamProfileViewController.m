@@ -104,7 +104,7 @@
 
     [userLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(headerView);
-        make.top.equalTo(headerView).offset(38);
+        make.top.equalTo(headerView).offset(38).priorityHigh();
         make.bottom.equalTo(headerView).offset(-30);
     }];
     
@@ -169,10 +169,6 @@
 {
     if(!_team) {
         _team = [TMTeam MR_findFirstByAttribute:@"id" withValue:self.teamId];
-        NSLog(@"%@", [self.teamId stringValue]);
-        if ([self.teamId isKindOfClass:[NSNumber class]]) {
-            NSLog(@"XX");
-        }
     }
     
     return _team;

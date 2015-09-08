@@ -391,7 +391,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
-    [UIView animateWithDuration:.4 animations:^{
+    [UIView animateWithDuration:.3 animations:^{
         CGRect newFrame;
         newFrame.size.width = MIN(window.frame.size.width, image.size.width);
         newFrame.size.height = MIN(window.frame.size.height, image.size.height);
@@ -412,7 +412,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
     });
     
-    [UIView animateWithDuration:.4 animations:^{
+    [UIView animateWithDuration:.3 animations:^{
         self.feedImagePreviewBackdropView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
         self.feedImagePreviewImageView.frame = self.feedImagePreviewImageViewOriginalFrame;
     } completion:^(BOOL finished) {

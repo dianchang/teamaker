@@ -134,7 +134,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     
     [userLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(headerView);
-        make.top.equalTo(headerView).offset(38);
+        make.top.equalTo(headerView).offset(38).priorityHigh();
     }];
     
     [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
