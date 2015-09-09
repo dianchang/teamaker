@@ -165,8 +165,7 @@
             return [cellHeight floatValue];
         }
         
-        height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
-        height += 1.0;
+        height = [FeedTableViewCell calculateCellHeightWithFeed:feed] + 1;
         
         [self.cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
     } else if (indexPath.row == self.feeds.count * 2 - 1) {
@@ -181,8 +180,7 @@
 - (void)updateHeightForFeed:(TMFeed *)feed
 {
     CGFloat height;
-    height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
-    height += 1.0;
+    height = [FeedTableViewCell calculateCellHeightWithFeed:feed] + 1;
     [self.cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
 }
 
@@ -206,11 +204,11 @@
     });
 }
 
-//- (NSArray *)getFeedsData
-//{
-//    // 需重载
-//    return @[];
-//}
+- (NSArray *)getFeedsData
+{
+    // 需重载
+    return @[];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -256,7 +254,7 @@
 
 - (NSMutableDictionary *)cachedHeight
 {
-    if (_cachedHeight) {
+    if (!_cachedHeight) {
         _cachedHeight = [NSMutableDictionary new];
     }
     
