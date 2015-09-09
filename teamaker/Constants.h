@@ -44,4 +44,6 @@
 #define TMCameraShouldStartNotification @"TMCameraShouldStartNotification"
 #define TMCameraShouldStopNotification @"TMCameraShouldStopNotification"
 
+#define TMFeedTableViewCellShouldHideCommandsToolbar @"TMFeedTableViewCellShouldHideCommandsToolbar"
+
 #endif

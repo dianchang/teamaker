@@ -98,6 +98,8 @@
     if (self.backdropView.superview) {
         [self hideJoinTeamMenu];
     } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
+        
         // 背景
         [self.view addSubview:self.backdropView];
         [self.backdropView mas_remakeConstraints:^(MASConstraintMaker *make) {

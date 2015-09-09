@@ -56,6 +56,9 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
+    // 接收隐藏Commands Toolbar通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideCommandsToolbar:) name:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
+    
     UITapGestureRecognizer *gestureRecognizerForCell = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetLayout)];
     gestureRecognizerForCell.numberOfTapsRequired = 1;
     [self addGestureRecognizer:gestureRecognizerForCell];
@@ -73,6 +76,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     // 用户名
     UIButton *userButton = [[UIButton alloc] init];
+    userButton.userInteractionEnabled = NO;
     userButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [userButton setTitleColor:[UIColor colorWithRGBA:0x333333FF] forState:UIControlStateNormal];
     //    [userButton addTarget:self action:@selector(userButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -82,6 +86,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     // 团队名
     UIButton *teamButton = [[UIButton alloc] init];
+    teamButton.userInteractionEnabled = NO;
     teamButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [teamButton setTitleColor:[UIColor colorWithRGBA:0x999999FF] forState:UIControlStateNormal];
     teamButton.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -182,6 +187,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [self makeConstraintsWithReuseIdentifier:reuseIdentifier];
         
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
 }
 
 - (void)makeConstraintsWithReuseIdentifier:(NSString *)reuseIdentifier
@@ -463,7 +473,6 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
  */
 - (void)userAvatarClicked:(UITapGestureRecognizer *)gestureRecognizer
 {
-    [self hideCommandsToolbar];
     [self.delegate redirectToUserProfile:[NSNumber numberWithLong:gestureRecognizer.view.tag]];
 }
 
@@ -547,7 +556,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 // 重置布局
 - (void)resetLayout
 {
-    [self hideCommandsToolbar];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
 }
 
 #pragma mark - commands toolbar
@@ -556,8 +565,10 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 - (void)switchCommandsToolbar
 {
     if ([self.commandsToolbar superview]) {
-        [self hideCommandsToolbar];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
     } else {
+        // 显示
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil userInfo:@{@"self": self.feed.id}];
         [self.contentView addSubview:self.commandsToolbar];
         [self.commandsToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.commandButton);
@@ -567,8 +578,18 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 }
 
 // 隐藏命令工具栏
-- (void)hideCommandsToolbar
+- (void)hideCommandsToolbar:(NSNotification *)notification
 {
+    id signal;
+    
+    if (notification.userInfo) {
+        signal = [notification.userInfo objectForKey:@"self"];
+        
+        if (signal && self.feed && [signal isKindOfClass:[NSNumber class]] && [(NSNumber *)signal isEqualToNumber:self.feed.id]) {
+            return;
+        }
+    }
+    
     [self.commandsToolbar removeFromSuperview];
 }
 
@@ -659,7 +680,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     } completion:^(BOOL contextDidSave, NSError *error) {
         self.starLabel.hidden = !self.starLabel.hidden;
         //    [self.delegate starFeed:self.feed];
-        [self hideCommandsToolbar];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
     }];
 }
 
@@ -693,14 +714,14 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         }];
     }
 
-    [self hideCommandsToolbar];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
 }
 
 // 评论
 - (void)commentFeed
 {
     [self.delegate commentFeed:self.feed];
-    [self hideCommandsToolbar];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
 }
 
 #pragma mark - getters and setters

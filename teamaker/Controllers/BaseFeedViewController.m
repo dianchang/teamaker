@@ -58,6 +58,11 @@
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
+}
+
 #pragma mark - FeedTableViewCellProtocol
 
 // 跳转用户主页
@@ -198,6 +203,11 @@
     }
     
     return cellHeight;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
 }
 
 #pragma mark - getters and setters
