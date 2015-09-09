@@ -66,6 +66,7 @@
 		05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A211B8C1C3F00329BF0 /* TMPunch.m */; };
 		05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A231B8C1C3F00329BF0 /* TMTeam.m */; };
 		05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A251B8C1C3F00329BF0 /* TMUser.m */; };
+		05CBB1E51B9FE10D006B3D23 /* LikersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CBB1E41B9FE10D006B3D23 /* LikersView.m */; };
 		05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */; };
 		05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */; };
 		05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */; };
@@ -176,6 +177,8 @@
 		05BD7A231B8C1C3F00329BF0 /* TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeam.m; path = Models/TMTeam.m; sourceTree = "<group>"; };
 		05BD7A241B8C1C3F00329BF0 /* TMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMUser.h; path = Models/TMUser.h; sourceTree = "<group>"; };
 		05BD7A251B8C1C3F00329BF0 /* TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMUser.m; path = Models/TMUser.m; sourceTree = "<group>"; };
+		05CBB1E31B9FE10D006B3D23 /* LikersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikersView.h; sourceTree = "<group>"; };
+		05CBB1E41B9FE10D006B3D23 /* LikersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikersView.m; sourceTree = "<group>"; };
 		05CEB7B11B8D5FC2003DF51A /* NSDate+FriendlyInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+FriendlyInterval.h"; path = "Categories/NSDate+FriendlyInterval.h"; sourceTree = "<group>"; };
 		05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+FriendlyInterval.m"; path = "Categories/NSDate+FriendlyInterval.m"; sourceTree = "<group>"; };
 		05CEB7D41B8DA488003DF51A /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "Categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				05937ADB1B96B64100CAC2A1 /* CameraPreviewView.m */,
 				057708391B9DAC080001CA87 /* AddTeamMemberTableViewCell.h */,
 				0577083A1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m */,
+				05CBB1E31B9FE10D006B3D23 /* LikersView.h */,
+				05CBB1E41B9FE10D006B3D23 /* LikersView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -634,6 +639,7 @@
 				0573DC461B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
 				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
+				05CBB1E51B9FE10D006B3D23 /* LikersView.m in Sources */,
 				053717861B941BA500A92A7D /* TextViewController.m in Sources */,
 				057708361B9D3E710001CA87 /* AddTeamMemberViewController.m in Sources */,
 				053717811B941BA500A92A7D /* CaptureViewController.m in Sources */,

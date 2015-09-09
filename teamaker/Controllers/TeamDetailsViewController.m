@@ -129,7 +129,11 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     [headerView addSubview:userLable];
     
     // 成员
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.minimumLineSpacing = 20;
+    layout.minimumInteritemSpacing = (self.view.bounds.size.width - 80 * 4) / 3.0;
+    
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
     collectionView.delegate = self;
     collectionView.dataSource = self;
     collectionView.scrollEnabled = NO;
