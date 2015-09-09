@@ -88,9 +88,9 @@ extern const struct TMUserRelationships {
 
 - (NSMutableSet*)feedsSet;
 
-@property (nonatomic, strong) TMUserLikeFeed *likedFeeds;
+@property (nonatomic, strong) NSSet *likedFeeds;
 
-//- (BOOL)validateLikedFeeds:(id*)value_ error:(NSError**)error_;
+- (NSMutableSet*)likedFeedsSet;
 
 @property (nonatomic, strong) NSSet *teamsInfos;
 
@@ -103,6 +103,14 @@ extern const struct TMUserRelationships {
 - (void)removeFeeds:(NSSet*)value_;
 - (void)addFeedsObject:(TMFeed*)value_;
 - (void)removeFeedsObject:(TMFeed*)value_;
+
+@end
+
+@interface _TMUser (LikedFeedsCoreDataGeneratedAccessors)
+- (void)addLikedFeeds:(NSSet*)value_;
+- (void)removeLikedFeeds:(NSSet*)value_;
+- (void)addLikedFeedsObject:(TMUserLikeFeed*)value_;
+- (void)removeLikedFeedsObject:(TMUserLikeFeed*)value_;
 
 @end
 
@@ -155,8 +163,8 @@ extern const struct TMUserRelationships {
 - (NSMutableSet*)primitiveFeeds;
 - (void)setPrimitiveFeeds:(NSMutableSet*)value;
 
-- (TMUserLikeFeed*)primitiveLikedFeeds;
-- (void)setPrimitiveLikedFeeds:(TMUserLikeFeed*)value;
+- (NSMutableSet*)primitiveLikedFeeds;
+- (void)setPrimitiveLikedFeeds:(NSMutableSet*)value;
 
 - (NSMutableSet*)primitiveTeamsInfos;
 - (void)setPrimitiveTeamsInfos:(NSMutableSet*)value;

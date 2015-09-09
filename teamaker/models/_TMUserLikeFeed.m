@@ -5,8 +5,8 @@
 
 const struct TMUserLikeFeedAttributes TMUserLikeFeedAttributes = {
 	.createdAt = @"createdAt",
+	.feedId = @"feedId",
 	.id = @"id",
-	.teamId = @"teamId",
 	.userId = @"userId",
 };
 
@@ -41,13 +41,13 @@ const struct TMUserLikeFeedRelationships TMUserLikeFeedRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	if ([key isEqualToString:@"idValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"id"];
+	if ([key isEqualToString:@"feedIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"feedId"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"teamIdValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"teamId"];
+	if ([key isEqualToString:@"idValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"id"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -61,6 +61,26 @@ const struct TMUserLikeFeedRelationships TMUserLikeFeedRelationships = {
 }
 
 @dynamic createdAt;
+
+@dynamic feedId;
+
+- (int32_t)feedIdValue {
+	NSNumber *result = [self feedId];
+	return [result intValue];
+}
+
+- (void)setFeedIdValue:(int32_t)value_ {
+	[self setFeedId:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveFeedIdValue {
+	NSNumber *result = [self primitiveFeedId];
+	return [result intValue];
+}
+
+- (void)setPrimitiveFeedIdValue:(int32_t)value_ {
+	[self setPrimitiveFeedId:[NSNumber numberWithInt:value_]];
+}
 
 @dynamic id;
 
@@ -80,26 +100,6 @@ const struct TMUserLikeFeedRelationships TMUserLikeFeedRelationships = {
 
 - (void)setPrimitiveIdValue:(int32_t)value_ {
 	[self setPrimitiveId:[NSNumber numberWithInt:value_]];
-}
-
-@dynamic teamId;
-
-- (int32_t)teamIdValue {
-	NSNumber *result = [self teamId];
-	return [result intValue];
-}
-
-- (void)setTeamIdValue:(int32_t)value_ {
-	[self setTeamId:[NSNumber numberWithInt:value_]];
-}
-
-- (int32_t)primitiveTeamIdValue {
-	NSNumber *result = [self primitiveTeamId];
-	return [result intValue];
-}
-
-- (void)setPrimitiveTeamIdValue:(int32_t)value_ {
-	[self setPrimitiveTeamId:[NSNumber numberWithInt:value_]];
 }
 
 @dynamic userId;

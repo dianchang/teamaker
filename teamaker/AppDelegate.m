@@ -12,6 +12,7 @@
 #import "TMUser.h"
 #import "TMFeed.h"
 #import "TMTeamUserInfo.h"
+#import "TMUserLikeFeed.h"
 #import <MagicalRecord/MagicalRecord.h>
 
 @interface AppDelegate ()
@@ -127,6 +128,54 @@
             info4.user = _user2;
             info4.teamId = _team2.id;
             info4.team = _team2;
+        }];
+    }
+    
+    __block TMFeed *feed1, *feed2;
+    
+    if ([[TMFeed MR_numberOfEntities] isEqualToNumber:@0]) {
+        NSLog(@"Creating feeds");
+        
+        [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+            TMUser *_user1 = [user1 MR_inContext:localContext];
+            TMUser *_user2 = [user2 MR_inContext:localContext];
+            TMTeam *_team1 = [team1 MR_inContext:localContext];
+//            TMTeam *_team2 = [team2 MR_inContext:localContext];
+            
+            feed1 = [TMFeed MR_createEntityInContext:localContext];
+            feed1.id = @1;
+            feed1.userId = _user1.id;
+            feed1.user = _user1;
+            feed1.teamId = _team1.id;
+            feed1.team = _team1;
+            feed1.createdAt = [NSDate date];
+            feed1.kind = @"text";
+            feed1.text = @"hehe";
+            
+            feed2 = [TMFeed MR_createEntityInContext:localContext];
+            feed2.id = @2;
+            feed2.userId = _user2.id;
+            feed2.user = _user2;
+            feed2.teamId = _team1.id;
+            feed2.team = _team1;
+            feed2.createdAt = [NSDate date];
+            feed2.kind = @"text";
+            feed2.text = @"xixi";
+        }];
+    }
+    
+    if ([[TMUserLikeFeed MR_numberOfEntities] isEqualToNumber:@0]) {
+        NSLog(@"Creating like feeds");
+        
+        [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+            TMUserLikeFeed *likeFeed = [TMUserLikeFeed MR_createEntityInContext:localContext];
+            TMUser *_user2 = [user2 MR_inContext:localContext];
+            TMFeed *_feed1 = [feed1 MR_inContext:localContext];
+            likeFeed.createdAt = [NSDate date];
+            likeFeed.userId = _user2.id;
+            likeFeed.user = _user2;
+            likeFeed.feedId = _feed1.id;
+            likeFeed.feed = _feed1;
         }];
     }
 

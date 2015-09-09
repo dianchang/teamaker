@@ -142,6 +142,13 @@
     [self.tableView setTableHeaderView:headerView];
 }
 
+# pragma mark - Inhreit from super class
+
+- (void)reloadFeedsData
+{
+    self.feeds = [TMFeed findByTeamId:self.teamId];
+}
+
 #pragma mark - FeedTableViewCellProtocol
 
 - (void)redirectToExternalLinkView:(NSNumber *)feedId

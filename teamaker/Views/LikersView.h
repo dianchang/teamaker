@@ -10,7 +10,8 @@
 
 @interface LikersView : UIView
 
-- (instancetype)initWithLikers:(NSArray *)likers;
+@property (strong, nonatomic) NSArray *likers;
+
 - (void)addLiker:(NSNumber *)likerId;
 - (void)removeLiker:(NSNumber *)likerId;
 

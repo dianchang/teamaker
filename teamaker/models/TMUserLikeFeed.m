@@ -1,4 +1,5 @@
 #import "TMUserLikeFeed.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface TMUserLikeFeed ()
 
@@ -8,6 +9,10 @@
 
 @implementation TMUserLikeFeed
 
-// Custom logic goes here.
++ (TMUserLikeFeed *)findByUserId:(NSNumber *)userId feedId:(NSNumber *)feedId
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userId == %@) AND (feedId == %@)", userId, feedId];
+    return [self MR_findFirstWithPredicate:predicate];
+}
 
 @end

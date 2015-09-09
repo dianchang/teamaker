@@ -9,13 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "TMFeed.h"
 #import "FeedTableViewCellProtocol.h"
+#import "LikersView.h"
 
 @interface FeedTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) id<FeedTableViewCellProtocol> delegate;
+@property (strong, nonatomic) TMFeed *feed;
+
 @property (strong, nonatomic) UIImageView *userAvatarImageView;
 @property (strong, nonatomic) UIButton *userButton;
 @property (strong, nonatomic) UIButton *teamButton;
+
+@property (strong, nonatomic) UIView *feedContentView;
 
 @property (strong, nonatomic) UIView *timeAndCommandsView;
 @property (strong, nonatomic) UILabel *createdAtLabel;
@@ -23,9 +28,8 @@
 @property (strong, nonatomic) UIButton *commandButton;
 @property (strong, nonatomic) UIView* commandsToolbar;
 
-@property (strong, nonatomic) UIView *feedContentView;
+@property (strong, nonatomic) LikersView *likersView;
 
-@property (strong, nonatomic) TMFeed *feed;
 
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed;
 + (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView;

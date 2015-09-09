@@ -23,6 +23,9 @@
 #import "BaseFeedViewController.h"
 
 @interface BaseFeedViewController ()
+
+@property (strong, nonatomic) NSMutableDictionary *cachedHeight;
+
 @end
 
 @implementation BaseFeedViewController
@@ -137,15 +140,8 @@
     CGFloat height;
     
     if (indexPath.row % 2 == 0) {
-        static NSMutableDictionary *cachedHeight;
-        
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            cachedHeight = [NSMutableDictionary new];
-        });
-        
         TMFeed *feed = self.feeds[indexPath.row / 2];
-        NSNumber *cellHeight = [cachedHeight objectForKey:[feed.id stringValue]];
+        NSNumber *cellHeight = [self.cachedHeight objectForKey:[feed.id stringValue]];
         
         if (cellHeight) {
             return [cellHeight floatValue];
@@ -154,7 +150,7 @@
         height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
         height += 1.0;
         
-        [cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
+        [self.cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
     } else if (indexPath.row == self.feeds.count * 2 - 1) {
         height = 40.0;
     } else {
@@ -162,6 +158,21 @@
     }
     
     return height;
+}
+
+- (void)updateHeightForFeed:(TMFeed *)feed
+{
+    CGFloat height;
+    height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
+    height += 1.0;
+    [self.cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
+    
+    [self reloadFeedsData];
+    [self.tableView reloadData];
+}
+
+- (void)reloadFeedsData
+{
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -198,6 +209,16 @@
     }
     
     return _loggedInUser;
+}
+
+
+- (NSMutableDictionary *)cachedHeight
+{
+    if (_cachedHeight) {
+        _cachedHeight = [NSMutableDictionary new];
+    }
+    
+    return _cachedHeight;
 }
 
 @end

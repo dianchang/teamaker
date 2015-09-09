@@ -17,6 +17,9 @@
 #import "NSDate+FriendlyInterval.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "UIColor+Helper.h"
+#import "TMUserLikeFeed.h"
+#import "Constants.h"
+#import "BaseFeedViewController.h"
 
 static NSString * const shareCellReuseIdentifier = @"shareCell";
 static NSString * const textCellReuseIdentifier = @"TextCell";
@@ -40,8 +43,6 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 @end
 
 @implementation FeedTableViewCell
-
-
 
 /**
  *  初始化cell
@@ -167,6 +168,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         commandButton.hidden = YES;
     }
     
+    // 点赞者
+    LikersView *likersView = [LikersView new];
+    self.likersView = likersView;
+    [self.contentView addSubview:likersView];
+    
     [self makeConstraintsWithReuseIdentifier:reuseIdentifier];
         
     return self;
@@ -226,10 +232,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         }];
     }
     
+    // 时间与命令
     [self.timeAndCommandsView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.feedContentView.mas_bottom).priorityHigh();
         make.left.equalTo(self.userButton);
-        make.right.bottom.equalTo(self.contentView);
+        make.right.equalTo(self.contentView);
     }];
     
     [self.createdAtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -243,6 +250,14 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [self.starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.timeAndCommandsView);
         make.right.equalTo(self.commandButton.mas_left).offset(-5);
+    }];
+    
+    // 点赞者
+    [self.likersView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.timeAndCommandsView.mas_bottom);
+        make.left.equalTo(self.userButton);
+        make.right.bottom.equalTo(self.contentView).offset(-15);
+//        make.height.equalTo(@20);
     }];
 }
 
@@ -388,6 +403,10 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         self.shareView.tag = feed.idValue;
         self.shareTitleLabel.text = feed.shareTitle;
     }
+    
+    // 点赞者
+    self.likersView.likers = [feed.likers allObjects];
+    [self setNeedsLayout];
 }
 
 /**
@@ -607,10 +626,36 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     }];
 }
 
-// 赞
+// 切换赞
 - (void)likeFeed
 {
-    [self.delegate likeFeed:self.feed];
+    __block TMUserLikeFeed *likeFeed;
+    TMUser *loggedInUser = [TMUser getLoggedInUser];
+    BaseFeedViewController *viewController = (BaseFeedViewController *)self.delegate;
+    
+    if ([loggedInUser likedFeed:self.feed]) {
+        // 取消赞
+        TMUserLikeFeed *likeFeed = [TMUserLikeFeed findByUserId:loggedInUser.id feedId:self.feed.id];
+        [likeFeed MR_deleteEntity];
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
+            [viewController updateHeightForFeed:self.feed];
+        }];
+    } else {
+        // 赞
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            likeFeed = [TMUserLikeFeed MR_createEntityInContext:localContext];
+            TMUser *_loggedInUser = [loggedInUser MR_inContext:localContext];
+            TMFeed *feedInContext = [self.feed MR_inContext:localContext];
+            likeFeed.createdAt = [NSDate date];
+            likeFeed.userId = _loggedInUser.id;
+            likeFeed.user = _loggedInUser;
+            likeFeed.feedId = feedInContext.id;
+            likeFeed.feed = feedInContext;
+        } completion:^(BOOL contextDidSave, NSError *error) {
+            [viewController updateHeightForFeed:self.feed];
+        }];
+    }
+
     [self hideCommandsToolbar];
 }
 

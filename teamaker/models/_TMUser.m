@@ -111,6 +111,15 @@ const struct TMUserRelationships TMUserRelationships = {
 
 @dynamic likedFeeds;
 
+- (NSMutableSet*)likedFeedsSet {
+	[self willAccessValueForKey:@"likedFeeds"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"likedFeeds"];
+
+	[self didAccessValueForKey:@"likedFeeds"];
+	return result;
+}
+
 @dynamic teamsInfos;
 
 - (NSMutableSet*)teamsInfosSet {

@@ -22,7 +22,6 @@
 @property (strong, nonatomic) UITextView *textView;
 @property (strong, nonatomic) UIButton *sendButton;
 @property (strong, nonatomic) TeamButtons *teamButtons;
-@property (strong, nonatomic) NSArray *teams;
 @property (weak, nonatomic) UIView *backdropView;
 @end
 
@@ -175,18 +174,10 @@ static int const sendButtonHeight = 50;
 
 #pragma mark - getters and setters
 
-- (NSArray *)teams
-{
-    if (!_teams) {
-        _teams = [TMTeam MR_findAll];
-    }
-    return _teams;
-}
-
 - (TeamButtons *)teamButtons
 {
     if (!_teamButtons) {
-        _teamButtons = [[TeamButtons alloc] initWithTeams:self.teams backgroundFaded:YES];
+        _teamButtons = [[TeamButtons alloc] initWithBackgroundFaded:YES];
         _teamButtons.delegate = self;
     }
     

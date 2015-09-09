@@ -5,8 +5,8 @@
 
 extern const struct TMUserLikeFeedAttributes {
 	__unsafe_unretained NSString *createdAt;
+	__unsafe_unretained NSString *feedId;
 	__unsafe_unretained NSString *id;
-	__unsafe_unretained NSString *teamId;
 	__unsafe_unretained NSString *userId;
 } TMUserLikeFeedAttributes;
 
@@ -31,6 +31,14 @@ extern const struct TMUserLikeFeedRelationships {
 
 //- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* feedId;
+
+@property (atomic) int32_t feedIdValue;
+- (int32_t)feedIdValue;
+- (void)setFeedIdValue:(int32_t)value_;
+
+//- (BOOL)validateFeedId:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSNumber* id;
 
 @property (atomic) int32_t idValue;
@@ -38,14 +46,6 @@ extern const struct TMUserLikeFeedRelationships {
 - (void)setIdValue:(int32_t)value_;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* teamId;
-
-@property (atomic) int32_t teamIdValue;
-- (int32_t)teamIdValue;
-- (void)setTeamIdValue:(int32_t)value_;
-
-//- (BOOL)validateTeamId:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* userId;
 
@@ -70,17 +70,17 @@ extern const struct TMUserLikeFeedRelationships {
 - (NSDate*)primitiveCreatedAt;
 - (void)setPrimitiveCreatedAt:(NSDate*)value;
 
+- (NSNumber*)primitiveFeedId;
+- (void)setPrimitiveFeedId:(NSNumber*)value;
+
+- (int32_t)primitiveFeedIdValue;
+- (void)setPrimitiveFeedIdValue:(int32_t)value_;
+
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
 
 - (int32_t)primitiveIdValue;
 - (void)setPrimitiveIdValue:(int32_t)value_;
-
-- (NSNumber*)primitiveTeamId;
-- (void)setPrimitiveTeamId:(NSNumber*)value;
-
-- (int32_t)primitiveTeamIdValue;
-- (void)setPrimitiveTeamIdValue:(int32_t)value_;
 
 - (NSNumber*)primitiveUserId;
 - (void)setPrimitiveUserId:(NSNumber*)value;

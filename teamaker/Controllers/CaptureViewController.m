@@ -23,8 +23,6 @@
 
 @interface CaptureViewController () <ComposeViewControllerProtocol, AVCaptureMetadataOutputObjectsDelegate>
 
-@property (strong, nonatomic) NSArray *teams;
-
 // UI
 @property (strong, nonatomic) CameraPreviewView *previewView;
 @property (strong, nonatomic) UIImageView *stillImageView;
@@ -761,19 +759,10 @@
 
 #pragma mark - getters and setters
 
-- (NSArray *)teams
-{
-    if (!_teams) {
-        _teams = [TMTeam MR_findAll];
-    }
-    
-    return _teams;
-}
-
 - (TeamButtons *)teamButtons
 {
     if (!_teamButtons) {
-        _teamButtons = [[TeamButtons alloc] initWithTeams:self.teams backgroundFaded:NO];
+        _teamButtons = [[TeamButtons alloc] initWithBackgroundFaded:NO];
         _teamButtons.delegate = self;
     }
     

@@ -25,7 +25,6 @@
 @property (strong, nonatomic) UIView *backdropView;
 @property (strong, nonatomic) TeamButtons *teamButtons;
 @property (strong, nonatomic) NSArray *punchs;
-@property (strong, nonatomic) NSArray *teams;
 @property (strong, nonatomic) TMPunch *selectedPunch;
 @end
 
@@ -216,18 +215,10 @@ static NSString *cellIdentifier = @"PunchCell";
     return _punchs;
 }
 
-- (NSArray *)teams
-{
-    if (!_teams) {
-        _teams = [TMTeam MR_findAll];
-    }
-    return _teams;
-}
-
 - (TeamButtons *)teamButtons
 {
     if (!_teamButtons) {
-        _teamButtons = [[TeamButtons alloc] initWithTeams:self.teams backgroundFaded:YES];
+        _teamButtons = [[TeamButtons alloc] initWithBackgroundFaded:YES];
         _teamButtons.delegate = self;
     }
     

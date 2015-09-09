@@ -1,5 +1,7 @@
 #import "_TMUserLikeFeed.h"
 
 @interface TMUserLikeFeed : _TMUserLikeFeed {}
-// Custom logic goes here.
+
++ (TMUserLikeFeed *)findByUserId:(NSNumber *)userId feedId:(NSNumber *)feedId;
+
 @end

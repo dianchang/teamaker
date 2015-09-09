@@ -9,6 +9,7 @@
 #import "TeamButtons.h"
 #import "UIColor+Helper.h"
 #import "TMTeam.h"
+#import "TMUser.h"
 #import "Masonry.h"
 #import <MagicalRecord/MagicalRecord.h>
 
@@ -24,10 +25,9 @@
 
 static int const buttonHeight = 60;
 
-- (instancetype)initWithTeams:(NSArray *)teams backgroundFaded:(BOOL)backgroundFaded
+- (instancetype)initWithBackgroundFaded:(BOOL)backgroundFaded
 {
     self = [super init];
-    self.teams = teams;
     self.backgroundFaded = backgroundFaded;
     self.backgroundColor = [UIColor colorWithRGBA:0xAAAAAAFF];
     
@@ -180,6 +180,15 @@ static int const buttonHeight = 60;
     }
     
     return _backgroundView;
+}
+
+- (NSArray *)teams
+{
+    if (!_teams) {
+        _teams = [[TMUser getLoggedInUser] findMyTeams];
+    }
+    
+    return _teams;
 }
 
 @end

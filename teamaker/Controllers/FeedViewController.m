@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(insertLatestFeed) name:TMFeedViewShouldReloadDataNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFeeds) name:TMFeedViewShouldReloadDataNotification object:nil];
 }
 
 - (void)dealloc
@@ -151,9 +151,9 @@
 /**
  *  插入最新的feed
  */
-- (void)insertLatestFeed
+- (void)reloadFeeds
 {
-    self.feeds = [[TMFeed findByUserId:self.loggedInUser.id] mutableCopy];
+    [self reloadFeedsData];
     
     // Just don't know why the below code will crash.
 //    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
@@ -165,13 +165,20 @@
     });
 }
 
+# pragma mark - Inhreit from super class
+
+- (void)reloadFeedsData
+{
+    self.feeds = [self.loggedInUser feedsForMe];
+}
+
 #pragma mark - FeedTableViewCellProtocol
 
 - (void)redirectToExternalLinkView:(NSNumber *)feedId
 {
     TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
     ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:feed.shareUrl feedCreationCompletion:^{
-        [self insertLatestFeed];
+        [self reloadFeeds];
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.navigationController pushViewController:controller animated:YES];
@@ -215,7 +222,7 @@
 {
     NSArray *feeds = [super feeds];
     if (!feeds) {
-        self.feeds = [TMFeed findByUserId:self.loggedInUser.id];
+        self.feeds = [self.loggedInUser feedsForMe];
     }
     
     return [super feeds];
