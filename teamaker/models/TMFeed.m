@@ -1,6 +1,7 @@
 #import "TMFeed.h"
 #import "TMUser.h"
 #import "TMTeam.h"
+#import "TMUserLikeFeed.h"
 #import <MagicalRecord/MagicalRecord.h>
 
 @interface TMFeed ()
@@ -173,6 +174,11 @@
 - (BOOL)isImage
 {
     return [self.kind isEqualToString:@"image"];
+}
+
+- (NSArray *)findLikers
+{
+    return [TMUserLikeFeed MR_findByAttribute:@"feedId" withValue:self.id andOrderBy:@"createdAt" ascending:NO];
 }
 
 @end

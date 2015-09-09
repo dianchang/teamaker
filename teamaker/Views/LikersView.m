@@ -56,7 +56,7 @@ static const NSInteger horizonalGap = 8;
         [self.heightConstraint uninstall];
     }
     
-    if (self.rowsNumber == 0) {
+    if (self.avatarsNumberPerLine == 0 || self.rowsNumber == 0) {
         [self mas_makeConstraints:^(MASConstraintMaker *make) {
             self.heightConstraint = make.height.equalTo(@0);
         }];

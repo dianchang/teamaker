@@ -26,7 +26,9 @@
 @property (strong, nonatomic) UILabel *createdAtLabel;
 @property (strong, nonatomic) UILabel *starLabel;
 @property (strong, nonatomic) UIButton *commandButton;
-@property (strong, nonatomic) UIView* commandsToolbar;
+@property (strong, nonatomic) UIView *commandsToolbar;
+
+@property (strong, nonatomic) UIView *gapView;
 
 @property (strong, nonatomic) LikersView *likersView;
 

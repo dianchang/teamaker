@@ -168,6 +168,12 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         commandButton.hidden = YES;
     }
     
+    // 分隔符
+    UIView *gapView = [UIView new];
+    gapView.backgroundColor = [UIColor colorWithRGBA:0xCCCCCCFF];
+    [self.contentView addSubview:gapView];
+    self.gapView = gapView;
+    
     // 点赞者
     LikersView *likersView = [LikersView new];
     self.likersView = likersView;
@@ -252,12 +258,19 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         make.right.equalTo(self.commandButton.mas_left).offset(-5);
     }];
     
+    // 分隔符
+    [self.gapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userButton);
+        make.right.equalTo(self.feedContentView);
+        make.top.equalTo(self.timeAndCommandsView.mas_bottom);
+        make.bottom.equalTo(self.likersView.mas_top);
+        make.height.equalTo(@0);
+    }];
+    
     // 点赞者
     [self.likersView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.timeAndCommandsView.mas_bottom);
         make.left.equalTo(self.userButton);
-        make.right.bottom.equalTo(self.contentView).offset(-15);
-//        make.height.equalTo(@20);
+        make.right.bottom.equalTo(self.contentView);
     }];
 }
 
@@ -405,8 +418,32 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     }
     
     // 点赞者
-    self.likersView.likers = [feed.likers allObjects];
+    self.likersView.likers = [feed findLikers];
     [self setNeedsLayout];
+
+    if (self.likersView.likers.count > 0) {
+        // 分隔符
+        [self.gapView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.likersView.mas_top).offset(-10);
+            make.height.equalTo(@0.5);
+        }];
+        
+        // 点赞者
+        [self.likersView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.contentView).offset(-10);
+        }];
+    } else {
+        // 分隔符
+        [self.gapView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.likersView.mas_top);
+            make.height.equalTo(@0);
+        }];
+        
+        // 点赞者
+        [self.likersView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.contentView);
+        }];
+    }
 }
 
 /**

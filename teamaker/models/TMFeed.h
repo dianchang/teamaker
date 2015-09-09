@@ -14,6 +14,8 @@
 
 + (NSArray *)findByTeamId:(NSNumber *)teamId;
 
+- (NSArray *)findLikers;
+
 - (BOOL)isText;
 - (BOOL)isImage;
 - (BOOL)isPunch;
