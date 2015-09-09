@@ -152,7 +152,7 @@
 {
     TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
     ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:feed.shareUrl feedCreationCompletion:^{
-        [self reloadTableAndScrollToTop];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:self];
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.navigationController pushViewController:controller animated:YES];

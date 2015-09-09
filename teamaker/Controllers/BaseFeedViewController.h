@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 //  FeedView基类，需重载的方法：
-//  * feeds getter
 //  * redirectToExternalLinkView:
 //  * getFeedsData
 
@@ -21,9 +20,6 @@
 @property (strong, nonatomic) NSArray *feeds;
 @property (strong, nonatomic) TMUser* loggedInUser;
 
-- (void)updateHeightForFeed:(TMFeed *)feed;
 - (NSArray *)getFeedsData;
-- (void)reloadTable;
-- (void)reloadTableAndScrollToTop;
 
 @end

@@ -58,8 +58,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:TMFeedViewShouldReloadFeedsNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableAndScrollToTop) name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:TMFeedViewShouldReloadFeedsNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableAndScrollToTop:) name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
 }
 
 - (void)dealloc
@@ -195,20 +195,23 @@
     [[BaseFeedViewController cachedHeights] setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
 }
 
-- (void)reloadTable
+- (void)reloadTable:(NSNotification *)notification
 {
     self.feeds = [self getFeedsData];
     [self.tableView reloadData];
+
+    if (notification.userInfo) {
+        TMFeed *feed = [notification.userInfo objectForKey:@"feed"];
+        
+        if (feed) {
+            [self updateHeightForFeed:feed];
+        }
+    }
 }
 
-- (NSArray *)getfeedsData
+- (void)reloadTableAndScrollToTop:(NSNotification *)notification
 {
-    return @[];
-}
-
-- (void)reloadTableAndScrollToTop
-{
-    [self reloadTable];
+    [self reloadTable:notification];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];

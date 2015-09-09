@@ -689,15 +689,13 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 {
     __block TMUserLikeFeed *likeFeed;
     TMUser *loggedInUser = [TMUser findLoggedInUser];
-    BaseFeedViewController *viewController = (BaseFeedViewController *)self.delegate;
     
     if ([loggedInUser likedFeed:self.feed]) {
         // 取消赞
         TMUserLikeFeed *likeFeed = [TMUserLikeFeed findByUserId:loggedInUser.id feedId:self.feed.id];
         [likeFeed MR_deleteEntity];
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
-            [viewController updateHeightForFeed:self.feed];
-            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self userInfo:@{@"feed": self.feed}];
         }];
     } else {
         // 赞
@@ -711,8 +709,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
             likeFeed.feedId = feedInContext.id;
             likeFeed.feed = feedInContext;
         } completion:^(BOOL contextDidSave, NSError *error) {
-            [viewController updateHeightForFeed:self.feed];
-            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self userInfo:@{@"feed": self.feed}];
         }];
     }
 

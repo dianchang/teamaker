@@ -38,6 +38,7 @@
 #define TMHorizonalScrollShouldResetSubviewsLayoutNotification @"TMHorizonalScrollShouldResetSubviewsLayout"
 #define TMHorizonalScrollShouldPrepareSubviewsLayoutNotification @"TMHorizonalScrollShouldPrepareSubviewsLayout"
 
+// feed相关
 #define TMFeedViewShouldReloadFeedsNotification @"TMFeedViewShouldReloadFeedsNotification"
 #define TMFeedViewShouldReloadFeedsAndScrollToTopNotification @"TMFeedViewShouldReloadFeedsAndScrollToTopNotification"
 

@@ -156,7 +156,7 @@ static int const sendButtonHeight = 50;
     [TMFeed createTextFeed:self.textView.text teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
         self.textView.text = @"";
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:self];
     }];
 }
 
