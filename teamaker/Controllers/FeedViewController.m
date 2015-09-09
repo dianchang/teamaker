@@ -169,7 +169,7 @@
 
 - (void)reloadFeedsData
 {
-    self.feeds = [self.loggedInUser feedsForMe];
+    self.feeds = [self.loggedInUser findFeedsForMe];
 }
 
 #pragma mark - FeedTableViewCellProtocol
@@ -222,7 +222,7 @@
 {
     NSArray *feeds = [super feeds];
     if (!feeds) {
-        self.feeds = [self.loggedInUser feedsForMe];
+        self.feeds = [self.loggedInUser findFeedsForMe];
     }
     
     return [super feeds];

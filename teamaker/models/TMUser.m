@@ -13,21 +13,21 @@
 
 @implementation TMUser
 
-+ (TMUser *)getLoggedInUser
++ (TMUser *)findLoggedInUser
 {
     NSNumber *loggedInUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"LoggedInUserId"];
 
     return [TMUser MR_findFirstByAttribute:@"id" withValue:loggedInUserId];
 }
 
-+ (TMUser *)getLoggedInUserInContext:(NSManagedObjectContext *)context
++ (TMUser *)findLoggedInUserInContext:(NSManagedObjectContext *)context
 {
     NSNumber *loggedInUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"LoggedInUserId"];
         
     return [TMUser MR_findFirstByAttribute:@"id" withValue:loggedInUserId inContext:context];
 }
 
-- (NSArray *)getMyTeamsIdList
+- (NSArray *)findMyTeamsIdList
 {
     NSMutableArray *myTeamsIdList = [NSMutableArray new];
     
@@ -38,9 +38,9 @@
     return [myTeamsIdList copy];
 }
 
-- (NSArray *)feedsForMe
+- (NSArray *)findFeedsForMe
 {
-    NSArray *myTeamsIdList = [self getMyTeamsIdList];
+    NSArray *myTeamsIdList = [self findMyTeamsIdList];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"teamId IN %@", myTeamsIdList];
     return [TMFeed MR_findAllSortedBy:@"createdAt" ascending:NO withPredicate:predicate];
 }
@@ -52,7 +52,7 @@
 
 - (NSArray *)findMyTeams
 {
-    NSArray *myTeamsIdList = [self getMyTeamsIdList];
+    NSArray *myTeamsIdList = [self findMyTeamsIdList];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id IN %@", myTeamsIdList];
     return [TMTeam MR_findAllSortedBy:@"id" ascending:NO withPredicate:predicate];
 }

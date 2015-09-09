@@ -2,7 +2,7 @@
 
 @interface TMTeam : _TMTeam {}
 
-+ (int)getMaxIdValue;
++ (int)findMaxIdValue;
 - (NSArray *)findStarredFeeds;
 
 @end

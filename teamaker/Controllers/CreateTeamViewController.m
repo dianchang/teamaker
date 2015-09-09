@@ -135,7 +135,7 @@
     
 //    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 //        team = [TMTeam MR_createEntityInContext:localContext];
-//        team.idValue = [TMTeam getMaxIdValue] + 1;
+//        team.idValue = [TMTeam findMaxIdValue] + 1;
 //        team.name = self.teamNameTextField.text;
 //        team.avatar = @"http://www.blogbar.cc/static/image/apple-touch-icon-precomposed-152.png";
 //    } completion:^(BOOL contextDidSave, NSError *error) {
@@ -152,7 +152,7 @@
 - (TMUser *)loggedInUser
 {
     if (_loggedInUser) {
-        _loggedInUser = [TMUser getLoggedInUser];
+        _loggedInUser = [TMUser findLoggedInUser];
     }
     
     return _loggedInUser;

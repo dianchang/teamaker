@@ -3,11 +3,11 @@
 
 @interface TMUser : _TMUser {}
 
-+ (TMUser *)getLoggedInUser;
-+ (TMUser *)getLoggedInUserInContext:(NSManagedObjectContext *)context;
-- (NSArray *)getMyTeamsIdList;
++ (TMUser *)findLoggedInUser;
++ (TMUser *)findLoggedInUserInContext:(NSManagedObjectContext *)context;
+- (NSArray *)findMyTeamsIdList;
 - (NSArray *)findMyTeams;
-- (NSArray *)feedsForMe;
+- (NSArray *)findFeedsForMe;
 - (BOOL)likedFeed:(TMFeed *)feed;
 
 @end

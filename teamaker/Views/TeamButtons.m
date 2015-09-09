@@ -185,7 +185,7 @@ static int const buttonHeight = 60;
 - (NSArray *)teams
 {
     if (!_teams) {
-        _teams = [[TMUser getLoggedInUser] findMyTeams];
+        _teams = [[TMUser findLoggedInUser] findMyTeams];
     }
     
     return _teams;

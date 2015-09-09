@@ -101,7 +101,7 @@
  */
 + (TMFeed *)createFeedWithTeamId:(NSNumber *)teamId inContext:(NSManagedObjectContext *)context
 {
-    TMUser *loggedInUser = [TMUser getLoggedInUserInContext:context];
+    TMUser *loggedInUser = [TMUser findLoggedInUserInContext:context];
     TMFeed *feed = [TMFeed MR_createEntityInContext:context];
     feed.idValue = [TMFeed getMaxIdValue] + 1;
     feed.userId = loggedInUser.id;

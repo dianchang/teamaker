@@ -561,7 +561,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
 - (TMUser *)loggedInUser
 {
     if (!_loggedInUser) {
-        _loggedInUser = [TMUser getLoggedInUser];
+        _loggedInUser = [TMUser findLoggedInUser];
     }
     
     return _loggedInUser;

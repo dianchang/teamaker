@@ -15,7 +15,7 @@
  *
  *  @return <#return value description#>
  */
-+ (int)getMaxIdValue
++ (int)findMaxIdValue
 {
     NSFetchRequest *request = [TMTeam MR_requestAllSortedBy:@"id" ascending:NO withPredicate:nil];
     request.fetchLimit = 1;

@@ -630,7 +630,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 - (void)likeFeed
 {
     __block TMUserLikeFeed *likeFeed;
-    TMUser *loggedInUser = [TMUser getLoggedInUser];
+    TMUser *loggedInUser = [TMUser findLoggedInUser];
     BaseFeedViewController *viewController = (BaseFeedViewController *)self.delegate;
     
     if ([loggedInUser likedFeed:self.feed]) {
