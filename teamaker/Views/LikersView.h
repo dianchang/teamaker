@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FeedTableViewCellProtocol.h"
 
 @interface LikersView : UIView
 
 @property (strong, nonatomic) NSArray *likers;
+@property (weak, nonatomic) id <FeedTableViewCellProtocol> delegate;
 
 - (void)addLiker:(NSNumber *)likerId;
 - (void)removeLiker:(NSNumber *)likerId;

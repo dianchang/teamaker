@@ -21,9 +21,9 @@
 
 @end
 
-static const NSInteger avatarBorder = 20;
-static const NSInteger verticalGap = 8;
-static const NSInteger horizonalGap = 8;
+static const NSInteger avatarBorder = 25;
+static const NSInteger verticalGap = 10;
+static const NSInteger horizonalGap = 10;
 
 @implementation LikersView
 
@@ -42,6 +42,11 @@ static const NSInteger horizonalGap = 8;
         UIImageView *avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarBorder, avatarBorder)];
         avatarView.layer.cornerRadius = avatarBorder / 2;
         avatarView.layer.masksToBounds = YES;
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userAvatarClicked:)];
+        gesture.numberOfTapsRequired = 1;
+        avatarView.tag = likeFeed.userIdValue;
+        avatarView.userInteractionEnabled = YES;
+        [avatarView addGestureRecognizer:gesture];
         [avatarView setImageWithURL:[NSURL URLWithString:likeFeed.user.avatar]];
         [self addSubview:avatarView];
     }
@@ -87,6 +92,11 @@ static const NSInteger horizonalGap = 8;
 - (void)removeLiker:(NSNumber *)likerId
 {
 
+}
+
+- (void)userAvatarClicked:(UITapGestureRecognizer *)recognizer
+{
+    [self.delegate redirectToUserProfile:[NSNumber numberWithLong:recognizer.view.tag]];
 }
 
 @end

@@ -62,7 +62,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     // 用户头像
     UIImageView *avatarView = [[UIImageView alloc] init];
-    avatarView.layer.cornerRadius = 15;
+    avatarView.layer.cornerRadius = 17.5;
     avatarView.layer.masksToBounds = YES;
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userAvatarClicked:)];
     gesture.numberOfTapsRequired = 1;
@@ -190,8 +190,8 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [self.userAvatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).with.offset(15);
         make.top.equalTo(self.contentView).with.offset(15);
-        make.width.equalTo(@30);
-        make.height.equalTo(@30);
+        make.width.equalTo(@35);
+        make.height.equalTo(@35);
     }];
     
     [self.userButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -430,7 +430,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         
         // 点赞者
         [self.likersView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.contentView).offset(-10);
+            make.bottom.equalTo(self.contentView).offset(-15);
         }];
     } else {
         // 分隔符
@@ -701,6 +701,13 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 {
     [self.delegate commentFeed:self.feed];
     [self hideCommandsToolbar];
+}
+
+#pragma mark - getters and setters
+- (void)setDelegate:(id<FeedTableViewCellProtocol>)delegate
+{
+    _delegate = delegate;
+    self.likersView.delegate = delegate;
 }
 
 @end

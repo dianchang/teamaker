@@ -13,7 +13,7 @@
 
 @interface FeedTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) id<FeedTableViewCellProtocol> delegate;
+@property (weak, nonatomic) id<FeedTableViewCellProtocol> delegate;
 @property (strong, nonatomic) TMFeed *feed;
 
 @property (strong, nonatomic) UIImageView *userAvatarImageView;
