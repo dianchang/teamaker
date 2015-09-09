@@ -51,7 +51,7 @@
     TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
     ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:feed.shareUrl feedCreationCompletion:^{
         [self.navigationController popToRootViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:nil];
     }];
     [self.navigationController pushViewController:controller animated:YES];
 }

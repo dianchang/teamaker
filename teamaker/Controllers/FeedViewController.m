@@ -30,17 +30,6 @@
 
 @implementation FeedViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFeeds) name:TMFeedViewShouldReloadDataNotification object:nil];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadDataNotification object:nil];
-}
-
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
@@ -150,28 +139,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageDownNotification object:self];
 }
 
-/**
- *  插入最新的feed
- */
-- (void)reloadFeeds
-{
-    [self reloadFeedsData];
-    
-    // Just don't know why the below code will crash.
-//    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
-    
-    [self.tableView reloadData];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-    });
-}
-
 # pragma mark - Inhreit from super class
 
-- (void)reloadFeedsData
+- (NSArray *)getFeedsData
 {
-    self.feeds = [self.loggedInUser findFeedsForMe];
+    return [self.loggedInUser findFeedsForMe];
 }
 
 #pragma mark - FeedTableViewCellProtocol
@@ -180,7 +152,7 @@
 {
     TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
     ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:feed.shareUrl feedCreationCompletion:^{
-        [self reloadFeeds];
+        [self reloadTableAndScrollToTop];
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.navigationController pushViewController:controller animated:YES];
@@ -218,16 +190,6 @@
     }
     
     return _joinTeamMenu;
-}
-
-- (NSArray *)feeds
-{
-    NSArray *feeds = [super feeds];
-    if (!feeds) {
-        self.feeds = [self.loggedInUser findFeedsForMe];
-    }
-    
-    return [super feeds];
 }
 
 @end

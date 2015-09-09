@@ -38,7 +38,8 @@
 #define TMHorizonalScrollShouldResetSubviewsLayoutNotification @"TMHorizonalScrollShouldResetSubviewsLayout"
 #define TMHorizonalScrollShouldPrepareSubviewsLayoutNotification @"TMHorizonalScrollShouldPrepareSubviewsLayout"
 
-#define TMFeedViewShouldReloadDataNotification @"TMFeedViewShouldReloadDataNotification"
+#define TMFeedViewShouldReloadFeedsNotification @"TMFeedViewShouldReloadFeedsNotification"
+#define TMFeedViewShouldReloadFeedsAndScrollToTopNotification @"TMFeedViewShouldReloadFeedsAndScrollToTopNotification"
 
 // 摄像头启动与停止
 #define TMCameraShouldStartNotification @"TMCameraShouldStartNotification"

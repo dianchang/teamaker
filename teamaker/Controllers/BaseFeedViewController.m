@@ -58,6 +58,19 @@
     }];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:TMFeedViewShouldReloadFeedsNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableAndScrollToTop) name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadFeedsNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
@@ -171,14 +184,33 @@
     height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
     height += 1.0;
     [self.cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
-    
-    [self reloadFeedsData];
+}
+
+- (void)reloadTable
+{
+    self.feeds = [self getFeedsData];
     [self.tableView reloadData];
 }
 
-- (void)reloadFeedsData
+- (NSArray *)getfeedsData
 {
+    return @[];
 }
+
+- (void)reloadTableAndScrollToTop
+{
+    [self reloadTable];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+    });
+}
+
+//- (NSArray *)getFeedsData
+//{
+//    // 需重载
+//    return @[];
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -229,6 +261,15 @@
     }
     
     return _cachedHeight;
+}
+
+- (NSArray *)feeds
+{
+    if (!_feeds) {
+        _feeds = [self getFeedsData];
+    }
+    
+    return _feeds;
 }
 
 @end

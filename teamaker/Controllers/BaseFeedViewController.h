@@ -8,7 +8,7 @@
 //  FeedView基类，需重载的方法：
 //  * feeds getter
 //  * redirectToExternalLinkView:
-//  * reloadFeedsData
+//  * getFeedsData
 
 #import <UIKit/UIKit.h>
 #import "FeedTableViewCellProtocol.h"
@@ -22,6 +22,8 @@
 @property (strong, nonatomic) TMUser* loggedInUser;
 
 - (void)updateHeightForFeed:(TMFeed *)feed;
-- (void)reloadFeedsData;
+- (NSArray *)getFeedsData;
+- (void)reloadTable;
+- (void)reloadTableAndScrollToTop;
 
 @end

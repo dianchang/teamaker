@@ -342,7 +342,7 @@
         [self hideTeamButtons];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self];
         
         dispatch_async(self.sessionQueue, ^{
             [self.session stopRunning];
@@ -533,7 +533,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     UIViewController *controller = [[ExternalLinkViewController alloc] initWithURL:metaString feedCreationCompletion:^{
                         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewShouldPageUpNotification object:self];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self];
                     }];
                     
                     [self.navigationController pushViewController:controller animated:YES];

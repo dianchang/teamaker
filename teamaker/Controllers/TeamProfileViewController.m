@@ -144,9 +144,9 @@
 
 # pragma mark - Inhreit from super class
 
-- (void)reloadFeedsData
+- (NSArray *)getFeedsData
 {
-    self.feeds = [TMFeed findByTeamId:self.teamId];
+    return [TMFeed findByTeamId:self.teamId];
 }
 
 #pragma mark - FeedTableViewCellProtocol
@@ -155,24 +155,13 @@
 {
     TMFeed *feed = [TMFeed MR_findFirstByAttribute:@"id" withValue:feedId];
     ExternalLinkViewController *controller = [[ExternalLinkViewController alloc] initWithURL:feed.shareUrl feedCreationCompletion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadDataNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:self];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 # pragma mark - getters and setters
-
-- (NSArray *)feeds
-{
-    NSArray *feeds = [super feeds];
-    
-    if (!feeds) {
-        self.feeds = [TMFeed findByTeamId:self.teamId];
-    }
-
-    return [super feeds];
-}
 
 - (TMTeam *)team
 {

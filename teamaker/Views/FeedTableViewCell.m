@@ -697,6 +697,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         [likeFeed MR_deleteEntity];
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
             [viewController updateHeightForFeed:self.feed];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:nil];
         }];
     } else {
         // 赞
@@ -711,6 +712,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
             likeFeed.feed = feedInContext;
         } completion:^(BOOL contextDidSave, NSError *error) {
             [viewController updateHeightForFeed:self.feed];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:nil];
         }];
     }
 
