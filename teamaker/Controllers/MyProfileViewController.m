@@ -29,8 +29,6 @@
 
 @implementation MyProfileViewController
 
-
-
 - (void)loadView
 {
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
@@ -52,6 +50,8 @@
     
     [tableView setTableHeaderView:[self createHeaderView]];
 }
+
+
 
 - (void)viewDidLayoutSubviews
 {

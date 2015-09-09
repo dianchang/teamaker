@@ -59,8 +59,15 @@
     [tableView setTableHeaderView:[self createHeaderView]];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationItem.title = @"";
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     self.navigationItem.title = self.user.name;
 }
 
