@@ -23,9 +23,6 @@
 #import "BaseFeedViewController.h"
 
 @interface BaseFeedViewController ()
-
-@property (strong, nonatomic) NSMutableDictionary *cachedHeight;
-
 @end
 
 @implementation BaseFeedViewController
@@ -74,6 +71,20 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
+}
+
+#pragma mark - class var
+
++ (NSMutableDictionary *)cachedHeights
+{
+    static NSMutableDictionary *heights;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        heights = [NSMutableDictionary new];
+    });
+    
+    return heights;
 }
 
 #pragma mark - FeedTableViewCellProtocol
@@ -159,7 +170,7 @@
     
     if (indexPath.row % 2 == 0) {
         TMFeed *feed = self.feeds[indexPath.row / 2];
-        NSNumber *cellHeight = [self.cachedHeight objectForKey:[feed.id stringValue]];
+        NSNumber *cellHeight = [[BaseFeedViewController cachedHeights] objectForKey:[feed.id stringValue]];
         
         if (cellHeight) {
             return [cellHeight floatValue];
@@ -167,7 +178,7 @@
         
         height = [FeedTableViewCell calculateCellHeightWithFeed:feed] + 1;
         
-        [self.cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
+        [[BaseFeedViewController cachedHeights] setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
     } else if (indexPath.row == self.feeds.count * 2 - 1) {
         height = 40.0;
     } else {
@@ -181,7 +192,7 @@
 {
     CGFloat height;
     height = [FeedTableViewCell calculateCellHeightWithFeed:feed] + 1;
-    [self.cachedHeight setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
+    [[BaseFeedViewController cachedHeights] setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
 }
 
 - (void)reloadTable
@@ -249,16 +260,6 @@
     }
     
     return _loggedInUser;
-}
-
-
-- (NSMutableDictionary *)cachedHeight
-{
-    if (!_cachedHeight) {
-        _cachedHeight = [NSMutableDictionary new];
-    }
-    
-    return _cachedHeight;
 }
 
 - (NSArray *)feeds
