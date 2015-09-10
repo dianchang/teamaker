@@ -16,6 +16,8 @@
 
 - (NSArray *)findLikers;
 
+- (NSArray *)findComments;
+
 - (BOOL)isText;
 - (BOOL)isImage;
 - (BOOL)isPunch;

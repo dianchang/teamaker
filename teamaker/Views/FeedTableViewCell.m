@@ -173,17 +173,33 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         commandButton.hidden = YES;
     }
     
-    // 分隔符
-    UIView *gapView = [UIView new];
-    gapView.backgroundColor = [UIColor colorWithRGBA:0xCCCCCCFF];
-    [self.contentView addSubview:gapView];
-    self.gapView = gapView;
+    // 点赞者之上的分隔view
+    UIView *likersTopGapView = [UIView new];
+    likersTopGapView.backgroundColor = [UIColor colorWithRGBA:0xCCCCCCFF];
+    [self.contentView addSubview:likersTopGapView];
+    self.likersTopGapView = likersTopGapView;
     
     // 点赞者
     LikersView *likersView = [LikersView new];
     self.likersView = likersView;
     [self.contentView addSubview:likersView];
     
+    // 点赞者与评论之间的分隔view
+    UIView *likersCommentsGapView = [UIView new];
+    [self.contentView addSubview:likersCommentsGapView];
+    self.likersCommentsGapView = likersCommentsGapView;
+    
+    // 评论
+    FeedCommentsView *commentsView = [FeedCommentsView new];
+    self.commentsView = commentsView;
+    [self.contentView addSubview:commentsView];
+    
+    // 评论之下的是分隔view
+    UIView *commentsBottomGapView = [UIView new];
+    [self.contentView addSubview:commentsBottomGapView];
+    self.commentsBottomGapView = commentsBottomGapView;
+    
+    // 约束
     [self makeConstraintsWithReuseIdentifier:reuseIdentifier];
         
     return self;
@@ -268,19 +284,38 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         make.right.equalTo(self.commandButton.mas_left).offset(-5);
     }];
     
-    // 分隔符
-    [self.gapView mas_makeConstraints:^(MASConstraintMaker *make) {
+    // 分隔view
+    [self.likersTopGapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userButton);
         make.right.equalTo(self.feedContentView);
         make.top.equalTo(self.timeAndCommandsView.mas_bottom);
         make.bottom.equalTo(self.likersView.mas_top);
-        make.height.equalTo(@0);
     }];
     
     // 点赞者
     [self.likersView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userButton);
-        make.right.bottom.equalTo(self.contentView);
+        make.right.equalTo(self.feedContentView);
+    }];
+    
+    // 分隔view
+    [self.likersCommentsGapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contentView);
+        make.top.equalTo(self.likersView.mas_bottom);
+        make.bottom.equalTo(self.commentsView.mas_top);
+    }];
+    
+    // 评论
+    [self.commentsView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userButton);
+        make.right.equalTo(self.feedContentView);
+    }];
+    
+    // 分隔
+    [self.commentsBottomGapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contentView);
+        make.top.equalTo(self.commentsView.mas_bottom);
+        make.bottom.equalTo(self.contentView);
     }];
 }
 
@@ -427,30 +462,46 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         self.shareTitleLabel.text = feed.shareTitle;
     }
     
+    NSArray *likers = [self.feed findLikers];
+    NSArray *comments = [self.feed findComments];
+    
     // 点赞者
-    self.likersView.likers = [feed findLikers];
-    [self setNeedsLayout];
-
-    if (self.likersView.likers.count > 0) {
-        // 分隔符
-        [self.gapView mas_updateConstraints:^(MASConstraintMaker *make) {
+    self.likersView.likers = likers;
+    
+    // 评论
+    self.commentsView.comments = comments;
+    
+    // 分隔view
+    if (likers.count || comments.count) {
+        [self.likersTopGapView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.likersView.mas_top).offset(-10);
             make.height.equalTo(@0.5);
         }];
-        
-        // 点赞者
-        [self.likersView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.contentView).offset(-15);
-        }];
     } else {
-        // 分隔符
-        [self.gapView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [self.likersTopGapView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.likersView.mas_top);
             make.height.equalTo(@0);
         }];
-        
-        // 点赞者
-        [self.likersView mas_updateConstraints:^(MASConstraintMaker *make) {
+    }
+
+    // 分隔view
+    if (likers.count && comments.count) {
+        [self.likersCommentsGapView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.commentsView.mas_top).offset(-10);
+        }];
+    } else {
+        [self.likersCommentsGapView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.commentsView.mas_top);
+        }];
+    }
+    
+    // 分隔view
+    if (likers.count || comments.count) {
+        [self.commentsBottomGapView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.contentView).offset(-15);
+        }];
+    } else {
+        [self.commentsBottomGapView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.contentView);
         }];
     }

@@ -2,6 +2,7 @@
 #import "TMUser.h"
 #import "TMTeam.h"
 #import "TMUserLikeFeed.h"
+#import "TMFeedComment.h"
 #import <MagicalRecord/MagicalRecord.h>
 
 @interface TMFeed ()
@@ -179,6 +180,11 @@
 - (NSArray *)findLikers
 {
     return [TMUserLikeFeed MR_findByAttribute:@"feedId" withValue:self.id andOrderBy:@"createdAt" ascending:NO];
+}
+
+- (NSArray *)findComments
+{
+    return [TMFeedComment MR_findByAttribute:@"feedId" withValue:self.id andOrderBy:@"createdAt" ascending:YES];
 }
 
 @end

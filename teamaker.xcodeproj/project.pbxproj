@@ -40,6 +40,7 @@
 		051A46C11BA14486004EC14D /* TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46B11BA14486004EC14D /* TMTeamUserInfo.m */; };
 		051A46C21BA14486004EC14D /* TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46B31BA14486004EC14D /* TMUser.m */; };
 		051A46C31BA14486004EC14D /* TMUserLikeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46B51BA14486004EC14D /* TMUserLikeFeed.m */; };
+		051A46C61BA14CF6004EC14D /* FeedCommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46C51BA14CF6004EC14D /* FeedCommentsView.m */; };
 		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
 		0537175E1B94041E00A92A7D /* JoinTeamMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537175D1B94041E00A92A7D /* JoinTeamMenu.m */; };
 		053717631B941B6000A92A7D /* TeamDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717601B941B6000A92A7D /* TeamDetailsViewController.m */; };
@@ -126,6 +127,8 @@
 		051A46B31BA14486004EC14D /* TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMUser.m; sourceTree = "<group>"; };
 		051A46B41BA14486004EC14D /* TMUserLikeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMUserLikeFeed.h; sourceTree = "<group>"; };
 		051A46B51BA14486004EC14D /* TMUserLikeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMUserLikeFeed.m; sourceTree = "<group>"; };
+		051A46C41BA14CF6004EC14D /* FeedCommentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCommentsView.h; sourceTree = "<group>"; };
+		051A46C51BA14CF6004EC14D /* FeedCommentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCommentsView.m; sourceTree = "<group>"; };
 		0530824B1B8482A8008C6C16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0537175C1B94041E00A92A7D /* JoinTeamMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamMenu.h; sourceTree = "<group>"; };
 		0537175D1B94041E00A92A7D /* JoinTeamMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamMenu.m; sourceTree = "<group>"; };
@@ -309,6 +312,8 @@
 				0577083A1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m */,
 				05CBB1E31B9FE10D006B3D23 /* LikersView.h */,
 				05CBB1E41B9FE10D006B3D23 /* LikersView.m */,
+				051A46C41BA14CF6004EC14D /* FeedCommentsView.h */,
+				051A46C51BA14CF6004EC14D /* FeedCommentsView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -659,6 +664,7 @@
 				053717641B941B6000A92A7D /* TeamProfileViewController.m in Sources */,
 				051A46BA1BA14486004EC14D /* _TMTeamUserInfo.m in Sources */,
 				053717711B941B8000A92A7D /* MyProfileViewController.m in Sources */,
+				051A46C61BA14CF6004EC14D /* FeedCommentsView.m in Sources */,
 				051A46B71BA14486004EC14D /* _TMFeedComment.m in Sources */,
 				0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */,
 				051A46BF1BA14486004EC14D /* TMPunch.m in Sources */,

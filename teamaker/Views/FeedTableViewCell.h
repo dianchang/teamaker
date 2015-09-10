@@ -10,6 +10,7 @@
 #import "TMFeed.h"
 #import "FeedTableViewCellProtocol.h"
 #import "LikersView.h"
+#import "FeedCommentsView.h"
 
 @interface FeedTableViewCell : UITableViewCell
 
@@ -28,9 +29,12 @@
 @property (strong, nonatomic) UIButton *commandButton;
 @property (strong, nonatomic) UIView *commandsToolbar;
 
-@property (strong, nonatomic) UIView *gapView;
-
+@property (strong, nonatomic) UIView *likersTopGapView;
 @property (strong, nonatomic) LikersView *likersView;
+@property (strong, nonatomic) UIView *likersCommentsGapView;
+
+@property (strong, nonatomic) FeedCommentsView *commentsView;
+@property (strong, nonatomic) UIView *commentsBottomGapView;
 
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed;
 + (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView;
