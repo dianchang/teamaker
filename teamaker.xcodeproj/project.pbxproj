@@ -26,8 +26,20 @@
 		050BC3761B799D0F00A35EFD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3751B799D0F00A35EFD /* Images.xcassets */; };
 		050BC3791B799D0F00A35EFD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050BC3771B799D0F00A35EFD /* LaunchScreen.xib */; };
 		050BC3851B799D0F00A35EFD /* teamakerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 050BC3841B799D0F00A35EFD /* teamakerTests.m */; };
-		051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */; };
-		051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */; };
+		051A46B61BA14486004EC14D /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A469B1BA14486004EC14D /* _TMFeed.m */; };
+		051A46B71BA14486004EC14D /* _TMFeedComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A469D1BA14486004EC14D /* _TMFeedComment.m */; };
+		051A46B81BA14486004EC14D /* _TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A469F1BA14486004EC14D /* _TMPunch.m */; };
+		051A46B91BA14486004EC14D /* _TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46A11BA14486004EC14D /* _TMTeam.m */; };
+		051A46BA1BA14486004EC14D /* _TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46A31BA14486004EC14D /* _TMTeamUserInfo.m */; };
+		051A46BB1BA14486004EC14D /* _TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46A51BA14486004EC14D /* _TMUser.m */; };
+		051A46BC1BA14486004EC14D /* _TMUserLikeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46A71BA14486004EC14D /* _TMUserLikeFeed.m */; };
+		051A46BD1BA14486004EC14D /* TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46A91BA14486004EC14D /* TMFeed.m */; };
+		051A46BE1BA14486004EC14D /* TMFeedComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46AB1BA14486004EC14D /* TMFeedComment.m */; };
+		051A46BF1BA14486004EC14D /* TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46AD1BA14486004EC14D /* TMPunch.m */; };
+		051A46C01BA14486004EC14D /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46AF1BA14486004EC14D /* TMTeam.m */; };
+		051A46C11BA14486004EC14D /* TMTeamUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46B11BA14486004EC14D /* TMTeamUserInfo.m */; };
+		051A46C21BA14486004EC14D /* TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46B31BA14486004EC14D /* TMUser.m */; };
+		051A46C31BA14486004EC14D /* TMUserLikeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 051A46B51BA14486004EC14D /* TMUserLikeFeed.m */; };
 		0530824C1B8482A8008C6C16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0530824B1B8482A8008C6C16 /* MapKit.framework */; };
 		0537175E1B94041E00A92A7D /* JoinTeamMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537175D1B94041E00A92A7D /* JoinTeamMenu.m */; };
 		053717631B941B6000A92A7D /* TeamDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717601B941B6000A92A7D /* TeamDetailsViewController.m */; };
@@ -47,8 +59,6 @@
 		053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717911B941C4C00A92A7D /* JoinTeamViewController.m */; };
 		055917481B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */; };
 		0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0559174D1B9EEE630036B6E9 /* UIImageView+Helper.m */; };
-		055917531B9F0CE30036B6E9 /* _TMUserLikeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917501B9F0CE30036B6E9 /* _TMUserLikeFeed.m */; };
-		055917541B9F0CE30036B6E9 /* TMUserLikeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917521B9F0CE30036B6E9 /* TMUserLikeFeed.m */; };
 		0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */; };
 		0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3E1B90CC0B00A670B4 /* PunchTableViewCell.m */; };
 		0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC401B90CC0B00A670B4 /* TeamButtons.m */; };
@@ -58,14 +68,6 @@
 		05937ADC1B96B64100CAC2A1 /* CameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05937ADB1B96B64100CAC2A1 /* CameraPreviewView.m */; };
 		05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05A0736E1B8AC657005C5CE3 /* TMModel.xcdatamodeld */; };
 		05B11D1D1B9DDADC00F797D8 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B11D1C1B9DDADC00F797D8 /* M13Checkbox.m */; };
-		05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */; };
-		05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */; };
-		05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A1B1B8C1C3F00329BF0 /* _TMTeam.m */; };
-		05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A1D1B8C1C3F00329BF0 /* _TMUser.m */; };
-		05BD7A2A1B8C1C3F00329BF0 /* TMFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A1F1B8C1C3F00329BF0 /* TMFeed.m */; };
-		05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A211B8C1C3F00329BF0 /* TMPunch.m */; };
-		05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A231B8C1C3F00329BF0 /* TMTeam.m */; };
-		05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD7A251B8C1C3F00329BF0 /* TMUser.m */; };
 		05CBB1E51B9FE10D006B3D23 /* LikersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CBB1E41B9FE10D006B3D23 /* LikersView.m */; };
 		05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */; };
 		05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7D51B8DA488003DF51A /* NSString+URLEncode.m */; };
@@ -96,10 +98,34 @@
 		050BC37E1B799D0F00A35EFD /* teamakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = teamakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		050BC3831B799D0F00A35EFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		050BC3841B799D0F00A35EFD /* teamakerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = teamakerTests.m; sourceTree = "<group>"; };
-		051214CF1B8F2D350050EB6C /* _TMTeamUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMTeamUserInfo.h; path = Models/_TMTeamUserInfo.h; sourceTree = "<group>"; };
-		051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMTeamUserInfo.m; path = Models/_TMTeamUserInfo.m; sourceTree = "<group>"; };
-		051214D11B8F2D350050EB6C /* TMTeamUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMTeamUserInfo.h; path = Models/TMTeamUserInfo.h; sourceTree = "<group>"; };
-		051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeamUserInfo.m; path = Models/TMTeamUserInfo.m; sourceTree = "<group>"; };
+		051A469A1BA14486004EC14D /* _TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TMFeed.h; sourceTree = "<group>"; };
+		051A469B1BA14486004EC14D /* _TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TMFeed.m; sourceTree = "<group>"; };
+		051A469C1BA14486004EC14D /* _TMFeedComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TMFeedComment.h; sourceTree = "<group>"; };
+		051A469D1BA14486004EC14D /* _TMFeedComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TMFeedComment.m; sourceTree = "<group>"; };
+		051A469E1BA14486004EC14D /* _TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TMPunch.h; sourceTree = "<group>"; };
+		051A469F1BA14486004EC14D /* _TMPunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TMPunch.m; sourceTree = "<group>"; };
+		051A46A01BA14486004EC14D /* _TMTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TMTeam.h; sourceTree = "<group>"; };
+		051A46A11BA14486004EC14D /* _TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TMTeam.m; sourceTree = "<group>"; };
+		051A46A21BA14486004EC14D /* _TMTeamUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TMTeamUserInfo.h; sourceTree = "<group>"; };
+		051A46A31BA14486004EC14D /* _TMTeamUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TMTeamUserInfo.m; sourceTree = "<group>"; };
+		051A46A41BA14486004EC14D /* _TMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TMUser.h; sourceTree = "<group>"; };
+		051A46A51BA14486004EC14D /* _TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TMUser.m; sourceTree = "<group>"; };
+		051A46A61BA14486004EC14D /* _TMUserLikeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TMUserLikeFeed.h; sourceTree = "<group>"; };
+		051A46A71BA14486004EC14D /* _TMUserLikeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TMUserLikeFeed.m; sourceTree = "<group>"; };
+		051A46A81BA14486004EC14D /* TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMFeed.h; sourceTree = "<group>"; };
+		051A46A91BA14486004EC14D /* TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMFeed.m; sourceTree = "<group>"; };
+		051A46AA1BA14486004EC14D /* TMFeedComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMFeedComment.h; sourceTree = "<group>"; };
+		051A46AB1BA14486004EC14D /* TMFeedComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMFeedComment.m; sourceTree = "<group>"; };
+		051A46AC1BA14486004EC14D /* TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMPunch.h; sourceTree = "<group>"; };
+		051A46AD1BA14486004EC14D /* TMPunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMPunch.m; sourceTree = "<group>"; };
+		051A46AE1BA14486004EC14D /* TMTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTeam.h; sourceTree = "<group>"; };
+		051A46AF1BA14486004EC14D /* TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTeam.m; sourceTree = "<group>"; };
+		051A46B01BA14486004EC14D /* TMTeamUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTeamUserInfo.h; sourceTree = "<group>"; };
+		051A46B11BA14486004EC14D /* TMTeamUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTeamUserInfo.m; sourceTree = "<group>"; };
+		051A46B21BA14486004EC14D /* TMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMUser.h; sourceTree = "<group>"; };
+		051A46B31BA14486004EC14D /* TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMUser.m; sourceTree = "<group>"; };
+		051A46B41BA14486004EC14D /* TMUserLikeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMUserLikeFeed.h; sourceTree = "<group>"; };
+		051A46B51BA14486004EC14D /* TMUserLikeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMUserLikeFeed.m; sourceTree = "<group>"; };
 		0530824B1B8482A8008C6C16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0537175C1B94041E00A92A7D /* JoinTeamMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamMenu.h; sourceTree = "<group>"; };
 		0537175D1B94041E00A92A7D /* JoinTeamMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamMenu.m; sourceTree = "<group>"; };
@@ -138,10 +164,6 @@
 		055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStarredFeedsViewController.m; sourceTree = "<group>"; };
 		0559174C1B9EEE630036B6E9 /* UIImageView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Helper.h"; path = "Categories/UIImageView+Helper.h"; sourceTree = "<group>"; };
 		0559174D1B9EEE630036B6E9 /* UIImageView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Helper.m"; path = "Categories/UIImageView+Helper.m"; sourceTree = "<group>"; };
-		0559174F1B9F0CD60036B6E9 /* _TMUserLikeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMUserLikeFeed.h; path = Models/_TMUserLikeFeed.h; sourceTree = "<group>"; };
-		055917501B9F0CE30036B6E9 /* _TMUserLikeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMUserLikeFeed.m; path = Models/_TMUserLikeFeed.m; sourceTree = "<group>"; };
-		055917511B9F0CE30036B6E9 /* TMUserLikeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMUserLikeFeed.h; path = Models/TMUserLikeFeed.h; sourceTree = "<group>"; };
-		055917521B9F0CE30036B6E9 /* TMUserLikeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMUserLikeFeed.m; path = Models/TMUserLikeFeed.m; sourceTree = "<group>"; };
 		0573DC3A1B90CC0B00A670B4 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		0573DC3C1B90CC0B00A670B4 /* FeedTableViewCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCellProtocol.h; sourceTree = "<group>"; };
@@ -161,22 +183,6 @@
 		05A0736F1B8AC657005C5CE3 /* TMModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMModel.xcdatamodel; sourceTree = "<group>"; };
 		05B11D1B1B9DDADC00F797D8 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
 		05B11D1C1B9DDADC00F797D8 /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
-		05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMFeed.h; path = Models/_TMFeed.h; sourceTree = "<group>"; };
-		05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMFeed.m; path = Models/_TMFeed.m; sourceTree = "<group>"; };
-		05BD7A181B8C1C3F00329BF0 /* _TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMPunch.h; path = Models/_TMPunch.h; sourceTree = "<group>"; };
-		05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMPunch.m; path = Models/_TMPunch.m; sourceTree = "<group>"; };
-		05BD7A1A1B8C1C3F00329BF0 /* _TMTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMTeam.h; path = Models/_TMTeam.h; sourceTree = "<group>"; };
-		05BD7A1B1B8C1C3F00329BF0 /* _TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMTeam.m; path = Models/_TMTeam.m; sourceTree = "<group>"; };
-		05BD7A1C1B8C1C3F00329BF0 /* _TMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _TMUser.h; path = Models/_TMUser.h; sourceTree = "<group>"; };
-		05BD7A1D1B8C1C3F00329BF0 /* _TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _TMUser.m; path = Models/_TMUser.m; sourceTree = "<group>"; };
-		05BD7A1E1B8C1C3F00329BF0 /* TMFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMFeed.h; path = Models/TMFeed.h; sourceTree = "<group>"; };
-		05BD7A1F1B8C1C3F00329BF0 /* TMFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMFeed.m; path = Models/TMFeed.m; sourceTree = "<group>"; };
-		05BD7A201B8C1C3F00329BF0 /* TMPunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPunch.h; path = Models/TMPunch.h; sourceTree = "<group>"; };
-		05BD7A211B8C1C3F00329BF0 /* TMPunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMPunch.m; path = Models/TMPunch.m; sourceTree = "<group>"; };
-		05BD7A221B8C1C3F00329BF0 /* TMTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMTeam.h; path = Models/TMTeam.h; sourceTree = "<group>"; };
-		05BD7A231B8C1C3F00329BF0 /* TMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTeam.m; path = Models/TMTeam.m; sourceTree = "<group>"; };
-		05BD7A241B8C1C3F00329BF0 /* TMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMUser.h; path = Models/TMUser.h; sourceTree = "<group>"; };
-		05BD7A251B8C1C3F00329BF0 /* TMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMUser.m; path = Models/TMUser.m; sourceTree = "<group>"; };
 		05CBB1E31B9FE10D006B3D23 /* LikersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikersView.h; sourceTree = "<group>"; };
 		05CBB1E41B9FE10D006B3D23 /* LikersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikersView.m; sourceTree = "<group>"; };
 		05CEB7B11B8D5FC2003DF51A /* NSDate+FriendlyInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+FriendlyInterval.h"; path = "Categories/NSDate+FriendlyInterval.h"; sourceTree = "<group>"; };
@@ -325,32 +331,36 @@
 		0530824F1B84AD07008C6C16 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				055917501B9F0CE30036B6E9 /* _TMUserLikeFeed.m */,
-				0559174F1B9F0CD60036B6E9 /* _TMUserLikeFeed.h */,
-				051214CF1B8F2D350050EB6C /* _TMTeamUserInfo.h */,
-				051214D01B8F2D350050EB6C /* _TMTeamUserInfo.m */,
-				05BD7A161B8C1C3F00329BF0 /* _TMFeed.h */,
-				05BD7A171B8C1C3F00329BF0 /* _TMFeed.m */,
-				05BD7A181B8C1C3F00329BF0 /* _TMPunch.h */,
-				05BD7A191B8C1C3F00329BF0 /* _TMPunch.m */,
-				05BD7A1A1B8C1C3F00329BF0 /* _TMTeam.h */,
-				05BD7A1B1B8C1C3F00329BF0 /* _TMTeam.m */,
-				05BD7A1C1B8C1C3F00329BF0 /* _TMUser.h */,
-				05BD7A1D1B8C1C3F00329BF0 /* _TMUser.m */,
-				05BD7A1E1B8C1C3F00329BF0 /* TMFeed.h */,
-				05BD7A1F1B8C1C3F00329BF0 /* TMFeed.m */,
-				05BD7A201B8C1C3F00329BF0 /* TMPunch.h */,
-				05BD7A211B8C1C3F00329BF0 /* TMPunch.m */,
-				05BD7A221B8C1C3F00329BF0 /* TMTeam.h */,
-				05BD7A231B8C1C3F00329BF0 /* TMTeam.m */,
-				051214D11B8F2D350050EB6C /* TMTeamUserInfo.h */,
-				051214D21B8F2D350050EB6C /* TMTeamUserInfo.m */,
-				055917511B9F0CE30036B6E9 /* TMUserLikeFeed.h */,
-				055917521B9F0CE30036B6E9 /* TMUserLikeFeed.m */,
-				05BD7A241B8C1C3F00329BF0 /* TMUser.h */,
-				05BD7A251B8C1C3F00329BF0 /* TMUser.m */,
+				051A469A1BA14486004EC14D /* _TMFeed.h */,
+				051A469B1BA14486004EC14D /* _TMFeed.m */,
+				051A469C1BA14486004EC14D /* _TMFeedComment.h */,
+				051A469D1BA14486004EC14D /* _TMFeedComment.m */,
+				051A469E1BA14486004EC14D /* _TMPunch.h */,
+				051A469F1BA14486004EC14D /* _TMPunch.m */,
+				051A46A01BA14486004EC14D /* _TMTeam.h */,
+				051A46A11BA14486004EC14D /* _TMTeam.m */,
+				051A46A21BA14486004EC14D /* _TMTeamUserInfo.h */,
+				051A46A31BA14486004EC14D /* _TMTeamUserInfo.m */,
+				051A46A41BA14486004EC14D /* _TMUser.h */,
+				051A46A51BA14486004EC14D /* _TMUser.m */,
+				051A46A61BA14486004EC14D /* _TMUserLikeFeed.h */,
+				051A46A71BA14486004EC14D /* _TMUserLikeFeed.m */,
+				051A46A81BA14486004EC14D /* TMFeed.h */,
+				051A46A91BA14486004EC14D /* TMFeed.m */,
+				051A46AA1BA14486004EC14D /* TMFeedComment.h */,
+				051A46AB1BA14486004EC14D /* TMFeedComment.m */,
+				051A46AC1BA14486004EC14D /* TMPunch.h */,
+				051A46AD1BA14486004EC14D /* TMPunch.m */,
+				051A46AE1BA14486004EC14D /* TMTeam.h */,
+				051A46AF1BA14486004EC14D /* TMTeam.m */,
+				051A46B01BA14486004EC14D /* TMTeamUserInfo.h */,
+				051A46B11BA14486004EC14D /* TMTeamUserInfo.m */,
+				051A46B21BA14486004EC14D /* TMUser.h */,
+				051A46B31BA14486004EC14D /* TMUser.m */,
+				051A46B41BA14486004EC14D /* TMUserLikeFeed.h */,
+				051A46B51BA14486004EC14D /* TMUserLikeFeed.m */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		053EA2561B81AB6A00BBAF12 /* Controllers */ = {
@@ -631,52 +641,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				051A46BD1BA14486004EC14D /* TMFeed.m in Sources */,
 				053717731B941B8000A92A7D /* UserProfileViewController.m in Sources */,
 				05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */,
+				051A46B81BA14486004EC14D /* _TMPunch.m in Sources */,
+				051A46B61BA14486004EC14D /* _TMFeed.m in Sources */,
+				051A46C01BA14486004EC14D /* TMTeam.m in Sources */,
 				0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */,
 				0537178F1B941C3300A92A7D /* CreateTeamViewController.m in Sources */,
 				053717821B941BA500A92A7D /* ComposeViewController.m in Sources */,
 				0573DC461B90CC0B00A670B4 /* TeamMemberCollectionViewCell.m in Sources */,
 				050BC36E1B799D0E00A35EFD /* AppDelegate.m in Sources */,
-				05BD7A271B8C1C3F00329BF0 /* _TMPunch.m in Sources */,
 				05CBB1E51B9FE10D006B3D23 /* LikersView.m in Sources */,
 				053717861B941BA500A92A7D /* TextViewController.m in Sources */,
 				057708361B9D3E710001CA87 /* AddTeamMemberViewController.m in Sources */,
 				053717811B941BA500A92A7D /* CaptureViewController.m in Sources */,
-				05BD7A2D1B8C1C3F00329BF0 /* TMUser.m in Sources */,
 				053717641B941B6000A92A7D /* TeamProfileViewController.m in Sources */,
+				051A46BA1BA14486004EC14D /* _TMTeamUserInfo.m in Sources */,
 				053717711B941B8000A92A7D /* MyProfileViewController.m in Sources */,
+				051A46B71BA14486004EC14D /* _TMFeedComment.m in Sources */,
 				0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */,
-				055917541B9F0CE30036B6E9 /* TMUserLikeFeed.m in Sources */,
-				05BD7A281B8C1C3F00329BF0 /* _TMTeam.m in Sources */,
+				051A46BF1BA14486004EC14D /* TMPunch.m in Sources */,
 				053717891B941BB400A92A7D /* ViewController.m in Sources */,
 				0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */,
-				05BD7A261B8C1C3F00329BF0 /* _TMFeed.m in Sources */,
-				05BD7A2C1B8C1C3F00329BF0 /* TMTeam.m in Sources */,
 				05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */,
 				053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */,
 				053717721B941B8000A92A7D /* MySettingsViewController.m in Sources */,
-				05BD7A2A1B8C1C3F00329BF0 /* TMFeed.m in Sources */,
-				05BD7A291B8C1C3F00329BF0 /* _TMUser.m in Sources */,
 				05EA055B1B9AA1C5005429CC /* BaseFeedViewController.m in Sources */,
 				0573DC451B90CC0B00A670B4 /* TeamButtons.m in Sources */,
 				05B11D1D1B9DDADC00F797D8 /* M13Checkbox.m in Sources */,
 				0537175E1B94041E00A92A7D /* JoinTeamMenu.m in Sources */,
+				051A46BB1BA14486004EC14D /* _TMUser.m in Sources */,
 				05A073701B8AC657005C5CE3 /* TMModel.xcdatamodeld in Sources */,
 				05937ADC1B96B64100CAC2A1 /* CameraPreviewView.m in Sources */,
 				053717851B941BA500A92A7D /* PunchViewController.m in Sources */,
 				050BC36B1B799D0E00A35EFD /* main.m in Sources */,
 				053717701B941B8000A92A7D /* MyDetailsViewController.m in Sources */,
-				05BD7A2B1B8C1C3F00329BF0 /* TMPunch.m in Sources */,
+				051A46C31BA14486004EC14D /* TMUserLikeFeed.m in Sources */,
 				05D8B4A51B99621C008E4E8E /* ExternalLinkViewController.m in Sources */,
-				051214D41B8F2D350050EB6C /* TMTeamUserInfo.m in Sources */,
+				051A46BC1BA14486004EC14D /* _TMUserLikeFeed.m in Sources */,
+				051A46C11BA14486004EC14D /* TMTeamUserInfo.m in Sources */,
 				053717631B941B6000A92A7D /* TeamDetailsViewController.m in Sources */,
+				051A46C21BA14486004EC14D /* TMUser.m in Sources */,
 				0577083B1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m in Sources */,
 				055917481B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m in Sources */,
-				055917531B9F0CE30036B6E9 /* _TMUserLikeFeed.m in Sources */,
 				053717671B941B6B00A92A7D /* FeedViewController.m in Sources */,
-				051214D31B8F2D350050EB6C /* _TMTeamUserInfo.m in Sources */,
 				05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */,
+				051A46BE1BA14486004EC14D /* TMFeedComment.m in Sources */,
+				051A46B91BA14486004EC14D /* _TMTeam.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

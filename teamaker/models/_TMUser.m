@@ -18,6 +18,7 @@ const struct TMUserAttributes TMUserAttributes = {
 };
 
 const struct TMUserRelationships TMUserRelationships = {
+	.comments = @"comments",
 	.feeds = @"feeds",
 	.likedFeeds = @"likedFeeds",
 	.teamsInfos = @"teamsInfos",
@@ -97,6 +98,17 @@ const struct TMUserRelationships TMUserRelationships = {
 @dynamic sex;
 
 @dynamic wechat;
+
+@dynamic comments;
+
+- (NSMutableSet*)commentsSet {
+	[self willAccessValueForKey:@"comments"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"comments"];
+
+	[self didAccessValueForKey:@"comments"];
+	return result;
+}
 
 @dynamic feeds;
 

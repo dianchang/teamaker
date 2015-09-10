@@ -21,6 +21,7 @@ const struct TMFeedAttributes TMFeedAttributes = {
 };
 
 const struct TMFeedRelationships TMFeedRelationships = {
+	.coments = @"coments",
 	.likers = @"likers",
 	.team = @"team",
 	.user = @"user",
@@ -175,6 +176,8 @@ const struct TMFeedRelationships TMFeedRelationships = {
 - (void)setPrimitiveUserIdValue:(int32_t)value_ {
 	[self setPrimitiveUserId:[NSNumber numberWithInt:value_]];
 }
+
+@dynamic coments;
 
 @dynamic likers;
 

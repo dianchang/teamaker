@@ -21,11 +21,13 @@ extern const struct TMFeedAttributes {
 } TMFeedAttributes;
 
 extern const struct TMFeedRelationships {
+	__unsafe_unretained NSString *coments;
 	__unsafe_unretained NSString *likers;
 	__unsafe_unretained NSString *team;
 	__unsafe_unretained NSString *user;
 } TMFeedRelationships;
 
+@class TMFeedComment;
 @class TMUserLikeFeed;
 @class TMTeam;
 @class TMUser;
@@ -111,6 +113,10 @@ extern const struct TMFeedRelationships {
 
 //- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) TMFeedComment *coments;
+
+//- (BOOL)validateComents:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSSet *likers;
 
 - (NSMutableSet*)likersSet;
@@ -188,6 +194,9 @@ extern const struct TMFeedRelationships {
 
 - (int32_t)primitiveUserIdValue;
 - (void)setPrimitiveUserIdValue:(int32_t)value_;
+
+- (TMFeedComment*)primitiveComents;
+- (void)setPrimitiveComents:(TMFeedComment*)value;
 
 - (NSMutableSet*)primitiveLikers;
 - (void)setPrimitiveLikers:(NSMutableSet*)value;

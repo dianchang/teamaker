@@ -18,11 +18,13 @@ extern const struct TMUserAttributes {
 } TMUserAttributes;
 
 extern const struct TMUserRelationships {
+	__unsafe_unretained NSString *comments;
 	__unsafe_unretained NSString *feeds;
 	__unsafe_unretained NSString *likedFeeds;
 	__unsafe_unretained NSString *teamsInfos;
 } TMUserRelationships;
 
+@class TMFeedComment;
 @class TMFeed;
 @class TMUserLikeFeed;
 @class TMTeamUserInfo;
@@ -84,6 +86,10 @@ extern const struct TMUserRelationships {
 
 //- (BOOL)validateWechat:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSSet *comments;
+
+- (NSMutableSet*)commentsSet;
+
 @property (nonatomic, strong) NSSet *feeds;
 
 - (NSMutableSet*)feedsSet;
@@ -95,6 +101,14 @@ extern const struct TMUserRelationships {
 @property (nonatomic, strong) NSSet *teamsInfos;
 
 - (NSMutableSet*)teamsInfosSet;
+
+@end
+
+@interface _TMUser (CommentsCoreDataGeneratedAccessors)
+- (void)addComments:(NSSet*)value_;
+- (void)removeComments:(NSSet*)value_;
+- (void)addCommentsObject:(TMFeedComment*)value_;
+- (void)removeCommentsObject:(TMFeedComment*)value_;
 
 @end
 
@@ -159,6 +173,9 @@ extern const struct TMUserRelationships {
 
 - (NSString*)primitiveWechat;
 - (void)setPrimitiveWechat:(NSString*)value;
+
+- (NSMutableSet*)primitiveComments;
+- (void)setPrimitiveComments:(NSMutableSet*)value;
 
 - (NSMutableSet*)primitiveFeeds;
 - (void)setPrimitiveFeeds:(NSMutableSet*)value;
