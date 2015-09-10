@@ -671,6 +671,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     return _commandsToolbar;
 }
+
 // 打星标
 - (void)starFeed
 {
@@ -713,17 +714,18 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         }];
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:self];
 }
 
 // 评论
 - (void)commentFeed
 {
-    [self.delegate commentFeed:self.feed];
+    [self.delegate commentFeed:self.feed sender:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
 }
 
 #pragma mark - getters and setters
+
 - (void)setDelegate:(id<FeedTableViewCellProtocol>)delegate
 {
     _delegate = delegate;

@@ -22,10 +22,27 @@
 #import "ExternalLinkViewController.h"
 #import "BaseFeedViewController.h"
 
+typedef enum commentNextStateTypes
+{
+    COMMENT_NEXT_STATE_NONE,
+    COMMENT_NEXT_STATE_SHOW,
+    COMMENT_NEXT_STATE_HIDE,
+} CommentNextState;
+
 @interface BaseFeedViewController ()
+
+@property (strong, nonatomic) UIView *commentBackdropView;
+@property (strong, nonatomic) UIView *commentView;
+@property (strong, nonatomic) UITextField *commentInputField;
+@property (nonatomic) CommentNextState commentNextState;
+@property (strong, nonatomic) TMFeed *feedForComment;
+@property (strong, nonatomic) UITableViewCell *cellForComment;
+
 @end
 
 @implementation BaseFeedViewController
+
+#pragma mark - view controller life cycle
 
 - (void)loadView
 {
@@ -46,6 +63,8 @@
     tableView.delegate = self;
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    [self createCommentView];
+    
     // 注册reuseIdentifier
     [FeedTableViewCell registerClassForCellReuseIdentifierOnTableView:tableView];
     
@@ -60,12 +79,16 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:TMFeedViewShouldReloadFeedsNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableAndScrollToTop:) name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadFeedsNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -119,11 +142,188 @@
 }
 
 // 评论feed
-- (void)commentFeed:(TMFeed *)feed
+- (void)commentFeed:(TMFeed *)feed sender:(UITableViewCell *)cell
 {
+    self.feedForComment = feed;
+    self.cellForComment = cell;
+    [self showCommentView];
+}
+
+#pragma mark - comment view
+
+- (UIView *)createCommentView
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    
+    // 背景
+    UIView *commentBackdropView = [UIView new];
+    
+    UITapGestureRecognizer *tapGestureRecognizerForCommentBackdrop = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideCommentView)];
+    tapGestureRecognizerForCommentBackdrop.numberOfTapsRequired = 1;
+    [commentBackdropView addGestureRecognizer:tapGestureRecognizerForCommentBackdrop];
+    
+    UIPanGestureRecognizer *panGestureRecognizerForCommentBackdrop = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(hideCommentView)];
+    [commentBackdropView addGestureRecognizer:panGestureRecognizerForCommentBackdrop];
+    
+    self.commentBackdropView = commentBackdropView;
+    
+    UIView *commentView = [UIView new];
+    CALayer *border = [CALayer layer];
+    border.frame = CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), 1);
+    border.backgroundColor = [[UIColor colorWithRGBA:0xDDDDDDFF] CGColor];
+    [commentView.layer addSublayer:border];
+    commentView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
+    [window addSubview:commentView];
+    self.commentView = commentView;
+    
+    // 内层容器
+    UIView *innerView = [UIView new];
+    innerView.backgroundColor = [UIColor whiteColor];
+    innerView.layer.cornerRadius = 5;
+    innerView.layer.masksToBounds = YES;
+    innerView.layer.borderColor=[[UIColor colorWithRGBA:0xDDDDDDFF] CGColor];
+    innerView.layer.borderWidth= .5f;
+    [commentView addSubview:innerView];
+    
+    // 输入框
+    UITextField *inputField = [UITextField new];
+    self.commentInputField = inputField;
+    inputField.backgroundColor = [UIColor whiteColor];
+    inputField.placeholder = @"评论";
+    [innerView addSubview:inputField];
+    
+    // 约束
+    [commentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(window);
+        make.top.equalTo(window.mas_bottom);
+    }];
+    
+    [innerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(commentView).insets(UIEdgeInsetsMake(8, 10, 8, 10));
+    }];
+    
+    [inputField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(innerView).insets(UIEdgeInsetsMake(5, 5, 5, 5));
+    }];
+    
+    return commentView;
+}
+
+/**
+ *  显示评论框
+ */
+- (void)showCommentView
+{
+    self.commentNextState = COMMENT_NEXT_STATE_SHOW;
+    [self.commentInputField becomeFirstResponder];
+}
+
+/**
+ *  隐藏评论框
+ */
+- (void)hideCommentView
+{
+    self.commentNextState = COMMENT_NEXT_STATE_HIDE;
+    [self.commentInputField resignFirstResponder];
+}
+
+// 键盘显示
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    
+    NSDictionary *info = [notification userInfo];
+    NSValue *kbFrame = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+    NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    CGRect keyboardFrame = [kbFrame CGRectValue];
+    CGFloat keyboardHeight = keyboardFrame.size.height;
+    
+    if (self.commentNextState == COMMENT_NEXT_STATE_SHOW) {
+        [window addSubview:self.commentBackdropView];
+        
+        [self.commentBackdropView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.equalTo(window);
+            make.bottom.equalTo(self.commentView.mas_top);
+        }];
+        
+        [window setNeedsLayout];
+        [window layoutIfNeeded];
+        
+        [self.commentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(window);
+            make.bottom.equalTo(window).offset(-keyboardHeight);
+        }];
+        
+        [UIView animateWithDuration:animationDuration animations:^{
+            [window setNeedsLayout];
+            [window layoutIfNeeded];
+        }];
+    }
+}
+
+// 键盘隐藏
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    
+    NSDictionary *info = [notification userInfo];
+    NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    if (self.commentNextState == COMMENT_NEXT_STATE_HIDE) {
+        [self.commentBackdropView removeFromSuperview];
+        
+        [self.commentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(window);
+            make.top.equalTo(window.mas_bottom);
+        }];
+        
+        [UIView animateWithDuration:animationDuration animations:^{
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [self.commentBackdropView removeFromSuperview];
+            self.commentInputField.text = @"";
+        }];
+    }
 }
 
 # pragma mark - tableview dataSource and delegate
+
+- (void)updateHeightForFeed:(TMFeed *)feed
+{
+    CGFloat height;
+    height = [FeedTableViewCell calculateCellHeightWithFeed:feed] + 1;
+    [[BaseFeedViewController cachedHeights] setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
+}
+
+- (void)reloadTable:(NSNotification *)notification
+{
+    self.feeds = [self getFeedsData];
+    [self.tableView reloadData];
+    
+    if (notification.userInfo) {
+        TMFeed *feed = [notification.userInfo objectForKey:@"feed"];
+        
+        if (feed) {
+            [self updateHeightForFeed:feed];
+        }
+    }
+}
+
+- (void)reloadTableAndScrollToTop:(NSNotification *)notification
+{
+    [self reloadTable:notification];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+    });
+}
+
+- (NSArray *)getFeedsData
+{
+    // 需重载
+    return @[];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.feeds.count * 2;
@@ -186,42 +386,6 @@
     }
     
     return height;
-}
-
-- (void)updateHeightForFeed:(TMFeed *)feed
-{
-    CGFloat height;
-    height = [FeedTableViewCell calculateCellHeightWithFeed:feed] + 1;
-    [[BaseFeedViewController cachedHeights] setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
-}
-
-- (void)reloadTable:(NSNotification *)notification
-{
-    self.feeds = [self getFeedsData];
-    [self.tableView reloadData];
-
-    if (notification.userInfo) {
-        TMFeed *feed = [notification.userInfo objectForKey:@"feed"];
-        
-        if (feed) {
-            [self updateHeightForFeed:feed];
-        }
-    }
-}
-
-- (void)reloadTableAndScrollToTop:(NSNotification *)notification
-{
-    [self reloadTable:notification];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-    });
-}
-
-- (NSArray *)getFeedsData
-{
-    // 需重载
-    return @[];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath

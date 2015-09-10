@@ -15,7 +15,6 @@
 - (void)publish:(UIButton *)sender;
 - (void)cancelPublish:(UIButton *)sender;
 
-
 @optional
 - (void)prepareLayout;
 - (void)resetLayout;

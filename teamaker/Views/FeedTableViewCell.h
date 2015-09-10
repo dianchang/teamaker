@@ -32,7 +32,6 @@
 
 @property (strong, nonatomic) LikersView *likersView;
 
-
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed;
 + (void)registerClassForCellReuseIdentifierOnTableView:(UITableView *)tableView;
 + (CGFloat) calculateCellHeightWithFeed:(TMFeed *)feed;

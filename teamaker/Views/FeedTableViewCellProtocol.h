@@ -28,6 +28,6 @@
 - (void)likeFeed:(TMFeed *)feed;
 
 // 评论
-- (void)commentFeed:(TMFeed *)feed;
+- (void)commentFeed:(TMFeed *)feed sender:(UITableViewCell *)cell;
 
 @end
