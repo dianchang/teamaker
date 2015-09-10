@@ -21,7 +21,7 @@ const struct TMFeedAttributes TMFeedAttributes = {
 };
 
 const struct TMFeedRelationships TMFeedRelationships = {
-	.coments = @"coments",
+	.comments = @"comments",
 	.likers = @"likers",
 	.team = @"team",
 	.user = @"user",
@@ -177,7 +177,16 @@ const struct TMFeedRelationships TMFeedRelationships = {
 	[self setPrimitiveUserId:[NSNumber numberWithInt:value_]];
 }
 
-@dynamic coments;
+@dynamic comments;
+
+- (NSMutableSet*)commentsSet {
+	[self willAccessValueForKey:@"comments"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"comments"];
+
+	[self didAccessValueForKey:@"comments"];
+	return result;
+}
 
 @dynamic likers;
 

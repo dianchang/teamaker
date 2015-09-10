@@ -21,7 +21,7 @@ extern const struct TMFeedAttributes {
 } TMFeedAttributes;
 
 extern const struct TMFeedRelationships {
-	__unsafe_unretained NSString *coments;
+	__unsafe_unretained NSString *comments;
 	__unsafe_unretained NSString *likers;
 	__unsafe_unretained NSString *team;
 	__unsafe_unretained NSString *user;
@@ -113,9 +113,9 @@ extern const struct TMFeedRelationships {
 
 //- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) TMFeedComment *coments;
+@property (nonatomic, strong) NSSet *comments;
 
-//- (BOOL)validateComents:(id*)value_ error:(NSError**)error_;
+- (NSMutableSet*)commentsSet;
 
 @property (nonatomic, strong) NSSet *likers;
 
@@ -128,6 +128,14 @@ extern const struct TMFeedRelationships {
 @property (nonatomic, strong) TMUser *user;
 
 //- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
+
+@end
+
+@interface _TMFeed (CommentsCoreDataGeneratedAccessors)
+- (void)addComments:(NSSet*)value_;
+- (void)removeComments:(NSSet*)value_;
+- (void)addCommentsObject:(TMFeedComment*)value_;
+- (void)removeCommentsObject:(TMFeedComment*)value_;
 
 @end
 
@@ -195,8 +203,8 @@ extern const struct TMFeedRelationships {
 - (int32_t)primitiveUserIdValue;
 - (void)setPrimitiveUserIdValue:(int32_t)value_;
 
-- (TMFeedComment*)primitiveComents;
-- (void)setPrimitiveComents:(TMFeedComment*)value;
+- (NSMutableSet*)primitiveComments;
+- (void)setPrimitiveComments:(NSMutableSet*)value;
 
 - (NSMutableSet*)primitiveLikers;
 - (void)setPrimitiveLikers:(NSMutableSet*)value;

@@ -184,6 +184,7 @@
             UIViewController *controller = [[JoinTeamViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         } inviteFriend:^{
+//            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self];
         }];
         
         [self.backdropView addSubview:_joinTeamMenu];

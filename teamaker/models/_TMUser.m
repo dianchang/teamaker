@@ -135,6 +135,15 @@ const struct TMUserRelationships TMUserRelationships = {
 
 @dynamic targetedComments;
 
+- (NSMutableSet*)targetedCommentsSet {
+	[self willAccessValueForKey:@"targetedComments"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"targetedComments"];
+
+	[self didAccessValueForKey:@"targetedComments"];
+	return result;
+}
+
 @dynamic teamsInfos;
 
 - (NSMutableSet*)teamsInfosSet {

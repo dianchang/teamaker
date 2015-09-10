@@ -100,9 +100,9 @@ extern const struct TMUserRelationships {
 
 - (NSMutableSet*)likedFeedsSet;
 
-@property (nonatomic, strong) TMFeedComment *targetedComments;
+@property (nonatomic, strong) NSSet *targetedComments;
 
-//- (BOOL)validateTargetedComments:(id*)value_ error:(NSError**)error_;
+- (NSMutableSet*)targetedCommentsSet;
 
 @property (nonatomic, strong) NSSet *teamsInfos;
 
@@ -131,6 +131,14 @@ extern const struct TMUserRelationships {
 - (void)removeLikedFeeds:(NSSet*)value_;
 - (void)addLikedFeedsObject:(TMUserLikeFeed*)value_;
 - (void)removeLikedFeedsObject:(TMUserLikeFeed*)value_;
+
+@end
+
+@interface _TMUser (TargetedCommentsCoreDataGeneratedAccessors)
+- (void)addTargetedComments:(NSSet*)value_;
+- (void)removeTargetedComments:(NSSet*)value_;
+- (void)addTargetedCommentsObject:(TMFeedComment*)value_;
+- (void)removeTargetedCommentsObject:(TMFeedComment*)value_;
 
 @end
 
@@ -189,8 +197,8 @@ extern const struct TMUserRelationships {
 - (NSMutableSet*)primitiveLikedFeeds;
 - (void)setPrimitiveLikedFeeds:(NSMutableSet*)value;
 
-- (TMFeedComment*)primitiveTargetedComments;
-- (void)setPrimitiveTargetedComments:(TMFeedComment*)value;
+- (NSMutableSet*)primitiveTargetedComments;
+- (void)setPrimitiveTargetedComments:(NSMutableSet*)value;
 
 - (NSMutableSet*)primitiveTeamsInfos;
 - (void)setPrimitiveTeamsInfos:(NSMutableSet*)value;

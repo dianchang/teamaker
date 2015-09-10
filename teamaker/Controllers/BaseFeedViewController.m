@@ -13,6 +13,7 @@
 #import "IonIcons.h"
 #import "TMFeed.h"
 #import "TMUser.h"
+#import "TMFeedComment.h"
 #import "MyProfileViewController.h"
 #import "UIColor+Helper.h"
 #import "UIImageView+AFNetworking.h"
@@ -30,7 +31,7 @@ typedef enum commentNextStateTypes
     COMMENT_NEXT_STATE_HIDE,
 } CommentNextState;
 
-@interface BaseFeedViewController ()
+@interface BaseFeedViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) UIView *commentBackdropView;
 @property (strong, nonatomic) UIView *commentView;
@@ -145,14 +146,14 @@ typedef enum commentNextStateTypes
 }
 
 // 评论feed
-- (void)commentFeed:(TMFeed *)feed targetUser:(TMUser *)user sender:(UIView *)view
+- (void)commentFeed:(TMFeed *)feed targetUser:(TMUser *)targetUser sender:(UIView *)view
 {
     self.feedForComment = feed;
     self.viewForComment = view;
-    self.targetUserForComment = user;
+    self.targetUserForComment = targetUser;
     
-    if (user) {
-        self.commentInputField.placeholder = [NSString stringWithFormat:@"回复%@：", user.name];
+    if (targetUser) {
+        self.commentInputField.placeholder = [NSString stringWithFormat:@"回复%@：", targetUser.name];
     } else {
         self.commentInputField.placeholder = @"评论";
     }
@@ -198,6 +199,8 @@ typedef enum commentNextStateTypes
     
     // 输入框
     UITextField *inputField = [UITextField new];
+    inputField.delegate = self;
+    inputField.returnKeyType = UIReturnKeySend;
     self.commentInputField = inputField;
     inputField.backgroundColor = [UIColor whiteColor];
     inputField.placeholder = @"评论";
@@ -285,19 +288,60 @@ typedef enum commentNextStateTypes
     if (self.commentNextState == COMMENT_NEXT_STATE_HIDE || self.commentNextState == COMMENT_NEXT_STATE_NONE) {
         [self.commentBackdropView removeFromSuperview];
         
+        [self.commentView setNeedsLayout];
+        [self.commentView layoutIfNeeded];
+        
         [self.commentView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(window);
             make.top.equalTo(window.mas_bottom);
         }];
         
         [UIView animateWithDuration:animationDuration animations:^{
-            [self.view layoutIfNeeded];
+            [self.commentView setNeedsLayout];
+            [self.commentView layoutIfNeeded];
         } completion:^(BOOL finished) {
             [self.commentBackdropView removeFromSuperview];
             self.commentInputField.text = @"";
             self.commentNextState = COMMENT_NEXT_STATE_NONE;
         }];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (!self.commentInputField.text.length) {
+        return NO;
+    }
+    
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        TMUser *loggedInUser = [self.loggedInUser MR_inContext:localContext];
+        TMFeedComment *comment = [TMFeedComment MR_createEntityInContext:localContext];
+        TMFeed *feed = [self.feedForComment MR_inContext:localContext];
+        
+        TMUser *targetUser;
+        
+        if (self.targetUserForComment) {
+            targetUser = [self.targetUserForComment MR_inContext:localContext];
+        }
+        
+        comment.content = self.commentInputField.text;
+        comment.createdAt = [NSDate date];
+        comment.userId = loggedInUser.id;
+        comment.user = loggedInUser;
+        comment.feedId = feed.id;
+        comment.feed = feed;
+        
+        if (targetUser) {
+            comment.targetUserId = targetUser.id;
+            comment.targetUser = targetUser;
+        }
+    } completion:^(BOOL contextDidSave, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self userInfo:@{@"feed": self.feedForComment}];
+        self.commentInputField.text = @"";
+        [self hideCommentView];
+    }];
+    
+    return YES;
 }
 
 # pragma mark - tableview dataSource and delegate

@@ -21,7 +21,7 @@
     self = [super init];
     
     if (self) {
-        self.backgroundColor = [UIColor colorWithRGBA:0xF5FFFAFF];
+        self.backgroundColor = [UIColor colorWithRGBA:0xFFFFFFFF];
     }
     
     return self;
@@ -82,7 +82,12 @@
     commentLable.numberOfLines = 0;
     commentLable.lineBreakMode = NSLineBreakByWordWrapping;
     commentLable.font = [UIFont systemFontOfSize:14];
-    commentLable.text = [NSString stringWithFormat:@"%@：%@", comment.user.name, comment.content];
+    if (comment.targetUser) {
+        commentLable.text = [NSString stringWithFormat:@"%@ ▸ %@：%@", comment.user.name, comment.targetUser.name, comment.content];
+    } else {
+        commentLable.text = [NSString stringWithFormat:@"%@：%@", comment.user.name, comment.content];
+    }
+    
     commentLable.tag = comment.idValue;
     
     commentLable.userInteractionEnabled = YES;
@@ -104,7 +109,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
     
     // 背景变暗持续 0.2s 后变回来
-    gesture.view.backgroundColor = [UIColor colorWithRGBA:0xD1EEEEFF];
+    gesture.view.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
     dispatch_after (dispatch_time (DISPATCH_TIME_NOW, (int64_t )(0.2 * NSEC_PER_SEC )), dispatch_get_main_queue (), ^{
         gesture.view.backgroundColor = gesture.view.superview.backgroundColor;
     });
