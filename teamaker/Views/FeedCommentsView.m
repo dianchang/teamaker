@@ -66,7 +66,7 @@
     UILabel *commentLable = [UILabel new];
     commentLable.numberOfLines = 0;
     commentLable.lineBreakMode = NSLineBreakByWordWrapping;
-    commentLable.font = [UIFont systemFontOfSize:12];
+    commentLable.font = [UIFont systemFontOfSize:14];
     commentLable.text = [NSString stringWithFormat:@"%@：%@", comment.user.name, comment.content];
     
     return commentLable;
