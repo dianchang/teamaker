@@ -159,6 +159,7 @@
             feed2.user = _user2;
             feed2.teamId = _team1.id;
             feed2.team = _team1;
+            feed2.starred = @YES;
             feed2.createdAt = [NSDate date];
             feed2.kind = @"text";
             feed2.text = @"xixi";

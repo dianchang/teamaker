@@ -44,6 +44,13 @@
     self.navigationItem.title = @"星标内容";
 }
 
+#pragma mark - infreit from super class
+
+- (NSArray *)getFeedsData
+{
+    return [self.team findStarredFeeds];
+}
+
 #pragma mark - FeedTableViewCellProtocol
 
 - (void)redirectToExternalLinkView:(NSNumber *)feedId
@@ -65,16 +72,6 @@
     }
     
     return _team;
-}
-
-- (NSArray *)feeds
-{
-    NSArray *feeds = [super feeds];
-    if (!feeds) {
-        self.feeds = [self.team findStarredFeeds];
-    }
-    
-    return [super feeds];
 }
 
 @end
