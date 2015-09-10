@@ -167,21 +167,21 @@
     if (self.pageControl.currentPage == 1) {
         [self disableVerticalScroll];
     } else {
-        [self enableVerticalScroll];
+        [self didPageToTextComposeView];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TMCameraShouldStartNotification object:nil];
 }
 
 /**
- *  向下翻页结束
+ *  向上翻页结束
  */
-- (void)scrollViewDidPageUp
+- (void)didPageToTextComposeView
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:TMCameraShouldStopNotification object:nil];
 }
 
-- (void)enableVerticalScroll
+- (void)didPageToOtherComposeView
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
 }
