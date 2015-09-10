@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "IonIcons.h"
 #import "TMFeed.h"
+#import "TMUser.h"
 #import "MyProfileViewController.h"
 #import "UIColor+Helper.h"
 #import "UIImageView+AFNetworking.h"
@@ -35,8 +36,10 @@ typedef enum commentNextStateTypes
 @property (strong, nonatomic) UIView *commentView;
 @property (strong, nonatomic) UITextField *commentInputField;
 @property (nonatomic) CommentNextState commentNextState;
+
 @property (strong, nonatomic) TMFeed *feedForComment;
-@property (strong, nonatomic) UITableViewCell *cellForComment;
+@property (strong, nonatomic) UIView *viewForComment;
+@property (strong, nonatomic) TMUser *targetUserForComment;
 
 @end
 
@@ -142,10 +145,18 @@ typedef enum commentNextStateTypes
 }
 
 // 评论feed
-- (void)commentFeed:(TMFeed *)feed sender:(UITableViewCell *)cell
+- (void)commentFeed:(TMFeed *)feed targetUser:(TMUser *)user sender:(UIView *)view
 {
     self.feedForComment = feed;
-    self.cellForComment = cell;
+    self.viewForComment = view;
+    self.targetUserForComment = user;
+    
+    if (user) {
+        self.commentInputField.placeholder = [NSString stringWithFormat:@"回复%@：", user.name];
+    } else {
+        self.commentInputField.placeholder = @"评论";
+    }
+    
     [self showCommentView];
 }
 

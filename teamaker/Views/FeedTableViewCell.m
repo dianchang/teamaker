@@ -771,7 +771,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 // 评论
 - (void)commentFeed
 {
-    [self.delegate commentFeed:self.feed sender:self];
+    [self.delegate commentFeed:self.feed targetUser:nil sender:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
 }
 
@@ -781,6 +781,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 {
     _delegate = delegate;
     self.likersView.delegate = delegate;
+    self.commentsView.delegate = delegate;
 }
 
 @end

@@ -6,6 +6,7 @@ target 'teamaker' do
   pod 'AFNetworking', '~> 2.5'
   pod 'MagicalRecord'
   pod 'ionicons'
+  pod 'TTTAttributedLabel'
 end
 
 target 'teamakerTests' do

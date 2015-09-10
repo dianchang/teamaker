@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FeedTableViewCellProtocol.h"
 
 @interface FeedCommentsView : UIView
 
+@property (weak, nonatomic) id <FeedTableViewCellProtocol> delegate;
 @property (strong, nonatomic) NSArray *comments;
 
 @end
