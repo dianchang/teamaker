@@ -102,19 +102,6 @@
     // 初始化翻页到打卡页
     [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.bounds.size.width * 1, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height) animated:NO];
     self.pageControl.currentPage = 1;
-    
-    for (UIViewController *controller in self.viewControllers) {
-        [controller viewDidAppear:NO];
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    for (UIViewController *controller in self.viewControllers) {
-        [controller viewDidDisappear:NO];
-    }
 }
 
 // 初始化各页大小
@@ -165,9 +152,13 @@
 - (void)scrollViewDidPageDown
 {
     if (self.pageControl.currentPage == 1) {
-        [self disableVerticalScroll];
+        [self didPageToTextComposeView];
     } else {
         [self didPageToTextComposeView];
+    }
+    
+    for (UIViewController *controller in self.viewControllers) {
+        [controller viewDidAppear:NO];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TMCameraShouldStartNotification object:nil];
@@ -176,9 +167,13 @@
 /**
  *  向上翻页结束
  */
-- (void)didPageToTextComposeView
+- (void)scrollViewDidPageUp
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:TMCameraShouldStopNotification object:nil];
+    
+    for (UIViewController *controller in self.viewControllers) {
+        [controller viewDidDisappear:NO];
+    }
 }
 
 - (void)didPageToOtherComposeView
@@ -186,7 +181,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
 }
 
-- (void)disableVerticalScroll
+- (void)didPageToTextComposeView
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
 }
@@ -201,9 +196,9 @@
     self.hasSendedResetLayoutMessage = NO;
     
     if (page == 1) {
-        [self disableVerticalScroll];
+        [self didPageToTextComposeView];
     } else {
-        [self enableVerticalScroll];
+        [self didPageToOtherComposeView];
     }
 }
 

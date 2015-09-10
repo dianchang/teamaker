@@ -130,16 +130,16 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewDidPageUpNotification object:nil];
         
         // 模拟ViewController的生命周期
-        [[self.viewControllers objectAtIndex:0] viewDidAppear:NO];
-        [[self.viewControllers objectAtIndex:1] viewDidDisappear:NO];
+        [[self.viewControllers objectAtIndex:0] viewDidAppear:YES];
+        [[self.viewControllers objectAtIndex:1] viewDidDisappear:YES];
     } else {
         self.hasSendedMessageWhenPageUp = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:TMVerticalScrollViewShouldPageUpNotification object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewDidPageDownNotification object:nil];
         
         // 模拟ViewController的生命周期
-        [[self.viewControllers objectAtIndex:0] viewDidDisappear:NO];
-        [[self.viewControllers objectAtIndex:1] viewDidAppear:NO];
+        [[self.viewControllers objectAtIndex:0] viewDidDisappear:YES];
+        [[self.viewControllers objectAtIndex:1] viewDidAppear:YES];
     }
 }
 

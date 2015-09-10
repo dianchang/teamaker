@@ -52,6 +52,8 @@ typedef enum commentNextStateTypes
 {
     self.view = [[UIView alloc] init];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     // 表格
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
     UITableView *tableView = [[UITableView alloc] init];
