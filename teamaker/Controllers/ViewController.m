@@ -128,10 +128,18 @@
         self.hasSendedMessageWhenPageDown = NO;
         self.scrollView.scrollEnabled = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewDidPageUpNotification object:nil];
+        
+        // 模拟ViewController的生命周期
+        [[self.viewControllers objectAtIndex:0] viewDidAppear:NO];
+        [[self.viewControllers objectAtIndex:1] viewDidDisappear:NO];
     } else {
         self.hasSendedMessageWhenPageUp = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:TMVerticalScrollViewShouldPageUpNotification object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:TMVerticalScrollViewDidPageDownNotification object:nil];
+        
+        // 模拟ViewController的生命周期
+        [[self.viewControllers objectAtIndex:0] viewDidDisappear:NO];
+        [[self.viewControllers objectAtIndex:1] viewDidAppear:NO];
     }
 }
 
@@ -164,9 +172,9 @@
     NSInteger width = frame.size.width;
     NSInteger height = frame.size.height;
     
-    self.scrollView.contentSize = CGSizeMake(width, height * self.viewControllers.count);
+    self.scrollView.contentSize = CGSizeMake(width, height * PAGE_COUNT);
     
-    for(int i = 0; i < self.viewControllers.count; i++) {
+    for(int i = 0; i < PAGE_COUNT; i++) {
         UIViewController *controller = self.viewControllers[i];
         controller.view.frame = CGRectMake(0, height * i, width, height);
     }

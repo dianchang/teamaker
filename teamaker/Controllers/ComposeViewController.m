@@ -98,9 +98,23 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     // 初始化翻页到打卡页
     [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.bounds.size.width * 1, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height) animated:NO];
     self.pageControl.currentPage = 1;
+    
+    for (UIViewController *controller in self.viewControllers) {
+        [controller viewDidAppear:NO];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    for (UIViewController *controller in self.viewControllers) {
+        [controller viewDidDisappear:NO];
+    }
 }
 
 // 初始化各页大小

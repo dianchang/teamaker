@@ -30,12 +30,6 @@
 
 @implementation FeedViewController
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [self hideJoinTeamMenu];
-}
-
 - (void)loadView
 {
     [super loadView];
@@ -72,6 +66,12 @@
         make.left.right.and.bottom.equalTo(self.view);
         make.height.equalTo(@50);
     }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self hideJoinTeamMenu];
 }
 
 // 跳转到我的主页
@@ -184,7 +184,6 @@
             UIViewController *controller = [[JoinTeamViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         } inviteFriend:^{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self];
         }];
         
         [self.backdropView addSubview:_joinTeamMenu];
