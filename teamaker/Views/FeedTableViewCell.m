@@ -80,7 +80,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     userButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [userButton setTitleColor:[UIColor colorWithRGBA:0x333333FF] forState:UIControlStateNormal];
     //    [userButton addTarget:self action:@selector(userButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    userButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    userButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:userButton];
     self.userButton = userButton;
     
@@ -103,7 +103,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         UILabel *textLabel = [UILabel new];
         textLabel.numberOfLines = 0;
         textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        textLabel.font = [UIFont systemFontOfSize:14];
+        textLabel.font = [UIFont systemFontOfSize:16];
         [feedContentView addSubview:textLabel];
         self.myTextLabel = textLabel;
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
@@ -111,7 +111,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         UILabel *punchLabel = [UILabel new];
         punchLabel.numberOfLines = 0;
         punchLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        punchLabel.font = [UIFont systemFontOfSize:16];
+        punchLabel.font = [UIFont systemFontOfSize:14];
         [self.contentView addSubview:punchLabel];
         self.punchLabel = punchLabel;
     } else if ([reuseIdentifier isEqualToString:imageCellReuseIdentifier]) {
@@ -138,7 +138,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         UILabel *shareTitleLabel = [UILabel new];
         shareTitleLabel.numberOfLines = 0;
         shareTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        shareTitleLabel.font = [UIFont systemFontOfSize:14];
+        shareTitleLabel.font = [UIFont systemFontOfSize:16];
         [shareView addSubview:shareTitleLabel];
         self.shareTitleLabel = shareTitleLabel;
     }
