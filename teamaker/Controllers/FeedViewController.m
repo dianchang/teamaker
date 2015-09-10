@@ -93,7 +93,7 @@
         [self.view addSubview:self.backdropView];
         [self.backdropView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.and.bottom.equalTo(self.view);
-            make.top.equalTo(self.view).offset(TMStatusBarAndNavigationBarHeight);
+            make.top.equalTo(self.view);
         }];
         
         [self.joinTeamMenu mas_remakeConstraints:^(MASConstraintMaker *make) {

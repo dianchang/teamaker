@@ -17,9 +17,6 @@
 #define TMRunOnSimulator 0
 #endif
 
-// UI相关常数
-#define TMStatusBarAndNavigationBarHeight 64
-
 /**
  *  通知
  */
