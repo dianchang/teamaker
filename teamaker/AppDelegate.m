@@ -13,6 +13,7 @@
 #import "TMFeed.h"
 #import "TMTeamUserInfo.h"
 #import "TMUserLikeFeed.h"
+#import "TMFeedComment.h"
 #import <MagicalRecord/MagicalRecord.h>
 
 @interface AppDelegate ()
@@ -176,6 +177,36 @@
             likeFeed.user = _user2;
             likeFeed.feedId = _feed1.id;
             likeFeed.feed = _feed1;
+        }];
+    }
+    
+    if ([[TMFeedComment MR_numberOfEntities] isEqualToNumber:@0]) {
+        NSLog(@"Creating feed comments");
+        
+        [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+            TMUser *_user1 = [user1 MR_inContext:localContext];
+            TMUser *_user2 = [user2 MR_inContext:localContext];
+            TMFeed *_feed1 = [feed1 MR_inContext:localContext];
+            
+            TMFeedComment *comment1 = [TMFeedComment MR_createEntityInContext:localContext];
+            comment1.id = @1;
+            comment1.content = @"呵呵。";
+            comment1.userId = _user2.id;
+            comment1.user = _user2;
+            comment1.feedId = _feed1.id;
+            comment1.feed = _feed1;
+            comment1.createdAt = [NSDate date];
+            
+            TMFeedComment *comment2 = [TMFeedComment MR_createEntityInContext:localContext];
+            comment2.id = @2;
+            comment2.content = @"哪个呵呵？";
+            comment2.userId = _user1.id;
+            comment2.user = _user1;
+            comment2.targetUserId = _user2.id;
+            comment2.targetUser = _user2;
+            comment2.feedId = _feed1.id;
+            comment2.feed = _feed1;
+            comment2.createdAt = [NSDate date];
         }];
     }
 

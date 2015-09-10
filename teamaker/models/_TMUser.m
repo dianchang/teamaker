@@ -21,6 +21,7 @@ const struct TMUserRelationships TMUserRelationships = {
 	.comments = @"comments",
 	.feeds = @"feeds",
 	.likedFeeds = @"likedFeeds",
+	.targetedComments = @"targetedComments",
 	.teamsInfos = @"teamsInfos",
 };
 
@@ -131,6 +132,8 @@ const struct TMUserRelationships TMUserRelationships = {
 	[self didAccessValueForKey:@"likedFeeds"];
 	return result;
 }
+
+@dynamic targetedComments;
 
 @dynamic teamsInfos;
 

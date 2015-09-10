@@ -6,8 +6,10 @@
 const struct TMFeedCommentAttributes TMFeedCommentAttributes = {
 	.content = @"content",
 	.createdAt = @"createdAt",
+	.feedId = @"feedId",
 	.id = @"id",
 	.targetUserId = @"targetUserId",
+	.userId = @"userId",
 };
 
 const struct TMFeedCommentRelationships TMFeedCommentRelationships = {
@@ -42,6 +44,11 @@ const struct TMFeedCommentRelationships TMFeedCommentRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"feedIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"feedId"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"idValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"id"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -52,6 +59,11 @@ const struct TMFeedCommentRelationships TMFeedCommentRelationships = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"userIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"userId"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -59,6 +71,26 @@ const struct TMFeedCommentRelationships TMFeedCommentRelationships = {
 @dynamic content;
 
 @dynamic createdAt;
+
+@dynamic feedId;
+
+- (int32_t)feedIdValue {
+	NSNumber *result = [self feedId];
+	return [result intValue];
+}
+
+- (void)setFeedIdValue:(int32_t)value_ {
+	[self setFeedId:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveFeedIdValue {
+	NSNumber *result = [self primitiveFeedId];
+	return [result intValue];
+}
+
+- (void)setPrimitiveFeedIdValue:(int32_t)value_ {
+	[self setPrimitiveFeedId:[NSNumber numberWithInt:value_]];
+}
 
 @dynamic id;
 
@@ -98,6 +130,26 @@ const struct TMFeedCommentRelationships TMFeedCommentRelationships = {
 
 - (void)setPrimitiveTargetUserIdValue:(int32_t)value_ {
 	[self setPrimitiveTargetUserId:[NSNumber numberWithInt:value_]];
+}
+
+@dynamic userId;
+
+- (int32_t)userIdValue {
+	NSNumber *result = [self userId];
+	return [result intValue];
+}
+
+- (void)setUserIdValue:(int32_t)value_ {
+	[self setUserId:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveUserIdValue {
+	NSNumber *result = [self primitiveUserId];
+	return [result intValue];
+}
+
+- (void)setPrimitiveUserIdValue:(int32_t)value_ {
+	[self setPrimitiveUserId:[NSNumber numberWithInt:value_]];
 }
 
 @dynamic feed;

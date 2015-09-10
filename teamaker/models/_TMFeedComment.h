@@ -6,8 +6,10 @@
 extern const struct TMFeedCommentAttributes {
 	__unsafe_unretained NSString *content;
 	__unsafe_unretained NSString *createdAt;
+	__unsafe_unretained NSString *feedId;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *targetUserId;
+	__unsafe_unretained NSString *userId;
 } TMFeedCommentAttributes;
 
 extern const struct TMFeedCommentRelationships {
@@ -37,6 +39,14 @@ extern const struct TMFeedCommentRelationships {
 
 //- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* feedId;
+
+@property (atomic) int32_t feedIdValue;
+- (int32_t)feedIdValue;
+- (void)setFeedIdValue:(int32_t)value_;
+
+//- (BOOL)validateFeedId:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSNumber* id;
 
 @property (atomic) int32_t idValue;
@@ -52,6 +62,14 @@ extern const struct TMFeedCommentRelationships {
 - (void)setTargetUserIdValue:(int32_t)value_;
 
 //- (BOOL)validateTargetUserId:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* userId;
+
+@property (atomic) int32_t userIdValue;
+- (int32_t)userIdValue;
+- (void)setUserIdValue:(int32_t)value_;
+
+//- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) TMFeed *feed;
 
@@ -75,6 +93,12 @@ extern const struct TMFeedCommentRelationships {
 - (NSDate*)primitiveCreatedAt;
 - (void)setPrimitiveCreatedAt:(NSDate*)value;
 
+- (NSNumber*)primitiveFeedId;
+- (void)setPrimitiveFeedId:(NSNumber*)value;
+
+- (int32_t)primitiveFeedIdValue;
+- (void)setPrimitiveFeedIdValue:(int32_t)value_;
+
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
 
@@ -86,6 +110,12 @@ extern const struct TMFeedCommentRelationships {
 
 - (int32_t)primitiveTargetUserIdValue;
 - (void)setPrimitiveTargetUserIdValue:(int32_t)value_;
+
+- (NSNumber*)primitiveUserId;
+- (void)setPrimitiveUserId:(NSNumber*)value;
+
+- (int32_t)primitiveUserIdValue;
+- (void)setPrimitiveUserIdValue:(int32_t)value_;
 
 - (TMFeed*)primitiveFeed;
 - (void)setPrimitiveFeed:(TMFeed*)value;

@@ -21,12 +21,14 @@ extern const struct TMUserRelationships {
 	__unsafe_unretained NSString *comments;
 	__unsafe_unretained NSString *feeds;
 	__unsafe_unretained NSString *likedFeeds;
+	__unsafe_unretained NSString *targetedComments;
 	__unsafe_unretained NSString *teamsInfos;
 } TMUserRelationships;
 
 @class TMFeedComment;
 @class TMFeed;
 @class TMUserLikeFeed;
+@class TMFeedComment;
 @class TMTeamUserInfo;
 
 @interface TMUserID : NSManagedObjectID {}
@@ -97,6 +99,10 @@ extern const struct TMUserRelationships {
 @property (nonatomic, strong) NSSet *likedFeeds;
 
 - (NSMutableSet*)likedFeedsSet;
+
+@property (nonatomic, strong) TMFeedComment *targetedComments;
+
+//- (BOOL)validateTargetedComments:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSSet *teamsInfos;
 
@@ -182,6 +188,9 @@ extern const struct TMUserRelationships {
 
 - (NSMutableSet*)primitiveLikedFeeds;
 - (void)setPrimitiveLikedFeeds:(NSMutableSet*)value;
+
+- (TMFeedComment*)primitiveTargetedComments;
+- (void)setPrimitiveTargetedComments:(TMFeedComment*)value;
 
 - (NSMutableSet*)primitiveTeamsInfos;
 - (void)setPrimitiveTeamsInfos:(NSMutableSet*)value;

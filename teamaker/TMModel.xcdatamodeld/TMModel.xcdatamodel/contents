@@ -23,8 +23,10 @@
     <entity name="TMFeedComment" representedClassName="TMFeedComment" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="feedId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="targetUserId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="coments" inverseEntity="TMFeed" syncable="YES"/>
         <relationship name="targetUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUser" inverseName="targetedComments" inverseEntity="TMUser" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUser" inverseName="comments" inverseEntity="TMUser" syncable="YES"/>
@@ -88,6 +90,6 @@
         <element name="TMTeamUserInfo" positionX="63" positionY="-2061" width="128" height="210"/>
         <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="285"/>
         <element name="TMUserLikeFeed" positionX="-477" positionY="-2160" width="128" height="135"/>
-        <element name="TMFeedComment" positionX="-477" positionY="-2160" width="128" height="150"/>
+        <element name="TMFeedComment" positionX="-477" positionY="-2160" width="128" height="180"/>
     </elements>
 </model>
