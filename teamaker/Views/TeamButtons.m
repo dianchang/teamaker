@@ -171,10 +171,15 @@ static int const buttonHeight = 60;
     if (!_backgroundView) {
         UIView *backgroundView = [UIView new];
         backgroundView.backgroundColor = [UIColor colorWithRGBA:0x00000000];
+        
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
                                                  initWithTarget:self action:@selector(cancelPublish:)];
         tapRecognizer.numberOfTapsRequired = 1;
         [backgroundView addGestureRecognizer:tapRecognizer];
+        
+        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc]
+                                                 initWithTarget:self action:@selector(cancelPublish:)];
+        [backgroundView addGestureRecognizer:panRecognizer];
         
         _backgroundView = backgroundView;
     }
