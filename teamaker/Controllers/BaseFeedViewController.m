@@ -238,7 +238,7 @@ typedef enum commentNextStateTypes
     CGRect keyboardFrame = [kbFrame CGRectValue];
     CGFloat keyboardHeight = keyboardFrame.size.height;
     
-    if (self.commentNextState == COMMENT_NEXT_STATE_SHOW) {
+    if (self.commentNextState == COMMENT_NEXT_STATE_SHOW || self.commentNextState == COMMENT_NEXT_STATE_NONE) {
         [window addSubview:self.commentBackdropView];
         
         [self.commentBackdropView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -257,6 +257,8 @@ typedef enum commentNextStateTypes
         [UIView animateWithDuration:animationDuration animations:^{
             [window setNeedsLayout];
             [window layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            self.commentNextState = COMMENT_NEXT_STATE_NONE;
         }];
     }
 }
@@ -269,7 +271,7 @@ typedef enum commentNextStateTypes
     NSDictionary *info = [notification userInfo];
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
-    if (self.commentNextState == COMMENT_NEXT_STATE_HIDE) {
+    if (self.commentNextState == COMMENT_NEXT_STATE_HIDE || self.commentNextState == COMMENT_NEXT_STATE_NONE) {
         [self.commentBackdropView removeFromSuperview];
         
         [self.commentView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -282,6 +284,7 @@ typedef enum commentNextStateTypes
         } completion:^(BOOL finished) {
             [self.commentBackdropView removeFromSuperview];
             self.commentInputField.text = @"";
+            self.commentNextState = COMMENT_NEXT_STATE_NONE;
         }];
     }
 }
