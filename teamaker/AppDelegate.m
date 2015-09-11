@@ -191,7 +191,7 @@
             
             TMFeedComment *comment1 = [TMFeedComment MR_createEntityInContext:localContext];
             comment1.id = @1;
-            comment1.content = @"呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵。";
+            comment1.content = @"呵呵。";
             comment1.userId = _user2.id;
             comment1.user = _user2;
             comment1.feedId = _feed1.id;
@@ -200,7 +200,7 @@
             
             TMFeedComment *comment2 = [TMFeedComment MR_createEntityInContext:localContext];
             comment2.id = @2;
-            comment2.content = @"哪个呵呵？";
+            comment2.content = @"呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵！";
             comment2.userId = _user1.id;
             comment2.user = _user1;
             comment2.targetUserId = _user2.id;

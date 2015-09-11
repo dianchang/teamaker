@@ -8,6 +8,6 @@
 
 #import "TTTAttributedLabel.h"
 
-@interface TMLabel : TTTAttributedLabel
+@interface TMLabel : UILabel
 
 @end

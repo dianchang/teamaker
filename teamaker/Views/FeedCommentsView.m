@@ -14,7 +14,9 @@
 #import "Constants.h"
 #import "UIColor+Helper.h"
 #import "TMLabel.h"
-//#import "TTTAttributedLabel.h"
+
+@interface FeedCommentsView()
+@end
 
 @implementation FeedCommentsView
 
@@ -69,24 +71,38 @@
 
 - (TMLabel *)createCommentLabel:(TMFeedComment *)comment
 {
-    TMLabel *commentLable = [TMLabel new];
-    commentLable.numberOfLines = 0;
-    commentLable.lineBreakMode = NSLineBreakByWordWrapping;
-    commentLable.font = [UIFont systemFontOfSize:14];
+    TMLabel *commentLabel = [TMLabel new];
+    commentLabel.numberOfLines = 0;
+    commentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    NSMutableAttributedString *userString = [[NSMutableAttributedString alloc] initWithString:comment.user.name attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]}];
+    
+    NSAttributedString *replyFlagString;
+    NSAttributedString *targetUserString;
+    
+    NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"：%@", comment.content] attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
+    
     if (comment.targetUser) {
-        commentLable.text = [NSString stringWithFormat:@"%@ ▸ %@：%@", comment.user.name, comment.targetUser.name, comment.content];
+        replyFlagString = [[NSAttributedString alloc] initWithString:@" ▸ " attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14], NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+        
+        targetUserString = [[NSMutableAttributedString alloc] initWithString:comment.targetUser.name attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]}];
+        
+        [userString appendAttributedString:replyFlagString];
+        [userString appendAttributedString:targetUserString];
+        [userString appendAttributedString:commentString];
     } else {
-        commentLable.text = [NSString stringWithFormat:@"%@：%@", comment.user.name, comment.content];
+        [userString appendAttributedString:commentString];
     }
     
-    commentLable.tag = comment.idValue;
+    commentLabel.attributedText = userString;
+    commentLabel.tag = comment.idValue;
     
-    commentLable.userInteractionEnabled = YES;
+    commentLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(replyComment:)];
     tapGesture.numberOfTapsRequired = 1;
-    [commentLable addGestureRecognizer:tapGesture];
+    [commentLabel addGestureRecognizer:tapGesture];
     
-    return commentLable;
+    return commentLabel;
 }
 
 #pragma mark - actions
