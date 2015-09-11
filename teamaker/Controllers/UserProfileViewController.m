@@ -97,7 +97,7 @@
     // 用户名
     UILabel *userLable = [UILabel new];
     userLable.text = self.user.name;
-    userLable.font = [UIFont systemFontOfSize:16];
+    userLable.font = [UIFont boldSystemFontOfSize:16];
     [headerView addSubview:userLable];
     
     // 约束
