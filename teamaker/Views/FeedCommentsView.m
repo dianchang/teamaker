@@ -98,16 +98,20 @@
     commentLabel.tag = comment.idValue;
     
     commentLabel.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(replyComment:)];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentDidTapped:)];
     tapGesture.numberOfTapsRequired = 1;
     [commentLabel addGestureRecognizer:tapGesture];
+    
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(commentDidLongPressed:)];
+    [commentLabel addGestureRecognizer:longPressGesture];
     
     return commentLabel;
 }
 
 #pragma mark - actions
 
-- (void)replyComment:(UITapGestureRecognizer *)gesture
+- (void)commentDidTapped:(UITapGestureRecognizer *)gesture
 {
     TMFeedComment *comment = [TMFeedComment MR_findFirstByAttribute:@"id" withValue:[NSNumber numberWithLong:gesture.view.tag]];
     
@@ -120,6 +124,15 @@
     dispatch_after (dispatch_time (DISPATCH_TIME_NOW, (int64_t )(0.2 * NSEC_PER_SEC )), dispatch_get_main_queue (), ^{
         gesture.view.backgroundColor = gesture.view.superview.backgroundColor;
     });
+}
+
+- (void)commentDidLongPressed:(UILongPressGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        gesture.view.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
+    } else if (gesture.state == UIGestureRecognizerStateEnded) {
+        gesture.view.backgroundColor = gesture.view.superview.backgroundColor;
+    }
 }
 
 #pragma mark - getters and setters
