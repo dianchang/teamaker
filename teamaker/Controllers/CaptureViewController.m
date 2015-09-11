@@ -65,7 +65,6 @@
     [self.view addSubview:previewView];
     self.previewView = previewView;
     
-    // 用于
     UIImageView *stillImageView = [UIImageView new];
     [self.previewView addSubview:stillImageView];
     self.stillImageView = stillImageView;
@@ -227,6 +226,9 @@
     [scanQRCodeView addSubview:bottomView];
     
     UIView *centerView = [UIView new];
+    centerView.layer.masksToBounds=YES;
+    centerView.layer.borderColor=[[UIColor colorWithRGBA:0x999999FF] CGColor];
+    centerView.layer.borderWidth= .5f;
     [scanQRCodeView addSubview:centerView];
     
     UILabel *tipLabel = [UILabel new];
