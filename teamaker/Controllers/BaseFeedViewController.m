@@ -258,7 +258,7 @@ typedef enum commentNextStateTypes
 // 键盘显示
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[BaseFeedViewController class]]) {
+    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[self class]]) {
         return;
     }
     
@@ -298,7 +298,7 @@ typedef enum commentNextStateTypes
 // 键盘隐藏
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[BaseFeedViewController class]]) {
+    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[self class]]) {
         return;
     }
     

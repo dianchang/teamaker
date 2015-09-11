@@ -85,7 +85,7 @@ static int const sendButtonHeight = 50;
 {
     NSLog(@"%@", [G sharedInstance].firstResponderViewController);
     
-    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[TextViewController class]]) {
+    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[self class]]) {
         return;
     }
     
@@ -112,7 +112,7 @@ static int const sendButtonHeight = 50;
 // 键盘隐藏
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[TextViewController class]]) {
+    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[self class]]) {
         return;
     }
     
