@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 hustlzp. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "FeedViewController.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "MyProfileViewController.h"
@@ -48,12 +49,11 @@
     self.navigationItem.rightBarButtonItem = joinTeamButtonItem;
     
     // 下翻按钮
-    UIButton *pageDown = [UIButton new];
-    [pageDown setTitle:ion_ios_arrow_down forState:UIControlStateNormal];
-    pageDown.titleLabel.textColor = [UIColor colorWithRGBA:0xBBBBBBFF];
-    pageDown.titleLabel.font = [IonIcons fontWithSize:28.0f];
-    [pageDown setBackgroundColor:[UIColor blackColor]];
-    pageDown.alpha = 0.4;
+    UIButton *pageDown = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [pageDown setTitle:ion_ios_arrow_down forState:UIControlStateNormal];
+    //    pageDown.titleLabel.textColor = [UIColor colorWithRGBA:0xBBBBBBFF];
+    //    pageDown.titleLabel.font = [IonIcons fontWithSize:28.0f];
+    pageDown.backgroundColor = [UIColor colorWithRGBA:0x00000066];
     [pageDown addTarget:self action:@selector(pageDown:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:pageDown];
     
@@ -62,10 +62,10 @@
         make.left.right.and.top.equalTo(self.view);
         make.bottom.equalTo(pageDown.mas_top);
     }];
-
+    
     [pageDown mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.and.bottom.equalTo(self.view);
-        make.height.equalTo(@30);
+        make.height.equalTo(@35);
     }];
 }
 

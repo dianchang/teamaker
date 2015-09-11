@@ -53,6 +53,7 @@ typedef enum commentNextStateTypes
 - (void)loadView
 {
     self.view = [[UIView alloc] init];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
@@ -64,7 +65,6 @@ typedef enum commentNextStateTypes
     [self.view addSubview:tableView];
     self.tableView = tableView;
     tableView.allowsSelection = NO;
-    tableView.separatorColor = [UIColor TMBackgroundColorGray];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.dataSource = self;
     tableView.backgroundColor = [UIColor TMBackgroundColorGray];
@@ -78,7 +78,7 @@ typedef enum commentNextStateTypes
     
     // 约束
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.left.top.right.equalTo(self.view);
     }];
 }
 
@@ -94,6 +94,8 @@ typedef enum commentNextStateTypes
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadFeedsNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
+    
+    [self.commentView removeFromSuperview];
 }
 
 - (void)viewWillAppear:(BOOL)animated
