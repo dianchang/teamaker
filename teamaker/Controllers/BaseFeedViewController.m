@@ -78,7 +78,7 @@ typedef enum commentNextStateTypes
     
     // 约束
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.view);
+        make.edges.equalTo(self.view);
     }];
 }
 
