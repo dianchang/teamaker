@@ -72,6 +72,7 @@ static int const sendButtonHeight = 50;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    NSLog(@"sss");
 }
 
 - (void)dealloc
@@ -83,8 +84,6 @@ static int const sendButtonHeight = 50;
 // 键盘显示
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-    NSLog(@"%@", [G sharedInstance].firstResponderViewController);
-    
     if (![[G sharedInstance].firstResponderViewController isKindOfClass:[self class]]) {
         return;
     }
@@ -116,6 +115,7 @@ static int const sendButtonHeight = 50;
         return;
     }
     
+    [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
     
     NSDictionary *info = [notification userInfo];
@@ -126,6 +126,7 @@ static int const sendButtonHeight = 50;
     }];
     
     [UIView animateWithDuration:animationDuration animations:^{
+        [self.view setNeedsLayout];
         [self.view layoutIfNeeded];
     }];
 }

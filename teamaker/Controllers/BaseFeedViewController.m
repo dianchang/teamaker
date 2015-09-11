@@ -336,30 +336,8 @@ typedef enum commentNextStateTypes
     if (!self.commentInputField.text.length) {
         return NO;
     }
-    
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        TMUser *loggedInUser = [self.loggedInUser MR_inContext:localContext];
-        TMFeedComment *comment = [TMFeedComment MR_createEntityInContext:localContext];
-        TMFeed *feed = [self.feedForComment MR_inContext:localContext];
-        
-        TMUser *targetUser;
-        
-        if (self.targetUserForComment) {
-            targetUser = [self.targetUserForComment MR_inContext:localContext];
-        }
-        
-        comment.content = self.commentInputField.text;
-        comment.createdAt = [NSDate date];
-        comment.userId = loggedInUser.id;
-        comment.user = loggedInUser;
-        comment.feedId = feed.id;
-        comment.feed = feed;
-        
-        if (targetUser) {
-            comment.targetUserId = targetUser.id;
-            comment.targetUser = targetUser;
-        }
-    } completion:^(BOOL contextDidSave, NSError *error) {
+
+    [TMFeedComment createFeedComment:self.commentInputField.text feed:self.feedForComment user:self.loggedInUser targetUser:self.targetUserForComment completion:^(BOOL contextDidSave, NSError *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self userInfo:@{@"feed": self.feedForComment}];
         self.commentInputField.text = @"";
         [self hideCommentView];
