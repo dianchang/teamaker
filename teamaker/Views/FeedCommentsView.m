@@ -13,6 +13,8 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "Constants.h"
 #import "UIColor+Helper.h"
+#import "TMLabel.h"
+//#import "TTTAttributedLabel.h"
 
 @implementation FeedCommentsView
 
@@ -31,24 +33,28 @@
 {
     [super layoutSubviews];
     
-    for (UIView *subview in self.subviews) {
-        if ([subview isKindOfClass:[UILabel class]]) {
-            [(UILabel *)subview setPreferredMaxLayoutWidth:CGRectGetWidth(subview.frame)];
-        }
-    }
+//    NSLog(@"super %f", CGRectGetWidth(self.superview.frame));
+//    NSLog(@"self %f", CGRectGetWidth(self.frame));
+//
+//    for (UIView *subview in self.subviews) {
+//        if ([subview isKindOfClass:[UILabel class]]) {
+//            [(UILabel *)subview setPreferredMaxLayoutWidth:CGRectGetWidth(subview.frame)];
+//            NSLog(@"%@ - %f - %f", [(UILabel *)subview text], CGRectGetWidth(subview.frame), [(UILabel *)subview preferredMaxLayoutWidth]);
+//        }
+//    }
 }
 
 #pragma mark - UI
 
 - (void)createView
 {
-    UILabel *prevCommentLable;
+    TMLabel *prevCommentLable;
     
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     for (int i = 0; i < self.comments.count; i++) {
         TMFeedComment *comment = self.comments[i];
-        UILabel *commentLabel = [self createCommentLabel:comment];
+        TMLabel *commentLabel = [self createCommentLabel:comment];
         [self addSubview:commentLabel];
         
         // 约束
@@ -76,9 +82,9 @@
     }
 }
 
-- (UILabel *)createCommentLabel:(TMFeedComment *)comment
+- (TMLabel *)createCommentLabel:(TMFeedComment *)comment
 {
-    UILabel *commentLable = [UILabel new];
+    TMLabel *commentLable = [TMLabel new];
     commentLable.numberOfLines = 0;
     commentLable.lineBreakMode = NSLineBreakByWordWrapping;
     commentLable.font = [UIFont systemFontOfSize:14];

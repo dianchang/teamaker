@@ -60,6 +60,7 @@
 		053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717911B941C4C00A92A7D /* JoinTeamViewController.m */; };
 		0538F6DB1BA1F202008C14EE /* G.m in Sources */ = {isa = PBXBuildFile; fileRef = 0538F6DA1BA1F202008C14EE /* G.m */; };
 		0538F6DE1BA278F1008C14EE /* UIResponder+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0538F6DD1BA278F1008C14EE /* UIResponder+Helper.m */; };
+		0538F6E11BA2D69D008C14EE /* TMLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0538F6E01BA2D69D008C14EE /* TMLabel.m */; };
 		055917481B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */; };
 		0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0559174D1B9EEE630036B6E9 /* UIImageView+Helper.m */; };
 		0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */; };
@@ -169,6 +170,8 @@
 		0538F6DA1BA1F202008C14EE /* G.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = G.m; sourceTree = "<group>"; };
 		0538F6DC1BA278F1008C14EE /* UIResponder+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIResponder+Helper.h"; path = "Categories/UIResponder+Helper.h"; sourceTree = "<group>"; };
 		0538F6DD1BA278F1008C14EE /* UIResponder+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIResponder+Helper.m"; path = "Categories/UIResponder+Helper.m"; sourceTree = "<group>"; };
+		0538F6DF1BA2D69D008C14EE /* TMLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLabel.h; sourceTree = "<group>"; };
+		0538F6E01BA2D69D008C14EE /* TMLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLabel.m; sourceTree = "<group>"; };
 		055917461B9EE03C0036B6E9 /* TeamStarredFeedsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStarredFeedsViewController.h; sourceTree = "<group>"; };
 		055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStarredFeedsViewController.m; sourceTree = "<group>"; };
 		0559174C1B9EEE630036B6E9 /* UIImageView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Helper.h"; path = "Categories/UIImageView+Helper.h"; sourceTree = "<group>"; };
@@ -322,6 +325,8 @@
 				05CBB1E41B9FE10D006B3D23 /* LikersView.m */,
 				051A46C41BA14CF6004EC14D /* FeedCommentsView.h */,
 				051A46C51BA14CF6004EC14D /* FeedCommentsView.m */,
+				0538F6DF1BA2D69D008C14EE /* TMLabel.h */,
+				0538F6E01BA2D69D008C14EE /* TMLabel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -681,6 +686,7 @@
 				0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */,
 				051A46BF1BA14486004EC14D /* TMPunch.m in Sources */,
 				053717891B941BB400A92A7D /* ViewController.m in Sources */,
+				0538F6E11BA2D69D008C14EE /* TMLabel.m in Sources */,
 				0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */,
 				05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */,
 				053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */,

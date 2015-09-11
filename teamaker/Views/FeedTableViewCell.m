@@ -311,7 +311,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         make.right.equalTo(self.feedContentView);
     }];
     
-    // 分隔
+    // 分隔view
     [self.commentsBottomGapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.contentView);
         make.top.equalTo(self.commentsView.mas_bottom);
@@ -328,14 +328,12 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
  */
 + (NSString *)getResuseIdentifierByFeed:(TMFeed *)feed
 {
-    if ([feed.kind isEqualToString:@"text"]) {
+    if ([feed isText]) {
         return textCellReuseIdentifier;
-    } else if ([feed.kind isEqualToString:@"image"]) {
+    } else if ([feed isImage]) {
         return imageCellReuseIdentifier;
-    } else if ([feed.kind isEqualToString:@"punch"]) {
+    } else if ([feed isPunch]) {
         return punchCellReuseIdentifier;
-    } else if ([feed.kind isEqualToString:@"location"]){
-        return locationCellReuseIdentifier;
     } else {
         return shareCellReuseIdentifier;
     }
@@ -417,7 +415,6 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 - (void)updateCellWithFeed:(TMFeed *)feed
 {
     self.feed = feed;
-    NSString *reuseIdentifier = [FeedTableViewCell getResuseIdentifierByFeed:feed];
     
     // 用户名
     [self.userButton setTitle:feed.user.name forState:UIControlStateNormal];
@@ -435,19 +432,21 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     self.createdAtLabel.text = [feed.createdAt friendlyInterval];
     
     // 星标
-    if (![feed isPunch]) {
+    if ([feed isPunch]) {
+        self.starLabel.hidden = YES;
+    } else {
         self.starLabel.hidden = !feed.starredValue;
     }
     
-    if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
+    if ([feed isText]) {
         // 文字
         self.myTextLabel.text = feed.text;
         self.myTextLabel.tag = feed.idValue;
-    } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
+    } else if ([feed isPunch]) {
         // 打卡
         self.punchLabel.text = [[NSString alloc] initWithFormat:@": %@", feed.punch];
         self.punchLabel.tag = feed.idValue;
-    } else if ([reuseIdentifier isEqualToString:imageCellReuseIdentifier]) {
+    } else if ([feed isImage]) {
         // 图片
         UIImage *image = [UIImage imageWithData:feed.image];
         self.feedImageView.image = image;
@@ -457,13 +456,13 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
             make.height.equalTo([NSNumber numberWithFloat:image.size.height * imageWidth / image.size.width]);
         }];
         self.feedImageView.tag = feed.idValue;
-    } else if ([reuseIdentifier isEqualToString:shareCellReuseIdentifier]) {
+    } else if ([feed isShare]) {
         self.shareView.tag = feed.idValue;
         self.shareTitleLabel.text = feed.shareTitle;
     }
     
-    NSArray *likers = [self.feed findLikers];
-    NSArray *comments = [self.feed findComments];
+    NSArray *likers = [feed findLikers];
+    NSArray *comments = [feed findComments];
     
     // 点赞者
     self.likersView.likers = likers;
