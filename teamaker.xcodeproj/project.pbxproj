@@ -70,6 +70,7 @@
 		057708361B9D3E710001CA87 /* AddTeamMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 057708351B9D3E710001CA87 /* AddTeamMemberViewController.m */; };
 		0577083B1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0577083A1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m */; };
 		05937ADC1B96B64100CAC2A1 /* CameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05937ADB1B96B64100CAC2A1 /* CameraPreviewView.m */; };
+		05997D1A1BA31CF6009C42EB /* Seed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05997D191BA31CF6009C42EB /* Seed.m */; };
 		05B11D1D1B9DDADC00F797D8 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B11D1C1B9DDADC00F797D8 /* M13Checkbox.m */; };
 		05CBB1E51B9FE10D006B3D23 /* LikersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CBB1E41B9FE10D006B3D23 /* LikersView.m */; };
 		05CEB7B31B8D5FC2003DF51A /* NSDate+FriendlyInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */; };
@@ -192,6 +193,8 @@
 		0577083A1B9DAC080001CA87 /* AddTeamMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTeamMemberTableViewCell.m; sourceTree = "<group>"; };
 		05937ADA1B96B64100CAC2A1 /* CameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPreviewView.h; sourceTree = "<group>"; };
 		05937ADB1B96B64100CAC2A1 /* CameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraPreviewView.m; sourceTree = "<group>"; };
+		05997D181BA31CF6009C42EB /* Seed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Seed.h; sourceTree = "<group>"; };
+		05997D191BA31CF6009C42EB /* Seed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Seed.m; sourceTree = "<group>"; };
 		05B11D1B1B9DDADC00F797D8 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
 		05B11D1C1B9DDADC00F797D8 /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		05CBB1E31B9FE10D006B3D23 /* LikersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikersView.h; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				050BC36D1B799D0E00A35EFD /* AppDelegate.m */,
 				050BC3691B799D0E00A35EFD /* Info.plist */,
 				050BC36A1B799D0E00A35EFD /* main.m */,
+				05997D181BA31CF6009C42EB /* Seed.h */,
+				05997D191BA31CF6009C42EB /* Seed.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -687,6 +692,7 @@
 				0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */,
 				051A46BF1BA14486004EC14D /* TMPunch.m in Sources */,
 				053717891B941BB400A92A7D /* ViewController.m in Sources */,
+				05997D1A1BA31CF6009C42EB /* Seed.m in Sources */,
 				0538F6E11BA2D69D008C14EE /* TMLabel.m in Sources */,
 				0573DC441B90CC0B00A670B4 /* PunchTableViewCell.m in Sources */,
 				05CEB7D91B8DA488003DF51A /* UIColor+Helper.m in Sources */,
