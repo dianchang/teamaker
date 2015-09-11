@@ -23,6 +23,8 @@
 #import "Constants.h"
 #import "ExternalLinkViewController.h"
 #import "BaseFeedViewController.h"
+#import "G.h"
+#import "UIResponder+Helper.h"
 
 typedef enum commentNextStateTypes
 {
@@ -86,37 +88,28 @@ typedef enum commentNextStateTypes
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:TMFeedViewShouldReloadFeedsNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableAndScrollToTop:) name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidPageUp) name:TMVerticalScrollViewDidPageUpNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidPageDown) name:TMVerticalScrollViewDidPageDownNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadFeedsNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMFeedViewShouldReloadFeedsAndScrollToTopNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewDidPageDownNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewDidPageUpNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)scrollViewDidPageUp
+- (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)scrollViewDidPageDown
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedTableViewCellShouldHideCommandsToolbar object:nil];
 }
@@ -250,7 +243,7 @@ typedef enum commentNextStateTypes
 - (void)showCommentView
 {
     self.commentNextState = COMMENT_NEXT_STATE_SHOW;
-    [self.commentInputField becomeFirstResponder];
+    [self.commentInputField becomeFirstResponderInViewController:self];
 }
 
 /**
@@ -259,12 +252,16 @@ typedef enum commentNextStateTypes
 - (void)hideCommentView
 {
     self.commentNextState = COMMENT_NEXT_STATE_HIDE;
-    [self.commentInputField resignFirstResponder];
+    [self.commentInputField resignFirstResponderInViewController:self];
 }
 
 // 键盘显示
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[BaseFeedViewController class]]) {
+        return;
+    }
+    
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     
     NSDictionary *info = [notification userInfo];
@@ -301,6 +298,10 @@ typedef enum commentNextStateTypes
 // 键盘隐藏
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[BaseFeedViewController class]]) {
+        return;
+    }
+    
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     
     NSDictionary *info = [notification userInfo];

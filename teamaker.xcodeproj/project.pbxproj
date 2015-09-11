@@ -58,6 +58,8 @@
 		0537178C1B941BF100A92A7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0537178A1B941BF100A92A7D /* Main.storyboard */; };
 		0537178F1B941C3300A92A7D /* CreateTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537178E1B941C3300A92A7D /* CreateTeamViewController.m */; };
 		053717921B941C4C00A92A7D /* JoinTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 053717911B941C4C00A92A7D /* JoinTeamViewController.m */; };
+		0538F6DB1BA1F202008C14EE /* G.m in Sources */ = {isa = PBXBuildFile; fileRef = 0538F6DA1BA1F202008C14EE /* G.m */; };
+		0538F6DE1BA278F1008C14EE /* UIResponder+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0538F6DD1BA278F1008C14EE /* UIResponder+Helper.m */; };
 		055917481B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */; };
 		0559174E1B9EEE630036B6E9 /* UIImageView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0559174D1B9EEE630036B6E9 /* UIImageView+Helper.m */; };
 		0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573DC3B1B90CC0B00A670B4 /* FeedTableViewCell.m */; };
@@ -163,6 +165,10 @@
 		053717901B941C4C00A92A7D /* JoinTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamViewController.h; sourceTree = "<group>"; };
 		053717911B941C4C00A92A7D /* JoinTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamViewController.m; sourceTree = "<group>"; };
 		053717931B945A8B00A92A7D /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		0538F6D91BA1F202008C14EE /* G.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = G.h; sourceTree = "<group>"; };
+		0538F6DA1BA1F202008C14EE /* G.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = G.m; sourceTree = "<group>"; };
+		0538F6DC1BA278F1008C14EE /* UIResponder+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIResponder+Helper.h"; path = "Categories/UIResponder+Helper.h"; sourceTree = "<group>"; };
+		0538F6DD1BA278F1008C14EE /* UIResponder+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIResponder+Helper.m"; path = "Categories/UIResponder+Helper.m"; sourceTree = "<group>"; };
 		055917461B9EE03C0036B6E9 /* TeamStarredFeedsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStarredFeedsViewController.h; sourceTree = "<group>"; };
 		055917471B9EE03C0036B6E9 /* TeamStarredFeedsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStarredFeedsViewController.m; sourceTree = "<group>"; };
 		0559174C1B9EEE630036B6E9 /* UIImageView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Helper.h"; path = "Categories/UIImageView+Helper.h"; sourceTree = "<group>"; };
@@ -257,6 +263,8 @@
 				053EA2561B81AB6A00BBAF12 /* Controllers */,
 				050BC3681B799D0E00A35EFD /* Supporting Files */,
 				053717931B945A8B00A92A7D /* Constants.h */,
+				0538F6D91BA1F202008C14EE /* G.h */,
+				0538F6DA1BA1F202008C14EE /* G.m */,
 			);
 			path = teamaker;
 			sourceTree = "<group>";
@@ -329,6 +337,8 @@
 				05CEB7D71B8DA488003DF51A /* UIColor+Helper.m */,
 				05CEB7B11B8D5FC2003DF51A /* NSDate+FriendlyInterval.h */,
 				05CEB7B21B8D5FC2003DF51A /* NSDate+FriendlyInterval.m */,
+				0538F6DC1BA278F1008C14EE /* UIResponder+Helper.h */,
+				0538F6DD1BA278F1008C14EE /* UIResponder+Helper.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -647,9 +657,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				051A46BD1BA14486004EC14D /* TMFeed.m in Sources */,
+				0538F6DB1BA1F202008C14EE /* G.m in Sources */,
 				053717731B941B8000A92A7D /* UserProfileViewController.m in Sources */,
 				05CEB7D81B8DA488003DF51A /* NSString+URLEncode.m in Sources */,
 				051A46B81BA14486004EC14D /* _TMPunch.m in Sources */,
+				0538F6DE1BA278F1008C14EE /* UIResponder+Helper.m in Sources */,
 				051A46B61BA14486004EC14D /* _TMFeed.m in Sources */,
 				051A46C01BA14486004EC14D /* TMTeam.m in Sources */,
 				0573DC431B90CC0B00A670B4 /* FeedTableViewCell.m in Sources */,

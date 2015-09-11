@@ -14,13 +14,15 @@
 #import "ComposeViewControllerProtocol.h"
 #import "Masonry.h"
 #import "Constants.h"
+#import "G.h"
 
 @interface ComposeViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) UIScrollView *scrollView;
 @property (weak, nonatomic) UIPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
-@property (nonatomic) BOOL hasSendedResetLayoutMessage;
+@property (nonatomic) BOOL hasSendedResetAndPrepareLayoutMessage;
+@property (nonatomic) BOOL hasSetup;
 
 @end
 
@@ -100,8 +102,11 @@
     [super viewDidAppear:animated];
     
     // 初始化翻页到打卡页
-    [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.bounds.size.width * 1, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height) animated:NO];
-    self.pageControl.currentPage = 1;
+    if (!self.hasSetup) {
+        [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.bounds.size.width * 1, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height) animated:NO];
+        self.pageControl.currentPage = 1;
+        self.hasSetup = YES;
+    }
 }
 
 // 初始化各页大小
@@ -152,13 +157,9 @@
 - (void)scrollViewDidPageDown
 {
     if (self.pageControl.currentPage == 1) {
-        [self didPageToTextComposeView];
+        [self didPageToPunchComposeView];
     } else {
-        [self didPageToTextComposeView];
-    }
-    
-    for (UIViewController *controller in self.viewControllers) {
-        [controller viewDidAppear:NO];
+        [self didPageToOtherComposeView];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TMCameraShouldStartNotification object:nil];
@@ -170,10 +171,6 @@
 - (void)scrollViewDidPageUp
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:TMCameraShouldStopNotification object:nil];
-    
-    for (UIViewController *controller in self.viewControllers) {
-        [controller viewDidDisappear:NO];
-    }
 }
 
 - (void)didPageToOtherComposeView
@@ -181,45 +178,67 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
 }
 
-- (void)didPageToTextComposeView
+- (void)didPageToPunchComposeView
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewDidPageToPunchComposeViewNotification object:nil];
 }
 
 // 翻页结束后，联动pageControl
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    if (!self.hasSetup) {
+        return;
+    }
+    
     CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
     NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
 
     self.pageControl.currentPage = page;
-    self.hasSendedResetLayoutMessage = NO;
+    self.hasSendedResetAndPrepareLayoutMessage = NO;
     
     if (page == 1) {
-        [self didPageToTextComposeView];
+        [self didPageToPunchComposeView];
     } else {
         [self didPageToOtherComposeView];
+    }
+    
+    if (page == 0) {
+        [G sharedInstance].horizonalPosition = HORIZONAL_POSITION_TEXT;
+    }  else if (page == 1) {
+        [G sharedInstance].horizonalPosition = HORIZONAL_POSITION_PUNCH;
+    } else {
+        [G sharedInstance].horizonalPosition = HORIZONAL_POSITION_CAPTURE;
     }
 }
 
 // 翻到其他页时，对当前页进行界面重置
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (!self.hasSetup) {
+        return;
+    }
+    
     CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
     NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
-    if (self.pageControl.currentPage != page && !self.hasSendedResetLayoutMessage) {
-        UIViewController *controller = self.viewControllers[self.pageControl.currentPage];
-        if ([controller respondsToSelector:@selector(resetLayout)]) {
-            [controller performSelector:@selector(resetLayout) withObject:nil];
-            self.hasSendedResetLayoutMessage = YES;
+    if (self.pageControl.currentPage != page && !self.hasSendedResetAndPrepareLayoutMessage) {
+        UIViewController *currentController = [self getComposeViewControllerAtPage:self.pageControl.currentPage];
+//        NSLog(@"Reset - %ld", (long)self.pageControl.currentPage);
+        if ([currentController respondsToSelector:@selector(resetLayout)]) {
+            [currentController performSelector:@selector(resetLayout) withObject:nil];
+            self.hasSendedResetAndPrepareLayoutMessage = YES;
+
+        }
+        
+//        NSLog(@"Prepare - %lu", (unsigned long)page);
+        UIViewController *nextController = [self getComposeViewControllerAtPage:page];
+        if ([nextController respondsToSelector:@selector(prepareLayout)]) {
+            [nextController performSelector:@selector(prepareLayout) withObject:nil];
+
         }
     }
+    
 
-    UIViewController *currentController = [self getComposeViewControllerAtPage:page];
-    if ([currentController respondsToSelector:@selector(prepareLayout)]) {
-        [currentController performSelector:@selector(prepareLayout) withObject:nil];
-    }
 }
 
 /**

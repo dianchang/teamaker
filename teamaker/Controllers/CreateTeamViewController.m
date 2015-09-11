@@ -16,6 +16,7 @@
 #import "Masonry.h"
 #import "UIColor+Helper.h"
 #import "Ionicons.h"
+#import "UIResponder+Helper.h"
 
 @interface CreateTeamViewController ()
 
@@ -104,7 +105,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.teamNameTextField becomeFirstResponder];
+    [self.teamNameTextField becomeFirstResponderInViewController:self];
 }
 
 # pragma mark - private methods

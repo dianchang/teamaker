@@ -52,7 +52,8 @@
     [pageDown setTitle:ion_ios_arrow_down forState:UIControlStateNormal];
     pageDown.titleLabel.textColor = [UIColor colorWithRGBA:0xBBBBBBFF];
     pageDown.titleLabel.font = [IonIcons fontWithSize:28.0f];
-    [pageDown setBackgroundColor:[UIColor lightGrayColor]];
+    [pageDown setBackgroundColor:[UIColor blackColor]];
+    pageDown.alpha = 0.4;
     [pageDown addTarget:self action:@selector(pageDown:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:pageDown];
     
@@ -64,7 +65,7 @@
 
     [pageDown mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.and.bottom.equalTo(self.view);
-        make.height.equalTo(@50);
+        make.height.equalTo(@30);
     }];
 }
 

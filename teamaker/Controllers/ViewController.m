@@ -11,6 +11,7 @@
 #import "ComposeViewController.h"
 #import "ScrollDirection.h"
 #import "Constants.h"
+#import "G.h"
 
 @interface ViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;;
@@ -36,6 +37,9 @@
         [self loadViewWithPage:i];
     }
     
+    [G sharedInstance].verticalPosition = VERTICAL_POSITION_FEED;
+    [G sharedInstance].horizonalPosition = HORIZONAL_POSITION_PUNCH;
+    
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
@@ -45,7 +49,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:TMVerticalScrollViewShouldPageUpNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDown:) name:TMVerticalScrollViewShouldPageDownNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableScroll) name:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableScroll) name:TMHorizonalScrollViewDidPageToPunchComposeViewNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableScroll) name:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
 }
 
@@ -53,7 +57,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewShouldPageUpNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewShouldPageDownNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewDidPageToTextComposeViewNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewDidPageToPunchComposeViewNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TMHorizonalScrollViewDidPageToOtherComposeViewNotification object:nil];
 }
 
@@ -132,6 +136,8 @@
         // 模拟ViewController的生命周期
         [[self.viewControllers objectAtIndex:0] viewDidAppear:YES];
         [[self.viewControllers objectAtIndex:1] viewDidDisappear:YES];
+        
+        [G sharedInstance].verticalPosition = VERTICAL_POSITION_FEED;
     } else {
         self.hasSendedMessageWhenPageUp = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageUp:) name:TMVerticalScrollViewShouldPageUpNotification object:nil];
@@ -140,6 +146,8 @@
         // 模拟ViewController的生命周期
         [[self.viewControllers objectAtIndex:0] viewDidDisappear:YES];
         [[self.viewControllers objectAtIndex:1] viewDidAppear:YES];
+        
+        [G sharedInstance].verticalPosition = VERTICAL_POSITION_COMPOSE;
     }
 }
 

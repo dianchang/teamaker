@@ -15,6 +15,8 @@
 #import "UIColor+Helper.h"
 #import "TMFeed.h"
 #import "Constants.h"
+#import "G.h"
+#import "UIResponder+Helper.h"
 
 @import CoreData;
 
@@ -67,24 +69,12 @@ static int const sendButtonHeight = 50;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidPageUp) name:TMVerticalScrollViewDidPageUpNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidPageDown) name:TMVerticalScrollViewDidPageDownNotification object:nil];
-}
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewDidPageDownNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:TMVerticalScrollViewDidPageUpNotification object:nil];
-}
-
-- (void)scrollViewDidPageDown
-{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)scrollViewDidPageUp
+- (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -93,6 +83,13 @@ static int const sendButtonHeight = 50;
 // 键盘显示
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    NSLog(@"%@", [G sharedInstance].firstResponderViewController);
+    
+    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[TextViewController class]]) {
+        return;
+    }
+    
+    [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
 
     NSDictionary *info = [notification userInfo];
@@ -107,6 +104,7 @@ static int const sendButtonHeight = 50;
     }];
     
     [UIView animateWithDuration:animationDuration animations:^{
+        [self.view setNeedsLayout];
         [self.view layoutIfNeeded];
     }];
 }
@@ -114,6 +112,10 @@ static int const sendButtonHeight = 50;
 // 键盘隐藏
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    if (![[G sharedInstance].firstResponderViewController isKindOfClass:[TextViewController class]]) {
+        return;
+    }
+    
     [self.view layoutIfNeeded];
     
     NSDictionary *info = [notification userInfo];
@@ -131,7 +133,7 @@ static int const sendButtonHeight = 50;
 // 重置页面
 - (void)resetLayout
 {
-    [self.textView resignFirstResponder];
+    [self.textView resignFirstResponderInViewController:self];
     [self.textView setEditable:YES];
     [self hideTeamButtons];
 }
@@ -139,7 +141,7 @@ static int const sendButtonHeight = 50;
 // 准备页面
 - (void)prepareLayout
 {
-    [self.textView becomeFirstResponder];
+    [self.textView becomeFirstResponderInViewController:self];
 }
 
 - (void)preparePublish:(UIButton *)sender
@@ -150,7 +152,7 @@ static int const sendButtonHeight = 50;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     
-    [self.textView resignFirstResponder];
+    [self.textView resignFirstResponderInViewController:self];
     [self.textView setEditable:NO];
     [self.teamButtons showWithDuration:.3 animation:nil completion:nil];
 }
@@ -160,7 +162,7 @@ static int const sendButtonHeight = 50;
 {
     [self hideTeamButtons];
     [self.textView setEditable:YES];
-    [self.textView becomeFirstResponder];
+    [self.textView becomeFirstResponderInViewController:self];
 }
 
 // 发布文字到某团队
