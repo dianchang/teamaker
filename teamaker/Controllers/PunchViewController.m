@@ -18,6 +18,7 @@
 #import "PunchTableViewCell.h"
 #import "TeamButtons.h"
 #import "Constants.h"
+#import "Ionicons.h"
 
 @interface PunchViewController () <UITableViewDelegate, UITableViewDataSource, ComposeViewControllerProtocol>
 @property (strong, nonatomic) UITableView *tableView;
@@ -47,11 +48,14 @@ static NSString *cellIdentifier = @"PunchCell";
 
     // 添加按钮
     UIButton *addPunchButton = [UIButton new];
-    [addPunchButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [addPunchButton setTitle:@"+" forState:UIControlStateNormal];
+    [addPunchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    addPunchButton.backgroundColor = [UIColor lightGrayColor];
+    addPunchButton.layer.cornerRadius = 30;
+    addPunchButton.layer.masksToBounds = YES;
+    [addPunchButton setTitle:ion_plus forState:UIControlStateNormal];
+    addPunchButton.titleLabel.font = [IonIcons fontWithSize:28];
     [self.view addSubview:addPunchButton];
     self.addPunchButton = addPunchButton;
-    self.addPunchButton.titleLabel.font = [UIFont systemFontOfSize:40];
     
     // 约束
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -60,6 +64,7 @@ static NSString *cellIdentifier = @"PunchCell";
     
     [addPunchButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
+        make.width.height.equalTo(@60);
         make.bottom.equalTo(self.view).offset(-30);
     }];
 }
