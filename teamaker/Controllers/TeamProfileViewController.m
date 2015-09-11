@@ -101,7 +101,7 @@
     // 用户名
     UILabel *userLable = [UILabel new];
     userLable.text = self.team.name;
-    userLable.font = [UIFont systemFontOfSize:16];
+    userLable.font = [UIFont boldSystemFontOfSize:16];
     [headerView addSubview:userLable];
 
     [userLable mas_makeConstraints:^(MASConstraintMaker *make) {

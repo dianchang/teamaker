@@ -51,8 +51,6 @@
     [tableView setTableHeaderView:[self createHeaderView]];
 }
 
-
-
 - (void)viewDidLayoutSubviews
 {
     UIView *headerView = self.tableView.tableHeaderView;
@@ -79,7 +77,7 @@
     // 用户名
     UILabel *userLable = [UILabel new];
     userLable.text = self.loggedInUser.name;
-    userLable.font = [UIFont systemFontOfSize:16];
+    userLable.font = [UIFont boldSystemFontOfSize:16];
     [headerView addSubview:userLable];
     
     // 约束

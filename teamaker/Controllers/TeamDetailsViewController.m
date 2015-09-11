@@ -125,7 +125,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     // 团队名
     UILabel *userLable = [UILabel new];
     userLable.text = self.team.name;
-    userLable.font = [UIFont systemFontOfSize:16];
+    userLable.font = [UIFont boldSystemFontOfSize:16];
     [headerView addSubview:userLable];
     
     // 成员

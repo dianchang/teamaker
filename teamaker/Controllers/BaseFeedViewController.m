@@ -462,7 +462,7 @@ typedef enum commentNextStateTypes
         
         [[BaseFeedViewController cachedHeights] setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
     } else if (indexPath.row == self.feeds.count * 2 - 1) {
-        height = 40.0;
+        height = 70.0;
     } else {
         height = 15.0;
     }
@@ -487,7 +487,7 @@ typedef enum commentNextStateTypes
             cellHeight = 150.0;
         }
     } else if (indexPath.row == self.feeds.count * 2 - 1) {
-        cellHeight = 40.0;
+        cellHeight = 70.0;
     } else {
         cellHeight = 15.0;
     }
