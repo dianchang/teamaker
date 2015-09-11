@@ -25,7 +25,7 @@
 @property (strong, nonatomic) UIButton *addPunchButton;
 @property (strong, nonatomic) UIView *backdropView;
 @property (strong, nonatomic) TeamButtons *teamButtons;
-@property (strong, nonatomic) NSMutableArray *punchs;
+@property (strong, nonatomic) NSMutableArray *punches;
 @property (strong, nonatomic) TMPunch *selectedPunch;
 @end
 
@@ -93,7 +93,7 @@ static NSString *cellIdentifier = @"PunchCell";
 
 - (void)reloadData
 {
-    self.punchs = [self getPunches];
+    self.punches = [self getPunches];
     [self.tableView reloadData];
 }
 
@@ -107,7 +107,7 @@ static NSString *cellIdentifier = @"PunchCell";
     [TMFeed createPunchFeed:self.selectedPunch.content teamId:[NSNumber numberWithLong:sender.tag] completion:^(BOOL contextDidSave, NSError *error) {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             NSUInteger order = 1;
-            for (TMPunch *punch in self.punchs) {
+            for (TMPunch *punch in self.punches) {
                 TMPunch *punchInContext = [punch MR_inContext:localContext];
                 
                 if ([punchInContext.id isEqualToNumber:self.selectedPunch.id]) {
@@ -154,7 +154,7 @@ static NSString *cellIdentifier = @"PunchCell";
 // 单元格
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TMPunch *punch = self.punchs[indexPath.row];
+    TMPunch *punch = self.punches[indexPath.row];
     PunchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (indexPath.row % 2 == 0) {
@@ -170,7 +170,7 @@ static NSString *cellIdentifier = @"PunchCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TMPunch *punch = self.punchs[indexPath.row];
+    TMPunch *punch = self.punches[indexPath.row];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TMHorizonalScrollViewShouldHidePagerNotification object:nil];
     self.selectedPunch = punch;
@@ -181,7 +181,7 @@ static NSString *cellIdentifier = @"PunchCell";
 // 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.punchs.count;
+    return self.punches.count;
 }
 
 // 高度
@@ -203,7 +203,7 @@ static NSString *cellIdentifier = @"PunchCell";
 - (void) tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
     if (action == @selector(deletePunch:)) {
-        TMPunch* punch = self.punchs[indexPath.row];
+        TMPunch* punch = self.punches[indexPath.row];
         [punch MR_deleteEntity];
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
         
@@ -218,13 +218,13 @@ static NSString *cellIdentifier = @"PunchCell";
 
 #pragma mark - getters and setters
 
-- (NSMutableArray *)punchs
+- (NSMutableArray *)punches
 {
-    if (!_punchs) {
-        _punchs = [self getPunches];
+    if (!_punches) {
+        _punches = [self getPunches];
     }
     
-    return _punchs;
+    return _punches;
 }
 
 - (TeamButtons *)teamButtons
