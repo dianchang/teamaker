@@ -29,21 +29,6 @@
     return self;
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-//    NSLog(@"super %f", CGRectGetWidth(self.superview.frame));
-//    NSLog(@"self %f", CGRectGetWidth(self.frame));
-//
-//    for (UIView *subview in self.subviews) {
-//        if ([subview isKindOfClass:[UILabel class]]) {
-//            [(UILabel *)subview setPreferredMaxLayoutWidth:CGRectGetWidth(subview.frame)];
-//            NSLog(@"%@ - %f - %f", [(UILabel *)subview text], CGRectGetWidth(subview.frame), [(UILabel *)subview preferredMaxLayoutWidth]);
-//        }
-//    }
-}
-
 #pragma mark - UI
 
 - (void)createView

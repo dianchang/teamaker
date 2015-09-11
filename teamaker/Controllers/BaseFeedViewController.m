@@ -351,7 +351,7 @@ typedef enum commentNextStateTypes
 - (void)updateHeightForFeed:(TMFeed *)feed
 {
     CGFloat height;
-    height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
+    height = [FeedTableViewCell calculateCellHeightWithFeed:feed tableViewWidth:CGRectGetWidth(self.tableView.bounds)];
     [[BaseFeedViewController cachedHeights] setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
 }
 
@@ -436,7 +436,7 @@ typedef enum commentNextStateTypes
             return [cellHeight floatValue];
         }
         
-        height = [FeedTableViewCell calculateCellHeightWithFeed:feed];
+        height = [FeedTableViewCell calculateCellHeightWithFeed:feed tableViewWidth:CGRectGetWidth(tableView.bounds)];
         
         [[BaseFeedViewController cachedHeights] setObject:[NSNumber numberWithFloat:height] forKey:[feed.id stringValue]];
     } else if (indexPath.row == self.feeds.count * 2 - 1) {

@@ -20,6 +20,7 @@
 #import "TMUserLikeFeed.h"
 #import "Constants.h"
 #import "BaseFeedViewController.h"
+#import "TMLabel.h"
 
 static NSString * const shareCellReuseIdentifier = @"shareCell";
 static NSString * const textCellReuseIdentifier = @"TextCell";
@@ -29,8 +30,8 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 
 @interface FeedTableViewCell()
 
-@property (strong, nonatomic) UILabel *myTextLabel;
-@property (strong, nonatomic) UILabel *punchLabel;
+@property (strong, nonatomic) TMLabel *myTextLabel;
+@property (strong, nonatomic) TMLabel *punchLabel;
 
 @property (strong, nonatomic) UIImageView *feedImageView;
 @property (strong, nonatomic) UIView *feedImagePreviewBackdropView;
@@ -38,7 +39,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 @property (nonatomic) CGRect feedImagePreviewImageViewOriginalFrame;
 
 @property (strong, nonatomic) UIView *shareView;
-@property (strong, nonatomic) UILabel *shareTitleLabel;
+@property (strong, nonatomic) TMLabel *shareTitleLabel;
 
 @end
 
@@ -100,7 +101,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
         // 文字
-        UILabel *textLabel = [UILabel new];
+        TMLabel *textLabel = [TMLabel new];
         textLabel.numberOfLines = 0;
         textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         textLabel.font = [UIFont systemFontOfSize:16];
@@ -108,7 +109,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         self.myTextLabel = textLabel;
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         // 打卡
-        UILabel *punchLabel = [UILabel new];
+        TMLabel *punchLabel = [TMLabel new];
         punchLabel.numberOfLines = 0;
         punchLabel.lineBreakMode = NSLineBreakByWordWrapping;
         punchLabel.font = [UIFont systemFontOfSize:14];
@@ -135,7 +136,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         [shareView addGestureRecognizer:gestureForShare];
 
         // 分享标题
-        UILabel *shareTitleLabel = [UILabel new];
+        TMLabel *shareTitleLabel = [TMLabel new];
         shareTitleLabel.numberOfLines = 0;
         shareTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         shareTitleLabel.font = [UIFont systemFontOfSize:16];
@@ -355,7 +356,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
  *
  *  @return 单元格高度
  */
-+ (CGFloat)calculateCellHeightWithFeed:(TMFeed *)feed
++ (CGFloat)calculateCellHeightWithFeed:(TMFeed *)feed tableViewWidth:(CGFloat)tableViewWidth
 {
     FeedTableViewCell *sizingCell;
     static FeedTableViewCell *imageCell;
@@ -385,26 +386,14 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     [sizingCell updateCellWithFeed:feed];
     
+    sizingCell.bounds = CGRectMake(0.0f, 0.0f, tableViewWidth, CGRectGetHeight(sizingCell.bounds));
+    
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
     
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
     return size.height;
-}
-
-/**
- *  设置UILable的preferredMaxLayoutWidth
- */
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    [self.contentView setNeedsLayout];
-    [self.contentView layoutIfNeeded];
-    
-    self.myTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.myTextLabel.frame);
-    self.shareTitleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.shareTitleLabel.frame);
 }
 
 /**

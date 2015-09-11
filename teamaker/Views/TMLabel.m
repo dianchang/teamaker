@@ -13,7 +13,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.preferredMaxLayoutWidth = self.bounds.size.width;
+    
+    if (self.numberOfLines == 0) {
+        self.preferredMaxLayoutWidth = self.bounds.size.width;
+    }
 }
 
 @end
