@@ -436,7 +436,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     // 星标
     if (![feed isPunch]) {
-        self.starLabel.hidden = !feed.starred;
+        self.starLabel.hidden = !feed.starredValue;
     }
     
     if ([reuseIdentifier isEqualToString:textCellReuseIdentifier]) {
