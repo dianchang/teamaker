@@ -52,7 +52,6 @@
     id <UITableViewDelegate> delegate = tableView.delegate;
     if  ([delegate respondsToSelector:@selector(tableView:performAction:forRowAtIndexPath:withSender:)]) {
         [delegate tableView:tableView performAction:@selector(deletePunch:) forRowAtIndexPath:[tableView indexPathForCell:self] withSender:sender];
-        [self removeFromSuperview];
     }
 }
 

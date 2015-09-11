@@ -25,7 +25,7 @@
 @property (strong, nonatomic) UIButton *addPunchButton;
 @property (strong, nonatomic) UIView *backdropView;
 @property (strong, nonatomic) TeamButtons *teamButtons;
-@property (strong, nonatomic) NSArray *punchs;
+@property (strong, nonatomic) NSMutableArray *punchs;
 @property (strong, nonatomic) TMPunch *selectedPunch;
 @end
 
@@ -84,11 +84,16 @@ static NSString *cellIdentifier = @"PunchCell";
     }
 }
 
-#pragma mark - table view delegate & data source
+#pragma mark - private methods
+
+- (NSMutableArray *)getPunches
+{
+    return [NSMutableArray arrayWithArray:[TMPunch MR_findAllSortedBy:@"order" ascending:YES]];
+}
 
 - (void)reloadData
 {
-    self.punchs = [TMPunch MR_findAllSortedBy:@"order" ascending:YES];
+    self.punchs = [self getPunches];
     [self.tableView reloadData];
 }
 
@@ -201,6 +206,8 @@ static NSString *cellIdentifier = @"PunchCell";
         TMPunch* punch = self.punchs[indexPath.row];
         [punch MR_deleteEntity];
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+        
+        [self reloadData];
     }
 }
 
@@ -211,10 +218,10 @@ static NSString *cellIdentifier = @"PunchCell";
 
 #pragma mark - getters and setters
 
-- (NSArray *)punchs
+- (NSMutableArray *)punchs
 {
     if (!_punchs) {
-        _punchs = [TMPunch MR_findAllSortedBy:@"order" ascending:YES];
+        _punchs = [self getPunches];
     }
     
     return _punchs;
