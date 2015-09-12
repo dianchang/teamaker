@@ -228,7 +228,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
         case 1: {
             switch (indexPath.row) {
                 case 0: {
-                    [self configTableViewCell:cell key:@"圈子名称" value:self.teamUserInfo.name];
+                    [self configTableViewCell:cell key:@"圈子名称" value:self.team.name];
                     break;
                 }
                 case 1: {
@@ -236,7 +236,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
                     break;
                 }
                 case 2: {
-                    [self configTableViewCell:cell key:@"圈子二维码" imageUrl:[NSURL URLWithString:self.team.avatar] border:20 radius:2];
+                    [self configTableViewCell:cell key:@"圈子二维码" imageUrl:[NSURL URLWithString:@"http://7xlqpw.com1.z0.glb.clouddn.com/qrcode.png"] border:20 radius:2];
                     break;
                 }
                 default:
@@ -248,15 +248,15 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
         case 2: {
             switch (indexPath.row) {
                 case 0: {
-                    [self configTableViewCell:cell key:@"我在该圈子的头像" imageUrl:[NSURL URLWithString:self.loggedInUser.avatar] border:30 radius:15];
+                    [self configTableViewCell:cell key:@"我在该圈子的头像" imageUrl:[NSURL URLWithString:self.teamUserInfo.avatar] border:30 radius:15];
                     break;
                 }
                 case 1: {
-                    [self configTableViewCell:cell key:@"我在该圈子的昵称" value:@"哈丁"];
+                    [self configTableViewCell:cell key:@"我在该圈子的昵称" value:self.teamUserInfo.name];
                     break;
                 }
                 case 2: {
-                    [self configTableViewCell:cell key:@"我在该圈子的简介" value:@"产品经理"];
+                    [self configTableViewCell:cell key:@"我在该圈子的简介" value:self.teamUserInfo.desc];
                     break;
                 }
                 default:
