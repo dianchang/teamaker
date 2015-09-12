@@ -39,6 +39,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 @property (nonatomic) CGRect feedImagePreviewImageViewOriginalFrame;
 
 @property (strong, nonatomic) UIView *shareView;
+@property (strong, nonatomic) UIImageView *faviconView;
 @property (strong, nonatomic) TMLabel *shareTitleLabel;
 
 @end
@@ -132,11 +133,16 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         gestureForShare.numberOfTapsRequired = 1;
         shareView.userInteractionEnabled = YES;
         [shareView addGestureRecognizer:gestureForShare];
+        
+        // favicon
+        UIImageView *faviconView = [UIImageView new];
+        [shareView addSubview:faviconView];
+        self.faviconView = faviconView;
 
-        // 分享标题
+        // title
         TMLabel *shareTitleLabel = [TMLabel new];
-        shareTitleLabel.numberOfLines = 0;
-        shareTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        shareTitleLabel.numberOfLines = 1;
+//        shareTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         shareTitleLabel.font = [UIFont systemFontOfSize:16];
         [shareView addSubview:shareTitleLabel];
         self.shareTitleLabel = shareTitleLabel;
@@ -270,8 +276,17 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
             make.top.equalTo(self.feedContentView).offset(10);
         }];
         
+        [self.faviconView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.shareView).offset(8);
+            make.centerY.equalTo(self.shareTitleLabel);
+            make.width.height.equalTo(@16);
+        }];
+        
         [self.shareTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.shareView).insets(UIEdgeInsetsMake(5, 8, 5, 8));
+            make.top.equalTo(self.shareView).offset(5);
+            make.bottom.equalTo(self.shareView).offset(-5);
+            make.left.equalTo(self.faviconView.mas_right).offset(5);
+            make.right.equalTo(self.shareView).offset(-8);
         }];
     }
     
@@ -472,6 +487,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         self.feedImageView.tag = feed.idValue;
     } else if ([feed isShare]) {
         self.shareView.tag = feed.idValue;
+        [self.faviconView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://g.soz.im/%@", feed.shareUrl]]];
         self.shareTitleLabel.text = feed.shareTitle;
     }
     
