@@ -15,7 +15,9 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
 
 + (void)seedData
 {
-    [Seed truncateAllData];
+    if (![[TMUser MR_numberOfEntities] isEqualToNumber:@0]) {
+        NSLog(@"Data exists.");
+    }
     
     NSLog(@"Creating users.");
     
@@ -298,7 +300,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
         feed = [self createFeedWithUser:user team:team inContext:localContext];
         feed.kind = @"image";
-        feed.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", cdn, imageUrl]]];;
+        feed.image = UIImageJPEGRepresentation([UIImage imageNamed:@"FeedImage"], 1);
         feed.starredValue = starred;
     }];
     

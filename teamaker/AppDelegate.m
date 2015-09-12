@@ -34,6 +34,7 @@
     
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
+    [Seed truncateAllData];
     [Seed seedData];
     
     return YES;
