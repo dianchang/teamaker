@@ -86,93 +86,116 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     
     NSLog(@"Creating feeds");
     
-    TMFeed *feed12 = [Seed createImageFeed:@"image.jpg" user:userJiuQi team:teamYouQuan starred:NO];
-    TMFeed *feed11 = [Seed createTextFeed:@"讲实话，我觉得《从0到1》比《创业维艰》思维高度高了有10倍不止。《创业维艰》根本不适合每个创业者去读，而《从0到1》你应该读3遍。" user:userKasperl team:teamYouQuan starred:NO];
-    TMFeed *feed10 = [Seed createImageFeed:@"image.jpg" user:userHardin team:teamYouQuan starred:NO];
-    TMFeed *feed9 = [Seed createTextFeed:@"有人亲手体验过3D-touch么？怎么突然冒出来这么多从交互和使用感受角度来黑的？摸了再黑嘛..." user:userHideCloud team:teamPM starred:NO];
+    [Seed
+     createImageFeed:@"image.jpg"
+     user:userJiuQi
+     team:teamYouQuan
+     starred:NO
+     likers:@[userHustlzp, userKasperl, userALan, userHardin]
+     comments:@[@[userJiuQi, @"这算是第一次团建吧，大家来收图了~"],
+                @[userHardin, @"很快会有第二次，第N次的。。。", userJiuQi]]];
     
-    TMFeed *feed8 = [Seed createImageFeed:@"image.jpg" user:userHustlzp team:teamYouQuan starred:NO];
-    TMFeed *feed7 = [Seed createPunchFeed:@"开会中" user:userJiuQi team:teamYouQuan starred:NO];
-    TMFeed *feed6 = [Seed createTextFeed:@"Airbnb CEO Brian Chesky 和他交了两年的女朋友 Elissa Patel 是通过 Tinder 认识的。" user:userOxygen team:teamPM starred:NO];
-    TMFeed *feed5 = [Seed createImageFeed:@"image.jpg" user:userKim team:teamLagou starred:NO];
+    [Seed
+     createTextFeed:@"讲实话，我觉得《从0到1》比《创业维艰》思维高度高了有10倍不止。《创业维艰》根本不适合每个创业者去读，而《从0到1》你应该读3遍。"
+     user:userKasperl
+     team:teamYouQuan
+     starred:NO
+     likers:@[userHardin, userHustlzp]
+     comments:@[@[userHardin, @"非常认同"]]];
     
-    TMFeed *feed4 = [Seed createTextFeed:@"今天准备提测新版本，大家做好准备。" user:userXiaoYang team:teamLagou starred:NO];
-    TMFeed *feed3 = [Seed createPunchFeed:@"大会议室ing..." user:userVee team:teamLagou starred:NO];
-    TMFeed *feed2 = [Seed createPunchFeed:@"开会！脑暴！" user:userXiaoYang team:teamLagou starred:NO];
-    TMFeed *feed1 = [Seed createTextFeed:@"未来我们是不是可以做成「工作圈 + 职业圈」？关注一个人在工作内外的职业发展？" user:userHardin team:teamYouQuan starred:YES];
+    [Seed
+     createImageFeed:@"image.jpg"
+     user:userHardin
+     team:teamYouQuan
+     starred:NO
+     likers:@[userHardin, userJiuQi, userKasperl, userHustlzp, userALan]
+     comments:@[@[userHardin, @"新版设计"]]];
     
-    NSLog(@"Creating like feeds");
+    [Seed
+     createTextFeed:@"有人亲手体验过3D-touch么？怎么突然冒出来这么多从交互和使用感受角度来黑的？摸了再黑嘛..."
+     user:userHideCloud
+     team:teamPM
+     starred:NO
+     likers:nil
+     comments:@[@[userDaiYuSen, @"摸了再黑？和「睡了再分」是不是一个意思？"],
+                @[userKentZhu, @"哈哈哈", userDaiYuSen],
+                @[userHardin, @"哈哈哈", userDaiYuSen],
+                @[userAray, @"段子手我只认你", userDaiYuSen]]];
     
-    [Seed user:userHustlzp likeFeed:feed1];
-    [Seed user:userJiuQi likeFeed:feed1];
-    [Seed user:userKasperl likeFeed:feed1];
-    [Seed user:userALan likeFeed:feed1];
+    [Seed
+     createImageFeed:@"image.jpg"
+     user:userHustlzp
+     team:teamYouQuan
+     starred:NO
+     likers:@[userHardin, userJiuQi, userKasperl]
+     comments:@[@[userKasperl, @"这是在哪？"],
+                @[userHustlzp, @"故宫😀", userKasperl]]];
     
-    [Seed user:userXiaoYang likeFeed:feed5];
+    [Seed
+     createPunchFeed:@"开会中"
+     user:userJiuQi
+     team:teamYouQuan
+     starred:NO];
     
-    [Seed user:userHardin likeFeed:feed6];
-    [Seed user:userFenny likeFeed:feed6];
-    [Seed user:userJiangYang likeFeed:feed6];
-    [Seed user:userKant likeFeed:feed6];
+    [Seed
+     createTextFeed:@"Airbnb CEO Brian Chesky 和他交了两年的女朋友 Elissa Patel 是通过 Tinder 认识的。"
+     user:userOxygen
+     team:teamPM
+     starred:NO
+     likers:@[userHardin, userFenny, userJiangYang, userKant]
+     comments:@[@[userNomessi, @"你们要做tinder？"],
+                @[userOxygen, @"不是", userNomessi],
+                @[userKant, @"女友，而不是妻子..."],
+                @[userHardin, @"tinder wins，探探也快了"],
+                @[userKant, @"😂😂😂", userHardin]]];
     
-    [Seed user:userHardin likeFeed:feed8];
-    [Seed user:userJiuQi likeFeed:feed8];
-    [Seed user:userKasperl likeFeed:feed8];
+    [Seed
+     createImageFeed:@"image.jpg"
+     user:userKim
+     team:teamLagou
+     starred:NO
+     likers:@[userXiaoYang]
+     comments:@[@[userKim, @"设计稿大家看一下，和上次的变化不大。"],
+                @[userHardin, @"还不错，就这个了。"],
+                @[userBanlon, @"可以，先用这个上线。"]]];
     
-    [Seed user:userHardin likeFeed:feed10];
-    [Seed user:userJiuQi likeFeed:feed10];
-    [Seed user:userKasperl likeFeed:feed10];
-    [Seed user:userHustlzp likeFeed:feed10];
-    [Seed user:userALan likeFeed:feed10];
+    [Seed
+     createTextFeed:@"今天准备提测新版本，大家做好准备。"
+     user:userXiaoYang
+     team:teamLagou
+     starred:NO
+     likers:nil
+     comments:@[@[userCc, @"好的，产品这边搞定了。"],
+                @[userVee, @"前端今天下午才能做完，完了我们先碰个头。"],
+                @[userXiaoYang, @"算自测不？", userVee],
+                @[userVee, @"放心，必须的。", userXiaoYang],
+                @[userBanlon, @"给力。"]]];
     
-    [Seed user:userHardin likeFeed:feed11];
-    [Seed user:userHustlzp likeFeed:feed11];
+    [Seed
+     createPunchFeed:@"大会议室ing..."
+     user:userVee
+     team:teamLagou
+     starred:NO];
     
-    [Seed user:userHustlzp likeFeed:feed12];
-    [Seed user:userKasperl likeFeed:feed12];
-    [Seed user:userALan likeFeed:feed12];
-    [Seed user:userHardin likeFeed:feed12];
+    [Seed
+     createPunchFeed:@"开会！脑暴！"
+     user:userXiaoYang
+     team:teamLagou
+     starred:NO];
     
-    NSLog(@"Creating feed comments");
-    
-    [Seed user:userHustlzp commentFeed:feed1 targetUser:nil content:@"这个想法很不错啊，真心赞！"];
-    [Seed user:userJiuQi commentFeed:feed1 targetUser:nil content:@"我看行，靠谱。其实也可以做成圈子和圈子之间的关系啊，把一个圈子作为主体，可以和其他的圈子进行互动和点赞，比如有圈的产品组和拉勾的产品组就可以成为「好友组」啊！"];
-    [Seed user:userHardin commentFeed:feed1 targetUser:userJiuQi content:@"我靠，这个吊啊！！"];
-    [Seed user:userHustlzp commentFeed:feed1 targetUser:nil content:@"牛叉！"];
-    [Seed user:userHardin commentFeed:feed1 targetUser:userHustlzp content:@"哈哈，昨天晚上躺床上睡不着想的"];
-    [Seed user:userKasperl commentFeed:feed1 targetUser:nil content:@"很不错，现有的很多团队协作产品都是特别让人有工作感的，是boss-like的产品，我们主打大家都喜欢的产品的感觉。"];
-    [Seed user:userALan commentFeed:feed1 targetUser:nil content:@"值得讨论，已标记"];
-    
-    [Seed user:userCc commentFeed:feed4 targetUser:nil content:@"好的，产品这边搞定了。"];
-    [Seed user:userVee commentFeed:feed4 targetUser:nil content:@"前端今天下午才能做完，完了我们先碰个头。"];
-    [Seed user:userXiaoYang commentFeed:feed4 targetUser:userVee content:@"算自测不？"];
-    [Seed user:userVee commentFeed:feed4 targetUser:userXiaoYang content:@"放心，必须的。"];
-    [Seed user:userBanlon commentFeed:feed4 targetUser:nil content:@"给力。"];
-    
-    [Seed user:userKim commentFeed:feed5 targetUser:nil content:@"设计稿大家看一下，和上次的变化不大。"];
-    [Seed user:userHardin commentFeed:feed5 targetUser:nil content:@"还不错，就这个了。"];
-    [Seed user:userBanlon commentFeed:feed5 targetUser:nil content:@"可以，先用这个上线。"];
-    
-    [Seed user:userNomessi commentFeed:feed6 targetUser:nil content:@"你们要做tinder？"];
-    [Seed user:userOxygen commentFeed:feed6 targetUser:userNomessi content:@"不是"];
-    [Seed user:userKant commentFeed:feed6 targetUser:nil content:@"女友，而不是妻子..."];
-    [Seed user:userHardin commentFeed:feed6 targetUser:nil content:@"tinder wins，探探也快了"];
-    [Seed user:userKant commentFeed:feed6 targetUser:userHardin content:@"😂😂😂"];
-    
-    [Seed user:userKasperl commentFeed:feed8 targetUser:nil content:@"这是在哪？"];
-    [Seed user:userHustlzp commentFeed:feed8 targetUser:userKasperl content:@"故宫😀"];
-    
-    [Seed user:userDaiYuSen commentFeed:feed9 targetUser:nil content:@"摸了再黑？和「睡了再分」是不是一个意思？"];
-    [Seed user:userKentZhu commentFeed:feed9 targetUser:userDaiYuSen content:@"哈哈哈"];
-    [Seed user:userHardin commentFeed:feed9 targetUser:userDaiYuSen content:@"哈哈哈"];
-    [Seed user:userAray commentFeed:feed9 targetUser:userDaiYuSen content:@"段子手我只认你"];
-    
-    [Seed user:userHardin commentFeed:feed10 targetUser:nil content:@"新版设计"];
-    
-    [Seed user:userHardin commentFeed:feed11 targetUser:nil content:@"非常认同"];
-    
-    [Seed user:userJiuQi commentFeed:feed12 targetUser:nil content:@"这算是第一次团建吧，大家来收图了~"];
-    [Seed user:userHardin commentFeed:feed12 targetUser:userJiuQi content:@"很快会有第二次，第N次的。。。"];
+    [Seed
+     createTextFeed:@"未来我们是不是可以做成「工作圈 + 职业圈」？关注一个人在工作内外的职业发展？"
+     user:userHardin
+     team:teamYouQuan
+     starred:YES
+     likers:@[userHustlzp, userJiuQi, userKasperl, userALan]
+     comments:@[@[userHustlzp, @"这个想法很不错啊，真心赞！"],
+                @[userJiuQi, @"我看行，靠谱。其实也可以做成圈子和圈子之间的关系啊，把一个圈子作为主体，可以和其他的圈子进行互动和点赞，比如有圈的产品组和拉勾的产品组就可以成为「好友组」啊！"],
+                @[userHardin, @"我靠，这个吊啊！！", userJiuQi],
+                @[userHustlzp, @"牛叉！"],
+                @[userHardin, @"哈哈，昨天晚上躺床上睡不着想的", userHustlzp],
+                @[userKasperl, @"很不错，现有的很多团队协作产品都是特别让人有工作感的，是boss-like的产品，我们主打大家都喜欢的产品的感觉。"],
+                @[userALan, @"值得讨论，已标记"]]];
 }
 
 // User
@@ -264,7 +287,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
 }
 
 // Feed - TEXT
-+ (TMFeed *)createTextFeed:(NSString *)text user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
++ (void)createTextFeed:(NSString *)text user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred likers:(NSArray *)likers comments:(NSArray *)comments
 {
     __block TMFeed *feed;
     
@@ -275,11 +298,12 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
         feed.starredValue = starred;
     }];
     
-    return feed;
+    [self addLikers:likers toFeed:feed];
+    [self addComments:comments toFeed:feed];
 }
 
 // Feed - PUNCH
-+ (TMFeed *)createPunchFeed:(NSString *)punch user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
++ (void)createPunchFeed:(NSString *)punch user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
 {
     __block TMFeed *feed;
     
@@ -289,12 +313,10 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
         feed.punch = punch;
         feed.starredValue = starred;
     }];
-    
-    return feed;
 }
 
 // Feed - IMAGE
-+ (TMFeed *)createImageFeed:(NSString *)imageUrl user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
++ (void)createImageFeed:(NSString *)imageUrl user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred likers:(NSArray *)likers comments:(NSArray *)comments
 {
     __block TMFeed *feed;
 
@@ -305,11 +327,12 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
         feed.starredValue = starred;
     }];
     
-    return feed;
+    [self addLikers:likers toFeed:feed];
+    [self addComments:comments toFeed:feed];
 }
 
 // Feed - SHARE
-+ (TMFeed *)createShareFeed:(NSString *)url title:(NSString *)title user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
++ (void)createShareFeed:(NSString *)url title:(NSString *)title user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred likers:(NSArray *)likers comments:(NSArray *)comments
 {
     __block TMFeed *feed;
     
@@ -321,7 +344,34 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
         feed.starredValue = starred;
     }];
     
-    return feed;
+    [self addLikers:likers toFeed:feed];
+    [self addComments:comments toFeed:feed];
+}
+
++ (void)addLikers:(NSArray *)likers toFeed:(TMFeed *)feed
+{
+    for (TMUser *liker in likers) {
+        [self user:liker likeFeed:feed];
+    }
+}
+
++ (void)addComments:(NSArray *)comments toFeed:(TMFeed *)feed
+{
+    for (NSArray *params in comments) {
+        if (params.count < 2) {
+            continue;
+        }
+        
+        TMUser *user = [params objectAtIndex:0];
+        NSString *content = [params objectAtIndex:1];
+        
+        TMUser *targetUser = nil;
+        if (params.count == 3) {
+            targetUser = [params objectAtIndex:2];
+        }
+        
+        [self user:user commentFeed:feed targetUser:targetUser content:content];
+    }
 }
 
 // UserLikeFeed

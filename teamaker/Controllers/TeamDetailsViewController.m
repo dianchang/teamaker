@@ -130,7 +130,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     
     // 成员
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    layout.minimumLineSpacing = 20;
+    layout.minimumLineSpacing = 15;
     layout.minimumInteritemSpacing = (self.view.bounds.size.width - 80 * 4) / 3.0;
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
@@ -149,7 +149,7 @@ static NSString* collectionViewReuseIdentifier = @"CollectionViewCellIdentifier"
     
     [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(headerView);
-        make.bottom.equalTo(headerView).offset(-15);
+        make.bottom.equalTo(headerView).offset(-20);
         make.top.equalTo(userLable.mas_bottom).offset(40);
     }];
     
