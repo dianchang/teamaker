@@ -47,7 +47,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     NSLog(@"Creating teams");
     
     TMTeam *teamYouQuan = [Seed createTeamWithName:@"有圈团队" avatar:@"teamYouquan.png"];
-    TMTeam *teamLagou = [Seed createTeamWithName:@"拉钩一拍项目组" avatar:@"teamLagou.jpg"];
+    TMTeam *teamLagou = [Seed createTeamWithName:@"拉勾一拍项目组" avatar:@"teamLagou.jpg"];
     TMTeam *teamPM = [Seed createTeamWithName:@"PM's" avatar:@"teamPM.jpg"];
     
     NSLog(@"Creating teamUserInfos");

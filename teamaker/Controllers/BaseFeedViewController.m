@@ -197,8 +197,8 @@ typedef enum commentNextStateTypes
     
     UIView *commentView = [UIView new];
     CALayer *border = [CALayer layer];
-    border.frame = CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), 1);
-    border.backgroundColor = [[UIColor colorWithRGBA:0xDDDDDDFF] CGColor];
+    border.frame = CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), 0.5);
+    border.backgroundColor = [[UIColor colorWithRGBA:0xBBBBBBFF] CGColor];
     [commentView.layer addSublayer:border];
     commentView.backgroundColor = [UIColor colorWithRGBA:0xEEEEEEFF];
     [window addSubview:commentView];
@@ -229,7 +229,7 @@ typedef enum commentNextStateTypes
     }];
     
     [innerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(commentView).insets(UIEdgeInsetsMake(8, 10, 8, 10));
+        make.edges.equalTo(commentView).insets(UIEdgeInsetsMake(6, 10, 6, 10));
     }];
     
     [inputField mas_makeConstraints:^(MASConstraintMaker *make) {

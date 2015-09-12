@@ -60,7 +60,7 @@
     // 约束
     [pageDown mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.and.bottom.equalTo(self.view);
-        make.height.equalTo(@35);
+        make.height.equalTo(@40);
     }];
 }
 

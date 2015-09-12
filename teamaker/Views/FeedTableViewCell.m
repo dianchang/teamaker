@@ -77,10 +77,10 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     // 用户名
     UIButton *userButton = [[UIButton alloc] init];
-    userButton.userInteractionEnabled = NO;
+//    userButton.userInteractionEnabled = NO;
     userButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [userButton setTitleColor:[UIColor colorWithRGBA:0x36648BFF] forState:UIControlStateNormal];
-    //    [userButton addTarget:self action:@selector(userButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [userButton addTarget:self action:@selector(userButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     userButton.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.contentView addSubview:userButton];
     self.userButton = userButton;
