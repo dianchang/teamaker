@@ -20,19 +20,19 @@
 @interface Seed : NSObject
 
 // User
-+ (void)createUser:(TMUser *)user withName:(NSString *)name sex:(NSString *)sex avatar:(NSString *)avatar;
++ (TMUser *)createUserWithName:(NSString *)name sex:(NSString *)sex avatar:(NSString *)avatar;
 
 // Team
-+ (void)createTeam:(TMTeam *)team withName:(NSString *)name avatar:(NSString *)avatar;
++ (TMTeam *)createTeamWithName:(NSString *)name avatar:(NSString *)avatar;
 
 // TeamUserInfo
 + (void)addUser:(TMUser *)user toTeam:(TMTeam *)team;
 
 // Feed
-+ (void)createTextFeed:(TMFeed *)feed text:(NSString *)text user:(TMUser *)user team:(TMTeam *)team;
-+ (void)createPunchFeed:(TMFeed *)feed punch:(NSString *)punch user:(TMUser *)user team:(TMTeam *)team;
-+ (void)createImageFeed:(TMFeed *)feed imageUrl:(NSString *)imageUrl user:(TMUser *)user team:(TMTeam *)team;
-+ (void)createShareFeed:(TMFeed *)feed url:(NSString *)url title:(NSString *)title user:(TMUser *)user team:(TMTeam *)team;
++ (TMFeed *)createTextFeed:(NSString *)text user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred;
++ (TMFeed *)createPunchFeed:(NSString *)punch user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred;
++ (TMFeed *)createImageFeed:(NSString *)imageUrl user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred;
++ (TMFeed *)createShareFeed:(NSString *)url title:(NSString *)title user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred;
 
 // UserLikeFeed
 + (void)user:(TMUser *)user likeFeed:(TMFeed *)feed;

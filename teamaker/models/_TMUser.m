@@ -21,6 +21,7 @@ const struct TMUserRelationships TMUserRelationships = {
 	.comments = @"comments",
 	.feeds = @"feeds",
 	.likedFeeds = @"likedFeeds",
+	.punches = @"punches",
 	.targetedComments = @"targetedComments",
 	.teamsInfos = @"teamsInfos",
 };
@@ -130,6 +131,17 @@ const struct TMUserRelationships TMUserRelationships = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"likedFeeds"];
 
 	[self didAccessValueForKey:@"likedFeeds"];
+	return result;
+}
+
+@dynamic punches;
+
+- (NSMutableSet*)punchesSet {
+	[self willAccessValueForKey:@"punches"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"punches"];
+
+	[self didAccessValueForKey:@"punches"];
 	return result;
 }
 

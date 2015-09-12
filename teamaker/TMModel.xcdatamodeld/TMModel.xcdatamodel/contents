@@ -35,6 +35,8 @@
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TMUser" inverseName="punches" inverseEntity="TMUser" syncable="YES"/>
     </entity>
     <entity name="TMTeam" representedClassName="TMTeam" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
@@ -72,6 +74,7 @@
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeedComment" inverseName="user" inverseEntity="TMFeedComment" syncable="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeed" inverseName="user" inverseEntity="TMFeed" syncable="YES"/>
         <relationship name="likedFeeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMUserLikeFeed" inverseName="user" inverseEntity="TMUserLikeFeed" syncable="YES"/>
+        <relationship name="punches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMPunch" inverseName="user" inverseEntity="TMPunch" syncable="YES"/>
         <relationship name="targetedComments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMFeedComment" inverseName="targetUser" inverseEntity="TMFeedComment" syncable="YES"/>
         <relationship name="teamsInfos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMTeamUserInfo" inverseName="user" inverseEntity="TMTeamUserInfo" syncable="YES"/>
     </entity>
@@ -86,10 +89,10 @@
     <elements>
         <element name="TMFeed" positionX="63" positionY="-2307" width="128" height="315"/>
         <element name="TMFeedComment" positionX="-477" positionY="-2160" width="128" height="180"/>
-        <element name="TMPunch" positionX="-675" positionY="-27" width="128" height="90"/>
+        <element name="TMPunch" positionX="-675" positionY="-27" width="128" height="120"/>
         <element name="TMTeam" positionX="304" positionY="-2109" width="128" height="135"/>
         <element name="TMTeamUserInfo" positionX="63" positionY="-2061" width="128" height="210"/>
-        <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="285"/>
+        <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="300"/>
         <element name="TMUserLikeFeed" positionX="-477" positionY="-2160" width="128" height="135"/>
     </elements>
 </model>

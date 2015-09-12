@@ -21,6 +21,7 @@ extern const struct TMUserRelationships {
 	__unsafe_unretained NSString *comments;
 	__unsafe_unretained NSString *feeds;
 	__unsafe_unretained NSString *likedFeeds;
+	__unsafe_unretained NSString *punches;
 	__unsafe_unretained NSString *targetedComments;
 	__unsafe_unretained NSString *teamsInfos;
 } TMUserRelationships;
@@ -28,6 +29,7 @@ extern const struct TMUserRelationships {
 @class TMFeedComment;
 @class TMFeed;
 @class TMUserLikeFeed;
+@class TMPunch;
 @class TMFeedComment;
 @class TMTeamUserInfo;
 
@@ -100,6 +102,10 @@ extern const struct TMUserRelationships {
 
 - (NSMutableSet*)likedFeedsSet;
 
+@property (nonatomic, strong) NSSet *punches;
+
+- (NSMutableSet*)punchesSet;
+
 @property (nonatomic, strong) NSSet *targetedComments;
 
 - (NSMutableSet*)targetedCommentsSet;
@@ -131,6 +137,14 @@ extern const struct TMUserRelationships {
 - (void)removeLikedFeeds:(NSSet*)value_;
 - (void)addLikedFeedsObject:(TMUserLikeFeed*)value_;
 - (void)removeLikedFeedsObject:(TMUserLikeFeed*)value_;
+
+@end
+
+@interface _TMUser (PunchesCoreDataGeneratedAccessors)
+- (void)addPunches:(NSSet*)value_;
+- (void)removePunches:(NSSet*)value_;
+- (void)addPunchesObject:(TMPunch*)value_;
+- (void)removePunchesObject:(TMPunch*)value_;
 
 @end
 
@@ -196,6 +210,9 @@ extern const struct TMUserRelationships {
 
 - (NSMutableSet*)primitiveLikedFeeds;
 - (void)setPrimitiveLikedFeeds:(NSMutableSet*)value;
+
+- (NSMutableSet*)primitivePunches;
+- (void)setPrimitivePunches:(NSMutableSet*)value;
 
 - (NSMutableSet*)primitiveTargetedComments;
 - (void)setPrimitiveTargetedComments:(NSMutableSet*)value;

@@ -7,6 +7,11 @@ const struct TMPunchAttributes TMPunchAttributes = {
 	.content = @"content",
 	.id = @"id",
 	.order = @"order",
+	.userId = @"userId",
+};
+
+const struct TMPunchRelationships TMPunchRelationships = {
+	.user = @"user",
 };
 
 @implementation TMPunchID
@@ -42,6 +47,11 @@ const struct TMPunchAttributes TMPunchAttributes = {
 	}
 	if ([key isEqualToString:@"orderValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"order"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"userIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"userId"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -90,6 +100,28 @@ const struct TMPunchAttributes TMPunchAttributes = {
 - (void)setPrimitiveOrderValue:(int32_t)value_ {
 	[self setPrimitiveOrder:[NSNumber numberWithInt:value_]];
 }
+
+@dynamic userId;
+
+- (int32_t)userIdValue {
+	NSNumber *result = [self userId];
+	return [result intValue];
+}
+
+- (void)setUserIdValue:(int32_t)value_ {
+	[self setUserId:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveUserIdValue {
+	NSNumber *result = [self primitiveUserId];
+	return [result intValue];
+}
+
+- (void)setPrimitiveUserIdValue:(int32_t)value_ {
+	[self setPrimitiveUserId:[NSNumber numberWithInt:value_]];
+}
+
+@dynamic user;
 
 @end
 

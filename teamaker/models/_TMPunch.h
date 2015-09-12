@@ -7,7 +7,14 @@ extern const struct TMPunchAttributes {
 	__unsafe_unretained NSString *content;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *order;
+	__unsafe_unretained NSString *userId;
 } TMPunchAttributes;
+
+extern const struct TMPunchRelationships {
+	__unsafe_unretained NSString *user;
+} TMPunchRelationships;
+
+@class TMUser;
 
 @interface TMPunchID : NSManagedObjectID {}
 @end
@@ -38,6 +45,18 @@ extern const struct TMPunchAttributes {
 
 //- (BOOL)validateOrder:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* userId;
+
+@property (atomic) int32_t userIdValue;
+- (int32_t)userIdValue;
+- (void)setUserIdValue:(int32_t)value_;
+
+//- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) TMUser *user;
+
+//- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
+
 @end
 
 @interface _TMPunch (CoreDataGeneratedPrimitiveAccessors)
@@ -56,5 +75,14 @@ extern const struct TMPunchAttributes {
 
 - (int32_t)primitiveOrderValue;
 - (void)setPrimitiveOrderValue:(int32_t)value_;
+
+- (NSNumber*)primitiveUserId;
+- (void)setPrimitiveUserId:(NSNumber*)value;
+
+- (int32_t)primitiveUserIdValue;
+- (void)setPrimitiveUserIdValue:(int32_t)value_;
+
+- (TMUser*)primitiveUser;
+- (void)setPrimitiveUser:(TMUser*)value;
 
 @end

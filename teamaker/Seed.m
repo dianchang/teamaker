@@ -7,225 +7,231 @@
 //
 
 #import "Seed.h"
+#import "AFNetworking.h"
+
+static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
 
 @implementation Seed
 
 // User
-+ (void)createUser:(TMUser *)user withName:(NSString *)name sex:(NSString *)sex avatar:(NSString *)avatar
++ (TMUser *)createUserWithName:(NSString *)name sex:(NSString *)sex avatar:(NSString *)avatar
 {
-//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//        userHustlzp = [TMUser MR_createEntityInContext:localContext];
-//        userHustlzp.id = @1;
-//        userHustlzp.name = @"hustlzp";
-//        userHustlzp.sex = @"男";
-//        userHustlzp.email = @"hustlzp@qq.com";
-//        userHustlzp.wechat = @"hustlzp";
-//        userHustlzp.province = @"北京";
-//        userHustlzp.phone = @"15810246752";
-//        userHustlzp.motto = @"呵呵";
-//        userHustlzp.avatar = @"http://img3.douban.com/icon/up45197381-5.jpg";
-//        
-//        userHardin = [TMUser MR_createEntityInContext:localContext];
-//        userHardin.id = @2;
-//        userHardin.name = @"哈丁";
-//        userHardin.sex = @"男";
-//        userHardin.email = @"hardin@qq.com";
-//        userHardin.wechat = @"hardin";
-//        userHardin.province = @"北京";
-//        userHardin.phone = @"15810246752";
-//        userHardin.motto = @"呵呵";
-//        userHardin.avatar = @"http://www.1jingdian.com/uploads/collectionCovers/default.png";
-//    }];
+    static long id = 1;
+    
+    __block TMUser *user;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        user = [TMUser MR_createEntityInContext:localContext];
+        user.id = [NSNumber numberWithLong:id];
+        user.name = name;
+        user.sex = sex;
+        user.email = @"hustlzp@qq.com";
+        user.wechat = @"hustlzp";
+        user.province = @"北京";
+        user.phone = @"15810246752";
+        user.motto = @"呵呵";
+        user.avatar = [NSString stringWithFormat:@"%@/%@", cdn, avatar];
+    }];
+    
+    id++;
+    
+    return user;
 }
 
 // Team
-+ (void)createTeam:(TMTeam *)team withName:(NSString *)name avatar:(NSString *)avatar
++ (TMTeam *)createTeamWithName:(NSString *)name avatar:(NSString *)avatar
 {
-//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//        teamYouQuan = [TMTeam MR_createEntityInContext:localContext];
-//        teamYouQuan.id = @1;
-//        teamYouQuan.name = @"Teamaker";
-//        teamYouQuan.avatar = @"http://www.blogbar.cc/static/image/apple-touch-icon-precomposed-152.png";
-//        
-//        teamLagou = [TMTeam MR_createEntityInContext:localContext];
-//        teamLagou.id = @2;
-//        teamLagou.name = @"拉勾";
-//        teamLagou.avatar = @"http://www.blogbar.cc/static/image/apple-touch-icon-precomposed-152.png";
-//        
-//        teamPM = [TMTeam MR_createEntityInContext:localContext];
-//        teamPM.id = @3;
-//        teamPM.name = @"测试";
-//        teamPM.avatar = @"http://www.blogbar.cc/static/image/apple-touch-icon-precomposed-152.png";
-//    }];
+    static long id = 1;
+    
+    __block TMTeam *team;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        team = [TMTeam MR_createEntityInContext:localContext];
+        team.id = [NSNumber numberWithLong:id];
+        team.name = name;
+        team.avatar = [NSString stringWithFormat:@"%@/%@", cdn, avatar];
+    }];
+    
+    return team;
 }
 
 // TeamUserInfo
 + (void)addUser:(TMUser *)user toTeam:(TMTeam *)team
 {
-//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//        TMUser *_user1 = [userHustlzp MR_inContext:localContext];
-//        TMUser *_user2 = [userHardin MR_inContext:localContext];
-//        TMTeam *_team1 = [teamYouQuan MR_inContext:localContext];
-//        TMTeam *_team2 = [teamLagou MR_inContext:localContext];
-//        
-//        TMTeamUserInfo* info1 = [TMTeamUserInfo MR_createEntityInContext:localContext];
-//        info1.name = _user1.name;
-//        info1.avatar = _user1.avatar;
-//        info1.userId = _user1.id;
-//        info1.user = _user1;
-//        info1.teamId = _team1.id;
-//        info1.team = _team1;
-//        
-//        TMTeamUserInfo* info2 = [TMTeamUserInfo MR_createEntityInContext:localContext];
-//        info2.name = _user2.name;
-//        info2.avatar = _user2.avatar;
-//        info2.userId = _user2.id;
-//        info2.user = _user2;
-//        info2.teamId = _team1.id;
-//        info2.team = _team1;
-//        
-//        TMTeamUserInfo* info3 = [TMTeamUserInfo MR_createEntityInContext:localContext];
-//        info3.name = _user1.name;
-//        info3.avatar = _user1.avatar;
-//        info3.userId = _user1.id;
-//        info3.user = _user1;
-//        info3.teamId = _team2.id;
-//        info3.team = _team2;
-//        
-//        TMTeamUserInfo* info4 = [TMTeamUserInfo MR_createEntityInContext:localContext];
-//        info4.name = _user2.name;
-//        info4.avatar = _user2.avatar;
-//        info4.userId = _user2.id;
-//        info4.user = _user2;
-//        info4.teamId = _team2.id;
-//        info4.team = _team2;
-//    }];
+    static long id = 1;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        TMUser *_user = [user MR_inContext:localContext];
+        TMTeam *_team = [team MR_inContext:localContext];
+        
+        TMTeamUserInfo* info = [TMTeamUserInfo MR_createEntityInContext:localContext];
+        info.id = [NSNumber numberWithLong:id];
+        info.name = _user.name;
+        info.avatar = _user.avatar;
+        info.userId = _user.id;
+        info.user = _user;
+        info.teamId = _team.id;
+        info.team = _team;
+        info.createdAt = [NSDate date];
+    }];
+    
+    id++;
+}
+
+// Feed
++ (TMFeed *)createFeedWithUser:(TMUser *)user team:(TMTeam *)team inContext:(NSManagedObjectContext *)context
+{
+    static long id = 1;
+    
+    TMFeed *feed = [TMFeed MR_createEntityInContext:context];
+    TMUser *_user = [user MR_inContext:context];
+    TMTeam *_team = [team MR_inContext:context];
+    
+    feed.id = [NSNumber numberWithLong:id];
+    feed.userId = _user.id;
+    feed.user = _user;
+    feed.teamId = _team.id;
+    feed.team = _team;
+    feed.createdAt = [NSDate date];
+    
+    id++;
+    
+    return feed;
 }
 
 // Feed - TEXT
-+ (void)createTextFeed:(TMFeed *)feed text:(NSString *)text user:(TMUser *)user team:(TMTeam *)team
++ (TMFeed *)createTextFeed:(NSString *)text user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
 {
-//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//        TMUser *_user1 = [userHustlzp MR_inContext:localContext];
-//        TMUser *_user2 = [userHardin MR_inContext:localContext];
-//        TMTeam *_team1 = [teamYouQuan MR_inContext:localContext];
-//        //            TMTeam *_team2 = [team2 MR_inContext:localContext];
-//        
-//        feed1 = [TMFeed MR_createEntityInContext:localContext];
-//        feed1.id = @1;
-//        feed1.userId = _user1.id;
-//        feed1.user = _user1;
-//        feed1.teamId = _team1.id;
-//        feed1.team = _team1;
-//        feed1.createdAt = [NSDate date];
-//        feed1.kind = @"text";
-//        feed1.text = @"hehe";
-//        
-//        feed2 = [TMFeed MR_createEntityInContext:localContext];
-//        feed2.id = @2;
-//        feed2.userId = _user2.id;
-//        feed2.user = _user2;
-//        feed2.teamId = _team1.id;
-//        feed2.team = _team1;
-//        feed2.starred = @YES;
-//        feed2.createdAt = [NSDate date];
-//        feed2.kind = @"text";
-//        feed2.text = @"xixi";
-//    }];
+    __block TMFeed *feed;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        feed = [self createFeedWithUser:user team:team inContext:localContext];
+        feed.kind = @"text";
+        feed.text = text;
+        feed.starredValue = starred;
+    }];
+    
+    return feed;
 }
 
 // Feed - PUNCH
-+ (void)createPunchFeed:(TMFeed *)feed punch:(NSString *)punch user:(TMUser *)user team:(TMTeam *)team
++ (TMFeed *)createPunchFeed:(NSString *)punch user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
 {
-
+    __block TMFeed *feed;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        feed = [self createFeedWithUser:user team:team inContext:localContext];
+        feed.kind = @"punch";
+        feed.punch = punch;
+        feed.starredValue = starred;
+    }];
+    
+    return feed;
 }
 
 // Feed - IMAGE
-+ (void)createImageFeed:(TMFeed *)feed imageUrl:(NSString *)imageUrl user:(TMUser *)user team:(TMTeam *)team
++ (TMFeed *)createImageFeed:(NSString *)imageUrl user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
 {
+    __block TMFeed *feed;
 
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        feed = [self createFeedWithUser:user team:team inContext:localContext];
+        feed.kind = @"image";
+        feed.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", cdn, imageUrl]]];;
+        feed.starredValue = starred;
+    }];
+    
+    return feed;
 }
 
 // Feed - SHARE
-+ (void)createShareFeed:(TMFeed *)feed url:(NSString *)url title:(NSString *)title user:(TMUser *)user team:(TMTeam *)team
++ (TMFeed *)createShareFeed:(NSString *)url title:(NSString *)title user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred
 {
-
+    __block TMFeed *feed;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        feed = [self createFeedWithUser:user team:team inContext:localContext];
+        feed.kind = @"share";
+        feed.shareTitle = title;
+        feed.shareUrl = url;
+        feed.starredValue = starred;
+    }];
+    
+    return feed;
 }
 
 // UserLikeFeed
 + (void)user:(TMUser *)user likeFeed:(TMFeed *)feed
 {
-//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//        TMUserLikeFeed *likeFeed = [TMUserLikeFeed MR_createEntityInContext:localContext];
-//        TMUser *_user2 = [userHardin MR_inContext:localContext];
-//        TMFeed *_feed1 = [feed1 MR_inContext:localContext];
-//        likeFeed.createdAt = [NSDate date];
-//        likeFeed.userId = _user2.id;
-//        likeFeed.user = _user2;
-//        likeFeed.feedId = _feed1.id;
-//        likeFeed.feed = _feed1;
-//    }];
+    static long id = 1;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        TMUserLikeFeed *likeFeed = [TMUserLikeFeed MR_createEntityInContext:localContext];
+        TMUser *_user = [user MR_inContext:localContext];
+        TMFeed *_feed = [feed MR_inContext:localContext];
+        
+        likeFeed.id = [NSNumber numberWithLong:id];
+        likeFeed.createdAt = [NSDate date];
+        likeFeed.userId = _user.id;
+        likeFeed.user = _user;
+        likeFeed.feedId = _feed.id;
+        likeFeed.feed = _feed;
+    }];
+    
+    id++;
 }
 
 // FeedComment
 + (void)user:(TMUser *)user commentFeed:(TMFeed *)feed targetUser:(TMUser *)targetUser content:(NSString *)content
 {
-//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//        TMUser *_user1 = [userHustlzp MR_inContext:localContext];
-//        TMUser *_user2 = [userHardin MR_inContext:localContext];
-//        TMFeed *_feed1 = [feed1 MR_inContext:localContext];
-//        
-//        TMFeedComment *comment1 = [TMFeedComment MR_createEntityInContext:localContext];
-//        comment1.id = @1;
-//        comment1.content = @"呵呵。";
-//        comment1.userId = _user2.id;
-//        comment1.user = _user2;
-//        comment1.feedId = _feed1.id;
-//        comment1.feed = _feed1;
-//        comment1.createdAt = [NSDate date];
-//        
-//        TMFeedComment *comment2 = [TMFeedComment MR_createEntityInContext:localContext];
-//        comment2.id = @2;
-//        comment2.content = @"呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵！";
-//        comment2.userId = _user1.id;
-//        comment2.user = _user1;
-//        comment2.targetUserId = _user2.id;
-//        comment2.targetUser = _user2;
-//        comment2.feedId = _feed1.id;
-//        comment2.feed = _feed1;
-//        comment2.createdAt = [NSDate date];
-//    }];
+    static long id = 1;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        TMUser *_user = [user MR_inContext:localContext];
+        TMUser *_targetUser;
+        TMFeed *_feed = [feed MR_inContext:localContext];
+        
+        if (targetUser) {
+            _targetUser = [targetUser MR_inContext:localContext];
+        }
+        
+        TMFeedComment *comment = [TMFeedComment MR_createEntityInContext:localContext];
+        comment.id = [NSNumber numberWithLong:id];
+        comment.content = content;
+        comment.userId = _user.id;
+        comment.user = _user;
+        comment.feedId = _feed.id;
+        comment.feed = _feed;
+        comment.createdAt = [NSDate date];
+        
+        if (targetUser) {
+            comment.targetUserId = _targetUser.id;
+            comment.targetUser = _targetUser;
+        }
+    }];
+    
+    id++;
 }
 
 // Punch
-+ (void)createPunch:(NSString *)punch user:(TMUser *)user
++ (void)createPunch:(NSString *)punchContent user:(TMUser *)user
 {
-//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//        TMPunch *punch1 = [TMPunch MR_createEntityInContext:localContext];
-//        punch1.id = @1;
-//        punch1.order = @1;
-//        punch1.content = @"开会中";
-//        
-//        TMPunch *punch2 = [TMPunch MR_createEntityInContext:localContext];
-//        punch2.id = @2;
-//        punch2.order = @2;
-//        punch2.content = @"头脑风暴ing";
-//        
-//        TMPunch *punch3 = [TMPunch MR_createEntityInContext:localContext];
-//        punch3.id = @3;
-//        punch3.order = @3;
-//        punch3.content = @"开始工作！";
-//        
-//        TMPunch *punch4 = [TMPunch MR_createEntityInContext:localContext];
-//        punch4.id = @4;
-//        punch4.order = @4;
-//        punch4.content = @"加油！坚持！";
-//        
-//        TMPunch *punch5 = [TMPunch MR_createEntityInContext:localContext];
-//        punch5.id = @5;
-//        punch5.order = @5;
-//        punch5.content = @"上班路上";
-//    }];
+    static long id = 1;
+    static long order = 1;
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        TMUser *userInContext = [user MR_inContext:localContext];
+        
+        TMPunch *punch = [TMPunch MR_createEntityInContext:localContext];
+        punch.id = [NSNumber numberWithLong:id];
+        punch.order = [NSNumber numberWithLong:order];
+        punch.content = punchContent;
+        punch.userId = userInContext.id;
+        punch.user = userInContext;
+    }];
+    
+    id++;
+    order++;
 }
 
 // Truncate all data

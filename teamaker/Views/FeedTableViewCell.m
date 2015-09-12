@@ -110,8 +110,6 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     } else if ([reuseIdentifier isEqualToString:punchCellReuseIdentifier]) {
         // 打卡
         TMLabel *punchLabel = [TMLabel new];
-        punchLabel.numberOfLines = 0;
-        punchLabel.lineBreakMode = NSLineBreakByWordWrapping;
         punchLabel.font = [UIFont systemFontOfSize:14];
         [self.contentView addSubview:punchLabel];
         self.punchLabel = punchLabel;
