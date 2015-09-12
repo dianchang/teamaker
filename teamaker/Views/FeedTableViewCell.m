@@ -79,7 +79,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     UIButton *userButton = [[UIButton alloc] init];
     userButton.userInteractionEnabled = NO;
     userButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [userButton setTitleColor:[UIColor colorWithRGBA:0x333333FF] forState:UIControlStateNormal];
+    [userButton setTitleColor:[UIColor colorWithRGBA:0x36648BFF] forState:UIControlStateNormal];
     //    [userButton addTarget:self action:@selector(userButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     userButton.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.contentView addSubview:userButton];
@@ -214,14 +214,14 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     // 约束
     [self.userAvatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).with.offset(10);
-        make.top.equalTo(self.contentView).with.offset(10);
+        make.top.equalTo(self.contentView).with.offset(15);
         make.width.equalTo(@35);
         make.height.equalTo(@35);
     }];
     
     [self.userButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userAvatarImageView.mas_right).with.offset(10);
-        make.top.equalTo(self.contentView).with.offset(10);
+        make.top.equalTo(self.contentView).with.offset(15);
         make.height.equalTo(@18);
     }];
     

@@ -17,6 +17,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
 {
     if (![[TMUser MR_numberOfEntities] isEqualToNumber:@0]) {
         NSLog(@"Data exists.");
+        return;
     }
     
     NSLog(@"Creating users.");

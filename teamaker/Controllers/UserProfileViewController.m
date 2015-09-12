@@ -167,7 +167,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 || indexPath.section == 1) {
-        return 45;
+        return 40;
     } else if (indexPath.section == 2) {
         return 50;
     } else {
@@ -179,8 +179,10 @@
 {
     if (section == 0) {
         return CGFLOAT_MIN;
-    } else if (section == 1 || section == 2) {
+    } else if (section == 1) {
         return 15;
+    } else if (section == 2) {
+        return 20;
     } else if (section == 3) {
         return 80;
     } else {

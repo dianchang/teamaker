@@ -75,7 +75,7 @@
     commentLabel.numberOfLines = 0;
     commentLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
-    NSMutableAttributedString *userString = [[NSMutableAttributedString alloc] initWithString:comment.user.name attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]}];
+    NSMutableAttributedString *userString = [[NSMutableAttributedString alloc] initWithString:comment.user.name attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14], NSForegroundColorAttributeName: [UIColor colorWithRGBA:0x36648BFF]}];
     
     NSAttributedString *replyFlagString;
     NSAttributedString *targetUserString;
@@ -85,7 +85,7 @@
     if (comment.targetUser) {
         replyFlagString = [[NSAttributedString alloc] initWithString:@" ▸ " attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14], NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
         
-        targetUserString = [[NSMutableAttributedString alloc] initWithString:comment.targetUser.name attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]}];
+        targetUserString = [[NSMutableAttributedString alloc] initWithString:comment.targetUser.name attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14], NSForegroundColorAttributeName: [UIColor colorWithRGBA:0x36648BFF]}];
         
         [userString appendAttributedString:replyFlagString];
         [userString appendAttributedString:targetUserString];
