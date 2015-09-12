@@ -555,16 +555,31 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         make.edges.equalTo(window);
     }];
     
-    [window setNeedsLayout];
-    
+    [backgroundView setNeedsLayout];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+    [window setNeedsLayout];
+    [window layoutIfNeeded];
     
     [UIView animateWithDuration:.3 animations:^{
         CGRect newFrame;
-        newFrame.size.width = MIN(window.frame.size.width, image.size.width);
-        newFrame.size.height = MIN(window.frame.size.height, image.size.height);
+        
+        CGFloat imageWidth = image.size.width;
+        CGFloat imageHeight = image.size.height;
+        CGFloat windowWidth = CGRectGetWidth(window.frame);
+        CGFloat windowHeight = CGRectGetHeight(window.frame);
+        
+        if ((imageWidth / imageHeight) > (windowWidth / windowHeight)) {
+            newFrame.size.width = MIN(window.frame.size.width, image.size.width);
+            newFrame.size.height = imageHeight * newFrame.size.width / imageWidth;
+        } else {
+            newFrame.size.height = MIN(window.frame.size.height, image.size.height);
+            newFrame.size.width = imageWidth * newFrame.size.height / imageHeight;
+        }
+        
         newFrame.origin.x = (window.frame.size.width - newFrame.size.width) / 2.0;
         newFrame.origin.y = (window.frame.size.height - newFrame.size.height) / 2.0;
+        
         newImageView.frame = newFrame;
     }];
 }
