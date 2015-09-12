@@ -178,13 +178,13 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
      starred:NO];
     
     [Seed
-     createShareFeed:@"http://www.raywenderlich.com/73602/dynamic-table-view-cell-height-auto-layout"
-     title:@"Dynamic Table View Cell Height and Auto Layout"
+     createShareFeed:@"http://36kr.com/p/155310.html"
+     title:@"Paul Graham：创业 = 增长"
      user:userHustlzp
      team:teamYouQuan
      starred:YES
      likers:@[userHardin, userJiuQi]
-     comments:@[@[userHustlzp, @"不错的一篇教程，讲解了如何自适应TableViewCell的高度。"]]];
+     comments:@[@[userHustlzp, @"非常好的一篇文章，强烈推荐！"]]];
     
     [Seed
      createPunchFeed:@"开会！脑暴！"
