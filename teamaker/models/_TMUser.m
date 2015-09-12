@@ -6,6 +6,7 @@
 const struct TMUserAttributes TMUserAttributes = {
 	.avatar = @"avatar",
 	.city = @"city",
+	.createdAt = @"createdAt",
 	.email = @"email",
 	.id = @"id",
 	.motto = @"motto",
@@ -64,6 +65,8 @@ const struct TMUserRelationships TMUserRelationships = {
 @dynamic avatar;
 
 @dynamic city;
+
+@dynamic createdAt;
 
 @dynamic email;
 

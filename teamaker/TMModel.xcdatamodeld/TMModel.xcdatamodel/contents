@@ -62,6 +62,7 @@
     <entity name="TMUser" representedClassName="TMUser" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="motto" optional="YES" attributeType="String" syncable="YES"/>
@@ -92,7 +93,7 @@
         <element name="TMPunch" positionX="-675" positionY="-27" width="128" height="120"/>
         <element name="TMTeam" positionX="304" positionY="-2109" width="128" height="135"/>
         <element name="TMTeamUserInfo" positionX="63" positionY="-2061" width="128" height="210"/>
-        <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="300"/>
+        <element name="TMUser" positionX="-180" positionY="-2214" width="128" height="315"/>
         <element name="TMUserLikeFeed" positionX="-477" positionY="-2160" width="128" height="135"/>
     </elements>
 </model>

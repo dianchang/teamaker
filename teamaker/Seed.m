@@ -135,7 +135,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     NSLog(@"Creating feed comments");
     
     [Seed user:userHustlzp commentFeed:feed1 targetUser:nil content:@"这个想法很不错啊，真心赞！"];
-    [Seed user:userJiuQi commentFeed:feed1 targetUser:nil content:@"我看行，靠谱。其实也可以做成圈子和圈子之间的关系啊，把一个圈子作为主体，可以和其他的圈子进行互动和点赞，比如有圈的产品组和拉勾的产品组就可以成为【好友组】啊！"];
+    [Seed user:userJiuQi commentFeed:feed1 targetUser:nil content:@"我看行，靠谱。其实也可以做成圈子和圈子之间的关系啊，把一个圈子作为主体，可以和其他的圈子进行互动和点赞，比如有圈的产品组和拉勾的产品组就可以成为「好友组」啊！"];
     [Seed user:userHardin commentFeed:feed1 targetUser:userJiuQi content:@"我靠，这个吊啊！！"];
     [Seed user:userHustlzp commentFeed:feed1 targetUser:nil content:@"牛叉！"];
     [Seed user:userHardin commentFeed:feed1 targetUser:userHustlzp content:@"哈哈，昨天晚上躺床上睡不着想的"];
@@ -161,7 +161,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     [Seed user:userKasperl commentFeed:feed8 targetUser:nil content:@"这是在哪？"];
     [Seed user:userHustlzp commentFeed:feed8 targetUser:userKasperl content:@"故宫😀"];
     
-    [Seed user:userDaiYuSen commentFeed:feed9 targetUser:nil content:@"摸了再黑？和【睡了再分】是不是一个意思？"];
+    [Seed user:userDaiYuSen commentFeed:feed9 targetUser:nil content:@"摸了再黑？和「睡了再分」是不是一个意思？"];
     [Seed user:userKentZhu commentFeed:feed9 targetUser:userDaiYuSen content:@"哈哈哈"];
     [Seed user:userHardin commentFeed:feed9 targetUser:userDaiYuSen content:@"哈哈哈"];
     [Seed user:userAray commentFeed:feed9 targetUser:userDaiYuSen content:@"段子手我只认你"];

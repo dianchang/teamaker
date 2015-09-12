@@ -6,6 +6,7 @@
 extern const struct TMUserAttributes {
 	__unsafe_unretained NSString *avatar;
 	__unsafe_unretained NSString *city;
+	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *motto;
@@ -49,6 +50,10 @@ extern const struct TMUserRelationships {
 @property (nonatomic, strong) NSString* city;
 
 //- (BOOL)validateCity:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSDate* createdAt;
+
+//- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* email;
 
@@ -171,6 +176,9 @@ extern const struct TMUserRelationships {
 
 - (NSString*)primitiveCity;
 - (void)setPrimitiveCity:(NSString*)value;
+
+- (NSDate*)primitiveCreatedAt;
+- (void)setPrimitiveCreatedAt:(NSDate*)value;
 
 - (NSString*)primitiveEmail;
 - (void)setPrimitiveEmail:(NSString*)value;
