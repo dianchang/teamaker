@@ -458,7 +458,14 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         UIImage *image = [UIImage imageWithData:feed.image];
         self.feedImageView.image = image;
         [self.feedImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-            NSInteger imageWidth = 100;
+            NSInteger imageWidth;
+            
+            if (image.size.width < image.size.height) {
+                imageWidth = 100;
+            } else {
+                imageWidth = 160;
+            }
+            
             make.width.equalTo([NSNumber numberWithLong:imageWidth]);
             make.height.equalTo([NSNumber numberWithFloat:image.size.height * imageWidth / image.size.width]);
         }];
@@ -626,7 +633,7 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
  */
 - (void)feedImagePreviewBackdropViewTapped:(UIGestureRecognizer* )gestureRecognizer
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
     });
     
