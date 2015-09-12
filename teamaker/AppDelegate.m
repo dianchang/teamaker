@@ -26,7 +26,7 @@
 + (void)initialize
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults registerDefaults:@{@"LoggedInUserId": @1}];
+    [defaults registerDefaults:@{@"LoggedInUserId": @2}];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -34,7 +34,7 @@
     
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
-//    [Seed seedData];
+    [Seed seedData];
     
     return YES;
 }

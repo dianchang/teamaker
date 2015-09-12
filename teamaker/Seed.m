@@ -211,6 +211,8 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
         team.avatar = [NSString stringWithFormat:@"%@/%@", cdn, avatar];
     }];
     
+    id++;
+    
     return team;
 }
 
