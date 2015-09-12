@@ -153,6 +153,18 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     [timeAndCommandsView addSubview:timeLable];
     timeLable.textColor = [UIColor colorWithRGBA:0x999999FF];
     self.createdAtLabel = timeLable;
+    
+    // 删除按钮
+    UILabel *deleteButton = [UILabel new];
+    deleteButton.userInteractionEnabled = YES;
+    deleteButton.text = @"删除";
+    deleteButton.font = [UIFont systemFontOfSize:12];
+    deleteButton.textColor = [UIColor colorWithRGBA:0x36648BFF];
+    [timeAndCommandsView addSubview:deleteButton];
+    self.deleteButton = deleteButton;
+    UITapGestureRecognizer *gestureForDeleteButton = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteFeed)];
+    gestureForDeleteButton.numberOfTapsRequired = 1;
+    [deleteButton addGestureRecognizer:gestureForDeleteButton];
 
     // 星标
     UILabel *starLabel = [IonIcons labelWithIcon:ion_android_star size:16 color:[UIColor colorWithRGBA:0x999999FF]];
@@ -272,6 +284,11 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     
     [self.createdAtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.centerY.equalTo(self.timeAndCommandsView);
+    }];
+    
+    [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.createdAtLabel.mas_right).offset(15);
+        make.centerY.equalTo(self.createdAtLabel);
     }];
     
     [self.commandButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -418,6 +435,9 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
     // 时间
     self.createdAtLabel.text = [feed.createdAt friendlyInterval];
     
+    // 删除按钮
+    self.deleteButton.hidden = ![feed.userId isEqualToNumber:[TMUser findLoggedInUser].id];
+    
     // 星标
     if ([feed isPunch]) {
         self.starLabel.hidden = YES;
@@ -501,6 +521,21 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
 - (void)userButtonClicked:(UIButton *)sender
 {
     [self.delegate redirectToUserProfile:[NSNumber numberWithLong:sender.tag]];
+}
+
+/**
+ *  删除feed
+ */
+- (void)deleteFeed
+{
+    self.deleteButton.font = [UIFont boldSystemFontOfSize:12];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.deleteButton.font = [UIFont systemFontOfSize:12];
+        [self.feed MR_deleteEntity];
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:TMFeedViewShouldReloadFeedsNotification object:self];
+        }];
+    });
 }
 
 /**
