@@ -19,6 +19,8 @@
 
 @interface Seed : NSObject
 
++ (void)seedData;
+
 // User
 + (TMUser *)createUserWithName:(NSString *)name sex:(NSString *)sex avatar:(NSString *)avatar;
 

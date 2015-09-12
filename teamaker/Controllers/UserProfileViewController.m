@@ -169,7 +169,7 @@
     if (indexPath.section == 0 || indexPath.section == 1) {
         return 45;
     } else if (indexPath.section == 2) {
-        return 60;
+        return 50;
     } else {
         return 0;
     }
