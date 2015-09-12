@@ -26,23 +26,23 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     TMUser *userHardin = [Seed createUserWithName:@"哈丁" sex:@"男" avatar:@"hardin.png"];
     TMUser *userJiuQi = [Seed createUserWithName:@"玖琪" sex:@"女" avatar:@"jiuqi.jpg"];
     TMUser *userKasperl = [Seed createUserWithName:@"kasperl" sex:@"男" avatar:@"1.png"];
-    TMUser *userALan = [Seed createUserWithName:@"阿兰" sex:@"男" avatar:@"2.png"];
+    TMUser *userALan = [Seed createUserWithName:@"阿兰" sex:@"男" avatar:@"7.png"];
     
-    TMUser *userXiaoYang = [Seed createUserWithName:@"小杨issac" sex:@"男" avatar:@"3.png"];
+    TMUser *userXiaoYang = [Seed createUserWithName:@"小杨issac" sex:@"男" avatar:@"6.png"];
     TMUser *userVee = [Seed createUserWithName:@"vee" sex:@"男" avatar:@"4.png"];
     TMUser *userKim = [Seed createUserWithName:@"kim" sex:@"男" avatar:@"5.png"];
     TMUser *userCc = [Seed createUserWithName:@"cc" sex:@"男" avatar:@"6.png"];
-    TMUser *userBanlon = [Seed createUserWithName:@"banlon" sex:@"男" avatar:@"7.png"];
+    TMUser *userBanlon = [Seed createUserWithName:@"banlon" sex:@"男" avatar:@"3.png"];
     
-    TMUser *userOxygen = [Seed createUserWithName:@"oxygen" sex:@"男" avatar:@"8.png"];
+    TMUser *userOxygen = [Seed createUserWithName:@"oxygen" sex:@"男" avatar:@"2.png"];
     TMUser *userHideCloud = [Seed createUserWithName:@"hidecloud" sex:@"男" avatar:@"9.png"];
-    TMUser *userFenny = [Seed createUserWithName:@"Fenny" sex:@"男" avatar:@"fenny.png"];
-    TMUser *userJiangYang = [Seed createUserWithName:@"汪洋" sex:@"男" avatar:@"10.jpeg"];
+    TMUser *userFenny = [Seed createUserWithName:@"Fenng" sex:@"男" avatar:@"fenny.png"];
+    TMUser *userJiangYang = [Seed createUserWithName:@"江洋" sex:@"男" avatar:@"8.png"];
     TMUser *userKant = [Seed createUserWithName:@"邹剑波Kant" sex:@"男" avatar:@"kant.png"];
-    TMUser *userNomessi = [Seed createUserWithName:@"homessi" sex:@"男" avatar:@"11.jpeg"];
-    TMUser *userDaiYuSen = [Seed createUserWithName:@"戴雨森" sex:@"男" avatar:@"12.jpeg"];
-    TMUser *userKentZhu = [Seed createUserWithName:@"kentzhu" sex:@"男" avatar:@"13.jpeg"];
-    TMUser *userAray = [Seed createUserWithName:@"豆瓣Aray" sex:@"男" avatar:@"14.jpeg"];
+    TMUser *userNomessi = [Seed createUserWithName:@"nomessi" sex:@"男" avatar:@"nomessi.png"];
+    TMUser *userDaiYuSen = [Seed createUserWithName:@"戴雨森" sex:@"男" avatar:@"daiyusen.png"];
+    TMUser *userKentZhu = [Seed createUserWithName:@"kentzhu" sex:@"男" avatar:@"kentzhu.png"];
+    TMUser *userAray = [Seed createUserWithName:@"豆瓣Aray" sex:@"男" avatar:@"aray.png"];
     
     NSLog(@"Creating teams");
     
@@ -87,7 +87,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     NSLog(@"Creating feeds");
     
     [Seed
-     createImageFeed:@"FeedImage"
+     createImageFeed:@"TuanJian"
      user:userJiuQi
      team:teamYouQuan
      starred:NO
@@ -104,7 +104,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
      comments:@[@[userHardin, @"非常认同"]]];
     
     [Seed
-     createImageFeed:@"FeedImage"
+     createImageFeed:@"XinBanSheJi"
      user:userHardin
      team:teamYouQuan
      starred:NO
@@ -150,7 +150,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
                 @[userKant, @"😂😂😂", userHardin]]];
     
     [Seed
-     createImageFeed:@"FeedImage"
+     createImageFeed:@"SheJi"
      user:userKim
      team:teamLagou
      starred:NO
