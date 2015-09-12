@@ -310,8 +310,6 @@ typedef enum commentNextStateTypes
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
     if (self.commentNextState == COMMENT_NEXT_STATE_HIDE || self.commentNextState == COMMENT_NEXT_STATE_NONE) {
-        [self.commentBackdropView removeFromSuperview];
-        
         [self.commentView setNeedsLayout];
         [self.commentView layoutIfNeeded];
         
@@ -327,6 +325,7 @@ typedef enum commentNextStateTypes
             [self.commentBackdropView removeFromSuperview];
             self.commentInputField.text = @"";
             self.commentNextState = COMMENT_NEXT_STATE_NONE;
+            [self.commentBackdropView removeFromSuperview];
         }];
     }
 }
