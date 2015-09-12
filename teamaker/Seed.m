@@ -87,7 +87,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     NSLog(@"Creating feeds");
     
     [Seed
-     createImageFeed:@"image.jpg"
+     createImageFeed:@"FeedImage"
      user:userJiuQi
      team:teamYouQuan
      starred:NO
@@ -104,7 +104,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
      comments:@[@[userHardin, @"非常认同"]]];
     
     [Seed
-     createImageFeed:@"image.jpg"
+     createImageFeed:@"FeedImage"
      user:userHardin
      team:teamYouQuan
      starred:NO
@@ -123,7 +123,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
                 @[userAray, @"段子手我只认你", userDaiYuSen]]];
     
     [Seed
-     createImageFeed:@"image.jpg"
+     createImageFeed:@"GuGong"
      user:userHustlzp
      team:teamYouQuan
      starred:NO
@@ -150,7 +150,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
                 @[userKant, @"😂😂😂", userHardin]]];
     
     [Seed
-     createImageFeed:@"image.jpg"
+     createImageFeed:@"FeedImage"
      user:userKim
      team:teamLagou
      starred:NO
@@ -325,14 +325,14 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
 }
 
 // Feed - IMAGE
-+ (void)createImageFeed:(NSString *)imageUrl user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred likers:(NSArray *)likers comments:(NSArray *)comments
++ (void)createImageFeed:(NSString *)imageName user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred likers:(NSArray *)likers comments:(NSArray *)comments
 {
     __block TMFeed *feed;
 
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
         feed = [self createFeedWithUser:user team:team inContext:localContext];
         feed.kind = @"image";
-        feed.image = UIImageJPEGRepresentation([UIImage imageNamed:@"FeedImage"], 1);
+        feed.image = UIImageJPEGRepresentation([UIImage imageNamed:imageName], 1);
         feed.starredValue = starred;
     }];
     
