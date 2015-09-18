@@ -6,13 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "sheji.png"
+      "filename" : "sheji.jpg",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "sheji-1.png"
+      "scale" : "3x"
     }
   ],
   "info" : {

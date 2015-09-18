@@ -87,7 +87,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     NSLog(@"Creating feeds");
     
     [Seed
-     createImageFeed:@"TuanJian"
+     createImageFeed:@"TuanJian.png"
      user:userJiuQi
      team:teamYouQuan
      starred:NO
@@ -104,7 +104,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
      comments:@[@[userHardin, @"非常认同"]]];
     
     [Seed
-     createImageFeed:@"XinBanSheJi"
+     createImageFeed:@"XinBanSheJi.jpg"
      user:userHardin
      team:teamYouQuan
      starred:NO
@@ -123,7 +123,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
                 @[userAray, @"段子手我只认你", userDaiYuSen]]];
     
     [Seed
-     createImageFeed:@"GuGong"
+     createImageFeed:@"gugong.jpg"
      user:userHustlzp
      team:teamYouQuan
      starred:NO
@@ -150,7 +150,7 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
                 @[userKant, @"😂😂😂", userHardin]]];
     
     [Seed
-     createImageFeed:@"SheJi"
+     createImageFeed:@"sheji.jpg"
      user:userKim
      team:teamLagou
      starred:NO
@@ -333,6 +333,8 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
         feed = [self createFeedWithUser:user team:team inContext:localContext];
         feed.kind = @"image";
         feed.image = UIImageJPEGRepresentation([UIImage imageNamed:imageName], 1);
+        NSLog(@"Size %f - %f", [UIImage imageNamed:imageName].size.width, [UIImage imageNamed:imageName].size.height);
+        NSLog(@"Image %@ - %@", imageName, feed.image);
         feed.starredValue = starred;
     }];
     

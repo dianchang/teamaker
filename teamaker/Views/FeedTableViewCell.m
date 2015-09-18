@@ -475,6 +475,8 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         [self.feedImageView mas_updateConstraints:^(MASConstraintMaker *make) {
             NSInteger imageWidth;
             
+            NSLog(@"%f-%f", image.size.width, image.size.height);
+            
             if (image.size.width < image.size.height) {
                 imageWidth = 100;
             } else {

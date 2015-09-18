@@ -6,13 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "XinBanSheJi.jpeg"
+      "filename" : "XinBanSheJi.jpg",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "XinBanSheJi-1.jpeg"
+      "scale" : "3x"
     }
   ],
   "info" : {
