@@ -21,6 +21,7 @@
 #import "JoinTeamViewController.h"
 #import "UIColor+Helper.h"
 #import "ExternalLinkViewController.h"
+#import <Crashlytics/Crashlytics.h>
 
 @interface FeedViewController ()
 

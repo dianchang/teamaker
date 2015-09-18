@@ -469,22 +469,34 @@ static NSString * const locationCellReuseIdentifier = @"LocationCell";
         self.punchLabel.text = [[NSString alloc] initWithFormat:@": %@", feed.punch];
         self.punchLabel.tag = feed.idValue;
     } else if ([feed isImage]) {
+        CGFloat width;
+        CGFloat height;
+        
+        self.feedImageView.image = nil;
+        
         // 图片
-        UIImage *image = [UIImage imageWithData:feed.image];
-        self.feedImageView.image = image;
+        if (feed.imageUrl) {
+            [self.feedImageView setImageWithURL:[NSURL URLWithString:feed.imageUrl]];
+            width = feed.widthValue;
+            height = feed.heightValue;
+        } else {
+            UIImage *image = [UIImage imageWithData:feed.image];
+            self.feedImageView.image = image;
+            width = image.size.width;
+            height = image.size.height;
+        }
+
         [self.feedImageView mas_updateConstraints:^(MASConstraintMaker *make) {
             NSInteger imageWidth;
             
-            NSLog(@"%f-%f", image.size.width, image.size.height);
-            
-            if (image.size.width < image.size.height) {
+            if (width < height) {
                 imageWidth = 100;
             } else {
                 imageWidth = 160;
             }
             
             make.width.equalTo([NSNumber numberWithLong:imageWidth]);
-            make.height.equalTo([NSNumber numberWithFloat:image.size.height * imageWidth / image.size.width]);
+            make.height.equalTo([NSNumber numberWithFloat:height * imageWidth / width]);
         }];
         self.feedImageView.tag = feed.idValue;
     } else if ([feed isShare]) {

@@ -5,6 +5,7 @@
 
 const struct TMFeedAttributes TMFeedAttributes = {
 	.createdAt = @"createdAt",
+	.height = @"height",
 	.id = @"id",
 	.image = @"image",
 	.imageUrl = @"imageUrl",
@@ -18,6 +19,7 @@ const struct TMFeedAttributes TMFeedAttributes = {
 	.teamId = @"teamId",
 	.text = @"text",
 	.userId = @"userId",
+	.width = @"width",
 };
 
 const struct TMFeedRelationships TMFeedRelationships = {
@@ -53,6 +55,11 @@ const struct TMFeedRelationships TMFeedRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"heightValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"height"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"idValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"id"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -73,11 +80,36 @@ const struct TMFeedRelationships TMFeedRelationships = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"widthValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"width"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
 
 @dynamic createdAt;
+
+@dynamic height;
+
+- (float)heightValue {
+	NSNumber *result = [self height];
+	return [result floatValue];
+}
+
+- (void)setHeightValue:(float)value_ {
+	[self setHeight:[NSNumber numberWithFloat:value_]];
+}
+
+- (float)primitiveHeightValue {
+	NSNumber *result = [self primitiveHeight];
+	return [result floatValue];
+}
+
+- (void)setPrimitiveHeightValue:(float)value_ {
+	[self setPrimitiveHeight:[NSNumber numberWithFloat:value_]];
+}
 
 @dynamic id;
 
@@ -175,6 +207,26 @@ const struct TMFeedRelationships TMFeedRelationships = {
 
 - (void)setPrimitiveUserIdValue:(int32_t)value_ {
 	[self setPrimitiveUserId:[NSNumber numberWithInt:value_]];
+}
+
+@dynamic width;
+
+- (float)widthValue {
+	NSNumber *result = [self width];
+	return [result floatValue];
+}
+
+- (void)setWidthValue:(float)value_ {
+	[self setWidth:[NSNumber numberWithFloat:value_]];
+}
+
+- (float)primitiveWidthValue {
+	NSNumber *result = [self primitiveWidth];
+	return [result floatValue];
+}
+
+- (void)setPrimitiveWidthValue:(float)value_ {
+	[self setPrimitiveWidth:[NSNumber numberWithFloat:value_]];
 }
 
 @dynamic comments;

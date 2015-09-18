@@ -5,6 +5,7 @@
 
 extern const struct TMFeedAttributes {
 	__unsafe_unretained NSString *createdAt;
+	__unsafe_unretained NSString *height;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *image;
 	__unsafe_unretained NSString *imageUrl;
@@ -18,6 +19,7 @@ extern const struct TMFeedAttributes {
 	__unsafe_unretained NSString *teamId;
 	__unsafe_unretained NSString *text;
 	__unsafe_unretained NSString *userId;
+	__unsafe_unretained NSString *width;
 } TMFeedAttributes;
 
 extern const struct TMFeedRelationships {
@@ -44,6 +46,14 @@ extern const struct TMFeedRelationships {
 @property (nonatomic, strong) NSDate* createdAt;
 
 //- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* height;
+
+@property (atomic) float heightValue;
+- (float)heightValue;
+- (void)setHeightValue:(float)value_;
+
+//- (BOOL)validateHeight:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* id;
 
@@ -113,6 +123,14 @@ extern const struct TMFeedRelationships {
 
 //- (BOOL)validateUserId:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* width;
+
+@property (atomic) float widthValue;
+- (float)widthValue;
+- (void)setWidthValue:(float)value_;
+
+//- (BOOL)validateWidth:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSSet *comments;
 
 - (NSMutableSet*)commentsSet;
@@ -151,6 +169,12 @@ extern const struct TMFeedRelationships {
 
 - (NSDate*)primitiveCreatedAt;
 - (void)setPrimitiveCreatedAt:(NSDate*)value;
+
+- (NSNumber*)primitiveHeight;
+- (void)setPrimitiveHeight:(NSNumber*)value;
+
+- (float)primitiveHeightValue;
+- (void)setPrimitiveHeightValue:(float)value_;
 
 - (NSNumber*)primitiveId;
 - (void)setPrimitiveId:(NSNumber*)value;
@@ -202,6 +226,12 @@ extern const struct TMFeedRelationships {
 
 - (int32_t)primitiveUserIdValue;
 - (void)setPrimitiveUserIdValue:(int32_t)value_;
+
+- (NSNumber*)primitiveWidth;
+- (void)setPrimitiveWidth:(NSNumber*)value;
+
+- (float)primitiveWidthValue;
+- (void)setPrimitiveWidthValue:(float)value_;
 
 - (NSMutableSet*)primitiveComments;
 - (void)setPrimitiveComments:(NSMutableSet*)value;

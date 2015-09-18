@@ -88,6 +88,8 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     
     [Seed
      createImageFeed:@"TuanJian.png"
+     width:854
+     height:640
      user:userJiuQi
      team:teamYouQuan
      starred:NO
@@ -105,6 +107,8 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     
     [Seed
      createImageFeed:@"XinBanSheJi.jpg"
+     width:323
+     height:664
      user:userHardin
      team:teamYouQuan
      starred:NO
@@ -124,6 +128,8 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     
     [Seed
      createImageFeed:@"gugong.jpg"
+     width:800
+     height:1067
      user:userHustlzp
      team:teamYouQuan
      starred:NO
@@ -151,6 +157,8 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
     
     [Seed
      createImageFeed:@"sheji.jpg"
+     width:1136
+     height:639
      user:userKim
      team:teamLagou
      starred:NO
@@ -325,14 +333,16 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
 }
 
 // Feed - IMAGE
-+ (void)createImageFeed:(NSString *)imageName user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred likers:(NSArray *)likers comments:(NSArray *)comments
++ (void)createImageFeed:(NSString *)imageName width:(CGFloat)width height:(CGFloat)height user:(TMUser *)user team:(TMTeam *)team starred:(BOOL)starred likers:(NSArray *)likers comments:(NSArray *)comments
 {
     __block TMFeed *feed;
 
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
         feed = [self createFeedWithUser:user team:team inContext:localContext];
         feed.kind = @"image";
-        feed.image = UIImageJPEGRepresentation([UIImage imageNamed:imageName], 1);
+        feed.widthValue = width;
+        feed.heightValue = height;
+        feed.imageUrl = [[NSString alloc] initWithFormat:@"%@/%@", cdn, imageName];
         feed.starredValue = starred;
     }];
     
