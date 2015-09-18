@@ -333,8 +333,6 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
         feed = [self createFeedWithUser:user team:team inContext:localContext];
         feed.kind = @"image";
         feed.image = UIImageJPEGRepresentation([UIImage imageNamed:imageName], 1);
-        NSLog(@"Size %f - %f", [UIImage imageNamed:imageName].size.width, [UIImage imageNamed:imageName].size.height);
-        NSLog(@"Image %@ - %@", imageName, feed.image);
         feed.starredValue = starred;
     }];
     
