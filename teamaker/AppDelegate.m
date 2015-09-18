@@ -16,6 +16,8 @@
 #import "TMFeedComment.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "Seed.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -30,6 +32,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Fabric with:@[[Crashlytics class]]];
+
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"TMModel"];
     
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);

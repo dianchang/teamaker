@@ -519,6 +519,7 @@
 				050BC3621B799D0E00A35EFD /* Frameworks */,
 				050BC3631B799D0E00A35EFD /* Resources */,
 				EB6849B9D23A749D497D17B9 /* Copy Pods Resources */,
+				0551490E1BAB1D8B005820F3 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -553,7 +554,7 @@
 		050BC35D1B799D0E00A35EFD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = hustlzp;
 				TargetAttributes = {
 					050BC3641B799D0E00A35EFD = {
@@ -615,6 +616,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0551490E1BAB1D8B005820F3 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 381afd6764f80d23443d620e7747e03f867c0ac3 773ed15148084e082507af05b6418cbc08d25458a9d2f0bb194f2538347443a3";
+		};
 		05BD79FB1B8C10C300329BF0 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -781,6 +796,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -874,11 +890,8 @@
 					"\"SystemConfiguration\"",
 					"-framework",
 					"\"UIKit\"",
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hustlzp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -898,6 +911,7 @@
 				INFOPLIST_FILE = teamaker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hustlzp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -917,6 +931,7 @@
 				);
 				INFOPLIST_FILE = teamakerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hustlzp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/teamaker.app/teamaker";
 			};
@@ -932,6 +947,7 @@
 				);
 				INFOPLIST_FILE = teamakerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hustlzp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/teamaker.app/teamaker";
 			};

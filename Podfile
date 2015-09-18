@@ -7,6 +7,8 @@ target 'teamaker' do
   pod 'MagicalRecord'
   pod 'ionicons'
   pod 'TTTAttributedLabel'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end
 
 target 'teamakerTests' do
