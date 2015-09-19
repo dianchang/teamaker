@@ -470,13 +470,13 @@ static NSString *cdn = @"http://7xlqpw.com1.z0.glb.clouddn.com";
 // Truncate all data
 + (void)truncateAllData
 {
-    [TMFeed MR_truncateAll];
+    [TMUserLikeFeed MR_truncateAll];
+    [TMTeamUserInfo MR_truncateAll];
     [TMFeedComment MR_truncateAll];
+    [TMFeed MR_truncateAll];
     [TMPunch MR_truncateAll];
     [TMTeam MR_truncateAll];
-    [TMTeamUserInfo MR_truncateAll];
     [TMUser MR_truncateAll];
-    [TMUserLikeFeed MR_truncateAll];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
